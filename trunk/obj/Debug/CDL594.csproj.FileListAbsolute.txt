@@ -1,5 +1,0 @@
-c:\users\jackyct1\documents\visual studio 2010\Projects\CDL594\CDL594\bin\CDL594.dll
-c:\users\jackyct1\documents\visual studio 2010\Projects\CDL594\CDL594\bin\CDL594.pdb
-c:\users\jackyct1\documents\visual studio 2010\Projects\CDL594\CDL594\obj\Debug\ResolveAssemblyReference.cache
-c:\users\jackyct1\documents\visual studio 2010\Projects\CDL594\CDL594\obj\Debug\CDL594.dll
-c:\users\jackyct1\documents\visual studio 2010\Projects\CDL594\CDL594\obj\Debug\CDL594.pdb
