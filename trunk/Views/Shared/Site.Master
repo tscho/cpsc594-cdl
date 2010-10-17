@@ -1,0 +1,40 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="cpsc594_cdl.Views.Shared.Site" %>
+
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head runat="server">
+    <title>CDL System</title>
+    <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
+    <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+</head>
+<body>
+    <form id="form1" runat="server">
+    <div id="frame">
+        <div id="header">
+            Header
+        </div>
+        <div id="menu1">
+            <a class="a_m1" href="#">Project 1</a>
+            <a class="a_m1" href="#">Project 2</a>
+            <a class="a_m1" href="#">Project 3</a>
+        </div>
+        <div id="menu2">
+            <a class="a_m2" href="#">All</a>
+            <a class="a_m2" href="#">Stat 1</a>
+            <a class="a_m2" href="#">Stat 2</a>
+            <a class="a_m2" href="#">Stat 3</a>
+            <a class="a_m2" href="#">Stat 4</a>
+        </div>
+        <div id="info">
+            <div id="content">
+                <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+            </div>
+        </div>
+        <div id="footer">
+	        Footer
+        </div>
+    </div>
+    </form>
+</body>
+</html>
