@@ -17,5 +17,10 @@ namespace cpsc594_cdl.Controllers
             return View();
         }
 
+        public ActionResult Component()
+        {
+            return View();
+        }
+
     }
 }

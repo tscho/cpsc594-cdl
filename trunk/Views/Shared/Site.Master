@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="cpsc594_cdl.Views.Shared.Site" %>
+﻿<%@ Master Language="C#" Inherits="System.Web.Mvc.ViewMasterPage" %>
 
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 
@@ -7,24 +7,51 @@
     <title>CDL System</title>
     <link href="../../Content/Site.css" rel="stylesheet" type="text/css" />
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
+    <script type="text/javascript">
+        var r_comp = new Array();
+        function is_Enable(mid) {
+            for (var id in r_comp) {
+                if (mid == id)
+                    return r_comp[id];
+            }
+            return false;
+        }
+        function c2_onclick(mid) {
+            var menu = document.getElementById(mid);
+            if (is_Enable(mid)) {
+                r_comp[mid] = false;
+                menu.style.background = "#2a8ace";
+            } else {
+                r_comp[mid] = true;
+                menu.style.background = "#000000";
+            }
+        }
+    </script>
 </head>
 <body>
-    <form id="form1" runat="server">
+    <form runat="server">
     <div id="frame">
         <div id="header">
             Header
         </div>
         <div id="menu1">
-            <a class="a_m1" href="#">Project 1</a>
-            <a class="a_m1" href="#">Project 2</a>
+            <%= Html.ActionLink("Home", "Index", null, new { @class = "a_m1" })%>
+            <%= Html.ActionLink("Project 0", "Component", null, new { @class = "a_m1" })%>
+            <a class="a_m1" href="Home/Index">Project 1</a>
+            <a class="a_m1" href="Home/Component">Project 2</a>
             <a class="a_m1" href="#">Project 3</a>
         </div>
         <div id="menu2">
-            <a class="a_m2" href="#">All</a>
-            <a class="a_m2" href="#">Stat 1</a>
-            <a class="a_m2" href="#">Stat 2</a>
-            <a class="a_m2" href="#">Stat 3</a>
-            <a class="a_m2" href="#">Stat 4</a>
+            <div id="menu2_submit">
+                <asp:Button class="submit_button" Text="Start Search" id="comp_select" runat="server"/>
+            </div>
+            <div id="menu2_info">
+                <a class="a_m2" id="a_1" onclick="c2_onclick('a_1')">All</a>
+                <a class="a_m2" id="a_2" onclick="c2_onclick('a_2')">Comp 1</a>
+                <a class="a_m2" id="a_3" onclick="c2_onclick('a_3')">Comp 2</a>
+                <a class="a_m2" id="a_4" onclick="c2_onclick('a_4')" href="#">Comp 3</a>
+                <a class="a_m2" id="a_5" onclick="c2_onclick('a_5')" href="#">Comp 4</a>
+            </div>
         </div>
         <div id="info">
             <div id="content">
