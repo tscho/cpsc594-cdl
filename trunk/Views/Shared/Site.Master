@@ -9,21 +9,41 @@
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
     <script type="text/javascript">
         var r_comp = new Array();
+        r_comp["all"] = false;
+        r_comp["a_2"] = false;
+        r_comp["a_3"] = false;
+        r_comp["a_4"] = false;
+        r_comp["a_5"] = false;
         function is_Enable(mid) {
             for (var id in r_comp) {
                 if (mid == id)
                     return r_comp[id];
             }
+            // Should never happens
             return false;
         }
         function c2_onclick(mid) {
-            var menu = document.getElementById(mid);
-            if (is_Enable(mid)) {
+           var menu = document.getElementById(mid);
+           if (is_Enable(mid)) {
                 r_comp[mid] = false;
                 menu.style.background = "#2a8ace";
+                if (mid == "all") {
+                    for (var id in r_comp) {
+                        r_comp[id] = false;
+                        menu = document.getElementById(id);
+                        menu.style.background = "#2a8ace";
+                    }
+                }
             } else {
                 r_comp[mid] = true;
                 menu.style.background = "#000000";
+                if (mid == "all") {
+                    for (var id in r_comp) {
+                        r_comp[id] = true;
+                        menu = document.getElementById(id);
+                        menu.style.background = "#000000";
+                    }
+                }
             }
         }
     </script>
@@ -46,11 +66,11 @@
                 <asp:Button class="submit_button" Text="Start Search" id="comp_select" runat="server"/>
             </div>
             <div id="menu2_info">
-                <a class="a_m2" id="a_1" onclick="c2_onclick('a_1')">All</a>
-                <a class="a_m2" id="a_2" onclick="c2_onclick('a_2')">Comp 1</a>
-                <a class="a_m2" id="a_3" onclick="c2_onclick('a_3')">Comp 2</a>
-                <a class="a_m2" id="a_4" onclick="c2_onclick('a_4')" href="#">Comp 3</a>
-                <a class="a_m2" id="a_5" onclick="c2_onclick('a_5')" href="#">Comp 4</a>
+                <a class="a_m2" id="all" onclick="c2_onclick(this.id)">All</a>
+                <a class="a_m2" id="a_2" onclick="c2_onclick(this.id)">Comp 1</a>
+                <a class="a_m2" id="a_3" onclick="c2_onclick(this.id)">Comp 2</a>
+                <a class="a_m2" id="a_4" onclick="c2_onclick(this.id)" href="#">Comp 3</a>
+                <a class="a_m2" id="a_5" onclick="c2_onclick(this.id)" href="#">Comp 4</a>
             </div>
         </div>
         <div id="info">
