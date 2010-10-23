@@ -4,6 +4,8 @@ html, body, form {
 	padding: 0px;
 	height: 100%;
 	font-size: 18px;
+	color: #eeeeee;
+	font-weight: bold;
 }
 body {
 	font-family: Arial, Verdana, Helvetica, sans-serif;
@@ -22,46 +24,8 @@ body {
 	background: #254f6f;
 	width: 100%;
 	height: 5%;
-	font-weight: bold;
 	color: #eeeeee;
-}
-#menu1 
-{
-	float: left;
-	overflow-y: scroll;
-	background: #0d76bd;
-	width: 15%;
-	height: 90%;
-}
-#menu2 {
-	float: left;
-	background: #1182d2;
-	width: 15%;
-	height: 90%;
-	border-left: 1px groove #000000;
-	border-right: 1px groove #000000;
-}
-#menu2_submit {
-	width: 100%;
-	height: 5%;
-}
-#menu2_info 
-{
-	overflow-y: scroll;
-	width: 100%;
-	height: 95.25%;
-}
-#info {
-	float: right;
-	background: #1ec2e8;
-	width: 69.5%;
-	height: 90%;
-}
-#content 
-{
-	padding: 10px;
-	width: 100%;
-	height: 100%;
+	font-weight: bold;
 }
 #footer {
 	background: #254f6f;
@@ -72,7 +36,65 @@ body {
 	color: #eeeeee;
 	text-align: right;
 }
+/* Index Page */
+#menu1 
+{
+	background: #0d76bd;
+	width: 100%;
+	height: 10%;
+}
+#menu2 {
+	background: #1182d2;
+	width: 100%;
+	height: 38%;
+	border-left: 1px groove #000000;
+	border-right: 1px groove #000000;
+}
+#menu2_info 
+{
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
+}
+#menu3 {
+	background: #1182d2;
+	width: 100%;
+	height: 38%;
+	border-left: 1px groove #000000;
+	border-right: 1px groove #000000;
+}
+#menu3_info 
+{
+	overflow-y: scroll;
+	width: 100%;
+	height: 100%;
+}
+#search {
+	background: #1182d2;
+	width: 100%;
+	height: 4%;
+	border-left: 1px groove #000000;
+	border-right: 1px groove #000000;
+}
+/* Info Page */
+#info {
+	float: left;
+	background: #1ec2e8;
+	width: 100%;
+	/*height: 90%;*/
+}
+#content 
+{
+	padding: 10px;
+	width: 100%;
+	height: 100%;
+}
 /* Links */
+a
+{
+	font-weight: bold;
+	color: #ffffff;
+}
 a.a_m1 
 {
 	display:block;
@@ -89,7 +111,7 @@ a.a_m1:hover
 {
 	background: #000000;
 }
-a.a_m2 
+a.a_m2
 {
 	background: #2a8ace;
 	display:block;
@@ -102,7 +124,7 @@ a.a_m2
 	color: #ffffff;
 	text-align: center;
 	text-decoration: none;
-	font-weight: bold;
+	font-weight: normal;
 }
 a.a_m2:hover 
 {
