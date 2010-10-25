@@ -1,5 +1,0 @@
-c:\users\jackyct1\documents\visual studio 2010\Projects\cpsc594-cdl\cpsc594-cdl\bin\cpsc594-cdl.dll
-c:\users\jackyct1\documents\visual studio 2010\Projects\cpsc594-cdl\cpsc594-cdl\bin\cpsc594-cdl.pdb
-c:\users\jackyct1\documents\visual studio 2010\Projects\cpsc594-cdl\cpsc594-cdl\obj\Debug\ResolveAssemblyReference.cache
-c:\users\jackyct1\documents\visual studio 2010\Projects\cpsc594-cdl\cpsc594-cdl\obj\Debug\cpsc594-cdl.dll
-c:\users\jackyct1\documents\visual studio 2010\Projects\cpsc594-cdl\cpsc594-cdl\obj\Debug\cpsc594-cdl.pdb
