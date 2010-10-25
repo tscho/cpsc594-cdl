@@ -30,7 +30,7 @@ namespace cpsc594_cdl.Controllers
             else
             {
                 // Step 2: PID, CM_Array(components, metrics)
-               //ViewData["Message"] = model.CM_Array;
+                //ViewData["Message"] = model.CM_Array;
                 ArrayList components = new ArrayList();
                 ArrayList metrics = new ArrayList();
                 string[] r_comp = model.CM_Array.Split(",".ToCharArray());
