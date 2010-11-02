@@ -30,12 +30,6 @@
     <UseMerge>true</UseMerge>
     <SingleAssemblyName>cpsc594-cdl.csproj_deploy</SingleAssemblyName>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Deploy|AnyCPU'">
-    <OutputPath>..\..\..\..\..\inetpub\594</OutputPath>
-    <EnableUpdateable>true</EnableUpdateable>
-    <UseMerge>true</UseMerge>
-    <SingleAssemblyName>cpsc594-cdl.csproj_deploy</SingleAssemblyName>
-  </PropertyGroup>
   <ItemGroup>
     <ProjectReference Include="..\cpsc594-cdl\cpsc594-cdl.csproj">
       <Project>{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}</Project>
