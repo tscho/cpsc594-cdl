@@ -29,18 +29,9 @@ namespace cpsc594_cdl.Controllers
             }
             else
             {
-                // Step 2: PID, CM_Array(components, metrics)
-                //ViewData["Message"] = model.CM_Array;
-                ArrayList components = new ArrayList();
-                ArrayList metrics = new ArrayList();
-                string[] r_comp = model.CM_Array.Split(",".ToCharArray());
-                for (int i = 0; i < r_comp.Length - 1; i++)
-                {
-                    if (r_comp[i].Substring(0, 1) == "c")
-                        components.Add(Convert.ToInt32(r_comp[i].Substring(2)));
-                    else
-                        metrics.Add(Convert.ToInt32(r_comp[i].Substring(2)));
-                }
+                // Step 2: PID, COMPS, METRICS
+                ViewData["COMPS"] = model.Components;
+                ViewData["METRICS"] = model.Metrics;
             }
             return View(model);
         }

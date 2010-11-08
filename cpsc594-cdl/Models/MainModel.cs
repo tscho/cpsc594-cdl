@@ -16,6 +16,8 @@ namespace cpsc594_cdl.Models
         public string IsSelectProject { get; set; }
 
         [Required]
-        public string CM_Array { get; set; }
+        public IEnumerable<int> Components { get; set; }
+        [Required]
+        public IEnumerable<int> Metrics { get; set; }
     }
 }
