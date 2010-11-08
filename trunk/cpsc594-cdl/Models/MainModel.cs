@@ -13,6 +13,8 @@ namespace cpsc594_cdl.Models
         [Required]
         public string ProjectID { get; set; }
         [Required]
+        public string PID { get; set; }
+        [Required]
         public string IsSelectProject { get; set; }
 
         [Required]

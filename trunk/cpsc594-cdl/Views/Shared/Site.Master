@@ -9,6 +9,15 @@
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 <body>
-    <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+    <% using (Html.BeginForm()) { %>
+    <div id="frame">
+        <div id="header">
+            Header (<%= Html.ActionLink("Home", "Index")%>)
+        </div>
+        <asp:ContentPlaceHolder ID="MainContent" runat="server" />
+        <div id="footer">
+        </div>
+    </div>
+    <% } %>
 </body>
 </html>
