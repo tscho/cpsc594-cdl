@@ -22,4 +22,23 @@ namespace cpsc594_cdl.Models
         [Required]
         public IEnumerable<int> Metrics { get; set; }
     }
+
+    public class ComponentModel
+    {
+        [Required]
+        public Object Chart1 { get; set; }
+    }
+
+    public class StaticModel
+    {
+        public static List<int> createStaticData()
+        {
+            List<int> c_data = new List<int>();
+            c_data.Add(1);
+            c_data.Add(6);
+            c_data.Add(4);
+            c_data.Add(3);
+            return c_data;
+        }
+    }
 }

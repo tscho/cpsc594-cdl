@@ -25,5 +25,7 @@
                 Response.Write(list.Current + " ");
             }
         %>
+        <br />
+        <img src="/Home/GetChart" alt="Chart" />
     </div>
 </asp:Content>
