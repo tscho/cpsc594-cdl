@@ -27,23 +27,19 @@ namespace cpsc594_cdl.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model)
         {
-            if (model.IsSelectProject == "TRUE")
-            {
-                // Step 1: Get project id
-                ViewData["PID"] = model.ProjectID;
-                pid = Convert.ToInt32(model.ProjectID);
-            }
-            else if (model.Components != null && model.Metrics != null)
+            if (model.Components != null && model.Metrics != null)
             {
                 // Step 2: Get project id, components, metrics
+                pid = Convert.ToInt32(model.ProjectID);
                 components = model.Components;
                 metrics = model.Metrics;
                 return RedirectToAction("Component", "Home");
             }
             else
             {
-                // Error on Step 2
-                ViewData["PID"] = model.ProjectID;
+                // Step 1: Get project id
+                if (model.ProjectID != "0")
+                    ViewData["PID"] = model.ProjectID;
             }
             return View(model);
         }

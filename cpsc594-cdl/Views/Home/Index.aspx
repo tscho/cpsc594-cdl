@@ -6,17 +6,14 @@
     <div id="menu1">
         Project: 
         <%= Html.DropDownListFor(m => m.ProjectID, new SelectListItem[] {
-            new SelectListItem { Text = "Project 1", Value = "0" },
-            new SelectListItem { Text = "Project 2", Value = "1" },
-            new SelectListItem { Text = "Project 3", Value = "2" }
-        }) %>
-        <%= Html.HiddenFor(m => m.IsSelectProject)%>
-        <input type="submit" value="Select" onclick="IsSelectProject.value='TRUE'" />
+            new SelectListItem { Text = "Select Project", Value = "0" },
+            new SelectListItem { Text = "Project 1", Value = "1" },
+            new SelectListItem { Text = "Project 2", Value = "2" },
+            new SelectListItem { Text = "Project 3", Value = "3" }
+        }, new { onchange = "submit()" }) %>
     </div>
     <% if (ViewData["PID"]!=null) { %>
         <div id="menu2">
-            Selected Project: <%=Model.ProjectID %>
-            <br /><br />
             <div id="menu2_info">
                 Components:<br />
                 <%= Html.ListBoxFor(m => m.Components, new MultiSelectList(new[] {
