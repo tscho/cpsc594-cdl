@@ -10,7 +10,8 @@
             new SelectListItem { Text = "Project 1", Value = "1" },
             new SelectListItem { Text = "Project 2", Value = "2" },
             new SelectListItem { Text = "Project 3", Value = "3" }
-        }, new { onchange = "submit()" }) %>
+        }, new { onchange = "submit();" })%>
+        <%=Html.HiddenFor(m => m.IsSelectProject)%>
     </div>
     <% if (ViewData["PID"]!=null) { %>
         <div id="menu2">
