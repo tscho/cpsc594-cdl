@@ -3,29 +3,26 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="menu1">
-        Project: 
-        <%= Html.DropDownListFor(m => m.ProjectID, new SelectListItem[] {
-            new SelectListItem { Text = "Select Project", Value = "0" },
-            new SelectListItem { Text = "Project 1", Value = "1" },
-            new SelectListItem { Text = "Project 2", Value = "2" },
-            new SelectListItem { Text = "Project 3", Value = "3" }
-        }, new { onchange = "submit();" })%>
-        <%=Html.HiddenFor(m => m.IsSelectProject)%>
-    </div>
-    <% if (ViewData["PID"]!=null) { %>
-        <div id="menu2">
-            <div id="menu2_info">
+    <div id="info">
+        <div id="col">
+            Project:<br />
+            <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(new[] {
+                new { Id = 1, Name = "Project 1" },
+                new { Id = 2, Name = "Project 2" },
+                new { Id = 3, Name = "Project 3" }
+            }, "Id", "Name"), new { @size = "7", @onchange = "submit();" })%>
+            <%=Html.HiddenFor(m => m.IsSelectProject)%>
+        </div>
+        <% if (ViewData["PID"]!=null) { %>
+            <div id="col">
                 Components:<br />
                 <%= Html.ListBoxFor(m => m.Components, new MultiSelectList(new[] {
                     new { Id = 1, Name = "Component 1" },
                     new { Id = 2, Name = "Component 2" },
                     new { Id = 3, Name = "Component 3" },
                 }, "Id", "Name"), new { @size = "7" })%>
-                <br /><br />
-                <input type="submit" value="Search" onclick="IsSelectProject.value='FALSE'" />
             </div>
-            <div id="menu2_info">
+            <div id="col">
                 Metrics:<br />
                 <%= Html.ListBoxFor(m => m.Metrics, new MultiSelectList(new[] {
                     new { Id = 1, Name = "Metric 1" },
@@ -33,6 +30,8 @@
                     new { Id = 3, Name = "Metric 3" },
                 }, "Id", "Name"), new { @size = "7" })%>
             </div>
-        </div>
-    <% } %>
+            <br />
+            <input type="submit" value="Search" onclick="IsSelectProject.value='FALSE'" />
+        <% } %>
+    </div>
 </asp:Content>
