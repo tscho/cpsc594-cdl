@@ -11,12 +11,12 @@ namespace cpsc594_cdl.Models
     public class IndexModel
     {
         [Required]
-        public string ProjectID { get; set; }
-        [Required]
         public string PID { get; set; }
         [Required]
         public string IsSelectProject { get; set; }
 
+        [Required]
+        public string ProjectID { get; set; }
         [Required]
         public IEnumerable<int> Components { get; set; }
         [Required]

@@ -10,13 +10,14 @@
 </head>
 <body>
     <% using (Html.BeginForm()) { %>
-    <div id="frame">
+    <div id="content">
         <div id="header">
-            Header (<%= Html.ActionLink("Home", "Index")%>)
+            <%= Html.ActionLink("Code Coverage System for CDL System", "Index")%>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
-        <div id="footer">
-        </div>
+        <div id="pushFooter"></div>
+    </div>
+    <div id="footer">
     </div>
     <% } %>
 </body>

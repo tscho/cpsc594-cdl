@@ -36,8 +36,7 @@ namespace cpsc594_cdl.Controllers
                 return RedirectToAction("Component", "Home");
             } else {
                 // Step 1 OR Error on input: Get project id
-                if (model.ProjectID != "0")
-                    ViewData["PID"] = model.ProjectID;
+                ViewData["PID"] = model.ProjectID;
             }
             return View(model);
         }
