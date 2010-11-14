@@ -26,6 +26,8 @@
             }
         %>
         <br />
-        <img src="/Home/GetChart" alt="Chart" />
+        <img src="/Report/GetChart1" alt="Chart" /><br />
+        <img src="/Report/GetChart2" alt="Chart" /><br />
+        <img src="/Report/GetChart3" alt="Chart" /><br />
     </div>
 </asp:Content>
