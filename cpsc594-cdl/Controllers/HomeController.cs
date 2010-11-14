@@ -62,8 +62,12 @@ namespace cpsc594_cdl.Controllers
             Chart2.Titles.Add(t);
             Chart2.ChartAreas.Add("Series 1");
             // create a couple of series   
-            Chart2.Series.Add("Series 1");
-            Chart2.Series.Add("Series 2");
+            var series1 = new Series("Series 1");
+            series1.ChartType = SeriesChartType.FastLine;
+            var series2 = new Series("Series 2");
+            series2.ChartType = SeriesChartType.FastLine;
+            Chart2.Series.Add(series1);
+            Chart2.Series.Add(series2);
             // add points to series 1   
             foreach (int value in data)
             {
