@@ -35,6 +35,7 @@ namespace cpsc594_cdl.Models
         {
             List<int> c_data = new List<int>();
             c_data.Add(1);
+            c_data.Add(1);
             c_data.Add(6);
             c_data.Add(4);
             c_data.Add(3);
