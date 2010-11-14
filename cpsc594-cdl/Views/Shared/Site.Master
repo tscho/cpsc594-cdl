@@ -17,8 +17,11 @@
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         <div id="pushFooter"></div>
     </div>
+    <!--
+    Footer is not necessary currently
     <div id="footer">
     </div>
+    -->
     <% } %>
 </body>
 </html>
