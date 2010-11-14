@@ -12,7 +12,7 @@
     <% using (Html.BeginForm()) { %>
     <div id="content">
         <div id="header">
-            <%= Html.ActionLink("Code Coverage System for CDL System", "Index")%>
+            <%= Html.ActionLink("Metric Analysis Tool for CDL System", "Index")%>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         <div id="pushFooter"></div>
