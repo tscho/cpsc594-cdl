@@ -24,7 +24,7 @@ namespace cpsc594_cdl.Controllers
             return View();
         }
 
-        public FileResult GetChart1()
+        public FileResult GetChart1(int pid, string str_components, string str_metrics)
         {
             List<int> data = Models.StaticModel.createStaticData();
             Chart chart = new Chart();
@@ -56,7 +56,7 @@ namespace cpsc594_cdl.Controllers
             return new FileStreamResult(imageStream, "image/png");
         }
 
-        public FileResult GetChart2()
+        public FileResult GetChart2(int pid, string str_components, string str_metrics)
         {
             List<int> data = Models.StaticModel.createStaticData();
             Chart chart = new Chart();
@@ -91,7 +91,7 @@ namespace cpsc594_cdl.Controllers
             return new FileStreamResult(imageStream, "image/png");
         }
 
-        public FileResult GetChart3()
+        public FileResult GetChart3(int pid, string str_components, string str_metrics)
         {
             List<int> data = Models.StaticModel.createStaticData();
             Chart chart = new Chart();

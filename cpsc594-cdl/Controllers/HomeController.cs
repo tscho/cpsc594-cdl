@@ -41,8 +41,25 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Component()
         {
             ViewData["PID"] = pid;
-            ViewData["Components"] = components;
-            ViewData["Metrics"] = metrics;
+
+            IEnumerator<int> list;
+            string text;
+
+            list = components.GetEnumerator();
+            text = "";
+            while (list.MoveNext())
+            {
+                text += "," + list.Current;
+            }
+            ViewData["Components"] = text.Substring(1);
+
+            list = metrics.GetEnumerator();
+            text = "";
+            while (list.MoveNext())
+            {
+                text += "," + list.Current;
+            }
+            ViewData["Metrics"] = text.Substring(1);
 
             return View();
         }

@@ -5,29 +5,16 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="info">
         Project: 
-        <%=ViewData["PID"] %>
+        <%=ViewData["PID"]%>
         <br />
         Components:
-        <%
-            IEnumerator list;
-            list = ((IEnumerable<int>)ViewData["Components"]).GetEnumerator();
-            while (list.MoveNext())
-            {
-                Response.Write(list.Current + " ");
-            }
-        %>
+        <%=ViewData["Components"]%>
         <br />
         Metrics:
-        <%
-            list = ((IEnumerable<int>)ViewData["Metrics"]).GetEnumerator();
-            while (list.MoveNext())
-            {
-                Response.Write(list.Current + " ");
-            }
-        %>
+        <%=ViewData["Metrics"]%>
         <br />
-        <img src="/Report/GetChart1" alt="Chart" /><br />
-        <img src="/Report/GetChart2" alt="Chart" /><br />
-        <img src="/Report/GetChart3" alt="Chart" /><br />
+        <img src="/Report/GetChart1?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" /><br />
+        <img src="/Report/GetChart2?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" /><br />
+        <img src="/Report/GetChart3?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" /><br />
     </div>
 </asp:Content>
