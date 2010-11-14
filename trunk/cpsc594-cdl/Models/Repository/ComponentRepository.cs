@@ -19,7 +19,7 @@ namespace cpsc594_cdl.Models.Repository
             var cmd = new StoredProcCommand("usp_GetComponents");
             var results = cmd.ExecuteReader(connection, new SqlParameter[] { new SqlParameter("pid", pid) });
 
-            var components = new Stack<Component();
+            var components = new Stack<Component>();
             while (results.Read())
             {
                 //map
