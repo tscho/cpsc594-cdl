@@ -15,10 +15,15 @@ namespace cpsc594_cdl.Models
         [Required]
         public string IsSelectProject { get; set; }
 
+
+        [Required]
+        public IEnumerable<Project> Projects { get; set; }
         [Required]
         public string ProjectID { get; set; }
         [Required]
-        public IEnumerable<int> Components { get; set; }
+        public IEnumerable<Component> Components { get; set; }
+        [Required]
+        public IEnumerable<int> ComponentIDs { get; set; }
         [Required]
         public IEnumerable<int> Metrics { get; set; }
     }
