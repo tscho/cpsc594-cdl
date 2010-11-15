@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using cpsc594_cdl.Models;
+using cpsc594_cdl.Models.Repository;
 
 namespace cpsc594_cdl.Controllers
 {
@@ -15,26 +16,39 @@ namespace cpsc594_cdl.Controllers
         public static IEnumerable<int> components;
         public static IEnumerable<int> metrics;
 
+        private ProjectRepository projectRepo;
+        private ComponentRepository componentRepo;
+
+        public HomeController()
+        {
+            projectRepo = new ProjectRepository();
+            componentRepo = new ComponentRepository();
+        }
+
         public ActionResult Index()
         {
             ViewData["Message"] = "Index Page";
-            return View();
+            IndexModel model = new IndexModel();
+            model.Projects = projectRepo.getProjects();
+            return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(IndexModel model)
         {
-            if (model.IsSelectProject == "FALSE" && model.Components != null && model.Metrics != null)
+            if (model.IsSelectProject == "FALSE" && model.ComponentIDs != null && model.Metrics != null)
             {
                 // Step 2: Get project id, components, metrics
                 pid = Convert.ToInt32(model.ProjectID);
-                components = model.Components;
+                components = model.ComponentIDs;
                 metrics = model.Metrics;
                 return RedirectToAction("Component", "Home");
             } else {
                 // Step 1 OR Error on input: Get project id
                 ViewData["PID"] = model.ProjectID;
+                model.Components = componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID));
             }
+            model.Projects = projectRepo.getProjects();
             return View(model);
         }
 

@@ -7,8 +7,14 @@ namespace cpsc594_cdl.Models
 {
     public class Project
     {
-        private int PID;
-        private string Name;
+        public int ID { get; private set; }
+        public string Name { get; private set; }
         public List<Component> Components;
+
+        public Project(int ID, string Name)
+        {
+            this.ID = ID;
+            this.Name = Name;
+        }
     }
 }

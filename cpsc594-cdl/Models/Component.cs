@@ -7,9 +7,15 @@ namespace cpsc594_cdl.Models
 {
     public class Component
     {
-        private int CID;
-        private string Name;
+        public int ID { get; private set; }
+        public string Name { get; set; }
         private List<IMetric> Metrics;
+
+        public Component(int ID, String Name)
+        {
+            this.Name = Name;
+            this.ID = ID;
+        }
     }
 
     public class StaticModel
