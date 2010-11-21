@@ -13,10 +13,15 @@ namespace cpsc594_cdl.Controllers
 {
     public class ReportController : Controller
     {
-        public ProjectRepository projectRepo;
+        //public ProjectRepository projectRepo;
         public ComponentRepository componentRepo;
         //
         // GET: /Report/
+
+        public ReportController()
+        {
+            componentRepo = new ComponentRepository();
+        }
 
         [HttpGet]
         public ActionResult Index()
@@ -26,7 +31,8 @@ namespace cpsc594_cdl.Controllers
 
         public FileResult GetChart1(int pid, string str_components, string str_metrics)
         {
-            List<int> data = Models.StaticModel.createStaticData();
+            List<double> data = componentRepo.getCodeCoverage(pid);
+
             Chart chart = new Chart();
             chart.Width = 600;
             chart.Height = 400;
@@ -38,16 +44,16 @@ namespace cpsc594_cdl.Controllers
             chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
 
             // create a series
-            var series1 = new Series("Series");
-            series1.ChartType = SeriesChartType.FastLine;
-            chart.Series.Add(series1);
+            var series = new Series("Series");
+            series.ChartType = SeriesChartType.FastLine;
+            chart.Series.Add(series);
 
-            // add points to series 1
+            // add points to series
             int i = 1;
-            foreach (int value in data)
+            foreach (double value in data)
             {
-                series1.Points.AddY(value);
-                series1.Points.Last().AxisLabel = "Date " + (i++);
+                series.Points.AddY(value);
+                series.Points.Last().AxisLabel = "Date " + (i++);
             }
 
             MemoryStream imageStream = new MemoryStream();
@@ -58,7 +64,28 @@ namespace cpsc594_cdl.Controllers
 
         public FileResult GetChart2(int pid, string str_components, string str_metrics)
         {
-            List<int> data = Models.StaticModel.createStaticData();
+            List<int> data = componentRepo.getSample();
+
+            string[] list;
+            List<int> components = new List<int>();
+            List<string> component_names = new List<string>();
+            List<int> metrics = new List<int>();
+
+            // Convert components text into array
+            int tmp;
+            list = str_components.Split(',');
+            foreach (string str in list)
+            {
+                tmp = Convert.ToInt32(str);
+                components.Add(tmp);
+                component_names.Add(componentRepo.getName(tmp));
+            }
+
+            // Convert metrics text into array
+            list = str_metrics.Split(',');
+            foreach (string str in list)
+                metrics.Add(Convert.ToInt32(str));
+
             Chart chart = new Chart();
             chart.Width = 800;
             chart.Height = 400;
@@ -93,7 +120,7 @@ namespace cpsc594_cdl.Controllers
 
         public FileResult GetChart3(int pid, string str_components, string str_metrics)
         {
-            List<int> data = Models.StaticModel.createStaticData();
+            List<int> data = componentRepo.getSample();
             Chart chart = new Chart();
             chart.Width = 800;
             chart.Height = 400;

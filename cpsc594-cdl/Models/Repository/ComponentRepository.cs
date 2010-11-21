@@ -17,7 +17,8 @@ namespace cpsc594_cdl.Models.Repository
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
         }
 
-        public Component[] getComponentsForProject(int pid) {
+        public Component[] getComponentsForProject(int pid)
+        {
             //var cmd = new StoredProcCommand("usp_GetComponents");
             //var results = cmd.ExecuteReader(connection, new SqlParameter[] { new SqlParameter("pid", pid) });
 
@@ -35,6 +36,36 @@ namespace cpsc594_cdl.Models.Repository
             connection.Close();
 
             return components.ToArray();
+        }
+
+        public string getName(int cid)
+        {
+            return "NAME";
+        }
+
+        public List<double> getCodeCoverage(int pid)
+        {
+            List<double> c_data = new List<double>();
+            c_data.Add(.5);
+            c_data.Add(.1);
+            c_data.Add(.6);
+            c_data.Add(.4);
+            c_data.Add(.3);
+            c_data.Add(.4);
+            c_data.Add(.9);
+            c_data.Add(.1);
+            return c_data;
+        }
+
+        public List<int> getSample()
+        {
+            List<int> c_data = new List<int>();
+            c_data.Add(1);
+            c_data.Add(1);
+            c_data.Add(6);
+            c_data.Add(4);
+            c_data.Add(3);
+            return c_data;
         }
     }
 }
