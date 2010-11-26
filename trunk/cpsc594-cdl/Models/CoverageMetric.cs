@@ -5,10 +5,8 @@ using System.Web;
 
 namespace cpsc594_cdl.Models
 {
-    public interface IMetric
+    public class CoverageMetric : IMetric
     {
-        DateTime TimeStamp { get; set; }
-        int GetValue();
         IEnumerable<Iteration> Iterations { get; set; }
     }
 }
