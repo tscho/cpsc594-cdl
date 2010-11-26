@@ -22,6 +22,14 @@
                     new { Id = 3, Name = "Metric 3" },
                 }, "Id", "Name"), new { @size = "7" })%>
             </div>
+            <div id="col">
+                Start From:<br />
+                <%= Html.DropDownListFor(m => m.StartDate, new SelectListItem[] {
+                    new SelectListItem { Text = "Aug 31, 2009", Value = "timestamp" },
+                    new SelectListItem { Text = "Sep 31, 2009", Value = "timestamp" },
+                    new SelectListItem { Text = "Jan 31, 2010", Value = "timestamp" }
+                }) %>
+            </div>
             <br />
             <input type="submit" value="Search" onclick="IsSelectProject.value='FALSE'" />
         <% } %>

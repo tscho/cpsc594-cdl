@@ -26,6 +26,8 @@ namespace cpsc594_cdl.Models
         public IEnumerable<int> ComponentIDs { get; set; }
         [Required]
         public IEnumerable<int> Metrics { get; set; }
+        [Required]
+        public string StartDate { get; set; }
     }
 
     public class ComponentModel
