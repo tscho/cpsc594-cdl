@@ -46,25 +46,20 @@ namespace cpsc594_cdl.Models.Repository
         public List<double> getCodeCoverage(int pid)
         {
             List<double> c_data = new List<double>();
-            c_data.Add(.5);
-            c_data.Add(.1);
-            c_data.Add(.6);
-            c_data.Add(.4);
-            c_data.Add(.3);
-            c_data.Add(.4);
-            c_data.Add(.9);
-            c_data.Add(.1);
+            for (int i = 0; i < 8; i++)
+            {
+                c_data.Add(i * .5);
+            }
             return c_data;
         }
 
         public List<int> getSample()
         {
             List<int> c_data = new List<int>();
-            c_data.Add(1);
-            c_data.Add(1);
-            c_data.Add(6);
-            c_data.Add(4);
-            c_data.Add(3);
+            for (int i = 0; i < 15; i++)
+            {
+                c_data.Add(i);
+            }
             return c_data;
         }
     }

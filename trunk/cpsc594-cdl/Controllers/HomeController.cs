@@ -15,6 +15,7 @@ namespace cpsc594_cdl.Controllers
         public static int pid;
         public static IEnumerable<int> components;
         public static IEnumerable<int> metrics;
+        public static string start_date;
 
         private ProjectRepository projectRepo;
         private ComponentRepository componentRepo;
@@ -38,10 +39,11 @@ namespace cpsc594_cdl.Controllers
         {
             if (model.IsSelectProject == "FALSE" && model.ComponentIDs != null && model.Metrics != null)
             {
-                // Step 2: Get project id, components, metrics
+                // Step 2: Get project id, components, metrics, start date
                 pid = Convert.ToInt32(model.ProjectID);
                 components = model.ComponentIDs;
                 metrics = model.Metrics;
+                start_date = model.StartDate;
                 return RedirectToAction("Component", "Home");
             } else {
                 // Step 1 OR Error on input: Get project id
@@ -55,6 +57,7 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Component()
         {
             ViewData["PID"] = pid;
+            ViewData["StartDate"] = start_date;
 
             IEnumerator<int> list;
             string text;

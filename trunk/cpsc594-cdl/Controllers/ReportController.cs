@@ -34,7 +34,7 @@ namespace cpsc594_cdl.Controllers
             List<double> data = componentRepo.getCodeCoverage(pid);
 
             Chart chart = new Chart();
-            chart.Width = 600;
+            chart.Width = 1024;
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
@@ -42,6 +42,8 @@ namespace cpsc594_cdl.Controllers
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
+            chart.ChartAreas[0].AxisX.IsMarginVisible = false;
+            chart.ChartAreas[0].AxisX.Interval = 1;
 
             // create a series
             var series = new Series("Series");
@@ -87,13 +89,14 @@ namespace cpsc594_cdl.Controllers
                 metrics.Add(Convert.ToInt32(str));
 
             Chart chart = new Chart();
-            chart.Width = 800;
+            chart.Width = 1024;
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
             Title title = new Title("Component Status 1", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas[0].AxisX.Interval = 1;
 
             // create a series
             var series1 = new Series("Confirmed (15 sep)");
@@ -122,13 +125,14 @@ namespace cpsc594_cdl.Controllers
         {
             List<int> data = componentRepo.getSample();
             Chart chart = new Chart();
-            chart.Width = 800;
+            chart.Width = 1024;
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
             Title title = new Title("Component Status 2", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas[0].AxisX.Interval = 1;
 
             // create a series
             var series1 = new Series("Resolved (sep 15)");
