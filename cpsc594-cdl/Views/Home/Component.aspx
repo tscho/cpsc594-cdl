@@ -6,6 +6,7 @@
     <div id="info">
         Project: 
         <%=ViewData["PID"]%>
+        <%=ViewData["ProjectName"] %>
         <br />
         Components:
         <%=ViewData["Components"]%>

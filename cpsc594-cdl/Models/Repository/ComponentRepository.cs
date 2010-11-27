@@ -13,16 +13,16 @@ namespace cpsc594_cdl.Models.Repository
         private SqlConnection connection;
 
         public ComponentRepository() {
-            connection = new SqlConnection();
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+            /*connection = new SqlConnection();
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;*/
         }
 
-        public Component[] getComponentsForProject(int pid)
+        public List<Component> getComponentsForProject(int pid)
         {
             //var cmd = new StoredProcCommand("usp_GetComponents");
             //var results = cmd.ExecuteReader(connection, new SqlParameter[] { new SqlParameter("pid", pid) });
 
-            var cmd = connection.CreateCommand();
+            /*var cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM Components WHERE PID=" + pid;
 
             connection.Open();
@@ -35,7 +35,18 @@ namespace cpsc594_cdl.Models.Repository
             }
             connection.Close();
 
-            return components.ToArray();
+            return components.ToArray();*/
+
+            List<Util.Database.Component> dbComponents = DatabaseAccessor.GetComponents(pid);
+            List<Component> componentList = new List<Component>();
+
+            foreach (Util.Database.Component component in dbComponents)
+            {
+                componentList.Add(new Component(component.ComponentID, component.ComponentName));
+            }
+
+            return componentList;
+
         }
 
         public string getName(int cid)

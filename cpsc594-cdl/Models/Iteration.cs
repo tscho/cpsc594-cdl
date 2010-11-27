@@ -7,9 +7,9 @@ namespace cpsc594_cdl.Models
 {
     public class Iteration
     {
-        DateTime StartDate { get; private set; }
-        DateTime EndDate { get; private set; }
-        CoverageMetric coverage { get; private set; }
+        DateTime StartDate { get; set; }
+        DateTime EndDate { get; set; }
+        CoverageMetric coverage { get; set; }
 
         public Iteration(DateTime start, DateTime end, CoverageMetric coverage)
         {
