@@ -10,19 +10,20 @@ namespace cpsc594_cdl.Models.Repository
 {
     public class ProjectRepository
     {
-        private SqlConnection connection;
+        //private SqlConnection connection;
 
         public ProjectRepository() {
-            connection = new SqlConnection();
+            /*connection = new SqlConnection();
             var cs = ConfigurationManager.ConnectionStrings;
-            connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;
+            connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;*/
         }
 
-        public Project[] getProjects() {
+        public List<Project> getProjects()
+        {
             //var cmd = new StoredProcCommand("usp_GetProjects");
             //var results = cmd.ExecuteReader(connection, null);
 
-            var cmd = connection.CreateCommand();
+            /*var cmd = connection.CreateCommand();
             cmd.CommandText = "SELECT * FROM Projects";
 
             connection.Open();
@@ -36,7 +37,21 @@ namespace cpsc594_cdl.Models.Repository
 
             connection.Close();
 
-            return projects.ToArray();
+            return projects.ToArray();*/
+
+            if(DatabaseAccessor.Connection())
+            {
+                List<Util.Database.Project> dbProjects = DatabaseAccessor.GetProjects();
+                List<Project> projectList = new List<Project>();
+
+                foreach (Util.Database.Project project in dbProjects)
+                {
+                    projectList.Add(new Project(project.ProjectID, project.ProjectName));
+                }
+
+                return projectList;
+            }
+            return null;
         }
     }
 }

@@ -15,7 +15,7 @@ namespace cpsc594_cdl.Models
         public Component(int ID, String Name)
         {
             this.Name = Name;
-            this. = ID;
+            this.ComponentID = ID;
         }
     }
 }

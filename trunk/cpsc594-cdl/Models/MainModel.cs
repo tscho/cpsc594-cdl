@@ -10,8 +10,8 @@ namespace cpsc594_cdl.Models
 {
     public class IndexModel
     {
-        [Required]
-        public string PID { get; set; }
+       
+        
         [Required]
         public string IsSelectProject { get; set; }
 
@@ -26,6 +26,8 @@ namespace cpsc594_cdl.Models
         public IEnumerable<int> ComponentIDs { get; set; }
         [Required]
         public IEnumerable<int> Metrics { get; set; }
+        [Required]
+        public IEnumerable<int> Iterations { get; set; }
         [Required]
         public string StartDate { get; set; }
     }

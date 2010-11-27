@@ -6,13 +6,13 @@
     <div id="info">
         <div id="col">
             Project:<br />
-            <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ID", "name"), new { @size = "7", @onchange = "submit();" }) %>
+            <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "Name"), new { @size = "7", @onchange = "submit();" }) %>
             <%=Html.HiddenFor(m => m.IsSelectProject)%>
         </div>
         <% if (ViewData["PID"]!=null) { %>
             <div id="col">
                 Components:<br />
-                <%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ID", "Name"), new { @size = "7" }) %>
+                <%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "Name"), new { @size = "7" }) %>
             </div>
             <div id="col">
                 Metrics:<br />

@@ -9,5 +9,26 @@ namespace cpsc594_cdl.Models
     {
         int linesExecuted;
         int linesCovered;
+
+        public DateTime TimeStamp
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public int GetValue()
+        {
+            throw new NotImplementedException();
+        }
+
+        public IEnumerable<Iteration> Iterations
+        {
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+
     }
+
+    
 }

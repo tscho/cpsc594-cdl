@@ -13,9 +13,11 @@ namespace cpsc594_cdl.Controllers
         //
         // GET: /Home/
         public static int pid;
+        public static string projectName;
         public static IEnumerable<int> components;
         public static IEnumerable<int> metrics;
         public static string start_date;
+        
 
         private ProjectRepository projectRepo;
         private ComponentRepository componentRepo;
@@ -57,6 +59,7 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Component()
         {
             ViewData["PID"] = pid;
+            ViewData["ProjectName"] = projectName;
             ViewData["StartDate"] = start_date;
 
             IEnumerator<int> list;

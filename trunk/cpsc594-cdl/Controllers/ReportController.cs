@@ -13,14 +13,28 @@ namespace cpsc594_cdl.Controllers
 {
     public class ReportController : Controller
     {
+
         //public ProjectRepository projectRepo;
         public ComponentRepository componentRepo;
+
+        public Project renderedProject;
         //
         // GET: /Report/
 
         public ReportController()
+        {   
+            //componentRepo = new ComponentRepository();
+            BuildReportData();
+        }
+
+        public void BuildReportData()
         {
-            componentRepo = new ComponentRepository();
+            int pid;
+            string projectName;
+            string components;
+            string metrics;
+
+            renderedProject = new Project(pid, projectName);
         }
 
         [HttpGet]
