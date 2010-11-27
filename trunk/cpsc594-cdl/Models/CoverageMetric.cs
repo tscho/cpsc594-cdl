@@ -7,6 +7,7 @@ namespace cpsc594_cdl.Models
 {
     public class CoverageMetric : IMetric
     {
-        IEnumerable<Iteration> Iterations { get; set; }
+        int linesExecuted;
+        int linesCovered;
     }
 }
