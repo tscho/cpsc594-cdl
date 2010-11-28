@@ -58,7 +58,8 @@ namespace Util.Database
 
         public static Project GetProject(int pid)
         {
-            return (from p in _context.Projects where p.ProjectID == pid select p) as Project ;
+            Project project = (from p in _context.Projects where p.ProjectID == pid select p).FirstOrDefault();
+            return project;
         }
 
         public static List<Project> GetProjects()

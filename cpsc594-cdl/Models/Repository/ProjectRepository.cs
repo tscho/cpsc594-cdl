@@ -18,6 +18,13 @@ namespace cpsc594_cdl.Models.Repository
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;*/
         }
 
+        public Project getProject(int pid)
+        {
+            Util.Database.Project dbProject = DatabaseAccessor.GetProject(pid);
+            var project = new Project(dbProject.ProjectID, dbProject.ProjectName);
+            return project;
+        }
+
         public List<Project> getProjects()
         {
             //var cmd = new StoredProcCommand("usp_GetProjects");
