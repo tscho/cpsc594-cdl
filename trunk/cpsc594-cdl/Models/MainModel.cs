@@ -10,29 +10,13 @@ namespace cpsc594_cdl.Models
 {
     public class IndexModel
     {
-       
-        
-        [Required]
-        public string IsSelectProject { get; set; }
-
-
-        [Required]
         public IEnumerable<Project> Projects { get; set; }
-        [Required]
-        public string ProjectID { get; set; }
-        [Required]
         public IEnumerable<Component> Components { get; set; }
-        [Required]
-        public IEnumerable<int> ComponentIDs { get; set; }
-        [Required]
-        public IEnumerable<int> Metrics { get; set; }
-        [Required]
-        public IEnumerable<int> Iterations { get; set; }
-        [Required]
-        public string StartDate { get; set; }
-    }
+        public IEnumerable<Iteration> Iterations { get; set; }
 
-    public class ComponentModel
-    {
+        public string ProjectID { get; set; }
+        public IEnumerable<int> ComponentIDs { get; set; }
+        public IEnumerable<int> MetricIDs { get; set; }
+        public string StartDate { get; set; }
     }
 }
