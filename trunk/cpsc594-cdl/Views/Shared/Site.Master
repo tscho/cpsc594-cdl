@@ -9,7 +9,6 @@
     <asp:ContentPlaceHolder ID="HeaderContent" runat="server" />
 </head>
 <body>
-    <% using (Html.BeginForm()) { %>
     <div id="content">
         <div id="header">
             <%= Html.ActionLink("Metric Reporting Portal for CDL System", "Index")%>
@@ -22,6 +21,5 @@
     <div id="footer">
     </div>
     -->
-    <% } %>
 </body>
 </html>
