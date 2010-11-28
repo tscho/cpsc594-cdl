@@ -56,6 +56,11 @@ namespace Util.Database
             }
         }
 
+        public static Project GetProject(int pid)
+        {
+            return (from p in _context.Projects where p.ProjectID == pid select p) as Project ;
+        }
+
         public static List<Project> GetProjects()
         {
             IOrderedQueryable<Project> projects = (from p in _context.Projects orderby p.ProjectName ascending select p);
@@ -78,6 +83,20 @@ namespace Util.Database
             if (components != null)
             {
                 return components.ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static List<Iteration> GetIterations(DateTime startDate)
+        {
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.StartDate > startDate orderby i.IterationID ascending select i);
+
+            if(iterations != null)
+            {
+                return iterations.ToList();
             }
             else
             {
@@ -206,5 +225,7 @@ namespace Util.Database
             }
             return id;
         }
+
+        
     }
 }

@@ -10,7 +10,7 @@ namespace cpsc594_cdl.Models.Repository
 {
     public class ComponentRepository
     {
-        private SqlConnection connection;
+        //private SqlConnection connection;
 
         public ComponentRepository() {
             /*connection = new SqlConnection();
