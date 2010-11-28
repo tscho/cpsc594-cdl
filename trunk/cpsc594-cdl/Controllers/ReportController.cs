@@ -6,8 +6,12 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
+using Util.Database;
 using cpsc594_cdl.Models;
 using cpsc594_cdl.Models.Repository;
+using Component = cpsc594_cdl.Models.Component;
+using Iteration = cpsc594_cdl.Models.Iteration;
+using Project = cpsc594_cdl.Models.Project;
 
 namespace cpsc594_cdl.Controllers
 {
@@ -16,21 +20,40 @@ namespace cpsc594_cdl.Controllers
 
         //public ProjectRepository projectRepo;
         public ComponentRepository componentRepo;
+        public IterationRepository iterationRepo;
 
-        public Project renderedProject;
+        public Project RenderedProject;
         //
         // GET: /Report/
 
         public ReportController()
         {   
-            //componentRepo = new ComponentRepository();
+         
         }
 
-        public void BuildReportData()
+        public void BuildReportData(IndexModel model)
         {
-            int pid;
+            componentRepo = new ComponentRepository();
+            iterationRepo = new IterationRepository();
+
+            int pid = Int32.Parse(model.ProjectID);
+
+            Util.Database.Project dbProject = DatabaseAccessor.GetProject(pid);
+            RenderedProject = new Project(dbProject.ProjectID, dbProject.ProjectName)
+                                  {
+                                      Components = componentRepo.getComponentsForProject(pid)
+                                  };
+
+            DateTime startDate = Convert.ToDateTime(model.StartDate);
+            List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
+
+            foreach (Component component in RenderedProject.Components)
+            {
+                component.Iterations = iterationList;
+            }
+            
             string projectName;
-            string components;
+            IEnumerable<Component> components = model.Components;
             string metrics;
 
             //renderedProject = new Project(pid, projectName);
@@ -39,7 +62,7 @@ namespace cpsc594_cdl.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model) //data you need is in model
         {
-            BuildReportData();
+            BuildReportData(model);
             return View();
         }
 

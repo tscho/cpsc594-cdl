@@ -10,7 +10,7 @@ namespace cpsc594_cdl.Models
         public int ComponentID { get; private set; }
         public int ProjectID { get; private set; }
         public string Name { get; set; }
-        private List<Iteration> Iterations;
+        public List<Iteration> Iterations;
 
         public Component(int ID, String Name)
         {
