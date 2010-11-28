@@ -24,7 +24,6 @@ namespace cpsc594_cdl.Controllers
         public ReportController()
         {   
             //componentRepo = new ComponentRepository();
-            BuildReportData();
         }
 
         public void BuildReportData()
@@ -34,12 +33,13 @@ namespace cpsc594_cdl.Controllers
             string components;
             string metrics;
 
-            renderedProject = new Project(pid, projectName);
+            //renderedProject = new Project(pid, projectName);
         }
 
-        [HttpGet]
-        public ActionResult Index()
+        [HttpPost]
+        public ActionResult Index(IndexModel model) //data you need is in model
         {
+            BuildReportData();
             return View();
         }
 
