@@ -21,28 +21,28 @@ namespace cpsc594_cdl.Controllers
         //public ProjectRepository projectRepo;
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
+        public ProjectRepository projectRepo;
 
         public Project RenderedProject;
         //
         // GET: /Report/
 
         public ReportController()
-        {   
-         
+        {
+            string test;
         }
 
         public void BuildReportData(IndexModel model)
         {
             componentRepo = new ComponentRepository();
             iterationRepo = new IterationRepository();
+            projectRepo = new ProjectRepository();
 
             int pid = Int32.Parse(model.ProjectID);
 
-            Util.Database.Project dbProject = DatabaseAccessor.GetProject(pid);
-            RenderedProject = new Project(dbProject.ProjectID, dbProject.ProjectName)
-                                  {
-                                      Components = componentRepo.getComponentsForProject(pid)
-                                  };
+
+            RenderedProject = projectRepo.getProject(pid);
+            RenderedProject.Components = componentRepo.getComponentsForProject(pid);
 
             DateTime startDate = Convert.ToDateTime(model.StartDate);
             List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
