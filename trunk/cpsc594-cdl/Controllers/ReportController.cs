@@ -22,6 +22,7 @@ namespace cpsc594_cdl.Controllers
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
         public ProjectRepository projectRepo;
+        public MetricRepository metricRepo;
 
         public Project RenderedProject;
         //
@@ -37,6 +38,7 @@ namespace cpsc594_cdl.Controllers
             componentRepo = new ComponentRepository();
             iterationRepo = new IterationRepository();
             projectRepo = new ProjectRepository();
+            metricRepo = new MetricRepository();
 
             int pid = Int32.Parse(model.ProjectID);
 
@@ -44,19 +46,23 @@ namespace cpsc594_cdl.Controllers
             RenderedProject = projectRepo.getProject(pid);
             RenderedProject.Components = componentRepo.getComponentsForProject(pid);
 
-            DateTime startDate = Convert.ToDateTime(model.StartDate);
+            //DateTime startDate = Convert.ToDateTime(model.StartDate);
+            DateTime startDate = DateTime.UtcNow;
             List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
 
             foreach (Component component in RenderedProject.Components)
             {
                 component.Iterations = iterationList;
-            }
-            
-            string projectName;
-            IEnumerable<Component> components = model.Components;
-            string metrics;
+                //Loop through iterations and get metrics associated to the iteration & calculate
+                foreach (Iteration currIteration in component.Iterations)
+                {
 
-            //renderedProject = new Project(pid, projectName);
+                    CoverageMetric componentCodeCoverage = metricRepo.getCoverage(currIteration.iterationID,
+                                                                              component.ComponentID,
+                                                                              currIteration.EndDate);
+                    currIteration.coverage = componentCodeCoverage;
+                }
+            }
         }
 
         [HttpPost]

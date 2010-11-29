@@ -7,8 +7,11 @@ namespace cpsc594_cdl.Models
 {
     public interface IMetric
     {
+        int ComponentID { get; set; }
+        int IterationID { get; set; }
         DateTime TimeStamp { get; set; }
-        int GetValue();
         IEnumerable<Iteration> Iterations { get; set; }
+
+        int GetValue();
     }
 }
