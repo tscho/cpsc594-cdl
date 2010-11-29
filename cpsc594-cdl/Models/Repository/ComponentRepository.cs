@@ -42,7 +42,7 @@ namespace cpsc594_cdl.Models.Repository
 
             foreach (Util.Database.Component component in dbComponents)
             {
-                componentList.Add(new Component(component.ComponentID, component.ComponentName));
+                componentList.Add(new Component(component.ComponentID, component.ProjectID, component.ComponentName));
             }
 
             return componentList;

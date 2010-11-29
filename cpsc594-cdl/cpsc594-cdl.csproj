@@ -82,6 +82,7 @@
     <Compile Include="Models\Project.cs" />
     <Compile Include="Models\Repository\ComponentRepository.cs" />
     <Compile Include="Models\Repository\IterationRepository.cs" />
+    <Compile Include="Models\Repository\MetricRepository.cs" />
     <Compile Include="Models\Repository\ProjectRepository.cs" />
     <Compile Include="Models\CoverageMetric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

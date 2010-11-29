@@ -12,10 +12,11 @@ namespace cpsc594_cdl.Models
         public string Name { get; set; }
         public List<Iteration> Iterations;
 
-        public Component(int ID, String Name)
+        public Component(int componentID, int projectID, String Name)
         {
             this.Name = Name;
-            this.ComponentID = ID;
+            this.ComponentID = componentID;
+            this.ProjectID = projectID;
         }
     }
 }

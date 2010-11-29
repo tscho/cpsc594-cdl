@@ -17,8 +17,8 @@
         Start From:
         <%=ViewData["StartDate"]%>
         <br />
-        <img src="/Report/GetChart1?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
-        <img src="/Report/GetChart2?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
-        <img src="/Report/GetChart3?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
+        <img  src="/Report/GetChart1?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
+        <img  src="/Report/GetChart2?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
+        <img  src="/Report/GetChart3?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
     </div>
 </asp:Content>

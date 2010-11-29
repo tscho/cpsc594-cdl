@@ -10,15 +10,23 @@ namespace cpsc594_cdl.Models
         int linesExecuted;
         int linesCovered;
 
-        public DateTime TimeStamp
+
+        public int ComponentID
         {
             get { throw new NotImplementedException(); }
             set { throw new NotImplementedException(); }
         }
 
-        public int GetValue()
+        public int IterationID
         {
-            throw new NotImplementedException();
+            get { throw new NotImplementedException(); }
+            set { throw new NotImplementedException(); }
+        }
+
+        public DateTime TimeStamp
+        {
+            get { return TimeStamp; }
+            set { throw new NotImplementedException(); }
         }
 
         public IEnumerable<Iteration> Iterations
@@ -27,7 +35,19 @@ namespace cpsc594_cdl.Models
             set { throw new NotImplementedException(); }
         }
 
+        public CoverageMetric(int coverageID, int iterationID, int linesExecuted,int linesCovered, DateTime iterationDate)
+        {
+            this.ComponentID = coverageID;
+            this.IterationID = iterationID;
+            this.linesExecuted = linesExecuted;
+            this.linesCovered = linesCovered;
+            this.TimeStamp = iterationDate;
+        }
 
+        public int GetValue()
+        {
+            return linesExecuted;
+        }
     }
 
     
