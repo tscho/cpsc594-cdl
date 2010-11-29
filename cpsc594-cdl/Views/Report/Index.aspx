@@ -5,20 +5,19 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="info">
         Project: 
-        <%=ViewData["PID"]%>
-        <%=ViewData["ProjectName"] %>
+        <%=Model.ProjectID %>
         <br />
         Components:
-        <%=ViewData["Components"]%>
+        <%= String.Join(",", Model.ComponentIDs) %>
         <br />
         Metrics:
-        <%=ViewData["Metrics"]%>
+        <%= String.Join(",", Model.MetricIDs) %>
         <br />
         Start From:
-        <%=ViewData["StartDate"]%>
+        <%= Model.StartDate %>
         <br />
-        <img  src="/Report/GetChart1?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
-        <img  src="/Report/GetChart2?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
-        <img  src="/Report/GetChart3?pid=<%=ViewData["PID"]%>&str_components=<%=ViewData["Components"]%>&str_metrics=<%=ViewData["Metrics"]%>" border="0" /><br />
+        <img  src="/Report/GetChart1?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
+        <img  src="/Report/GetChart2?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
+        <img  src="/Report/GetChart3?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
     </div>
 </asp:Content>
