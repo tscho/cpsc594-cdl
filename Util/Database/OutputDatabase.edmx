@@ -247,21 +247,21 @@
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
       <Diagram Name="OutputDatabase">
-        <EntityTypeShape EntityType="CPSC594Model.Component" Width="1.5" PointX="3" PointY="1.375" Height="1.9802864583333335" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPSC594Model.Coverage" Width="1.5" PointX="6.25" PointY="2.125" Height="2.7494921874999996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="3.125" PointY="4.25" Height="1.7879850260416674" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPSC594Model.Project" Width="1.5" PointX="0.75" PointY="1.5" Height="1.5956835937499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Component" Width="1.5" PointX="3" PointY="0.5" Height="1.7566536458333331" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Coverage" Width="1.5" PointX="6.25" PointY="1.25" Height="2.4140429687499996" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="3.25" PointY="2.75" Height="1.5923063151041665" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Project" Width="1.5" PointX="0.75" PointY="0.625" Height="1.427958984375" IsExpanded="true" />
         <AssociationConnector Association="CPSC594Model.FK_Component_Project" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="2.297841796875" />
-          <ConnectorPoint PointX="3" PointY="2.297841796875" />
+          <ConnectorPoint PointX="2.25" PointY="1.3389794921875002" />
+          <ConnectorPoint PointX="3" PointY="1.3389794921875002" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_Component" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="2.7401432291666667" />
-          <ConnectorPoint PointX="6.25" PointY="2.7401432291666667" />
+          <ConnectorPoint PointX="4.5" PointY="1.7533268229166665" />
+          <ConnectorPoint PointX="6.25" PointY="1.7533268229166665" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_Iteration" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.625" PointY="4.56224609375" />
-          <ConnectorPoint PointX="6.25" PointY="4.56224609375" />
+          <ConnectorPoint PointX="4.75" PointY="3.207021484375" />
+          <ConnectorPoint PointX="6.25" PointY="3.207021484375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>
