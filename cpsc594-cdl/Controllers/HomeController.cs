@@ -14,11 +14,13 @@ namespace cpsc594_cdl.Controllers
         // GET: /Home/
         private ProjectRepository projectRepo;
         private ComponentRepository componentRepo;
+        private IterationRepository iterationRepo;
 
         public HomeController()
         {
             projectRepo = new ProjectRepository();
             componentRepo = new ComponentRepository();
+            iterationRepo = new IterationRepository();
         }
 
         public ActionResult Index()
@@ -31,8 +33,10 @@ namespace cpsc594_cdl.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model)
         {
-            model.Components = componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID));
             model.Projects = projectRepo.getProjects();
+            model.Components = componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID));
+            //model.Iterations = iterationRepo.getStartDatesForComponent(12);
+
             return View(model);
         }
     }

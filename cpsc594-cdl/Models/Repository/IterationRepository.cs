@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Util.Database;
+using System.Web.Mvc;
 
 namespace cpsc594_cdl.Models.Repository
 {
@@ -28,6 +29,11 @@ namespace cpsc594_cdl.Models.Repository
 
             return iterationList;
 
+        }
+
+        public IEnumerable<SelectListItem> getStartDatesForComponent(int maxDateNum)
+        {
+            return null;
         }
     }
 }

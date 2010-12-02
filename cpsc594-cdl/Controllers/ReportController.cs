@@ -46,7 +46,8 @@ namespace cpsc594_cdl.Controllers
             RenderedProject = projectRepo.getProject(pid);
             RenderedProject.Components = componentRepo.getComponentsForProject(pid);
 
-            DateTime startDate = Convert.ToDateTime(model.StartMonth+"/"+model.StartDay+"/"+model.StartYear);
+            //DateTime startDate = Convert.ToDateTime(model.StartDate);
+            DateTime startDate = Convert.ToDateTime("2010/12/31");
             List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
 
             foreach (Component component in RenderedProject.Components)

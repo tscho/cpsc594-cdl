@@ -14,7 +14,6 @@
         <%= String.Join(",", Model.MetricIDs) %>
         <br />
         Start From:
-        <%= Model.StartYear %> / <%= Model.StartMonth %> / <%= Model.StartDay %>
         <br />
         <img  src="/Report/GetChart1?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
         <img  src="/Report/GetChart2?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
