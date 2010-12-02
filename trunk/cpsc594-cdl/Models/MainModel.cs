@@ -12,12 +12,10 @@ namespace cpsc594_cdl.Models
     {
         public IEnumerable<Project> Projects { get; set; }
         public IEnumerable<Component> Components { get; set; }
-        public IEnumerable<Iteration> Iterations { get; set; }
+        public IEnumerable<SelectListItem> Iterations { get; set; }
 
         public string ProjectID { get; set; }
-        public string StartYear { get; set; }
-        public string StartMonth { get; set; }
-        public string StartDay { get; set; }
+        public string StartDate { get; set; }
         public IEnumerable<int> ComponentIDs { get; set; }
         public IEnumerable<int> MetricIDs { get; set; }
     }
