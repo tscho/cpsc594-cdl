@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<cpsc594_cdl.Models.IndexModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<cpsc594_cdl.Models.Project>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
@@ -8,11 +8,6 @@
         <%=Model.ProjectID %>
         <br />
         Components:
-        <%= String.Join(",", Model.ComponentIDs) %>
-        <br />
-        Metrics:
-        <%= String.Join(",", Model.MetricIDs) %>
-        <br />
         Start From:
         <br />
         <img  src="/Report/GetChart1?pid=<%= Model.ProjectID %>&str_components=<%=String.Join(",", Model.ComponentIDs)%>&str_metrics=<%=String.Join(",", Model.MetricIDs)%>" border="0" /><br />
