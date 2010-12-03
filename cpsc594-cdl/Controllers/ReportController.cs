@@ -68,12 +68,12 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Index(IndexModel model) //data you need is in model
         {
             BuildReportData(model);
-            return View();
+            return View(model);
         }
 
         public FileResult GetChart1(int pid, string str_components, string str_metrics)
         {
-            List<double> data = componentRepo.getCodeCoverage(pid);
+            //List<double> data = componentRepo.getCodeCoverage(pid);
 
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -94,9 +94,9 @@ namespace cpsc594_cdl.Controllers
 
             // add points to series
             int i = 1;
-            foreach (double value in data)
+            //foreach (double value in data)
             {
-                series.Points.AddY(value);
+                series.Points.AddY(1.11);
                 series.Points.Last().AxisLabel = "Date " + (i++);
             }
 

@@ -138,7 +138,7 @@ namespace Util.Database
 
         public static List<Iteration> GetIterations(int limits)
         {
-            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.StartDate descending select i);
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.IterationID descending select i);
             iterations.Take(12);
 
             if (iterations != null)
