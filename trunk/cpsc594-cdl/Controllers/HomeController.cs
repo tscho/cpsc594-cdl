@@ -35,7 +35,7 @@ namespace cpsc594_cdl.Controllers
         {
             model.Projects = projectRepo.getProjects();
             model.Components = componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID));
-            //model.Iterations = iterationRepo.getStartDatesForComponent(12);
+            model.Iterations = iterationRepo.getStartDatesForComponent(12);
 
             return View(model);
         }
