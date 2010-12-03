@@ -11,7 +11,7 @@
 <body>
     <div id="content">
         <div id="header">
-            <%= Html.ActionLink("Metric Reporting Portal for CDL System", "Index")%>
+            <%= Html.ActionLink("Metric Reporting Portal for CDL System", "Index", "Home")%>
         </div>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
         <div id="pushFooter"></div>

@@ -71,9 +71,10 @@ namespace cpsc594_cdl.Controllers
             return View(model);
         }
 
-        public FileResult GetChart1(int pid, string str_components, string str_metrics)
+        public FileResult GetChart1(int pid, List<int> components, List<int> metrics)
         {
-            //List<double> data = componentRepo.getCodeCoverage(pid);
+            componentRepo = new ComponentRepository();
+            List<double> data = componentRepo.getCodeCoverage(pid);
 
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -94,7 +95,7 @@ namespace cpsc594_cdl.Controllers
 
             // add points to series
             int i = 1;
-            //foreach (double value in data)
+            foreach (double value in data)
             {
                 series.Points.AddY(1.11);
                 series.Points.Last().AxisLabel = "Date " + (i++);
@@ -106,29 +107,10 @@ namespace cpsc594_cdl.Controllers
             return new FileStreamResult(imageStream, "image/png");
         }
 
-        public FileResult GetChart2(int pid, string str_components, string str_metrics)
+        public FileResult GetChart2(int pid, List<int> components, List<int> metrics)
         {
+            componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
-
-            string[] list;
-            List<int> components = new List<int>();
-            List<string> component_names = new List<string>();
-            List<int> metrics = new List<int>();
-
-            // Convert components text into array
-            int tmp;
-            list = str_components.Split(',');
-            foreach (string str in list)
-            {
-                tmp = Convert.ToInt32(str);
-                components.Add(tmp);
-                component_names.Add(componentRepo.getName(tmp));
-            }
-
-            // Convert metrics text into array
-            list = str_metrics.Split(',');
-            foreach (string str in list)
-                metrics.Add(Convert.ToInt32(str));
 
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -163,9 +145,11 @@ namespace cpsc594_cdl.Controllers
             return new FileStreamResult(imageStream, "image/png");
         }
 
-        public FileResult GetChart3(int pid, string str_components, string str_metrics)
+        public FileResult GetChart3(int pid, List<int> components, List<int> metrics)
         {
+            componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
+
             Chart chart = new Chart();
             chart.Width = 1024;
             chart.Height = 400;
