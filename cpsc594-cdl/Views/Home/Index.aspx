@@ -26,7 +26,7 @@
                 </div>
                 <div id="col">
                     Start From:<br />
-                    <%// Html.DropDownListFor(m => m.StartDate, new MultiSelectList(Model.Iterations, "StartDate", "StartDate"))%>
+                    <%= Html.DropDownListFor(m => m.StartDate, new MultiSelectList(Model.Iterations, "StartDate", "StartDate"))%>
                 </div>
                 <br />
                 <input type="submit" value="Search" />
