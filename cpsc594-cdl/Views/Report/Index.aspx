@@ -20,9 +20,10 @@
             Start From:
             <%= Model.StartDate%>
             <br />
-            <img src="<%= Url.Action("GetChart1", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
-            <img src="<%= Url.Action("GetChart2", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
-            <img src="<%= Url.Action("GetChart3", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
+            <img src="data:image/png;base64,<%= Model.Chart1_Base64 %>" border="0" /><br />
+            <img src="data:image/png;base64,<%= Model.Chart2_Base64 %>" border="0" /><br />
+            <img src="data:image/png;base64,<%= Model.Chart3_Base64 %>" border="0" /><br />
+            <img src="data:image/png;base64,<%= Model.Chart4_Base64 %>" border="0" /><br />
         <% } %>
     </div>
 </asp:Content>

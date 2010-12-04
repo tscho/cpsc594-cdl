@@ -18,5 +18,10 @@ namespace cpsc594_cdl.Models
         public string StartDate { get; set; }
         public IEnumerable<int> ComponentIDs { get; set; }
         public IEnumerable<int> MetricIDs { get; set; }
+
+        public string Chart1_Base64 { get; set; }
+        public string Chart2_Base64 { get; set; }
+        public string Chart3_Base64 { get; set; }
+        public string Chart4_Base64 { get; set; }
     }
 }
