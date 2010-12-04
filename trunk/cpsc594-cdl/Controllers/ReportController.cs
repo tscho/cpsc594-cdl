@@ -74,16 +74,19 @@ namespace cpsc594_cdl.Controllers
                 ModelState.AddModelError("", "Metrics Field is empty.");
 
             if (isSuccess)
+            {
                 BuildReportData(model);
+                model.Chart1_Base64 = GetChart1();
+                model.Chart2_Base64 = GetChart2();
+                model.Chart3_Base64 = GetChart3();
+                model.Chart4_Base64 = GetChart4();
+            }
 
             return View(model);
         }
 
-        public FileResult GetChart1(int pid, List<int> components, List<int> metrics)
+        public String GetChart1()
         {
-            componentRepo = new ComponentRepository();
-            List<double> data = componentRepo.getCodeCoverage(pid);
-
             Chart chart = new Chart();
             chart.Width = 1024;
             chart.Height = 400;
@@ -103,7 +106,7 @@ namespace cpsc594_cdl.Controllers
 
             // add points to series
             int i = 1;
-            foreach (double value in data)
+            //foreach (double value in data)
             {
                 series.Points.AddY(1.11);
                 series.Points.Last().AxisLabel = "Date " + (i++);
@@ -112,10 +115,47 @@ namespace cpsc594_cdl.Controllers
             MemoryStream imageStream = new MemoryStream();
             chart.SaveImage(imageStream, ChartImageFormat.Png);
             imageStream.Position = 0;
-            return new FileStreamResult(imageStream, "image/png");
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
         }
 
-        public FileResult GetChart2(int pid, List<int> components, List<int> metrics)
+
+        public String GetChart2()
+        {
+            Chart chart = new Chart();
+            chart.Width = 1024;
+            chart.Height = 400;
+            chart.RenderType = RenderType.ImageTag;
+            chart.Palette = ChartColorPalette.BrightPastel;
+            Title title = new Title("Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            chart.Titles.Add(title);
+            chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
+            chart.ChartAreas[0].AxisX.IsMarginVisible = false;
+            chart.ChartAreas[0].AxisX.Interval = 1;
+
+            // create a series
+            var series = new Series("Series");
+            series.ChartType = SeriesChartType.FastLine;
+            chart.Series.Add(series);
+
+            // add points to series
+            int i = 1;
+            {
+                series.Points.AddY(1.11);
+                series.Points.Last().AxisLabel = "Date " + (i++);
+            }
+
+            MemoryStream imageStream = new MemoryStream();
+            chart.SaveImage(imageStream, ChartImageFormat.Png);
+            imageStream.Position = 0;
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
+        }
+
+        public String GetChart3()
         {
             componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
@@ -150,10 +190,12 @@ namespace cpsc594_cdl.Controllers
             MemoryStream imageStream = new MemoryStream();
             chart.SaveImage(imageStream, ChartImageFormat.Png);
             imageStream.Position = 0;
-            return new FileStreamResult(imageStream, "image/png");
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
         }
 
-        public FileResult GetChart3(int pid, List<int> components, List<int> metrics)
+        public String GetChart4()
         {
             componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
@@ -194,7 +236,9 @@ namespace cpsc594_cdl.Controllers
             MemoryStream imageStream = new MemoryStream();
             chart.SaveImage(imageStream, ChartImageFormat.Png);
             imageStream.Position = 0;
-            return new FileStreamResult(imageStream, "image/png");
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
         }
     }
 }
