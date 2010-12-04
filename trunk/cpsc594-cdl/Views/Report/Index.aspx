@@ -4,19 +4,25 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="info">
-        Project: 
-        <%= Model.ProjectID %>
-        <br />
-        Components:
-        <%= String.Join(",", Model.ComponentIDs) %>
-        <br />
-        Metrics:
-        <%= String.Join(",", Model.MetricIDs) %>
-        <br />
-        Start From:
-        <br />
-        <img src="<%= Url.Action("GetChart1", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
-        <img src="<%= Url.Action("GetChart2", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
-        <img src="<%= Url.Action("GetChart3", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
+        <% if (Html.ValidationSummary()!=null) { %>
+            <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please go back and try again.") %>
+            <input type="submit" value="Back" onclick="history.go(-1)" /><br />
+        <% } else { %>
+            Project: 
+            <%= Model.ProjectID%>
+            <br />
+            Components:
+            <%= String.Join(",", Model.ComponentIDs)%>
+            <br />
+            Metrics:
+            <%= String.Join(",", Model.MetricIDs)%>
+            <br />
+            Start From:
+            <%= Model.StartDate%>
+            <br />
+            <img src="<%= Url.Action("GetChart1", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
+            <img src="<%= Url.Action("GetChart2", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
+            <img src="<%= Url.Action("GetChart3", "Report", new { pid = Model.ProjectID, components = Model.ComponentIDs, metrics = Model.MetricIDs }) %>" border="0" /><br />
+        <% } %>
     </div>
 </asp:Content>
