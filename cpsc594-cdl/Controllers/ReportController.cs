@@ -67,7 +67,15 @@ namespace cpsc594_cdl.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model) //data you need is in model
         {
-            BuildReportData(model);
+            Boolean isSuccess = true;
+            if (model.ComponentIDs == null)
+                ModelState.AddModelError("", "Components Field is empty.");
+            if (model.MetricIDs == null)
+                ModelState.AddModelError("", "Metrics Field is empty.");
+
+            if (isSuccess)
+                BuildReportData(model);
+
             return View(model);
         }
 
