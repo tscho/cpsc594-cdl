@@ -124,7 +124,7 @@ namespace Util.Database
 
         public static List<Iteration> GetIterations(DateTime startDate)
         {
-            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.StartDate > startDate orderby i.IterationID ascending select i);
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.StartDate >= startDate orderby i.IterationID ascending select i);
 
             if (iterations != null)
             {
@@ -154,7 +154,25 @@ namespace Util.Database
         //Component database methods
         public static List<Component> GetComponents(int projectId)
         {
-            IOrderedQueryable<Component> components = (from c in _context.Components where c.ProjectID == projectId orderby c.ComponentName ascending select c);
+            IOrderedQueryable<Component> components;
+
+            components = (from c in _context.Components where c.ProjectID == projectId orderby c.ComponentName ascending select c);
+
+            if (components != null)
+            {
+                return components.ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        public static List<Component> GetComponents(IEnumerable<int> ComponentIDs)
+        {
+            IOrderedQueryable<Component> components;
+
+            components = (from c in _context.Components where ComponentIDs.Contains(c.ComponentID) orderby c.ComponentName ascending select c);
 
             if (components != null)
             {

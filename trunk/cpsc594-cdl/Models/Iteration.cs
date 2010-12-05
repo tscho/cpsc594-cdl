@@ -19,5 +19,15 @@ namespace cpsc594_cdl.Models
             this.coverage = coverage;
             this.iterationID = iterationID; 
         }
+
+        public Iteration clone()
+        {
+            CoverageMetric cm = null;
+            if (coverage!=null)
+                cm = new CoverageMetric(coverage.ComponentID, coverage.IterationID, coverage.GetValue(), coverage.GetLinesCovered(), coverage.TimeStamp);
+            Iteration result = new Iteration(StartDate, EndDate, iterationID, cm);
+            return result;
+        }
+
     }
 }
