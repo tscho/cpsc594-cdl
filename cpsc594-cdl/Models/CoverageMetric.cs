@@ -28,6 +28,11 @@ namespace cpsc594_cdl.Models
         {
             return linesExecuted;
         }
+
+        public int GetLinesCovered()
+        {
+            return linesCovered;
+        }
     }
 
     

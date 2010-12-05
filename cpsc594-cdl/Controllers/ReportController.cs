@@ -42,20 +42,22 @@ namespace cpsc594_cdl.Controllers
 
             int pid = Int32.Parse(model.ProjectID);
 
-
             RenderedProject = projectRepo.getProject(pid);
-            RenderedProject.Components = componentRepo.getComponentsForProject(pid);
+            RenderedProject.Components = componentRepo.getComponents(model.ComponentIDs);
 
             DateTime startDate = Convert.ToDateTime(model.StartDate);
             List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
 
             foreach (Component component in RenderedProject.Components)
             {
-                component.Iterations = iterationList;
+                component.Iterations = new List<Iteration>();
+                foreach (Iteration iteration in iterationList)
+                {
+                    component.Iterations.Add(iteration.clone());
+                }
                 //Loop through iterations and get metrics associated to the iteration & calculate
                 foreach (Iteration currIteration in component.Iterations)
                 {
-
                     CoverageMetric componentCodeCoverage = metricRepo.getCoverage(currIteration.iterationID,
                                                                               component.ComponentID,
                                                                               currIteration.EndDate);
@@ -117,6 +119,8 @@ namespace cpsc594_cdl.Controllers
             imageStream.Position = 0;
 
             string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            imageStream.Close();
+
             return base64_output;
         }
 
@@ -128,23 +132,29 @@ namespace cpsc594_cdl.Controllers
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Lines of Code History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
-            chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
+            chart.ChartAreas[0].AxisY.Title = "# Lines of Code";
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
             chart.ChartAreas[0].AxisX.Interval = 1;
 
-            // create a series
-            var series = new Series("Series");
-            series.ChartType = SeriesChartType.FastLine;
-            chart.Series.Add(series);
-
             // add points to series
-            int i = 1;
+            Series series;
+            foreach (Component component in RenderedProject.Components)
             {
-                series.Points.AddY(1.11);
-                series.Points.Last().AxisLabel = "Date " + (i++);
+                // create a series
+                series = new Series(""+component.ComponentID);
+                series.ChartType = SeriesChartType.Line;
+                series.MarkerStyle = MarkerStyle.Square;
+                series.IsValueShownAsLabel = true;
+                chart.Series.Add(series);
+                foreach (Iteration iteration in component.Iterations)
+                {
+                    series.Points.AddY(iteration.coverage.GetValue());
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = iteration.StartDate.ToString();
+                }
             }
 
             MemoryStream imageStream = new MemoryStream();

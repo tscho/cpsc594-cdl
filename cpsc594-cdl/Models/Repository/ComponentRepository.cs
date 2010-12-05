@@ -49,6 +49,20 @@ namespace cpsc594_cdl.Models.Repository
 
         }
 
+        public List<Component> getComponents(IEnumerable<int> ComponentIDs)
+        {
+            List<Util.Database.Component> dbComponents = DatabaseAccessor.GetComponents(ComponentIDs);
+            List<Component> componentList = new List<Component>();
+
+            foreach (Util.Database.Component component in dbComponents)
+            {
+                componentList.Add(new Component(component.ComponentID, component.ProjectID, component.ComponentName));
+            }
+
+            return componentList;
+
+        }
+
         public string getName(int cid)
         {
             return "NAME";
