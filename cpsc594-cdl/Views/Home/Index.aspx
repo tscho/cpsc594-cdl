@@ -16,7 +16,7 @@
                 <%= Html.HiddenFor(m => m.ProjectID)%>
                 <div id="col">
                     Components:<br />
-                    <%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "Name"), new { @size = "7" })%>
+                    <%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "Name"), new { @size = "7", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%>
                 </div>
                 <div id="col">
                     Metrics:<br />

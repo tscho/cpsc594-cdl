@@ -34,7 +34,10 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Index(IndexModel model)
         {
             model.Projects = projectRepo.getProjects();
-            model.Components = componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID));
+            List<Component> list = new List<Component>();
+            list.Add(new Component(-1, -1, "Select All"));
+            list.AddRange(componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID)));
+            model.Components = list;
             model.Iterations = iterationRepo.getStartDatesForComponent(12);
 
             return View(model);

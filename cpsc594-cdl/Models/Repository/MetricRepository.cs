@@ -13,11 +13,11 @@ namespace cpsc594_cdl.Models.Repository
             
         }
 
-        public CoverageMetric getCoverage(int iterationID, int componentID, DateTime iterationDate)
+        public CoverageMetric getCoverage(int iterationID, int componentID, String iterationDate)
         {
             Util.Database.Coverage dbCoverage = DatabaseAccessor.GetCoverage(iterationID, componentID);
             var coverage = new CoverageMetric(dbCoverage.ComponentID, dbCoverage.IterationID, dbCoverage.LinesExecuted,
-                                             dbCoverage.LinesCovered, iterationDate);
+                                             dbCoverage.LinesCovered, Convert.ToDateTime(iterationDate));
             return coverage;
         }
     }
