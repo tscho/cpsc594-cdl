@@ -33,6 +33,11 @@ namespace cpsc594_cdl.Models
         {
             return linesCovered;
         }
+
+        public double GetCoverage()
+        {
+            return (1.0 * linesExecuted / linesCovered) * 100;
+        }
     }
 
     

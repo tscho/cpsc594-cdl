@@ -49,6 +49,7 @@ namespace cpsc594_cdl.Models.Repository
 
         }
 
+        // Unused Function
         public List<Component> getComponents(IEnumerable<int> ComponentIDs)
         {
             List<Util.Database.Component> dbComponents = DatabaseAccessor.GetComponents(ComponentIDs);

@@ -18,13 +18,12 @@ namespace cpsc594_cdl.Controllers
     public class ReportController : Controller
     {
 
-        //public ProjectRepository projectRepo;
+        public Project RenderedProject;
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
         public ProjectRepository projectRepo;
         public MetricRepository metricRepo;
 
-        public Project RenderedProject;
         //
         // GET: /Report/
 
@@ -43,18 +42,16 @@ namespace cpsc594_cdl.Controllers
             int pid = Int32.Parse(model.ProjectID);
 
             RenderedProject = projectRepo.getProject(pid);
-            RenderedProject.Components = componentRepo.getComponents(model.ComponentIDs);
+            List<Component> Components = componentRepo.getComponentsForProject(pid);
 
             DateTime startDate = Convert.ToDateTime(model.StartDate);
             List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
-
-            foreach (Component component in RenderedProject.Components)
+            
+            foreach (Component component in Components)
             {
                 component.Iterations = new List<Iteration>();
                 foreach (Iteration iteration in iterationList)
-                {
                     component.Iterations.Add(iteration.clone());
-                }
                 //Loop through iterations and get metrics associated to the iteration & calculate
                 foreach (Iteration currIteration in component.Iterations)
                 {
@@ -64,6 +61,7 @@ namespace cpsc594_cdl.Controllers
                     currIteration.coverage = componentCodeCoverage;
                 }
             }
+            RenderedProject.setComponents(Components, model.ComponentIDs);
         }
 
         [HttpPost]
@@ -90,28 +88,29 @@ namespace cpsc594_cdl.Controllers
         public String GetChart1()
         {
             Chart chart = new Chart();
-            chart.Width = 1024;
-            chart.Height = 400;
+            chart.Width = 500;
+            chart.Height = 300;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Project Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
             chart.ChartAreas[0].AxisX.Interval = 1;
 
-            // create a series
-            var series = new Series("Series");
-            series.ChartType = SeriesChartType.FastLine;
-            chart.Series.Add(series);
-
             // add points to series
-            int i = 1;
-            //foreach (double value in data)
+            Series series;
+            // create series for the project
+            series = new Series("Project");
+            series.ChartType = SeriesChartType.Area;
+            series.IsValueShownAsLabel = false;
+            chart.Series.Add(series);
+            foreach (Iteration iteration in RenderedProject.GetTotalIterations())
             {
-                series.Points.AddY(1.11);
-                series.Points.Last().AxisLabel = "Date " + (i++);
+                series.Points.AddY(iteration.coverage.GetCoverage());
+                series.Points.Last().MarkerSize = 10;
+                series.Points.Last().AxisLabel = iteration.StartDate.ToString();
             }
 
             MemoryStream imageStream = new MemoryStream();
@@ -128,12 +127,13 @@ namespace cpsc594_cdl.Controllers
         public String GetChart2()
         {
             Chart chart = new Chart();
-            chart.Width = 1024;
-            chart.Height = 400;
+            chart.Width = 800;
+            chart.Height = 300;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
             Title title = new Title("Lines of Code History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
+            chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisY.Title = "# Lines of Code";
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -141,10 +141,23 @@ namespace cpsc594_cdl.Controllers
 
             // add points to series
             Series series;
-            foreach (Component component in RenderedProject.Components)
+            // create series for the project
+            series = new Series("Project");
+            series.ChartType = SeriesChartType.Line;
+            series.MarkerStyle = MarkerStyle.Square;
+            series.IsValueShownAsLabel = true;
+            chart.Series.Add(series);
+            foreach (Iteration iteration in RenderedProject.GetTotalIterations())
+            {
+                series.Points.AddY(iteration.coverage.GetValue());
+                series.Points.Last().MarkerSize = 10;
+                series.Points.Last().AxisLabel = iteration.StartDate.ToString();
+            }
+            // create series for components
+            foreach (Component component in RenderedProject.GetComponents())
             {
                 // create a series
-                series = new Series(""+component.ComponentID);
+                series = new Series(component.Name);
                 series.ChartType = SeriesChartType.Line;
                 series.MarkerStyle = MarkerStyle.Square;
                 series.IsValueShownAsLabel = true;
