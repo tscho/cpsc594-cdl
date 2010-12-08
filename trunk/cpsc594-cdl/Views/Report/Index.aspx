@@ -22,7 +22,6 @@
             <br />
             <img src="data:image/png;base64,<%= Model.Chart1_Base64 %>" border="0" /><img src="data:image/png;base64,<%= Model.Chart2_Base64 %>" border="0" /><br />
             <img src="data:image/png;base64,<%= Model.Chart3_Base64 %>" border="0" /><br />
-            <img src="data:image/png;base64,<%= Model.Chart4_Base64 %>" border="0" /><br />
         <% } %>
     </div>
 </asp:Content>

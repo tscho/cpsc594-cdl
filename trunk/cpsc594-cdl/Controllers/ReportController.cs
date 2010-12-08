@@ -79,7 +79,6 @@ namespace cpsc594_cdl.Controllers
                 model.Chart1_Base64 = GetChart1();
                 model.Chart2_Base64 = GetChart2();
                 model.Chart3_Base64 = GetChart3();
-                model.Chart4_Base64 = GetChart4();
             }
 
             return View(model);
@@ -127,13 +126,12 @@ namespace cpsc594_cdl.Controllers
         public String GetChart2()
         {
             Chart chart = new Chart();
-            chart.Width = 800;
+            chart.Width = 500;
             chart.Height = 300;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Lines of Code History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Lines of Code History on Project", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
-            chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisY.Title = "# Lines of Code";
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
@@ -153,22 +151,6 @@ namespace cpsc594_cdl.Controllers
                 series.Points.Last().MarkerSize = 10;
                 series.Points.Last().AxisLabel = iteration.StartDate.ToString();
             }
-            // create series for components
-            foreach (Component component in RenderedProject.GetComponents())
-            {
-                // create a series
-                series = new Series(component.Name);
-                series.ChartType = SeriesChartType.Line;
-                series.MarkerStyle = MarkerStyle.Square;
-                series.IsValueShownAsLabel = true;
-                chart.Series.Add(series);
-                foreach (Iteration iteration in component.Iterations)
-                {
-                    series.Points.AddY(iteration.coverage.GetValue());
-                    series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = iteration.StartDate.ToString();
-                }
-            }
 
             MemoryStream imageStream = new MemoryStream();
             chart.SaveImage(imageStream, ChartImageFormat.Png);
@@ -179,6 +161,46 @@ namespace cpsc594_cdl.Controllers
         }
 
         public String GetChart3()
+        {
+            componentRepo = new ComponentRepository();
+            List<int> data = componentRepo.getSample();
+
+            Chart chart = new Chart();
+            chart.Width = 1024;
+            chart.Height = 400;
+            chart.RenderType = RenderType.ImageTag;
+            chart.Palette = ChartColorPalette.BrightPastel;
+            Title title = new Title("Component Code Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            chart.Titles.Add(title);
+            chart.Legends.Add("Legend");
+            chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas[0].AxisX.Interval = 1;
+
+            // create a list of series
+            Series series;
+            foreach (Iteration iteration in RenderedProject.GetComponents().FirstOrDefault().Iterations)
+            {
+                // create a series
+                series = new Series(iteration.StartDate);
+                chart.Series.Add(series);
+                foreach (Component component in RenderedProject.GetComponents())
+                {
+                    series.Points.AddY(iteration.coverage.GetCoverage());
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = component.Name;
+                }
+            }
+
+
+            MemoryStream imageStream = new MemoryStream();
+            chart.SaveImage(imageStream, ChartImageFormat.Png);
+            imageStream.Position = 0;
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
+        }
+
+        public String GetChart4()
         {
             componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
@@ -204,7 +226,7 @@ namespace cpsc594_cdl.Controllers
             foreach (int value in data)
             {
                 series1.Points.AddY(value);
-                series2.Points.AddY(value+10);
+                series2.Points.AddY(value + 10);
                 series1.Points.Last().AxisLabel = "Component " + (i++);
             }
 
@@ -218,7 +240,7 @@ namespace cpsc594_cdl.Controllers
             return base64_output;
         }
 
-        public String GetChart4()
+        public String GetChart5()
         {
             componentRepo = new ComponentRepository();
             List<int> data = componentRepo.getSample();
