@@ -79,6 +79,7 @@ namespace cpsc594_cdl.Controllers
                 model.Chart1_Base64 = GetChart1();
                 model.Chart2_Base64 = GetChart2();
                 model.Chart3_Base64 = GetChart3();
+                model.Chart4_Base64 = GetChart4();
             }
 
             return View(model);
@@ -130,7 +131,7 @@ namespace cpsc594_cdl.Controllers
             chart.Height = 300;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Lines of Code History on Project", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Project Lines of Code History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisY.Title = "# Lines of Code";
@@ -170,24 +171,27 @@ namespace cpsc594_cdl.Controllers
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Component Code Coverage History", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Component Code Coverage History v1", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
             chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas[0].AxisX.IsMarginVisible = false;
             chart.ChartAreas[0].AxisX.Interval = 1;
 
             // create a list of series
             Series series;
-            foreach (Iteration iteration in RenderedProject.GetComponents().FirstOrDefault().Iterations)
+            foreach (Component component in RenderedProject.GetComponents())
             {
                 // create a series
-                series = new Series(iteration.StartDate);
+                series = new Series(component.Name);
+                series.ChartType = SeriesChartType.Line;
+                series.MarkerStyle = MarkerStyle.Square;
                 chart.Series.Add(series);
-                foreach (Component component in RenderedProject.GetComponents())
+                foreach (Iteration iteration in component.Iterations)
                 {
                     series.Points.AddY(iteration.coverage.GetCoverage());
                     series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = component.Name;
+                    series.Points.Last().AxisLabel = iteration.StartDate;
                 }
             }
 
@@ -210,27 +214,27 @@ namespace cpsc594_cdl.Controllers
             chart.Height = 400;
             chart.RenderType = RenderType.ImageTag;
             chart.Palette = ChartColorPalette.BrightPastel;
-            Title title = new Title("Component Status 1", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            Title title = new Title("Component Code Coverage History v2", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
             chart.Titles.Add(title);
+            chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisX.Interval = 1;
 
-            // create a series
-            var series1 = new Series("Confirmed (15 sep)");
-            chart.Series.Add(series1);
-            var series2 = new Series("Confirmed (04 oct)");
-            chart.Series.Add(series2);
-
-            // add points to series 1
-            int i = 1;
-            foreach (int value in data)
+            // create a list of series
+            Series series;
+            foreach (Iteration iteration in RenderedProject.GetComponents().FirstOrDefault().Iterations)
             {
-                series1.Points.AddY(value);
-                series2.Points.AddY(value + 10);
-                series1.Points.Last().AxisLabel = "Component " + (i++);
+                // create a series
+                series = new Series(iteration.StartDate);
+                chart.Series.Add(series);
+                foreach (Component component in RenderedProject.GetComponents())
+                {
+                    series.Points.AddY(iteration.coverage.GetCoverage());
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = component.Name;
+                }
             }
 
-            chart.Legends.Add("Legend");
 
             MemoryStream imageStream = new MemoryStream();
             chart.SaveImage(imageStream, ChartImageFormat.Png);
