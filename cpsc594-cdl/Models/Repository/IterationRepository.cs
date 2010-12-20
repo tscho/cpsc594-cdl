@@ -15,7 +15,7 @@ namespace cpsc594_cdl.Models.Repository
             connection.ConnectionString = ConfigurationManager.ConnectionStrings["default"].ConnectionString;*/
         }
 
-        public List<Iteration> getIterationsForComponent(DateTime startDate)
+        public List<Iteration> getIterationsFromDate(DateTime startDate)
         {
             List<Util.Database.Iteration> dbIterations = DatabaseAccessor.GetIterations(startDate);
             List<Iteration> iterationList = new List<Iteration>();

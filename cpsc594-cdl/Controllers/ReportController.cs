@@ -17,7 +17,6 @@ namespace cpsc594_cdl.Controllers
 {
     public class ReportController : Controller
     {
-
         public Project RenderedProject;
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
@@ -29,23 +28,21 @@ namespace cpsc594_cdl.Controllers
 
         public ReportController()
         {
-            string test;
-        }
-
-        public void BuildReportData(IndexModel model)
-        {
             componentRepo = new ComponentRepository();
             iterationRepo = new IterationRepository();
             projectRepo = new ProjectRepository();
             metricRepo = new MetricRepository();
+        }
 
+        public void BuildReportData(IndexModel model)
+        {
             int pid = Int32.Parse(model.ProjectID);
 
             RenderedProject = projectRepo.getProject(pid);
             List<Component> Components = componentRepo.getComponentsForProject(pid);
 
             DateTime startDate = Convert.ToDateTime(model.StartDate);
-            List<Iteration> iterationList = iterationRepo.getIterationsForComponent(startDate);
+            List<Iteration> iterationList = iterationRepo.getIterationsFromDate(startDate);
             
             foreach (Component component in Components)
             {
@@ -98,6 +95,7 @@ namespace cpsc594_cdl.Controllers
             chart.ChartAreas["ChartArea"].AxisY.Title = "% Code Coverage";
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
             chart.ChartAreas[0].AxisX.Interval = 1;
+            chart.ChartAreas[0].AxisY.Maximum = 100;
 
             // add points to series
             Series series;
@@ -164,7 +162,6 @@ namespace cpsc594_cdl.Controllers
         public String GetChart3()
         {
             componentRepo = new ComponentRepository();
-            List<int> data = componentRepo.getSample();
 
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -177,6 +174,7 @@ namespace cpsc594_cdl.Controllers
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisX.IsMarginVisible = false;
             chart.ChartAreas[0].AxisX.Interval = 1;
+            chart.ChartAreas[0].AxisY.Maximum = 100;
 
             // create a list of series
             Series series;
@@ -207,7 +205,6 @@ namespace cpsc594_cdl.Controllers
         public String GetChart4()
         {
             componentRepo = new ComponentRepository();
-            List<int> data = componentRepo.getSample();
 
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -219,17 +216,23 @@ namespace cpsc594_cdl.Controllers
             chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisX.Interval = 1;
+            chart.ChartAreas[0].AxisY.Maximum = 100;
 
             // create a list of series
             Series series;
-            foreach (Iteration iteration in RenderedProject.GetComponents().FirstOrDefault().Iterations)
+            foreach (var component in RenderedProject.GetComponents())
             {
-                // create a series
-                series = new Series(iteration.StartDate);
-                chart.Series.Add(series);
-                foreach (Component component in RenderedProject.GetComponents())
+                foreach (var iteration in component.Iterations)
                 {
+                    // create a series
+                    if ((series = chart.Series.FindByName(iteration.StartDate)) == null)
+                    {
+                        series = new Series(iteration.StartDate);
+                        chart.Series.Add(series);
+                        
+                    }
                     series.Points.AddY(iteration.coverage.GetCoverage());
+                    //series.Points.AddXY(component.ComponentID, iteration.coverage.GetCoverage());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = component.Name;
                 }

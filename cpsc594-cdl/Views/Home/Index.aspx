@@ -4,12 +4,12 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
     <div id="info">
-        <div id="col">
             <% using (Html.BeginForm("Index", "Home")) { %>
-                Project:<br />
-                <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "Name"), new { @size = "7", @onchange = "submit();" }) %>
+                <div id="col">
+                    Project:<br />
+                    <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "Name"), new { @size = "7", @onchange = "submit();" }) %>
+                </div>
             <% } %>
-        </div>
         <% if (Model.Components != null) { %>
             <% using (Html.BeginForm("Index", "Report"))
                { %>
