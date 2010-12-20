@@ -36,7 +36,7 @@ namespace cpsc594_cdl.Models
 
         public double GetCoverage()
         {
-            return (1.0 * linesExecuted / linesCovered) * 100;
+            return (1.0 * linesExecuted / (linesCovered > 0 ? linesCovered : 1)) * 100; //can't divide by zero! Although lc shouldn't really ever be 0
         }
     }
 
