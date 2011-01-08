@@ -17,14 +17,10 @@ namespace cpsc594_cdl.Controllers
 {
     public class ReportController : Controller
     {
-        public Project RenderedProject;
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
         public ProjectRepository projectRepo;
         public MetricRepository metricRepo;
-
-        //
-        // GET: /Report/
 
         public ReportController()
         {
@@ -34,11 +30,11 @@ namespace cpsc594_cdl.Controllers
             metricRepo = new MetricRepository();
         }
 
-        public void BuildReportData(IndexModel model)
+        private Project BuildReportData(IndexModel model)
         {
             int pid = Int32.Parse(model.ProjectID);
 
-            RenderedProject = projectRepo.getProject(pid);
+            var project = projectRepo.getProject(pid);
             List<Component> Components = componentRepo.getComponentsForProject(pid);
 
             DateTime startDate = Convert.ToDateTime(model.StartDate);
@@ -58,7 +54,8 @@ namespace cpsc594_cdl.Controllers
                     currIteration.coverage = componentCodeCoverage;
                 }
             }
-            RenderedProject.setComponents(Components, model.ComponentIDs);
+            project.setComponents(Components, model.ComponentIDs);
+            return project;
         }
 
         [HttpPost]
@@ -70,19 +67,21 @@ namespace cpsc594_cdl.Controllers
             if (model.MetricIDs == null)
                 ModelState.AddModelError("", "Metrics Field is empty.");
 
+            Project renderedProject = null;
             if (isSuccess)
             {
-                BuildReportData(model);
-                model.Chart1_Base64 = GetChart1();
-                model.Chart2_Base64 = GetChart2();
-                model.Chart3_Base64 = GetChart3();
-                model.Chart4_Base64 = GetChart4();
+                renderedProject = BuildReportData(model);
+                model.Chart1_Base64 = GetChart1(renderedProject);
+                model.Chart2_Base64 = GetChart2(renderedProject);
+                model.Chart3_Base64 = GetChart3(renderedProject);
+                model.Chart4_Base64 = GetChart4(renderedProject);
+                model.Components = renderedProject.GetComponents();
             }
 
             return View(model);
         }
 
-        public String GetChart1()
+        public String GetChart1(Project project)
         {
             Chart chart = new Chart();
             chart.Width = 500;
@@ -104,7 +103,7 @@ namespace cpsc594_cdl.Controllers
             series.ChartType = SeriesChartType.Area;
             series.IsValueShownAsLabel = false;
             chart.Series.Add(series);
-            foreach (Iteration iteration in RenderedProject.GetTotalIterations())
+            foreach (Iteration iteration in project.GetTotalIterations())
             {
                 series.Points.AddY(iteration.coverage.GetCoverage());
                 series.Points.Last().MarkerSize = 10;
@@ -122,7 +121,7 @@ namespace cpsc594_cdl.Controllers
         }
 
 
-        public String GetChart2()
+        public String GetChart2(Project project)
         {
             Chart chart = new Chart();
             chart.Width = 500;
@@ -144,7 +143,7 @@ namespace cpsc594_cdl.Controllers
             series.MarkerStyle = MarkerStyle.Square;
             series.IsValueShownAsLabel = true;
             chart.Series.Add(series);
-            foreach (Iteration iteration in RenderedProject.GetTotalIterations())
+            foreach (Iteration iteration in project.GetTotalIterations())
             {
                 series.Points.AddY(iteration.coverage.GetValue());
                 series.Points.Last().MarkerSize = 10;
@@ -159,10 +158,8 @@ namespace cpsc594_cdl.Controllers
             return base64_output;
         }
 
-        public String GetChart3()
+        public String GetChart3(Project project)
         {
-            componentRepo = new ComponentRepository();
-
             Chart chart = new Chart();
             chart.Width = 1024;
             chart.Height = 400;
@@ -178,7 +175,7 @@ namespace cpsc594_cdl.Controllers
 
             // create a list of series
             Series series;
-            foreach (Component component in RenderedProject.GetComponents())
+            foreach (Component component in project.GetComponents())
             {
                 // create a series
                 series = new Series(component.Name);
@@ -202,10 +199,8 @@ namespace cpsc594_cdl.Controllers
             return base64_output;
         }
 
-        public String GetChart4()
+        public String GetChart4(Project project)
         {
-            componentRepo = new ComponentRepository();
-
             Chart chart = new Chart();
             chart.Width = 1024;
             chart.Height = 400;
@@ -220,7 +215,7 @@ namespace cpsc594_cdl.Controllers
 
             // create a list of series
             Series series;
-            foreach (var component in RenderedProject.GetComponents())
+            foreach (var component in project.GetComponents())
             {
                 foreach (var iteration in component.Iterations)
                 {
