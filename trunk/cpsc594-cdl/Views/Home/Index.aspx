@@ -3,34 +3,8 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-    <div id="info">
-            <% using (Html.BeginForm("Index", "Home")) { %>
-                <div id="col">
-                    Project:<br />
-                    <%= Html.ListBoxFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "Name"), new { @size = "7", @onchange = "submit();" }) %>
-                </div>
-            <% } %>
-        <% if (Model.Components != null) { %>
-            <% using (Html.BeginForm("Index", "Report"))
-               { %>
-                <%= Html.HiddenFor(m => m.ProjectID)%>
-                <div id="col">
-                    Components:<br />
-                    <%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "Name"), new { @size = "7", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%>
-                </div>
-                <div id="col">
-                    Metrics:<br />
-                    <%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(new[] {
-                        new { Id = 1, Name = "Code Coverage" },
-                    }, "Id", "Name"), new { @size = "7" })%>
-                </div>
-                <div id="col">
-                    Start From:<br />
-                    <%= Html.DropDownListFor(m => m.StartDate, new MultiSelectList(Model.Iterations, "StartDate", "StartDate"))%>
-                </div>
-                <br />
-                <input type="submit" value="Search" />
-            <% } %>
-        <% } %>
-    </div>
+<frameset cols="400,*">
+   <frame name="menu" src="Menu" />
+   <frame name="report" />
+</frameset>
 </asp:Content>

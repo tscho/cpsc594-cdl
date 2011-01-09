@@ -35,10 +35,10 @@ namespace cpsc594_cdl.Controllers
             int pid = Int32.Parse(model.ProjectID);
 
             var project = projectRepo.getProject(pid);
+            model.ProjectName = project.Name;
             List<Component> Components = componentRepo.getComponentsForProject(pid);
 
-            DateTime startDate = Convert.ToDateTime(model.StartDate);
-            List<Iteration> iterationList = iterationRepo.getIterationsFromDate(startDate);
+            List<Iteration> iterationList = iterationRepo.getIterations(12);
             
             foreach (Component component in Components)
             {
@@ -61,14 +61,13 @@ namespace cpsc594_cdl.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model) //data you need is in model
         {
-            Boolean isSuccess = true;
             if (model.ComponentIDs == null)
                 ModelState.AddModelError("", "Components Field is empty.");
             if (model.MetricIDs == null)
                 ModelState.AddModelError("", "Metrics Field is empty.");
 
             Project renderedProject = null;
-            if (isSuccess)
+            if (ModelState.IsValid)
             {
                 renderedProject = BuildReportData(model);
                 model.Chart1_Base64 = GetChart1(renderedProject);

@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cpsc594-cdl", "cpsc594-cdl\cpsc594-cdl.csproj", "{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}"
 EndProject
-Project("{2CFEAB61-6A3B-4EB8-B523-560B4BEEF521}") = "cpsc594-cdl.csproj_deploy", "cpsc594-cdl.csproj_deploy\cpsc594-cdl.csproj_deploy.wdproj", "{F45A4744-8846-47BE-B7CC-EBF91DBBF680}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Util", "Util\Util.csproj", "{921D8AD9-31E3-40EF-8A67-B877503CC28C}"
 EndProject
 Global
@@ -20,10 +18,6 @@ Global
 		{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
 		{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F45A4744-8846-47BE-B7CC-EBF91DBBF680}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F45A4744-8846-47BE-B7CC-EBF91DBBF680}.Deploy|Any CPU.ActiveCfg = Deploy|Any CPU
-		{F45A4744-8846-47BE-B7CC-EBF91DBBF680}.Deploy|Any CPU.Build.0 = Deploy|Any CPU
-		{F45A4744-8846-47BE-B7CC-EBF91DBBF680}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{921D8AD9-31E3-40EF-8A67-B877503CC28C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{921D8AD9-31E3-40EF-8A67-B877503CC28C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{921D8AD9-31E3-40EF-8A67-B877503CC28C}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
