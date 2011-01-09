@@ -6,14 +6,13 @@
     <script src="/Scripts/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<body>
+    <div id="content">
     <div id="info">
         <% if (Html.ValidationSummary()!=null) { %>
-            <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please go back and try again.") %>
-            <input type="submit" value="Back" onclick="history.go(-1)" /><br />
-        <% } else { %>
-            Project: 
-            <%= Model.ProjectID%>
-            <br />
+            <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
+        <% } else { %> 
+            <h1><%= Model.ProjectName%></h1>
             Components:
             <%= String.Join(",", Model.ComponentIDs)%>
             <br />
@@ -32,13 +31,13 @@
                     <% } %>
                 </ul>
                 <div id="overview">
-                    <img src="data:image/png;base64,<%= Model.Chart1_Base64 %>" border="0" /><img src="data:image/png;base64,<%= Model.Chart2_Base64 %>" border="0" /><br />
-                    <img src="data:image/png;base64,<%= Model.Chart3_Base64 %>" border="0" /><br />
+                    <img src="data:image/png;base64,<%= Model.Chart1_Base64 %>" alt="Chart 1" /><img src="data:image/png;base64,<%= Model.Chart2_Base64 %>" alt="Chart 2" /><br />
+                    <img src="data:image/png;base64,<%= Model.Chart3_Base64 %>" alt="Chart 3" /><br />
                 </div>
                 <% foreach (var comp in Model.Components)
                    { %>
                        <div id="<%= Html.Encode(comp.ComponentID) %>">
-                            <img src="data:image/png;base64,<%= Model.Chart4_Base64 %>" border="0" /><br />
+                            <img src="data:image/png;base64,<%= Model.Chart4_Base64 %>" alt="Chart 4" /><br />
                        </div>
                    <% } %>
             </div>
@@ -49,4 +48,6 @@
             $("#tabs").tabs();
         });
     </script>
+    </div>
+</body>
 </asp:Content>
