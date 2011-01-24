@@ -6,6 +6,7 @@
     <script src="/Scripts/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<%@ Import Namespace="cpsc594_cdl.Models" %>
 <body>
     <div id="content">
     <div id="info">
@@ -31,13 +32,12 @@
                     <% } %>
                 </ul>
                 <div id="overview">
-                    <img src="data:image/png;base64,<%= Model.Chart1_Base64 %>" alt="Chart 1" /><img src="data:image/png;base64,<%= Model.Chart2_Base64 %>" alt="Chart 2" /><br />
-                    <img src="data:image/png;base64,<%= Model.Chart3_Base64 %>" alt="Chart 3" /><br />
+                    <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(Model.Components) %>" alt="Chart 4" /><br />
                 </div>
                 <% foreach (var comp in Model.Components)
                    { %>
                        <div id="<%= Html.Encode(comp.ComponentID) %>">
-                            <img src="data:image/png;base64,<%= Model.Chart4_Base64 %>" alt="Chart 4" /><br />
+                            <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(new Component[] {comp}) %>" alt="Chart 4" /><br />
                        </div>
                    <% } %>
             </div>
@@ -45,7 +45,9 @@
     </div>
     <script type="text/javascript" language="javascript">
         $(function () {
+            $("#tabs").hide();
             $("#tabs").tabs();
+            setTimeout('$("#tabs").fadeIn()', 500);
         });
     </script>
     </div>
