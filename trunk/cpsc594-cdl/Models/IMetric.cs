@@ -10,7 +10,7 @@ namespace cpsc594_cdl.Models
         int ComponentID { get; set; }
         int IterationID { get; set; }
         DateTime TimeStamp { get; set; }
-        IEnumerable<Iteration> Iterations { get; set; }
+        //IEnumerable<Iteration> Iterations { get; set; }
 
         int GetValue();
     }

@@ -2,6 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
+using System.Web.UI.DataVisualization.Charting;
+using System.Drawing;
+using System.IO;
 
 namespace cpsc594_cdl.Models
 {
@@ -13,7 +16,7 @@ namespace cpsc594_cdl.Models
         public int ComponentID { get; set; }
         public int IterationID { get; set; }
         public DateTime TimeStamp { get; set; }
-        public IEnumerable<Iteration> Iterations { get; set; }
+        //public IEnumerable<Iteration> Iterations { get; set; }
 
         public CoverageMetric(int coverageID, int iterationID, int linesExecuted, int linesCovered, DateTime iterationDate)
         {
@@ -26,7 +29,8 @@ namespace cpsc594_cdl.Models
 
         public int GetValue()
         {
-            return linesExecuted;
+            //return linesExecuted;
+            return Convert.ToInt32(GetCoverage());
         }
 
         public int GetLinesCovered()
@@ -38,7 +42,47 @@ namespace cpsc594_cdl.Models
         {
             return (1.0 * linesExecuted / (linesCovered > 0 ? linesCovered : 1)) * 100; //can't divide by zero! Although lc shouldn't really ever be 0
         }
-    }
 
-    
+        public static String GenerateHistogram(IEnumerable<Component> components)
+        {
+            Chart chart = new Chart();
+            chart.Width = 1024;
+            chart.Height = 400;
+            chart.RenderType = RenderType.ImageTag;
+            chart.Palette = ChartColorPalette.BrightPastel;
+            Title title = new Title("Component Code Coverage History v2", Docking.Top, new Font("Trebuchet MS", 14, FontStyle.Bold), Color.FromArgb(26, 59, 105));
+            chart.Titles.Add(title);
+            chart.Legends.Add("Legend");
+            chart.ChartAreas.Add("ChartArea");
+            chart.ChartAreas[0].AxisX.Interval = 1;
+            chart.ChartAreas[0].AxisY.Maximum = 100;
+
+            // create a list of series
+            Series series;
+            foreach (var component in components)
+            {
+                foreach (var iteration in component.Iterations)
+                {
+                    // create a series
+                    if ((series = chart.Series.FindByName(iteration.StartDate)) == null)
+                    {
+                        series = new Series(iteration.StartDate);
+                        chart.Series.Add(series);
+                        
+                    }
+                    series.Points.AddY(iteration.coverage.GetCoverage());
+                    //series.Points.AddXY(component.ComponentID, iteration.coverage.GetCoverage());
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = component.Name;
+                }
+            }
+
+            MemoryStream imageStream = new MemoryStream();
+            chart.SaveImage(imageStream, ChartImageFormat.Png);
+            imageStream.Position = 0;
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
+        }
+    }
 }
