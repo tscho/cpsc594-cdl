@@ -23,7 +23,7 @@
             Start From:
             <%= Model.StartDate%>
             <br />
-            <div id="tabs">
+            <div id="tabs" style="overflow: visible; width: 100%;">
                 <ul>
                     <li><a href="#overview">Overview</a></li>
                     <% foreach (var comp in Model.Components)
@@ -32,12 +32,12 @@
                     <% } %>
                 </ul>
                 <div id="overview">
-                    <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(Model.Components) %>" alt="Chart 4" /><br />
+                    <div><img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(Model.Components, "Project Coverage Overview") %>" alt="Overview" /><br /></div>
                 </div>
                 <% foreach (var comp in Model.Components)
                    { %>
                        <div id="<%= Html.Encode(comp.ComponentID) %>">
-                            <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(new Component[] {comp}) %>" alt="Chart 4" /><br />
+                            <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(new Component[] {comp}, comp.Name+" Coverage History") %>" alt="<%= Html.Encode(comp.Name) %>" /><br />
                        </div>
                    <% } %>
             </div>
@@ -45,9 +45,7 @@
     </div>
     <script type="text/javascript" language="javascript">
         $(function () {
-            $("#tabs").hide();
             $("#tabs").tabs();
-            setTimeout('$("#tabs").fadeIn()', 500);
         });
     </script>
     </div>
