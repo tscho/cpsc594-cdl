@@ -8,37 +8,44 @@ using System.IO;
 
 namespace cpsc594_cdl.Models
 {
-    public class CoverageMetric : IMetric
+    public class DefectInjectionMetric : IMetric
     {
-        int linesExecuted;
-        int linesCovered;
+        int highDefects;
+        int mediumDefects;
+        int lowDefects;
 
         public int ComponentID { get; set; }
         public int IterationID { get; set; }
         public DateTime TimeStamp { get; set; }
 
-        public CoverageMetric(int componentID, int iterationID, int linesExecuted, int linesCovered, DateTime iterationDate)
+        public DefectInjectionMetric(int componentID, int iterationID, int highDefects, int mediumDefects, int lowDefects, DateTime iterationDate)
         {
             this.ComponentID = componentID;
             this.IterationID = iterationID;
-            this.linesExecuted = linesExecuted;
-            this.linesCovered = linesCovered;
+            this.highDefects = highDefects;
+            this.mediumDefects = mediumDefects;
+            this.lowDefects = lowDefects;
             this.TimeStamp = iterationDate;
         }
 
         public int GetValue()
         {
-            return linesExecuted;
+            return highDefects+mediumDefects+lowDefects;
         }
 
-        public int GetLinesCovered()
+        public int GetHighDefects()
         {
-            return linesCovered;
+            return highDefects;
         }
 
-        public double GetCoverage()
+        public int GetMediumDefects()
         {
-            return (1.0 * linesExecuted / (linesCovered > 0 ? linesCovered : 1)) * 100; //can't divide by zero! Although lc shouldn't really ever be 0
+            return mediumDefects;
+        }
+
+        public int GetLowDefects()
+        {
+            return lowDefects;
         }
 
         public static String GenerateHistogram(IEnumerable<Component> components, string title)
@@ -65,7 +72,7 @@ namespace cpsc594_cdl.Models
                         series = new Series(iteration.StartDate);
                         chart.Series.Add(series);
                     }
-                    series.Points.AddY(iteration.coverage.GetCoverage());
+                    series.Points.AddY(iteration.defectInjection.GetValue());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = component.Name;
                 }

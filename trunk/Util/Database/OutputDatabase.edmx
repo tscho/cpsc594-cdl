@@ -8,19 +8,36 @@
         <EntityContainer Name="CPSC594ModelStoreContainer">
           <EntitySet Name="Component" EntityType="CPSC594Model.Store.Component" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Coverage" EntityType="CPSC594Model.Store.Coverage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DefectInjectionRate" EntityType="CPSC594Model.Store.DefectInjectionRate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Iteration" EntityType="CPSC594Model.Store.Iteration" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="CPSC594Model.Store.Project" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Component_Project" Association="CPSC594Model.Store.FK_Component_Project">
             <End Role="Project" EntitySet="Project" />
             <End Role="Component" EntitySet="Component" />
           </AssociationSet>
-          <AssociationSet Name="FK_Coverage_Component" Association="CPSC594Model.Store.FK_Coverage_Component">
+          <AssociationSet Name="FK_ComponentID" Association="CPSC594Model.Store.FK_ComponentID">
             <End Role="Component" EntitySet="Component" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Coverage" Association="CPSC594Model.Store.FK_Coverage_Coverage">
             <End Role="Coverage" EntitySet="Coverage" />
+            <End Role="Coverage1" EntitySet="Coverage" />
           </AssociationSet>
           <AssociationSet Name="FK_Coverage_Iteration" Association="CPSC594Model.Store.FK_Coverage_Iteration">
             <End Role="Iteration" EntitySet="Iteration" />
             <End Role="Coverage" EntitySet="Coverage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iteration_Iteration" Association="CPSC594Model.Store.FK_Iteration_Iteration">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Iteration1" EntitySet="Iteration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IterationID" Association="CPSC594Model.Store.FK_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Project" Association="CPSC594Model.Store.FK_Project_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Project1" EntitySet="Project" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Component">
@@ -39,17 +56,29 @@
           <Property Name="ComponentID" Type="int" Nullable="false" />
           <Property Name="LinesCovered" Type="int" Nullable="false" />
           <Property Name="LinesExecuted" Type="int" Nullable="false" />
-          <Property Name="Date" Type="date" />
           <Property Name="CoverageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="DefectInjectionRateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="NumberOfHighDefects" Type="int" />
+          <Property Name="NumberOfMediumDefects" Type="int" />
+          <Property Name="NumberOfLowDefects" Type="int" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="Iteration">
           <Key>
             <PropertyRef Name="IterationID" />
           </Key>
           <Property Name="IterationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
-          <Property Name="StartDate" Type="date" Nullable="false" />
-          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -70,22 +99,32 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_Coverage_Component">
+        <Association Name="FK_ComponentID">
           <End Role="Component" Type="CPSC594Model.Store.Component" Multiplicity="1" />
-          <End Role="Coverage" Type="CPSC594Model.Store.Coverage" Multiplicity="*" />
+          <End Role="DefectInjectionRate" Type="CPSC594Model.Store.DefectInjectionRate" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Component">
               <PropertyRef Name="ComponentID" />
             </Principal>
-            <Dependent Role="Coverage">
+            <Dependent Role="DefectInjectionRate">
               <PropertyRef Name="ComponentID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Coverage_Coverage">
+          <End Role="Coverage" Type="CPSC594Model.Store.Coverage" Multiplicity="1" />
+          <End Role="Coverage1" Type="CPSC594Model.Store.Coverage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Coverage">
+              <PropertyRef Name="CoverageID" />
+            </Principal>
+            <Dependent Role="Coverage1">
+              <PropertyRef Name="CoverageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_Coverage_Iteration">
-          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1">
-            <OnDelete Action="Cascade" />
-          </End>
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="0..1" />
           <End Role="Coverage" Type="CPSC594Model.Store.Coverage" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Iteration">
@@ -93,6 +132,42 @@
             </Principal>
             <Dependent Role="Coverage">
               <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iteration_Iteration">
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
+          <End Role="Iteration1" Type="CPSC594Model.Store.Iteration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Iteration1">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IterationID">
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="CPSC594Model.Store.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Project">
+          <End Role="Project" Type="CPSC594Model.Store.Project" Multiplicity="1" />
+          <End Role="Project1" Type="CPSC594Model.Store.Project" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Project1">
+              <PropertyRef Name="ProjectID" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -117,6 +192,27 @@
             <End Role="Iteration" EntitySet="Iterations" />
             <End Role="Coverage" EntitySet="Coverages" />
           </AssociationSet>
+          <EntitySet Name="DefectInjectionRates" EntityType="CPSC594Model.DefectInjectionRate" />
+          <AssociationSet Name="FK_ComponentID" Association="CPSC594Model.FK_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Coverage" Association="CPSC594Model.FK_Coverage_Coverage">
+            <End Role="Coverage" EntitySet="Coverages" />
+            <End Role="Coverage1" EntitySet="Coverages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IterationID" Association="CPSC594Model.FK_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iteration_Iteration" Association="CPSC594Model.FK_Iteration_Iteration">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Iteration1" EntitySet="Iterations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Project" Association="CPSC594Model.FK_Project_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Project1" EntitySet="Projects" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Component">
           <Key>
@@ -127,6 +223,7 @@
           <Property Name="ComponentName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <NavigationProperty Name="Project" Relationship="CPSC594Model.FK_Component_Project" FromRole="Component" ToRole="Project" />
           <NavigationProperty Name="Coverages" Relationship="CPSC594Model.FK_Coverage_Component" FromRole="Component" ToRole="Coverage" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="CPSC594Model.FK_ComponentID" FromRole="Component" ToRole="DefectInjectionRate" />
         </EntityType>
         <EntityType Name="Coverage">
           <Key>
@@ -141,6 +238,8 @@
           <Property Name="IterationID" Type="Int32" Nullable="false" />
           <NavigationProperty Name="Component" Relationship="CPSC594Model.FK_Coverage_Component" FromRole="Coverage" ToRole="Component" />
           <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_Coverage_Iteration" FromRole="Coverage" ToRole="Iteration" />
+          <NavigationProperty Name="Coverage1" Relationship="CPSC594Model.FK_Coverage_Coverage" FromRole="Coverage" ToRole="Coverage1" />
+          <NavigationProperty Name="Coverage2" Relationship="CPSC594Model.FK_Coverage_Coverage" FromRole="Coverage1" ToRole="Coverage" />
         </EntityType>
         <EntityType Name="Iteration">
           <Key>
@@ -150,6 +249,9 @@
           <Property Name="StartDate" Type="DateTime" Nullable="false" />
           <Property Name="EndDate" Type="DateTime" Nullable="false" />
           <NavigationProperty Name="Coverages" Relationship="CPSC594Model.FK_Coverage_Iteration" FromRole="Iteration" ToRole="Coverage" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="CPSC594Model.FK_IterationID" FromRole="Iteration" ToRole="DefectInjectionRate" />
+          <NavigationProperty Name="Iteration1" Relationship="CPSC594Model.FK_Iteration_Iteration" FromRole="Iteration" ToRole="Iteration1" />
+          <NavigationProperty Name="Iteration2" Relationship="CPSC594Model.FK_Iteration_Iteration" FromRole="Iteration1" ToRole="Iteration" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -158,6 +260,8 @@
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Components" Relationship="CPSC594Model.FK_Component_Project" FromRole="Project" ToRole="Component" />
+          <NavigationProperty Name="Project1" Relationship="CPSC594Model.FK_Project_Project" FromRole="Project" ToRole="Project1" />
+          <NavigationProperty Name="Project2" Relationship="CPSC594Model.FK_Project_Project" FromRole="Project1" ToRole="Project" />
         </EntityType>
         <Association Name="FK_Component_Project">
           <End Role="Project" Type="CPSC594Model.Project" Multiplicity="1" />
@@ -197,6 +301,80 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Type="Int32" Name="ComponentID" Nullable="false" />
+          <Property Type="Int32" Name="DefectInjectionRateID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Int32" Name="IterationID" Nullable="false" />
+          <Property Type="Int32" Name="NumberOfHighDefects" />
+          <Property Type="Int32" Name="NumberOfMediumDefects" />
+          <Property Type="Int32" Name="NumberOfLowDefects" />
+          <Property Type="DateTime" Name="Date" />
+          <NavigationProperty Name="Component" Relationship="CPSC594Model.FK_ComponentID" FromRole="DefectInjectionRate" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_IterationID" FromRole="DefectInjectionRate" ToRole="Iteration" />
+        </EntityType>
+        <Association Name="FK_ComponentID">
+          <End Type="CPSC594Model.Component" Role="Component" Multiplicity="1" />
+          <End Type="CPSC594Model.DefectInjectionRate" Role="DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_Coverage">
+          <End Type="CPSC594Model.Coverage" Role="Coverage" Multiplicity="1" />
+          <End Type="CPSC594Model.Coverage" Role="Coverage1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Coverage">
+              <PropertyRef Name="CoverageID" />
+            </Principal>
+            <Dependent Role="Coverage1">
+              <PropertyRef Name="CoverageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IterationID">
+          <End Type="CPSC594Model.Iteration" Role="Iteration" Multiplicity="1" />
+          <End Type="CPSC594Model.DefectInjectionRate" Role="DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iteration_Iteration">
+          <End Type="CPSC594Model.Iteration" Role="Iteration" Multiplicity="1" />
+          <End Type="CPSC594Model.Iteration" Role="Iteration1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Iteration1">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Project">
+          <End Type="CPSC594Model.Project" Role="Project" Multiplicity="1" />
+          <End Type="CPSC594Model.Project" Role="Project1" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Project1">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -226,6 +404,19 @@
             <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
             <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DefectInjectionRates">
+            <EntityTypeMapping TypeName="CPSC594Model.DefectInjectionRate">
+              <MappingFragment StoreEntitySet="DefectInjectionRate">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="NumberOfLowDefects" ColumnName="NumberOfLowDefects" />
+                <ScalarProperty Name="NumberOfMediumDefects" ColumnName="NumberOfMediumDefects" />
+                <ScalarProperty Name="NumberOfHighDefects" ColumnName="NumberOfHighDefects" />
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+                <ScalarProperty Name="DefectInjectionRateID" ColumnName="DefectInjectionRateID" />
+                <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -249,19 +440,48 @@
       <Diagram Name="OutputDatabase">
         <EntityTypeShape EntityType="CPSC594Model.Component" Width="1.5" PointX="3" PointY="0.5" Height="1.7566536458333331" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.Coverage" Width="1.5" PointX="6.25" PointY="1.25" Height="2.4140429687499996" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="3.25" PointY="2.75" Height="1.5923063151041665" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="3.25" PointY="3" Height="2.3648893229166665" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.Project" Width="1.5" PointX="0.75" PointY="0.625" Height="1.427958984375" IsExpanded="true" />
         <AssociationConnector Association="CPSC594Model.FK_Component_Project" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="1.3389794921875002" />
-          <ConnectorPoint PointX="3" PointY="1.3389794921875002" />
+          <ConnectorPoint PointX="2.25" PointY="1.6151432291666665" />
+          <ConnectorPoint PointX="3" PointY="1.6151432291666665" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_Component" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.5" PointY="1.7533268229166665" />
-          <ConnectorPoint PointX="6.25" PointY="1.7533268229166665" />
+          <ConnectorPoint PointX="4.5" PointY="1.9612939453124998" />
+          <ConnectorPoint PointX="6.25" PointY="1.9612939453124998" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_Iteration" ManuallyRouted="false">
-          <ConnectorPoint PointX="4.75" PointY="3.207021484375" />
-          <ConnectorPoint PointX="6.25" PointY="3.207021484375" />
+          <ConnectorPoint PointX="4.75" PointY="3.6920475260416667" />
+          <ConnectorPoint PointX="6.25" PointY="3.6920475260416667" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CPSC594Model.DefectInjectionRate" Width="2.125" PointX="8.875" PointY="1.375" Height="2.7494921875" />
+        <AssociationConnector Association="CPSC594Model.FK_ComponentID" >
+          <ConnectorPoint PointX="4.5" PointY="0.84375000000000022" />
+          <ConnectorPoint PointX="9.9375" PointY="0.84375000000000022" />
+          <ConnectorPoint PointX="9.9375" PointY="1.375" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_Coverage_Coverage" >
+          <ConnectorPoint PointX="6.7819230769230767" PointY="4.3840950520833326" />
+          <ConnectorPoint PointX="6.7819230769230767" PointY="4.6340950520833326" />
+          <ConnectorPoint PointX="7.2284615384615378" PointY="4.6340950520833326" />
+          <ConnectorPoint PointX="7.2284615384615378" PointY="4.3840950520833326" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_IterationID" >
+          <ConnectorPoint PointX="4.75" PointY="4.9994921875" />
+          <ConnectorPoint PointX="9.9375" PointY="4.9994921875" />
+          <ConnectorPoint PointX="9.9375" PointY="4.1244921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_Iteration_Iteration" >
+          <ConnectorPoint PointX="3.7819230769230767" PointY="5.3648893229166665" />
+          <ConnectorPoint PointX="3.7819230769230767" PointY="5.6148893229166674" />
+          <ConnectorPoint PointX="4.2284615384615378" PointY="5.6148893229166674" />
+          <ConnectorPoint PointX="4.2284615384615378" PointY="5.3648893229166665" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_Project_Project" >
+          <ConnectorPoint PointX="1.2819230769230767" PointY="2.6052864583333331" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="2.8552864583333331" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="2.8552864583333331" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="2.6052864583333331" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

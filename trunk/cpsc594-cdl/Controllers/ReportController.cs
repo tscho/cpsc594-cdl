@@ -52,6 +52,10 @@ namespace cpsc594_cdl.Controllers
                                                                               component.ComponentID,
                                                                               currIteration.EndDate);
                     currIteration.coverage = componentCodeCoverage;
+                    DefectInjectionMetric componentDefectInjection = metricRepo.getDefectInjection(currIteration.iterationID,
+                                                                              component.ComponentID,
+                                                                              currIteration.EndDate);
+                    currIteration.defectInjection = componentDefectInjection;
                 }
             }
             project.setComponents(Components, model.ComponentIDs);
@@ -70,10 +74,10 @@ namespace cpsc594_cdl.Controllers
             if (ModelState.IsValid)
             {
                 renderedProject = BuildReportData(model);
-                model.Chart1_Base64 = GetChart1(renderedProject);
-                model.Chart2_Base64 = GetChart2(renderedProject);
-                model.Chart3_Base64 = GetChart3(renderedProject);
-                model.Chart4_Base64 = GetChart4(renderedProject);
+                //model.Chart1_Base64 = GetChart1(renderedProject);
+                //model.Chart2_Base64 = GetChart2(renderedProject);
+                //model.Chart3_Base64 = GetChart3(renderedProject);
+                //model.Chart4_Base64 = GetChart4(renderedProject);
                 model.Components = renderedProject.GetComponents();
             }
 

@@ -45,6 +45,20 @@ namespace Util.Database
             }
         }
 
+        public static DefectInjectionRate GetDefectInjectionRates(int iterationID, int componentID)
+        {
+            var componentDejectInjection = (from m in _context.DefectInjectionRates where m.ComponentID == componentID && m.IterationID == iterationID orderby m.Date ascending select m).FirstOrDefault();
+
+            if (componentDejectInjection != null)
+            {
+                return componentDejectInjection;
+            }
+            else
+            {
+                return null;
+            }
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -138,7 +152,7 @@ namespace Util.Database
 
         public static List<Iteration> GetIterations(int limits)
         {
-            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.IterationID descending select i);
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.IterationID ascending select i);
             iterations.Take(12);
 
             if (iterations != null)
