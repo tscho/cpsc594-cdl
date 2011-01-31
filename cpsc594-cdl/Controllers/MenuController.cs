@@ -26,18 +26,28 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Index()
         {
             IndexModel model = new IndexModel();
-            model.Projects = projectRepo.getProjects();
+
+            List<Project> plist = new List<Project>();
+            plist.Add(new Project(-1, "Select a Project"));
+            plist.AddRange(projectRepo.getProjects());
+            model.Projects = plist;
+
             return View(model);
         }
 
         [HttpPost]
         public ActionResult Index(IndexModel model)
         {
-            model.Projects = projectRepo.getProjects();
-            List<Component> list = new List<Component>();
-            list.Add(new Component(-1, -1, "Select All"));
-            list.AddRange(componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID)));
-            model.Components = list;
+            List<Project> plist = new List<Project>();
+            plist.Add(new Project(-1, "Select a Project"));
+            plist.AddRange(projectRepo.getProjects());
+            model.Projects = plist;
+            if (model.ProjectID == "-1") return View(model);
+
+            List<Component> clist = new List<Component>();
+            clist.Add(new Component(-1, -1, "Select All"));
+            clist.AddRange(componentRepo.getComponentsForProject(Convert.ToInt32(model.ProjectID)));
+            model.Components = clist;
 
             return View(model);
         }

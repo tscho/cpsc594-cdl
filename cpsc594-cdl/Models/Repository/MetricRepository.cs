@@ -30,5 +30,23 @@ namespace cpsc594_cdl.Models.Repository
 
             return coverage;
         }
+
+        public DefectInjectionMetric getDefectInjection(int iterationID, int componentID, String iterationDate)
+        {
+            Util.Database.DefectInjectionRate dbDefectInjection = DatabaseAccessor.GetDefectInjectionRates(iterationID, componentID);
+
+            DefectInjectionMetric defectInjection;
+            if (dbDefectInjection != null)
+            {
+                defectInjection = new DefectInjectionMetric(dbDefectInjection.ComponentID, dbDefectInjection.IterationID, (int)dbDefectInjection.NumberOfHighDefects,
+                                                 (int)dbDefectInjection.NumberOfMediumDefects, (int)dbDefectInjection.NumberOfLowDefects, Convert.ToDateTime(iterationDate));
+            }
+            else
+            {
+                defectInjection = new DefectInjectionMetric(componentID, iterationID, 0, 0, 0, Convert.ToDateTime(iterationDate));
+            }
+
+            return defectInjection;
+        }
     }
 }

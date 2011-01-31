@@ -14,6 +14,7 @@
             <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
         <% } else { %> 
             <h1><%= Model.ProjectName%></h1>
+            <!--
             Components:
             <%= String.Join(",", Model.ComponentIDs)%>
             <br />
@@ -23,6 +24,7 @@
             Start From:
             <%= Model.StartDate%>
             <br />
+            -->
             <div id="tabs" style="overflow: visible; width: 100%;">
                 <ul>
                     <li><a href="#overview">Overview</a></li>
@@ -32,12 +34,16 @@
                     <% } %>
                 </ul>
                 <div id="overview">
-                    <div><img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(Model.Components, "Project Coverage Overview") %>" alt="Overview" /><br /></div>
+                    <div>
+                        <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(Model.Components, "Project Coverage Overview") %>" alt="Overview" /><br />
+                        <img src="data:image/png;base64,<%= DefectInjectionMetric.GenerateHistogram(Model.Components, "Project Defect Injection Rate Overview") %>" alt="Overview" /><br />
+                    </div>
                 </div>
                 <% foreach (var comp in Model.Components)
                    { %>
                        <div id="<%= Html.Encode(comp.ComponentID) %>">
                             <img src="data:image/png;base64,<%= CoverageMetric.GenerateHistogram(new Component[] {comp}, comp.Name+" Coverage History") %>" alt="<%= Html.Encode(comp.Name) %>" /><br />
+                            <img src="data:image/png;base64,<%= DefectInjectionMetric.GenerateHistogram(new Component[] {comp}, comp.Name+" Defect Injection Rate History") %>" alt="<%= Html.Encode(comp.Name) %>" /><br />
                        </div>
                    <% } %>
             </div>

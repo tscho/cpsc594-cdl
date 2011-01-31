@@ -22,7 +22,7 @@ namespace cpsc594_cdl.Models.Repository
 
             foreach (Util.Database.Iteration iteration in dbIterations)
             {
-                iterationList.Add(new Iteration(iteration.StartDate, iteration.EndDate, iteration.IterationID, null));
+                iterationList.Add(new Iteration(iteration.StartDate, iteration.EndDate, iteration.IterationID, null, null));
             }
 
             return iterationList;
