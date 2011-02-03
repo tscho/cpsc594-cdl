@@ -1,0 +1,588 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="cpsc594_cdl.Common.Models.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="cpsc594_cdlCommonModelsStoreContainer">
+          <EntitySet Name="Component" EntityType="cpsc594_cdl.Common.Models.Store.Component" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Coverage" EntityType="cpsc594_cdl.Common.Models.Store.Coverage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DefectInjectionRate" EntityType="cpsc594_cdl.Common.Models.Store.DefectInjectionRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DefectRepairRate" EntityType="cpsc594_cdl.Common.Models.Store.DefectRepairRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Iteration" EntityType="cpsc594_cdl.Common.Models.Store.Iteration" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Project" EntityType="cpsc594_cdl.Common.Models.Store.Project" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Component_Project" Association="cpsc594_cdl.Common.Models.Store.FK_Component_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComponentID" Association="cpsc594_cdl.Common.Models.Store.FK_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Coverage" Association="cpsc594_cdl.Common.Models.Store.FK_Coverage_Coverage">
+            <End Role="Coverage" EntitySet="Coverage" />
+            <End Role="Coverage1" EntitySet="Coverage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Iteration" Association="cpsc594_cdl.Common.Models.Store.FK_Coverage_Iteration">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Coverage" EntitySet="Coverage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_ComponentID" Association="cpsc594_cdl.Common.Models.Store.FK_DefectRepairRate_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_IterationID" Association="cpsc594_cdl.Common.Models.Store.FK_DefectRepairRate_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iteration_Iteration" Association="cpsc594_cdl.Common.Models.Store.FK_Iteration_Iteration">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Iteration1" EntitySet="Iteration" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IterationID" Association="cpsc594_cdl.Common.Models.Store.FK_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Project" Association="cpsc594_cdl.Common.Models.Store.FK_Project_Project">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="Project1" EntitySet="Project" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ComponentName" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Coverage">
+          <Key>
+            <PropertyRef Name="CoverageID" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="100" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="LinesCovered" Type="int" Nullable="false" />
+          <Property Name="LinesExecuted" Type="int" Nullable="false" />
+          <Property Name="CoverageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="DefectInjectionRateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="NumberOfHighDefects" Type="int" />
+          <Property Name="NumberOfMediumDefects" Type="int" />
+          <Property Name="NumberOfLowDefects" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DefectRepairRate">
+          <Key>
+            <PropertyRef Name="DefectRepairRateID" />
+          </Key>
+          <Property Name="DefectRepairRateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="NumberOfResolvedDefects" Type="int" />
+          <Property Name="NumberOfVerifiedDefects" Type="int" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Iteration">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="date" />
+          <Property Name="EndDate" Type="date" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ProjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <Association Name="FK_Component_Project">
+          <End Role="Project" Type="cpsc594_cdl.Common.Models.Store.Project" Multiplicity="1" />
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Store.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComponentID">
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Store.Component" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="cpsc594_cdl.Common.Models.Store.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_Coverage">
+          <End Role="Coverage" Type="cpsc594_cdl.Common.Models.Store.Coverage" Multiplicity="1" />
+          <End Role="Coverage1" Type="cpsc594_cdl.Common.Models.Store.Coverage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Coverage">
+              <PropertyRef Name="CoverageID" />
+            </Principal>
+            <Dependent Role="Coverage1">
+              <PropertyRef Name="CoverageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_Iteration">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Store.Iteration" Multiplicity="0..1" />
+          <End Role="Coverage" Type="cpsc594_cdl.Common.Models.Store.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_ComponentID">
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Store.Component" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="cpsc594_cdl.Common.Models.Store.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_IterationID">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Store.Iteration" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="cpsc594_cdl.Common.Models.Store.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iteration_Iteration">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Store.Iteration" Multiplicity="1" />
+          <End Role="Iteration1" Type="cpsc594_cdl.Common.Models.Store.Iteration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Iteration1">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IterationID">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Store.Iteration" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="cpsc594_cdl.Common.Models.Store.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Project">
+          <End Role="Project" Type="cpsc594_cdl.Common.Models.Store.Project" Multiplicity="1" />
+          <End Role="Project1" Type="cpsc594_cdl.Common.Models.Store.Project" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Project1">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="cpsc594_cdl.Common.Models" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="cpsc594Entities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Components" EntityType="cpsc594_cdl.Common.Models.Component" />
+          <EntitySet Name="Coverages" EntityType="cpsc594_cdl.Common.Models.Coverage" />
+          <EntitySet Name="DefectInjectionRates" EntityType="cpsc594_cdl.Common.Models.DefectInjectionRate" />
+          <EntitySet Name="DefectRepairRates" EntityType="cpsc594_cdl.Common.Models.DefectRepairRate" />
+          <EntitySet Name="Iterations" EntityType="cpsc594_cdl.Common.Models.Iteration" />
+          <EntitySet Name="Projects" EntityType="cpsc594_cdl.Common.Models.Project" />
+          <AssociationSet Name="FK_Component_Project" Association="cpsc594_cdl.Common.Models.FK_Component_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Component" EntitySet="Components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ComponentID" Association="cpsc594_cdl.Common.Models.FK_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_ComponentID" Association="cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Coverage" Association="cpsc594_cdl.Common.Models.FK_Coverage_Coverage">
+            <End Role="Coverage" EntitySet="Coverages" />
+            <End Role="Coverage1" EntitySet="Coverages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_Iteration" Association="cpsc594_cdl.Common.Models.FK_Coverage_Iteration">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Coverage" EntitySet="Coverages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IterationID" Association="cpsc594_cdl.Common.Models.FK_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_IterationID" Association="cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Iteration_Iteration" Association="cpsc594_cdl.Common.Models.FK_Iteration_Iteration">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Iteration1" EntitySet="Iterations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Project_Project" Association="cpsc594_cdl.Common.Models.FK_Project_Project">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="Project1" EntitySet="Projects" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" />
+          <Property Name="ComponentName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Project" Relationship="cpsc594_cdl.Common.Models.FK_Component_Project" FromRole="Component" ToRole="Project" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="cpsc594_cdl.Common.Models.FK_ComponentID" FromRole="Component" ToRole="DefectInjectionRate" />
+          <NavigationProperty Name="DefectRepairRates" Relationship="cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID" FromRole="Component" ToRole="DefectRepairRate" />
+        </EntityType>
+        <EntityType Name="Coverage">
+          <Key>
+            <PropertyRef Name="CoverageID" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="LinesCovered" Type="Int32" Nullable="false" />
+          <Property Name="LinesExecuted" Type="Int32" Nullable="false" />
+          <Property Name="CoverageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="Int32" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="Coverage1" Relationship="cpsc594_cdl.Common.Models.FK_Coverage_Coverage" FromRole="Coverage" ToRole="Coverage1" />
+          <NavigationProperty Name="Coverage2" Relationship="cpsc594_cdl.Common.Models.FK_Coverage_Coverage" FromRole="Coverage1" ToRole="Coverage" />
+          <NavigationProperty Name="Iteration" Relationship="cpsc594_cdl.Common.Models.FK_Coverage_Iteration" FromRole="Coverage" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="DefectInjectionRateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfHighDefects" Type="Int32" />
+          <Property Name="NumberOfMediumDefects" Type="Int32" />
+          <Property Name="NumberOfLowDefects" Type="Int32" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="Component" Relationship="cpsc594_cdl.Common.Models.FK_ComponentID" FromRole="DefectInjectionRate" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="cpsc594_cdl.Common.Models.FK_IterationID" FromRole="DefectInjectionRate" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="DefectRepairRate">
+          <Key>
+            <PropertyRef Name="DefectRepairRateID" />
+          </Key>
+          <Property Name="DefectRepairRateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfResolvedDefects" Type="Int32" />
+          <Property Name="NumberOfVerifiedDefects" Type="Int32" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="Component" Relationship="cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID" FromRole="DefectRepairRate" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID" FromRole="DefectRepairRate" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="Iteration">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" />
+          <Property Name="EndDate" Type="DateTime" />
+          <NavigationProperty Name="Coverages" Relationship="cpsc594_cdl.Common.Models.FK_Coverage_Iteration" FromRole="Iteration" ToRole="Coverage" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="cpsc594_cdl.Common.Models.FK_IterationID" FromRole="Iteration" ToRole="DefectInjectionRate" />
+          <NavigationProperty Name="DefectRepairRates" Relationship="cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID" FromRole="Iteration" ToRole="DefectRepairRate" />
+          <NavigationProperty Name="Iteration1" Relationship="cpsc594_cdl.Common.Models.FK_Iteration_Iteration" FromRole="Iteration" ToRole="Iteration1" />
+          <NavigationProperty Name="Iteration2" Relationship="cpsc594_cdl.Common.Models.FK_Iteration_Iteration" FromRole="Iteration1" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="Project">
+          <Key>
+            <PropertyRef Name="ProjectID" />
+          </Key>
+          <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Components" Relationship="cpsc594_cdl.Common.Models.FK_Component_Project" FromRole="Project" ToRole="Component" />
+          <NavigationProperty Name="Project1" Relationship="cpsc594_cdl.Common.Models.FK_Project_Project" FromRole="Project" ToRole="Project1" />
+          <NavigationProperty Name="Project2" Relationship="cpsc594_cdl.Common.Models.FK_Project_Project" FromRole="Project1" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_Component_Project">
+          <End Role="Project" Type="cpsc594_cdl.Common.Models.Project" Multiplicity="1" />
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ComponentID">
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Component" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="cpsc594_cdl.Common.Models.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_ComponentID">
+          <End Role="Component" Type="cpsc594_cdl.Common.Models.Component" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="cpsc594_cdl.Common.Models.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_Coverage">
+          <End Role="Coverage" Type="cpsc594_cdl.Common.Models.Coverage" Multiplicity="1" />
+          <End Role="Coverage1" Type="cpsc594_cdl.Common.Models.Coverage" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Coverage">
+              <PropertyRef Name="CoverageID" />
+            </Principal>
+            <Dependent Role="Coverage1">
+              <PropertyRef Name="CoverageID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_Iteration">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Iteration" Multiplicity="0..1" />
+          <End Role="Coverage" Type="cpsc594_cdl.Common.Models.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IterationID">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Iteration" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="cpsc594_cdl.Common.Models.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_IterationID">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Iteration" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="cpsc594_cdl.Common.Models.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Iteration_Iteration">
+          <End Role="Iteration" Type="cpsc594_cdl.Common.Models.Iteration" Multiplicity="1" />
+          <End Role="Iteration1" Type="cpsc594_cdl.Common.Models.Iteration" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Iteration1">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Project_Project">
+          <End Role="Project" Type="cpsc594_cdl.Common.Models.Project" Multiplicity="1" />
+          <End Role="Project1" Type="cpsc594_cdl.Common.Models.Project" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="Project1">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="cpsc594_cdlCommonModelsStoreContainer" CdmEntityContainer="cpsc594Entities">
+          <EntitySetMapping Name="Components"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.Component"><MappingFragment StoreEntitySet="Component">
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+            <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Coverages"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.Coverage"><MappingFragment StoreEntitySet="Coverage">
+            <ScalarProperty Name="FileName" ColumnName="FileName" />
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="LinesCovered" ColumnName="LinesCovered" />
+            <ScalarProperty Name="LinesExecuted" ColumnName="LinesExecuted" />
+            <ScalarProperty Name="CoverageID" ColumnName="CoverageID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DefectInjectionRates"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.DefectInjectionRate"><MappingFragment StoreEntitySet="DefectInjectionRate">
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="DefectInjectionRateID" ColumnName="DefectInjectionRateID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="NumberOfHighDefects" ColumnName="NumberOfHighDefects" />
+            <ScalarProperty Name="NumberOfMediumDefects" ColumnName="NumberOfMediumDefects" />
+            <ScalarProperty Name="NumberOfLowDefects" ColumnName="NumberOfLowDefects" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DefectRepairRates"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.DefectRepairRate"><MappingFragment StoreEntitySet="DefectRepairRate">
+            <ScalarProperty Name="DefectRepairRateID" ColumnName="DefectRepairRateID" />
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="NumberOfResolvedDefects" ColumnName="NumberOfResolvedDefects" />
+            <ScalarProperty Name="NumberOfVerifiedDefects" ColumnName="NumberOfVerifiedDefects" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Iterations"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.Iteration"><MappingFragment StoreEntitySet="Iteration">
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Projects"><EntityTypeMapping TypeName="cpsc594_cdl.Common.Models.Project"><MappingFragment StoreEntitySet="Project">
+            <ScalarProperty Name="ProjectName" ColumnName="ProjectName" />
+            <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="cpsc594_cdl">
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.Component" Width="1.5" PointX="0.75" PointY="1.125" Height="2.1725878906249996" IsExpanded="true" />
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.Coverage" Width="1.5" PointX="3" PointY="4.75" Height="2.9417936197916656" IsExpanded="true" />
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.DefectInjectionRate" Width="1.5" PointX="6" PointY="4.75" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.DefectRepairRate" Width="1.5" PointX="3" PointY="0.875" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.Iteration" Width="1.5" PointX="0.75" PointY="4.875" Height="2.5571907552083335" IsExpanded="true" />
+        <EntityTypeShape EntityType="cpsc594_cdl.Common.Models.Project" Width="1.5" PointX="1.5" PointY="9.25" Height="1.9802864583333317" IsExpanded="true" />
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_Component_Project" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.5937505" PointY="9.25" />
+          <ConnectorPoint PointX="2.5937505" PointY="2.2112939453125" />
+          <ConnectorPoint PointX="2.25" PointY="2.2112939453125" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_ComponentID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="3.2352791983173068" />
+          <ConnectorPoint PointX="2.5265500836786918" PointY="3.4380825930150132" />
+          <ConnectorPoint PointX="2.6609509163213088" PointY="3.5366432036196" />
+          <ConnectorPoint PointX="2.6827995836786918" PointY="3.55266555968168" />
+          <ConnectorPoint PointX="2.8172004163213087" PointY="3.6512261702862667" />
+          <ConnectorPoint PointX="3.1875" PointY="3.9227791983173068" />
+          <ConnectorPoint PointX="3.1875" PointY="4.125" />
+          <ConnectorPoint PointX="5.400383615384615" PointY="4.125" />
+          <ConnectorPoint PointX="6.025383615384615" PointY="4.75" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="1.60564697265625" />
+          <ConnectorPoint PointX="3" PointY="1.60564697265625" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_Coverage_Coverage" ManuallyRouted="false">
+          <ConnectorPoint PointX="3.5319230769230767" PointY="7.6917936197916656" />
+          <ConnectorPoint PointX="3.5319230769230767" PointY="7.9417936197916656" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="7.9417936197916656" />
+          <ConnectorPoint PointX="3.9784615384615383" PointY="7.6917936197916656" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_Coverage_Iteration" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="6.1535953776041667" />
+          <ConnectorPoint PointX="2.5104171666666666" PointY="6.1535953776041659" />
+          <ConnectorPoint PointX="2.6770838333333336" PointY="6.1535953776041667" />
+          <ConnectorPoint PointX="3" PointY="6.1535953776041667" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="4.900383615384615" />
+          <ConnectorPoint PointX="2.5171136431594747" PointY="4.7863058274734183" />
+          <ConnectorPoint PointX="2.6703873568405254" PointY="4.720846324937904" />
+          <ConnectorPoint PointX="3.1875" PointY="4.5" />
+          <ConnectorPoint PointX="3.1875" PointY="4.375" />
+          <ConnectorPoint PointX="5.6007692307692309" PointY="4.375" />
+          <ConnectorPoint PointX="6" PointY="4.7742307692307691" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2257692307692305" PointY="4.875" />
+          <ConnectorPoint PointX="2.5348249349011205" PointY="4.56594429586811" />
+          <ConnectorPoint PointX="2.6526760650988792" PointY="4.4480931656703522" />
+          <ConnectorPoint PointX="2.75" PointY="4.3507692307692309" />
+          <ConnectorPoint PointX="2.75" PointY="2.5501708639322924" />
+          <ConnectorPoint PointX="3" PointY="2.5501708639322924" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_Iteration_Iteration" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2819230769230767" PointY="7.4321907552083335" />
+          <ConnectorPoint PointX="1.2819230769230767" PointY="7.6821907552083335" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="7.6821907552083335" />
+          <ConnectorPoint PointX="1.7284615384615383" PointY="7.4321907552083335" />
+        </AssociationConnector>
+        <AssociationConnector Association="cpsc594_cdl.Common.Models.FK_Project_Project" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.0319230769230767" PointY="11.230286458333332" />
+          <ConnectorPoint PointX="2.0319230769230767" PointY="11.480286458333332" />
+          <ConnectorPoint PointX="2.4784615384615383" PointY="11.480286458333332" />
+          <ConnectorPoint PointX="2.4784615384615383" PointY="11.230286458333332" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

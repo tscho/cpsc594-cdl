@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using System.Data;
 using System.Linq;
 
-namespace Util.Database
+namespace cpsc594_cdl.Common.Models
 {
     public static class DatabaseAccessor
     {
-        private static CPSC594Entities1 _context;
+        private static cpsc594Entities _context;
 
         static DatabaseAccessor()
         {
-            _context = new CPSC594Entities1();
+            _context = new cpsc594Entities();
         }
 
         /// <summary>

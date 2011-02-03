@@ -18,50 +18,51 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Component_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Project), "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Util.Database.Component), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_Component", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Component), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Util.Database.Coverage), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Util.Database.Coverage), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Component), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Util.Database.DefectInjectionRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_Coverage", "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Coverage), "Coverage1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Util.Database.Coverage), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(Util.Database.DefectInjectionRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Iteration_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Iteration), "Iteration1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Util.Database.Iteration), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Project_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(Util.Database.Project), "Project1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(Util.Database.Project), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Component_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Component), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Coverage", "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Coverage), "Coverage1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Iteration_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Iteration1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(cpsc594_cdl.Common.Models.Iteration), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Project_Project", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "Project1", System.Data.Metadata.Edm.RelationshipMultiplicity.ZeroOrOne, typeof(cpsc594_cdl.Common.Models.Project), true)]
 
 #endregion
 
-namespace Util.Database
+namespace cpsc594_cdl.Common.Models
 {
     #region Contexts
     
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class CPSC594Entities1 : ObjectContext
+    public partial class cpsc594Entities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new CPSC594Entities1 object using the connection string found in the 'CPSC594Entities1' section of the application configuration file.
+        /// Initializes a new cpsc594Entities object using the connection string found in the 'cpsc594Entities' section of the application configuration file.
         /// </summary>
-        public CPSC594Entities1() : base("name=CPSC594Entities1", "CPSC594Entities1")
+        public cpsc594Entities() : base("name=cpsc594Entities", "cpsc594Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CPSC594Entities1 object.
+        /// Initialize a new cpsc594Entities object.
         /// </summary>
-        public CPSC594Entities1(string connectionString) : base(connectionString, "CPSC594Entities1")
+        public cpsc594Entities(string connectionString) : base(connectionString, "cpsc594Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CPSC594Entities1 object.
+        /// Initialize a new cpsc594Entities object.
         /// </summary>
-        public CPSC594Entities1(EntityConnection connection) : base(connection, "CPSC594Entities1")
+        public cpsc594Entities(EntityConnection connection) : base(connection, "cpsc594Entities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -112,6 +113,38 @@ namespace Util.Database
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<DefectInjectionRate> DefectInjectionRates
+        {
+            get
+            {
+                if ((_DefectInjectionRates == null))
+                {
+                    _DefectInjectionRates = base.CreateObjectSet<DefectInjectionRate>("DefectInjectionRates");
+                }
+                return _DefectInjectionRates;
+            }
+        }
+        private ObjectSet<DefectInjectionRate> _DefectInjectionRates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<DefectRepairRate> DefectRepairRates
+        {
+            get
+            {
+                if ((_DefectRepairRates == null))
+                {
+                    _DefectRepairRates = base.CreateObjectSet<DefectRepairRate>("DefectRepairRates");
+                }
+                return _DefectRepairRates;
+            }
+        }
+        private ObjectSet<DefectRepairRate> _DefectRepairRates;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Iteration> Iterations
         {
             get
@@ -140,22 +173,6 @@ namespace Util.Database
             }
         }
         private ObjectSet<Project> _Projects;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<DefectInjectionRate> DefectInjectionRates
-        {
-            get
-            {
-                if ((_DefectInjectionRates == null))
-                {
-                    _DefectInjectionRates = base.CreateObjectSet<DefectInjectionRate>("DefectInjectionRates");
-                }
-                return _DefectInjectionRates;
-            }
-        }
-        private ObjectSet<DefectInjectionRate> _DefectInjectionRates;
 
         #endregion
         #region AddTo Methods
@@ -177,6 +194,22 @@ namespace Util.Database
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the DefectInjectionRates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDefectInjectionRates(DefectInjectionRate defectInjectionRate)
+        {
+            base.AddObject("DefectInjectionRates", defectInjectionRate);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the DefectRepairRates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToDefectRepairRates(DefectRepairRate defectRepairRate)
+        {
+            base.AddObject("DefectRepairRates", defectRepairRate);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Iterations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToIterations(Iteration iteration)
@@ -191,14 +224,6 @@ namespace Util.Database
         {
             base.AddObject("Projects", project);
         }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the DefectInjectionRates EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToDefectInjectionRates(DefectInjectionRate defectInjectionRate)
-        {
-            base.AddObject("DefectInjectionRates", defectInjectionRate);
-        }
 
         #endregion
     }
@@ -211,7 +236,7 @@ namespace Util.Database
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Component")]
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="Component")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Component : EntityObject
@@ -321,16 +346,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Component_Project", "Project")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Component_Project", "Project")]
         public Project Project
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Component_Project", "Project").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Component_Project", "Project").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Component_Project", "Project").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Component_Project", "Project").Value = value;
             }
         }
         /// <summary>
@@ -342,13 +367,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Component_Project", "Project");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Component_Project", "Project");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_Component_Project", "Project", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Component_Project", "Project", value);
                 }
             }
         }
@@ -359,40 +384,40 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Component", "Coverage")]
-        public EntityCollection<Coverage> Coverages
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_Component", "Coverage");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_Component", "Coverage", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ComponentID", "DefectInjectionRate")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_ComponentID", "DefectInjectionRate")]
         public EntityCollection<DefectInjectionRate> DefectInjectionRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_ComponentID", "DefectInjectionRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("cpsc594_cdl.Common.Models.FK_ComponentID", "DefectInjectionRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_ComponentID", "DefectInjectionRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("cpsc594_cdl.Common.Models.FK_ComponentID", "DefectInjectionRate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_ComponentID", "DefectRepairRate")]
+        public EntityCollection<DefectRepairRate> DefectRepairRates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "DefectRepairRate");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "DefectRepairRate", value);
                 }
             }
         }
@@ -403,7 +428,7 @@ namespace Util.Database
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Coverage")]
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="Coverage")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Coverage : EntityObject
@@ -417,15 +442,13 @@ namespace Util.Database
         /// <param name="linesCovered">Initial value of the LinesCovered property.</param>
         /// <param name="linesExecuted">Initial value of the LinesExecuted property.</param>
         /// <param name="coverageID">Initial value of the CoverageID property.</param>
-        /// <param name="iterationID">Initial value of the IterationID property.</param>
-        public static Coverage CreateCoverage(global::System.Int32 componentID, global::System.Int32 linesCovered, global::System.Int32 linesExecuted, global::System.Int32 coverageID, global::System.Int32 iterationID)
+        public static Coverage CreateCoverage(global::System.Int32 componentID, global::System.Int32 linesCovered, global::System.Int32 linesExecuted, global::System.Int32 coverageID)
         {
             Coverage coverage = new Coverage();
             coverage.ComponentID = componentID;
             coverage.LinesCovered = linesCovered;
             coverage.LinesExecuted = linesExecuted;
             coverage.CoverageID = coverageID;
-            coverage.IterationID = iterationID;
             return coverage;
         }
 
@@ -531,30 +554,6 @@ namespace Util.Database
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
-        [DataMemberAttribute()]
-        public Nullable<global::System.DateTime> Date
-        {
-            get
-            {
-                return _Date;
-            }
-            set
-            {
-                OnDateChanging(value);
-                ReportPropertyChanging("Date");
-                _Date = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("Date");
-                OnDateChanged();
-            }
-        }
-        private Nullable<global::System.DateTime> _Date;
-        partial void OnDateChanging(Nullable<global::System.DateTime> value);
-        partial void OnDateChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
         [DataMemberAttribute()]
         public global::System.Int32 CoverageID
@@ -582,9 +581,9 @@ namespace Util.Database
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.Int32 IterationID
+        public Nullable<global::System.Int32> IterationID
         {
             get
             {
@@ -599,9 +598,33 @@ namespace Util.Database
                 OnIterationIDChanged();
             }
         }
-        private global::System.Int32 _IterationID;
-        partial void OnIterationIDChanging(global::System.Int32 value);
+        private Nullable<global::System.Int32> _IterationID;
+        partial void OnIterationIDChanging(Nullable<global::System.Int32> value);
         partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
 
         #endregion
     
@@ -613,92 +636,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Component", "Component")]
-        public Component Component
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_Component", "Component").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_Component", "Component").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Component> ComponentReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_Component", "Component");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_Coverage_Component", "Component", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Iteration", "Iteration")]
-        public Iteration Iteration
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_Iteration", "Iteration").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_Iteration", "Iteration").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Iteration> IterationReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_Iteration", "Iteration");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Coverage_Iteration", "Iteration", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Coverage", "Coverage1")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Coverage", "Coverage1")]
         public Coverage Coverage1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage1").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage1").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage1").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage1").Value = value;
             }
         }
         /// <summary>
@@ -710,13 +657,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage1");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage1", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage1", value);
                 }
             }
         }
@@ -727,16 +674,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Coverage", "Coverage")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Coverage", "Coverage")]
         public Coverage Coverage2
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage").Value = value;
             }
         }
         /// <summary>
@@ -748,13 +695,51 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Coverage>("CPSC594Model.FK_Coverage_Coverage", "Coverage", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Coverage", "Coverage", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Iteration", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Iteration", value);
                 }
             }
         }
@@ -765,7 +750,7 @@ namespace Util.Database
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="DefectInjectionRate")]
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="DefectInjectionRate")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class DefectInjectionRate : EntityObject
@@ -971,16 +956,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ComponentID", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_ComponentID", "Component")]
         public Component Component
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_ComponentID", "Component").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_ComponentID", "Component").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_ComponentID", "Component").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_ComponentID", "Component").Value = value;
             }
         }
         /// <summary>
@@ -992,13 +977,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_ComponentID", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_ComponentID", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_ComponentID", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_ComponentID", "Component", value);
                 }
             }
         }
@@ -1009,16 +994,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -1030,13 +1015,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_IterationID", "Iteration", value);
                 }
             }
         }
@@ -1047,7 +1032,265 @@ namespace Util.Database
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Iteration")]
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="DefectRepairRate")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class DefectRepairRate : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new DefectRepairRate object.
+        /// </summary>
+        /// <param name="defectRepairRateID">Initial value of the DefectRepairRateID property.</param>
+        /// <param name="componentID">Initial value of the ComponentID property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        public static DefectRepairRate CreateDefectRepairRate(global::System.Int32 defectRepairRateID, global::System.Int32 componentID, global::System.Int32 iterationID)
+        {
+            DefectRepairRate defectRepairRate = new DefectRepairRate();
+            defectRepairRate.DefectRepairRateID = defectRepairRateID;
+            defectRepairRate.ComponentID = componentID;
+            defectRepairRate.IterationID = iterationID;
+            return defectRepairRate;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 DefectRepairRateID
+        {
+            get
+            {
+                return _DefectRepairRateID;
+            }
+            set
+            {
+                if (_DefectRepairRateID != value)
+                {
+                    OnDefectRepairRateIDChanging(value);
+                    ReportPropertyChanging("DefectRepairRateID");
+                    _DefectRepairRateID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("DefectRepairRateID");
+                    OnDefectRepairRateIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _DefectRepairRateID;
+        partial void OnDefectRepairRateIDChanging(global::System.Int32 value);
+        partial void OnDefectRepairRateIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ComponentID
+        {
+            get
+            {
+                return _ComponentID;
+            }
+            set
+            {
+                OnComponentIDChanging(value);
+                ReportPropertyChanging("ComponentID");
+                _ComponentID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ComponentID");
+                OnComponentIDChanged();
+            }
+        }
+        private global::System.Int32 _ComponentID;
+        partial void OnComponentIDChanging(global::System.Int32 value);
+        partial void OnComponentIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NumberOfResolvedDefects
+        {
+            get
+            {
+                return _NumberOfResolvedDefects;
+            }
+            set
+            {
+                OnNumberOfResolvedDefectsChanging(value);
+                ReportPropertyChanging("NumberOfResolvedDefects");
+                _NumberOfResolvedDefects = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumberOfResolvedDefects");
+                OnNumberOfResolvedDefectsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NumberOfResolvedDefects;
+        partial void OnNumberOfResolvedDefectsChanging(Nullable<global::System.Int32> value);
+        partial void OnNumberOfResolvedDefectsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.Int32> NumberOfVerifiedDefects
+        {
+            get
+            {
+                return _NumberOfVerifiedDefects;
+            }
+            set
+            {
+                OnNumberOfVerifiedDefectsChanging(value);
+                ReportPropertyChanging("NumberOfVerifiedDefects");
+                _NumberOfVerifiedDefects = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumberOfVerifiedDefects");
+                OnNumberOfVerifiedDefectsChanged();
+            }
+        }
+        private Nullable<global::System.Int32> _NumberOfVerifiedDefects;
+        partial void OnNumberOfVerifiedDefectsChanging(Nullable<global::System.Int32> value);
+        partial void OnNumberOfVerifiedDefectsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
+        [DataMemberAttribute()]
+        public Nullable<global::System.DateTime> Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_ComponentID", "Component")]
+        public Component Component
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "Component").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "Component").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Component> ComponentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "Component");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_ComponentID", "Component", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_IterationID", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "Iteration", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="Iteration")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Iteration : EntityObject
@@ -1058,14 +1301,10 @@ namespace Util.Database
         /// Create a new Iteration object.
         /// </summary>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
-        /// <param name="startDate">Initial value of the StartDate property.</param>
-        /// <param name="endDate">Initial value of the EndDate property.</param>
-        public static Iteration CreateIteration(global::System.Int32 iterationID, global::System.DateTime startDate, global::System.DateTime endDate)
+        public static Iteration CreateIteration(global::System.Int32 iterationID)
         {
             Iteration iteration = new Iteration();
             iteration.IterationID = iterationID;
-            iteration.StartDate = startDate;
-            iteration.EndDate = endDate;
             return iteration;
         }
 
@@ -1102,9 +1341,9 @@ namespace Util.Database
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime StartDate
+        public Nullable<global::System.DateTime> StartDate
         {
             get
             {
@@ -1119,16 +1358,16 @@ namespace Util.Database
                 OnStartDateChanged();
             }
         }
-        private global::System.DateTime _StartDate;
-        partial void OnStartDateChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _StartDate;
+        partial void OnStartDateChanging(Nullable<global::System.DateTime> value);
         partial void OnStartDateChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime EndDate
+        public Nullable<global::System.DateTime> EndDate
         {
             get
             {
@@ -1143,8 +1382,8 @@ namespace Util.Database
                 OnEndDateChanged();
             }
         }
-        private global::System.DateTime _EndDate;
-        partial void OnEndDateChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _EndDate;
+        partial void OnEndDateChanging(Nullable<global::System.DateTime> value);
         partial void OnEndDateChanged();
 
         #endregion
@@ -1157,18 +1396,18 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_Iteration", "Coverage")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Iteration", "Coverage")]
         public EntityCollection<Coverage> Coverages
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_Iteration", "Coverage");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Coverage");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_Iteration", "Coverage", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("cpsc594_cdl.Common.Models.FK_Coverage_Iteration", "Coverage", value);
                 }
             }
         }
@@ -1179,18 +1418,18 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_IterationID", "DefectInjectionRate")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_IterationID", "DefectInjectionRate")]
         public EntityCollection<DefectInjectionRate> DefectInjectionRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_IterationID", "DefectInjectionRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("cpsc594_cdl.Common.Models.FK_IterationID", "DefectInjectionRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_IterationID", "DefectInjectionRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("cpsc594_cdl.Common.Models.FK_IterationID", "DefectInjectionRate", value);
                 }
             }
         }
@@ -1201,16 +1440,38 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Iteration_Iteration", "Iteration1")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_IterationID", "DefectRepairRate")]
+        public EntityCollection<DefectRepairRate> DefectRepairRates
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "DefectRepairRate");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_IterationID", "DefectRepairRate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Iteration_Iteration", "Iteration1")]
         public Iteration Iteration1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration1").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration1").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration1").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration1").Value = value;
             }
         }
         /// <summary>
@@ -1222,13 +1483,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration1");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration1", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration1", value);
                 }
             }
         }
@@ -1239,16 +1500,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Iteration_Iteration", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Iteration_Iteration", "Iteration")]
         public Iteration Iteration2
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -1260,13 +1521,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Iteration_Iteration", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_Iteration_Iteration", "Iteration", value);
                 }
             }
         }
@@ -1277,7 +1538,7 @@ namespace Util.Database
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Project")]
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="Project")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Project : EntityObject
@@ -1361,18 +1622,18 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Component_Project", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Component_Project", "Component")]
         public EntityCollection<Component> Components
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Component>("CPSC594Model.FK_Component_Project", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Component>("cpsc594_cdl.Common.Models.FK_Component_Project", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("CPSC594Model.FK_Component_Project", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("cpsc594_cdl.Common.Models.FK_Component_Project", "Component", value);
                 }
             }
         }
@@ -1383,16 +1644,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Project_Project", "Project1")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Project_Project", "Project1")]
         public Project Project1
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project1").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project1").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project1").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project1").Value = value;
             }
         }
         /// <summary>
@@ -1404,13 +1665,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project1");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project1");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project1", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project1", value);
                 }
             }
         }
@@ -1421,16 +1682,16 @@ namespace Util.Database
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Project_Project", "Project")]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_Project_Project", "Project")]
         public Project Project2
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project").Value = value;
             }
         }
         /// <summary>
@@ -1442,13 +1703,13 @@ namespace Util.Database
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_Project_Project", "Project", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("cpsc594_cdl.Common.Models.FK_Project_Project", "Project", value);
                 }
             }
         }
