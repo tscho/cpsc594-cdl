@@ -21,7 +21,7 @@ namespace cpsc594_cdl.Controllers
             IndexModel model = new IndexModel();
 
             List<Project> plist = new List<Project>();
-            plist.Add(new Project(-1, "Select a Project"));
+            plist.Add(new Project() { ProjectID = -1, ProjectName = "Select a Project" });
             plist.AddRange(DatabaseAccessor.GetProjects());
             model.Projects = plist;
 
@@ -32,13 +32,13 @@ namespace cpsc594_cdl.Controllers
         public ActionResult Index(IndexModel model)
         {
             List<Project> plist = new List<Project>();
-            plist.Add(new Project(-1, "Select a Project"));
+            plist.Add(new Project() { ProjectID = -1, ProjectName = "Select a Project" });
             plist.AddRange(DatabaseAccessor.GetProjects());
             model.Projects = plist;
             if (model.ProjectID == "-1") return View(model);
 
             List<Component> clist = new List<Component>();
-            clist.Add(new Component(-1, -1, "Select All"));
+            clist.Add(new Component() { ProjectID = -1, ComponentID = -1, ComponentName = "Select All"});
             clist.AddRange(DatabaseAccessor.GetComponents(Convert.ToInt32(model.ProjectID)));
             model.Components = clist;
 
