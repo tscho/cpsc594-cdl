@@ -14,17 +14,6 @@
             <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
         <% } else { %> 
             <h1><%= Model.ProjectName%></h1>
-            <!--
-            Components:
-            <%= String.Join(",", Model.ComponentIDs)%>
-            <br />
-            Metrics:
-            <%= String.Join(",", Model.MetricIDs)%>
-            <br />
-            Start From:
-            <%= Model.StartDate%>
-            <br />
-            -->
             <div id="tabs" style="overflow: visible; width: 100%;">
                 <ul>
                     <li><a href="#overview">Overview</a></li>

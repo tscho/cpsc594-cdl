@@ -5,11 +5,11 @@
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
     <ProductVersion>8.0.30703</ProductVersion>
     <SchemaVersion>2.0</SchemaVersion>
-    <ProjectGuid>{921D8AD9-31E3-40EF-8A67-B877503CC28C}</ProjectGuid>
+    <ProjectGuid>{784CD925-1F38-4295-B120-7350AA0E7451}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Util</RootNamespace>
-    <AssemblyName>Util</AssemblyName>
+    <RootNamespace>cpsc594_cdl.Common</RootNamespace>
+    <AssemblyName>cpsc594_cdl.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -43,21 +43,30 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Database\DatabaseAccessor.cs" />
-    <Compile Include="Database\StoredProcCommand.cs" />
-    <Compile Include="Database\OutputDatabase.Designer.cs">
+    <Compile Include="Models\Component.cs" />
+    <Compile Include="Models\Coverage.cs" />
+    <Compile Include="Models\cpsc594_cdl.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>OutputDatabase.edmx</DependentUpon>
+      <DependentUpon>cpsc594_cdl.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DatabaseAccessor.cs" />
+    <Compile Include="Models\DefectInjectionRate.cs" />
+    <Compile Include="Models\Iteration.cs" />
+    <Compile Include="Models\Project.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
-    <EntityDeploy Include="Database\OutputDatabase.edmx">
+    <EntityDeploy Include="Models\cpsc594_cdl.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>OutputDatabase.Designer.cs</LastGenOutput>
+      <LastGenOutput>cpsc594_cdl.Designer.cs</LastGenOutput>
     </EntityDeploy>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.Config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Models\Repository\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

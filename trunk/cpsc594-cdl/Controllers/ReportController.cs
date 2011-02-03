@@ -6,12 +6,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
-using Util.Database;
 using cpsc594_cdl.Models;
-using cpsc594_cdl.Models.Repository;
-using Component = cpsc594_cdl.Models.Component;
-using Iteration = cpsc594_cdl.Models.Iteration;
-using Project = cpsc594_cdl.Models.Project;
+using cpsc594_cdl.Common.Models;
+using cpsc594_cdl.Common.Models.Repository;
 
 namespace cpsc594_cdl.Controllers
 {

@@ -3,21 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace cpsc594_cdl.Models
+namespace cpsc594_cdl.Common.Models
 {
-    public class Project
+    public partial class Project
     {
-        public int ProjectID { get; set; }
-        public string Name { get; set; }
-        List<Component> Components;
-        List<Iteration> TotalIterations;
-
-        public Project(int ID, string Name)
-        {
-            this.ProjectID = ID;
-            this.Name = Name;
-        }
-
+        /*
         public void setComponents(List<Component> Components, IEnumerable<int> ComponentIDs)
         {
             int iterationIndex;
@@ -57,15 +47,6 @@ namespace cpsc594_cdl.Models
                 if (ComponentIDs.Contains(component.ComponentID))
                     this.Components.Add(component);
         }
-
-        public List<Component> GetComponents()
-        {
-            return Components;
-        }
-
-        public List<Iteration> GetTotalIterations()
-        {
-            return TotalIterations;
-        }
+*/
     }
 }
