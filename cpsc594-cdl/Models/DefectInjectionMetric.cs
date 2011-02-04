@@ -10,16 +10,13 @@ using cpsc594_cdl.Infrastructure;
 
 namespace cpsc594_cdl.Models
 {
-    public class DefectInjectionMetric
+    public class DefectInjectionMetric : Metric
     {
-        public Iteration[] Iterations;
+        public override string Name { get { return "Defect Injection Rate";  } }
 
-        public DefectInjectionMetric(IEnumerable<Iteration> iterations)
-        {
-            Iterations = iterations.ToArray();
-        }
+        public DefectInjectionMetric(IEnumerable<Iteration> iterations) : base(iterations) {}
 
-        public String GenerateGraph(string title, IEnumerable<Component> components)
+        public override string GenerateOverviewGraph(string title, IEnumerable<Component> components)
         {
             Chart chart = ChartFactory.CreateChart(title);
 
@@ -47,7 +44,7 @@ namespace cpsc594_cdl.Models
             return base64_output;
         }
 
-        public static String GenerateGraph(IEnumerable<Component> components, string title)
+        public override string GenerateComponentGraph(string title, Component component)
         {
             return "";
         }
