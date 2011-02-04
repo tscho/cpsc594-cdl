@@ -63,10 +63,10 @@
     </EntityDeploy>
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <Folder Include="Models\Repositories\" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\Repositories\" />
+    <None Include="App.Config" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

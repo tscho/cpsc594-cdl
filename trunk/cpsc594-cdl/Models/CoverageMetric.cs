@@ -10,13 +10,13 @@ using cpsc594_cdl.Infrastructure;
 
 namespace cpsc594_cdl.Models
 {
-    public class CoverageMetric : IMetric
+    public class CoverageMetric : Metric
     {
-        public Iteration[] Iterations;
+        public override string Name { get { return "Code Coverage"; }}
 
-        public string Name { get { return "Code Coverage"; }}
+        public CoverageMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public String GenerateGraph(string title, IEnumerable<Component> components)
+        public override string GenerateOverviewGraph(string title, IEnumerable<Component> components)
         {
             Chart chart = ChartFactory.CreateChart(title);
 
@@ -28,7 +28,7 @@ namespace cpsc594_cdl.Models
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
-                foreach(CoverageMetricData coverage in iteration.Coverages)
+                foreach(var coverage in iteration.Coverages)
                 {
                     series.Points.AddXY(coverage.ComponentID, coverage.GetCoverage());
                     series.Points.Last().MarkerSize = 10;
@@ -44,9 +44,9 @@ namespace cpsc594_cdl.Models
             return base64_output;
         }
 
-        public string GenerateGraph(string title, Component component)
+        public override string GenerateComponentGraph(string title, Component component)
         {
-            return GenerateGraph(title, new Component[] { component });
+            return GenerateOverviewGraph(title, new Component[] { component });
         }
     }
 }

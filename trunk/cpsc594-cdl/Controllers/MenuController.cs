@@ -35,10 +35,10 @@ namespace cpsc594_cdl.Controllers
             plist.Add(new Project() { ProjectID = -1, ProjectName = "Select a Project" });
             plist.AddRange(DatabaseAccessor.GetProjects());
             model.Projects = plist;
-            if (model.ProjectID == "-1") return View(model);
+            if (model.ProjectID == -1) return View(model);
 
             List<Component> clist = new List<Component>();
-            clist.Add(new Component() { ProjectID = -1, ComponentID = -1, ComponentName = "Select All"});
+            clist.Add(new Component() { ComponentID = -1, ProjectID = -1, ComponentName = "Select All" });
             clist.AddRange(DatabaseAccessor.GetComponents(Convert.ToInt32(model.ProjectID)));
             model.Components = clist;
 
