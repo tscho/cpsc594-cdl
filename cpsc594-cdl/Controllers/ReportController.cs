@@ -84,10 +84,13 @@ namespace cpsc594_cdl.Controllers
                             metric = new DefectInjectionMetric(iterations);
                             break;
                         case MetricType.DefectRepairRate:
+                            metric = new DefectRepairMetric(iterations);
                             break;
                     }
                     model.Metrics.Add(metric);
                 }
+
+                model.Components = DatabaseAccessor.GetComponents(model.ComponentIDs);
 
             }
             return View(model);

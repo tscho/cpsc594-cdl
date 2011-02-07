@@ -16,6 +16,7 @@ namespace cpsc594_cdl.Models
         }
 
         public abstract string Name { get; }
+        public abstract int ID { get; }
         public abstract string GenerateOverviewGraph(string title, IEnumerable<Component> components);
         public abstract string GenerateComponentGraph(string title, Component component);
     }

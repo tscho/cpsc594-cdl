@@ -13,6 +13,7 @@ namespace cpsc594_cdl.Models
     public class DefectInjectionMetric : Metric
     {
         public override string Name { get { return "Defect Injection Rate";  } }
+        public override int ID { get { return (int)MetricType.DefectInjectionRate;  } }
 
         public DefectInjectionMetric(IEnumerable<Iteration> iterations) : base(iterations) {}
 
@@ -46,7 +47,7 @@ namespace cpsc594_cdl.Models
 
         public override string GenerateComponentGraph(string title, Component component)
         {
-            return "";
+            return GenerateOverviewGraph(title, new Component[] { component });
         }
     }
 }
