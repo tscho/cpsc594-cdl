@@ -9,7 +9,7 @@ namespace cpsc594_cdl.Infrastructure
 {
     public class ChartFactory
     {
-        public static Chart CreateChart(string title)
+        public static Chart CreateChart(string title, bool percentage)
         {
             Chart chart = new Chart();
             chart.Width = 1024;
@@ -21,9 +21,15 @@ namespace cpsc594_cdl.Infrastructure
             chart.Legends.Add("Legend");
             chart.ChartAreas.Add("ChartArea");
             chart.ChartAreas[0].AxisX.Interval = 1;
-            chart.ChartAreas[0].AxisY.Maximum = 100;
+            if(percentage)
+                chart.ChartAreas[0].AxisY.Maximum = 100;
 
             return chart;
+        }
+
+        public static Chart CreateChart(string title)
+        {
+            return CreateChart(title, false);
         }
     }
 }

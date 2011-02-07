@@ -3,6 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
+<%@ Import Namespace="cpsc594_cdl.Models" %>
 <body>
     <div id="content">
     <div id="header">
@@ -14,7 +15,7 @@
            { %>
             <tr>
                 <td id="menuItem">Project:</td>
-                <td><%= Html.DropDownListFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "Name"), new { @onchange = "submit();" })%></td>
+                <td><%= Html.DropDownListFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "ProjectName"), new { @onchange = "submit();" })%></td>
             </tr>
         <% } %>
         <% if (Model.Components != null) { %>
@@ -23,12 +24,14 @@
                 <%= Html.HiddenFor(m => m.ProjectID)%>
                 <tr>
                     <td id="menuItem">Components:</td>
-                    <td><%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "Name"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%></td>
+                    <td><%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "ComponentName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%></td>
                 </tr>
                 <tr>
                     <td id="menuItem">Metrics:</td>
                     <td><%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(new[] {
-                        new { Id = 1, Name = "Code Coverage" },
+                        new { Id = (int)MetricType.Coverage , Name = "Code Coverage" },
+                        new { Id = (int)MetricType.DefectInjectionRate , Name = "Defect Injection Rate" },
+                        new { Id = (int)MetricType.DefectRepairRate , Name = "Defect Repair Rate" },
                     }, "Id", "Name"), new { @size = "7" })%></td>
                 </tr>
                 <tr>
