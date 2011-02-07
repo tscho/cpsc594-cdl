@@ -21,19 +21,21 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
 
+            IEnumerable<int> componentIds = components.Select(x => x.ComponentID);
             Series series;
-            foreach (var component in components)
+            foreach (var iteration in Iterations)
             {
-                foreach (var iteration in Iterations)
+                if (iteration.DefectInjectionRates == null || iteration.DefectInjectionRates.Count == 0)
+                    continue;
+
+                series = new Series(iteration.StartDate.ToShortDateString());
+                series = new Series(iteration.StartDate.ToShortDateString());
+                chart.Series.Add(series);
+                foreach(var injectionRate in iteration.DefectInjectionRates.Where(x => componentIds.Contains(x.ComponentID)))
                 {
-                    if ((series = chart.Series.FindByName(iteration.StartDate.ToShortDateString())) == null)
-                    {
-                        series = new Series(iteration.StartDate.ToShortDateString());
-                        chart.Series.Add(series);
-                    }
-                    series.Points.AddY(iteration.DefectInjectionRates.Single(x => x.ComponentID == component.ComponentID).GetValue());
+                    series.Points.AddXY(injectionRate.ComponentID, injectionRate.GetValue());
                     series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = component.ComponentName;
+                    series.Points.Last().AxisLabel = injectionRate.Component.ComponentName;
                 }
             }
 
