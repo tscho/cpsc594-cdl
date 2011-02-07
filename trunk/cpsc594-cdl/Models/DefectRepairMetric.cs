@@ -17,9 +17,14 @@ namespace cpsc594_cdl.Models
 
         public DefectRepairMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
+        // x: components, y: defects
         public override string GenerateOverviewGraph(string title, IEnumerable<Component> components)
         {
             Chart chart = ChartFactory.CreateChart(title);
+            chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisX.Title = "Components";
+            chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisY.Title = "Total Number of Defects\n(Resolved, Verified Defects)";
 
             IEnumerable<int> componentIds = components.Select(x => x.ComponentID);
             Series series;
@@ -29,13 +34,14 @@ namespace cpsc594_cdl.Models
                     continue;
 
                 series = new Series(iteration.StartDate.ToShortDateString());
-                series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
                 foreach(var repairRate in iteration.DefectRepairRates.Where(x => componentIds.Contains(x.ComponentID)))
                 {
-                    series.Points.AddXY(repairRate.ComponentID, repairRate.NumberOfResolvedDefects);
+                    int value = (int)(repairRate.NumberOfResolvedDefects + repairRate.NumberOfVerifiedDefects);
+                    series.Points.AddXY(repairRate.ComponentID, value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = repairRate.Component.ComponentName;
+                    series.Points.Last().Label = "" + value;
                 }
             }
 
@@ -47,9 +53,53 @@ namespace cpsc594_cdl.Models
             return base64_output;
         }
 
+        // x: interations, y: defects
         public override string GenerateComponentGraph(string title, Component component)
         {
-            return GenerateOverviewGraph(title, new Component[] { component });
+            //return GenerateOverviewGraph(title, new Component[] { component });
+            Chart chart = ChartFactory.CreateChart(title);
+            chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisX.Title = "Iterations";
+            chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisY.Title = "Number of Defects";
+
+            Series series;
+            double value;
+            // Resolved
+            series = new Series("Resolved");
+            chart.Series.Add(series);
+            foreach (var iteration in Iterations)
+            {
+                foreach (var repairRate in iteration.DefectRepairRates.Where(x => (component.ComponentID == x.ComponentID)))
+                {
+                    value = (int)repairRate.NumberOfResolvedDefects;
+                    series.Points.AddY(value);
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
+                    series.Points.Last().Label = "" + value;
+                }
+            }
+            // Verified
+            series = new Series("Verified");
+            chart.Series.Add(series);
+            foreach (var iteration in Iterations)
+            {
+                foreach (var repairRate in iteration.DefectRepairRates.Where(x => (component.ComponentID == x.ComponentID)))
+                {
+                    value = (int)repairRate.NumberOfVerifiedDefects;
+                    series.Points.AddY(value);
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
+                    series.Points.Last().Label = "" + value;
+                }
+            }
+
+            MemoryStream imageStream = new MemoryStream();
+            chart.SaveImage(imageStream, ChartImageFormat.Png);
+            imageStream.Position = 0;
+
+            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
+            return base64_output;
         }
     }
 }

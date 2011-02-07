@@ -20,6 +20,10 @@ namespace cpsc594_cdl.Models
         public override string GenerateOverviewGraph(string title, IEnumerable<Component> components)
         {
             Chart chart = ChartFactory.CreateChart(title, true);
+            chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisX.Title = "Components";
+            chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
+            chart.ChartAreas[0].AxisY.Title = "Coverage %";
 
             IEnumerable<int> componentIds = components.Select(x => x.ComponentID);
             Series series;
@@ -35,6 +39,7 @@ namespace cpsc594_cdl.Models
                     series.Points.AddXY(coverage.ComponentID, coverage.GetCoverage());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = coverage.Component.ComponentName;
+                    series.Points.Last().Label = ""+((int)coverage.GetCoverage());
                 }
             }
 
