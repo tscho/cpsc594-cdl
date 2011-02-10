@@ -38,10 +38,9 @@ namespace cpsc594_cdl.Models
                 foreach(var repairRate in iteration.DefectRepairRates.Where(x => componentIds.Contains(x.ComponentID)))
                 {
                     int value = (int)(repairRate.NumberOfResolvedDefects + repairRate.NumberOfVerifiedDefects);
-                    series.Points.AddXY(repairRate.ComponentID, value);
+                    series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = repairRate.Component.ComponentName;
-                    series.Points.Last().Label = "" + value;
                 }
             }
 
@@ -76,7 +75,6 @@ namespace cpsc594_cdl.Models
                     series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
-                    series.Points.Last().Label = "" + value;
                 }
             }
             // Verified
@@ -90,7 +88,6 @@ namespace cpsc594_cdl.Models
                     series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
-                    series.Points.Last().Label = "" + value;
                 }
             }
 
