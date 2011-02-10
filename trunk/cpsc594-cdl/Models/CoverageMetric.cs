@@ -36,10 +36,9 @@ namespace cpsc594_cdl.Models
                 chart.Series.Add(series);
                 foreach(var coverage in iteration.Coverages.Where(x => componentIds.Contains(x.ComponentID)))
                 {
-                    series.Points.AddXY(coverage.ComponentID, coverage.GetCoverage());
+                    series.Points.AddY(coverage.GetCoverage());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = coverage.Component.ComponentName;
-                    series.Points.Last().Label = ""+((int)coverage.GetCoverage());
                 }
             }
 

@@ -37,10 +37,9 @@ namespace cpsc594_cdl.Models
                 foreach(var injectionRate in iteration.DefectInjectionRates.Where(x => componentIds.Contains(x.ComponentID)))
                 {
                     int value = (int)(injectionRate.GetValue());
-                    series.Points.AddXY(injectionRate.ComponentID, value);
+                    series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = injectionRate.Component.ComponentName;
-                    series.Points.Last().Label = "" + value;
                 }
             }
 
@@ -74,7 +73,6 @@ namespace cpsc594_cdl.Models
                     series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
-                    series.Points.Last().Label = "" + value;
                 }
             }
             // Medium
@@ -88,7 +86,6 @@ namespace cpsc594_cdl.Models
                     series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
-                    series.Points.Last().Label = "" + value;
                 }
             }
             // Low
@@ -102,7 +99,6 @@ namespace cpsc594_cdl.Models
                     series.Points.AddY(value);
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = iteration.StartDate.ToShortDateString();
-                    series.Points.Last().Label = "" + value;
                 }
             }
 
