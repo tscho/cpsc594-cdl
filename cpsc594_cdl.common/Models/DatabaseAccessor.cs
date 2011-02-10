@@ -289,6 +289,78 @@ namespace cpsc594_cdl.Common.Models
                 return false;
             }
         }
-        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="numberOfHighDefects"></param>
+        /// <param name="numberOfMediumDefects"></param>
+        /// <param name="numberOfLowDefects"></param>
+        public static int WriteDefectInjectionRate(string projectName, string componentName, int numberOfHighDefects, int numberOfMediumDefects, int numberOfLowDefects, int curIteration)
+        {
+            var componentDefectInjectionRate = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            int id = -1;
+            if (componentDefectInjectionRate != null)
+            {
+                var defectInjectionRate = new DefectInjectionRate
+                {
+                    ComponentID = componentDefectInjectionRate.ComponentID,
+                    NumberOfHighDefects = numberOfHighDefects,
+                    IterationID = curIteration,
+                    NumberOfMediumDefects = numberOfMediumDefects,
+                    NumberOfLowDefects = numberOfLowDefects,
+                    Date = DateTime.Now
+                };
+                _context.DefectInjectionRates.AddObject(defectInjectionRate);
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.InnerException.Message); should throw up!
+                }
+                id = defectInjectionRate.DefectInjectionRateID;
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="numberOfVerifiedDefects"></param>
+        /// <param name="numberOfResolvedDefects"></param>
+        /// <param name="curIteration"></param>
+        /// <returns></returns>
+        public static int WriteDefectRepairRate(string projectName, string componentName, int numberOfVerifiedDefects, int numberOfResolvedDefects, int curIteration)
+        {
+            var componentDefectRepairRate = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            int id = -1;
+            if (componentDefectRepairRate != null)
+            {
+                var defectRepairRate = new DefectRepairRate
+                {
+                    ComponentID = componentDefectRepairRate.ComponentID,
+                    NumberOfVerifiedDefects = numberOfVerifiedDefects,
+                    NumberOfResolvedDefects = numberOfResolvedDefects,
+                    IterationID = curIteration,
+                    Date = DateTime.Now
+                };
+                _context.DefectRepairRates.AddObject(defectRepairRate);
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    //MessageBox.Show(e.InnerException.Message); should thorw up!
+                }
+                id = defectRepairRate.DefectRepairRateID;
+            }
+            return id;
+        }
     }
 }
