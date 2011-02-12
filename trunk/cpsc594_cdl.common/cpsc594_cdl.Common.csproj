@@ -32,7 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="MySql.Data">
-      <HintPath>..\MySql-Connector\bin\MySql.Data.dll</HintPath>
+      <HintPath>..\..\..\..\..\Dropbox\School\CPSC594\Group\Project Data\MySql-Connector\bin\MySql.Data.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
@@ -62,16 +62,14 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <EntityDeploy Include="Models\cpsc594_cdl.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>cpsc594_cdl.Designer.cs</LastGenOutput>
-    </EntityDeploy>
-  </ItemGroup>
-  <ItemGroup>
     <Folder Include="Models\Repositories\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.Config" />
+    <EntityDeploy Include="Models\cpsc594_cdl.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>cpsc594_cdl.Designer.cs</LastGenOutput>
+    </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

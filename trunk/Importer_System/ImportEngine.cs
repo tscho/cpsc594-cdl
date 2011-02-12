@@ -9,6 +9,7 @@ using System.IO;
 using System.Windows.Forms;
 using System.Threading;
 using cpsc594_cdl.Common.Models;
+using Importer_System.Metrics;
 
 
 namespace Importer_System
@@ -26,7 +27,7 @@ namespace Importer_System
         private DateTime _iterationStart;                        //Begin date of iteration
         private CodeCoverage _codeCoverageMetric;                // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                    // Class that calculates the injection rate and repair rate
-        private TestEffectiveness _testEffectiveness;            // Class that calculates the test effectiveness
+        private TestEffectivenessMetric _testEffectivenessMetric;            // Class that calculates the test effectiveness
         private ConnectionStringSettings _outputDbSettings;      //
         private ConnectionStringSettings _bugzillaDbSettings;    //
         private Boolean computeMetricThree = true;               // Checks if the database for the metric is available, if not sets it to false
@@ -89,7 +90,7 @@ namespace Importer_System
             _codeCoverageMetric = new CodeCoverage();
 
             //CREATE METRIC 2
-            _testEffectiveness = new TestEffectiveness();
+            _testEffectivenessMetric = new TestEffectivenessMetric();
 
             // CREATE METRIC 3 and 4
             // Attempt a connection to the bugzilla database, if failed, set a flag to skip the metrics which require it
@@ -168,7 +169,8 @@ namespace Importer_System
             currIteration = UpdateIteration();
             // Start TimeStamp
             long startTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks)/TimeSpan.TicksPerMillisecond;
-            // Iterate through the projects in the directory
+
+            // Iterate through the projects in the code coverage directory
             foreach (DirectoryInfo project in initialDirectory.GetDirectories())
             { 
                 // Save the current projects name
@@ -182,6 +184,17 @@ namespace Importer_System
                 {
                     DatabaseAccessor.WriteProject(currentProjectName);
                 }
+
+
+
+                string projectDirectory = Path.Combine(_rootDirectory, currentProjectName);
+                DirectoryInfo testFiles = new DirectoryInfo(projectDirectory);
+                foreach (FileInfo testFile in testFiles.GetFiles())
+                {
+                    currFile = Path.Combine(projectDirectory, testFile.Name);
+                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID);
+                }
+
                 
                 // Iterate through the selected projects components);
                 foreach (DirectoryInfo component in project.GetDirectories())
@@ -235,9 +248,29 @@ namespace Importer_System
                     // END METRIC 3 AND 4
                     // --------------------------------------------------------------------
                 }
-                // Update WinForm Status
                 UpdateProjectStatus(currentProjectName, "Done");
+                
             }
+
+            initialDirectory = new DirectoryInfo(_testDirectory);
+
+
+            //Loop through the project folders in the test directory
+            //foreach (DirectoryInfo project in initialDirectory.GetDirectories())
+            //{
+                // Get the projects name
+                //string currentProjectName = project.Name;
+
+                // Update WinForm Status
+                //UpdateProjectStatus(currentProjectName, "Calculating");
+            
+                //_testEffectivenessMetric.CalculateMetric();
+
+                // Update WinForm Status
+                //UpdateProjectStatus(currentProjectName, "Done");
+            //}
+            
+            
             long endTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks) / TimeSpan.TicksPerMillisecond;
             progressForm.SetFinishStatus(endTime - startTime);
         }
