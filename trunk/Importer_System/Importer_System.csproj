@@ -57,6 +57,7 @@
   <ItemGroup>
     <Compile Include="ImportEngine.cs" />
     <Compile Include="Metrics\CodeCoverage.cs" />
+    <Compile Include="Metrics\TestEffectiveness.cs" />
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
