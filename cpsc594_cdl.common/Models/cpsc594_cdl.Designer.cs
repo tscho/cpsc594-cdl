@@ -25,6 +25,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_Coverage_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
 [assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_DefectInjectionRate_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
 [assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_DefectRepairRate_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
 
 #endregion
 
@@ -171,6 +173,22 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<Project> _Projects;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                if ((_TestEffectivenesses == null))
+                {
+                    _TestEffectivenesses = base.CreateObjectSet<TestEffectiveness>("TestEffectivenesses");
+                }
+                return _TestEffectivenesses;
+            }
+        }
+        private ObjectSet<TestEffectiveness> _TestEffectivenesses;
 
         #endregion
         #region AddTo Methods
@@ -221,6 +239,14 @@ namespace cpsc594_cdl.Common.Models
         public void AddToProjects(Project project)
         {
             base.AddObject("Projects", project);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TestEffectivenesses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
+        {
+            base.AddObject("TestEffectivenesses", testEffectiveness);
         }
 
         #endregion
@@ -438,6 +464,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("cpsc594_cdl.Common.Models.FK_DefectRepairRate_Component", "DefectRepairRate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_ComponentID", "TestEffectiveness")]
+        public EntityCollection<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "TestEffectiveness");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "TestEffectiveness", value);
                 }
             }
         }
@@ -1449,6 +1497,28 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_Iteration", "TestEffectiveness")]
+        public EntityCollection<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "TestEffectiveness");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "TestEffectiveness", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1552,6 +1622,270 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("cpsc594_cdl.Common.Models.FK_Component_Project", "Component", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="cpsc594_cdl.Common.Models", Name="TestEffectiveness")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class TestEffectiveness : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new TestEffectiveness object.
+        /// </summary>
+        /// <param name="componentID">Initial value of the ComponentID property.</param>
+        /// <param name="testEffectivenessID">Initial value of the TestEffectivenessID property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        /// <param name="numberOfDefects">Initial value of the NumberOfDefects property.</param>
+        /// <param name="testCases">Initial value of the TestCases property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        public static TestEffectiveness CreateTestEffectiveness(global::System.Int32 componentID, global::System.Int32 testEffectivenessID, global::System.Int32 iterationID, global::System.Int32 numberOfDefects, global::System.Int32 testCases, global::System.DateTime date)
+        {
+            TestEffectiveness testEffectiveness = new TestEffectiveness();
+            testEffectiveness.ComponentID = componentID;
+            testEffectiveness.TestEffectivenessID = testEffectivenessID;
+            testEffectiveness.IterationID = iterationID;
+            testEffectiveness.NumberOfDefects = numberOfDefects;
+            testEffectiveness.TestCases = testCases;
+            testEffectiveness.Date = date;
+            return testEffectiveness;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ComponentID
+        {
+            get
+            {
+                return _ComponentID;
+            }
+            set
+            {
+                OnComponentIDChanging(value);
+                ReportPropertyChanging("ComponentID");
+                _ComponentID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ComponentID");
+                OnComponentIDChanged();
+            }
+        }
+        private global::System.Int32 _ComponentID;
+        partial void OnComponentIDChanging(global::System.Int32 value);
+        partial void OnComponentIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TestEffectivenessID
+        {
+            get
+            {
+                return _TestEffectivenessID;
+            }
+            set
+            {
+                if (_TestEffectivenessID != value)
+                {
+                    OnTestEffectivenessIDChanging(value);
+                    ReportPropertyChanging("TestEffectivenessID");
+                    _TestEffectivenessID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("TestEffectivenessID");
+                    OnTestEffectivenessIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _TestEffectivenessID;
+        partial void OnTestEffectivenessIDChanging(global::System.Int32 value);
+        partial void OnTestEffectivenessIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 NumberOfDefects
+        {
+            get
+            {
+                return _NumberOfDefects;
+            }
+            set
+            {
+                OnNumberOfDefectsChanging(value);
+                ReportPropertyChanging("NumberOfDefects");
+                _NumberOfDefects = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("NumberOfDefects");
+                OnNumberOfDefectsChanged();
+            }
+        }
+        private global::System.Int32 _NumberOfDefects;
+        partial void OnNumberOfDefectsChanging(global::System.Int32 value);
+        partial void OnNumberOfDefectsChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 TestCases
+        {
+            get
+            {
+                return _TestCases;
+            }
+            set
+            {
+                OnTestCasesChanging(value);
+                ReportPropertyChanging("TestCases");
+                _TestCases = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("TestCases");
+                OnTestCasesChanged();
+            }
+        }
+        private global::System.Int32 _TestCases;
+        partial void OnTestCasesChanging(global::System.Int32 value);
+        partial void OnTestCasesChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_ComponentID", "Component")]
+        public Component Component
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "Component").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "Component").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Component> ComponentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "Component");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_ComponentID", "Component", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("cpsc594_cdl.Common.Models", "FK_TestEffectiveness_Iteration", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("cpsc594_cdl.Common.Models.FK_TestEffectiveness_Iteration", "Iteration", value);
                 }
             }
         }

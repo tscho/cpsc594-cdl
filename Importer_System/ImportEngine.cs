@@ -19,12 +19,14 @@ namespace Importer_System
         private string _rootDirectory;                           // Root directory of the folders
         private string _rootArchiveDirectory;                    // Archive directory for files after being read
         private int _archivePeriod;                              //number of days the logfiles exist in the archive directory
+        private string _testDirectory;
         private string _outputDatabaseConnection;                // Connection string to output the information to
         private string _bugzillaDatabaseConnection;              // Connection string to the bugzilla database
         private int _iterationLength;                            //Iteration length in weeks
         private DateTime _iterationStart;                        //Begin date of iteration
         private CodeCoverage _codeCoverageMetric;                // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                    // Class that calculates the injection rate and repair rate
+        private TestEffectiveness _testEffectiveness;            // Class that calculates the test effectiveness
         private ConnectionStringSettings _outputDbSettings;      //
         private ConnectionStringSettings _bugzillaDbSettings;    //
         private Boolean computeMetricThree = true;               // Checks if the database for the metric is available, if not sets it to false
@@ -67,18 +69,28 @@ namespace Importer_System
             }
             _rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
             _rootArchiveDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"];
+
+            _testDirectory = ConfigurationManager.AppSettings["TestDirectory"];
+
             _outputDbSettings = ConfigurationManager.ConnectionStrings["CPSC594Entities"];
             _outputDatabaseConnection = _outputDbSettings.ConnectionString;
+
             _bugzillaDbSettings = ConfigurationManager.ConnectionStrings["BugzillaDatabase"];
             _bugzillaDatabaseConnection = _bugzillaDbSettings.ConnectionString;
+
+            _iterationStart = DateTime.Parse(ConfigurationManager.AppSettings["IterationStartDate"]);
             try { _iterationLength = Int32.Parse(ConfigurationManager.AppSettings["IterationLength"]);
             }catch{
                 _archivePeriod = -1;
                 Reporter.AddMessageToReporter("The iteration length key in the configuration file is not a valid integer.", true, false);
             }
-            _iterationStart = DateTime.Parse(ConfigurationManager.AppSettings["IterationStartDate"]);
+
             // CREATE METRIC 1
             _codeCoverageMetric = new CodeCoverage();
+
+            //CREATE METRIC 2
+            _testEffectiveness = new TestEffectiveness();
+
             // CREATE METRIC 3 and 4
             // Attempt a connection to the bugzilla database, if failed, set a flag to skip the metrics which require it
             _defectMetrics = new DefectMetrics(_bugzillaDatabaseConnection);
@@ -99,7 +111,6 @@ namespace Importer_System
         /// </throws>
         public void EstablishConnectionToOutputDatabase()
         {
-            
             Boolean connectionExists = false;
             // If failed connection
             try
@@ -213,6 +224,8 @@ namespace Importer_System
                     // --------------------------------------------------------------------
                     // END METRIC 1
                     // --------------------------------------------------------------------
+
+
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
                     // ---------------------------------------------------------------------
