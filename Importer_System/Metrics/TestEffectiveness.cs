@@ -39,7 +39,7 @@ namespace Importer_System.Metrics
                 return -1;
         }
 
-         /// <summary>
+        /// <summary>
         ///     Opens the coverage log file and calculates the code coverage
         /// </summary>
         /// <param name="locationOfLog">Directory path of the log file</param>
@@ -83,5 +83,6 @@ namespace Importer_System.Metrics
         {
             return DatabaseAccessor.WriteCodeCoverage(project, component, linesCovered, linesExecuted, iteration);
 
+        }
     }
 }
