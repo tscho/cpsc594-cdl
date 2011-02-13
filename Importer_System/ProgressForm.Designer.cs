@@ -110,7 +110,7 @@
             // 
             // cPSC594EntitiesBindingSource
             // 
-            this.cPSC594EntitiesBindingSource.DataSource = typeof(cpsc594_cdl.Common.Models.cpsc594Entities);
+            this.cPSC594EntitiesBindingSource.DataSource = typeof(cpsc594_cdl.Common.Models.CPSC594Entities);
             // 
             // ProgressForm
             // 

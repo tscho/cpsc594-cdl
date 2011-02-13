@@ -1,5 +1,5 @@
-﻿using Importer_System;
-using Importer_System.Util;
+﻿using cpsc594_cdl.Common.Models;
+using Importer_System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
@@ -75,7 +75,7 @@ namespace Importer_System_Tests
             string componentName = string.Empty; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = Database.ComponentExists(projectName, componentName);
+            actual = DatabaseAccessor.ComponentExists(projectName, componentName);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -88,7 +88,7 @@ namespace Importer_System_Tests
         {
             Iteration expected = null; // TODO: Initialize to an appropriate value
             Iteration actual;
-            actual = Database.GetLastIteration();
+            actual = DatabaseAccessor.GetLastIteration();
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -102,7 +102,7 @@ namespace Importer_System_Tests
             string projectName = string.Empty; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = Database.ProjectExists(projectName);
+            actual = DatabaseAccessor.ProjectExists(projectName);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -116,7 +116,7 @@ namespace Importer_System_Tests
             int id = 0; // TODO: Initialize to an appropriate value
             DateTime date = new DateTime(); // TODO: Initialize to an appropriate value
             string fileName = string.Empty; // TODO: Initialize to an appropriate value
-            Database.UpdateCoverage(id, date, fileName);
+            DatabaseAccessor.UpdateCoverage(id, date, fileName);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -133,7 +133,7 @@ namespace Importer_System_Tests
             int expected = 0; // TODO: Initialize to an appropriate value
             int actual;
             int iteration = 1;
-            actual = Database.WriteCodeCoverage(projectName, componentName, linesCovered, linesExecuted, iteration);
+            actual = DatabaseAccessor.WriteCodeCoverage(projectName, componentName, linesCovered, linesExecuted, iteration);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -146,12 +146,12 @@ namespace Importer_System_Tests
         {
             string projectName = "WriteProjectTest"; // TODO: Initialize to an appropriate value
             string componenetName = "WriteComponentTest"; // TODO: Initialize to an appropriate value
-            Database.WriteComponent(projectName, componenetName);
-            Assert.AreEqual(true, Database.ComponentExists(projectName, componenetName));
-            Database.WriteComponent(projectName, "");
-            Assert.AreEqual(false, Database.ComponentExists(projectName, ""));
-            Database.WriteComponent(projectName, componenetName);
-            Assert.AreEqual(false, Database.ComponentExists("", componenetName));
+            DatabaseAccessor.WriteComponent(projectName, componenetName);
+            Assert.AreEqual(true, DatabaseAccessor.ComponentExists(projectName, componenetName));
+            DatabaseAccessor.WriteComponent(projectName, "");
+            Assert.AreEqual(false, DatabaseAccessor.ComponentExists(projectName, ""));
+            DatabaseAccessor.WriteComponent(projectName, componenetName);
+            Assert.AreEqual(false, DatabaseAccessor.ComponentExists("", componenetName));
         }
 
         /// <summary>
@@ -162,7 +162,7 @@ namespace Importer_System_Tests
         {
             DateTime startDate = new DateTime(); // TODO: Initialize to an appropriate value
             DateTime endDate = new DateTime(); // TODO: Initialize to an appropriate value
-            Database.WriteIteration(startDate, endDate);
+            DatabaseAccessor.WriteIteration(startDate, endDate);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
@@ -173,7 +173,7 @@ namespace Importer_System_Tests
         public void WriteProjectTest()
         {
             string projectName = string.Empty; // TODO: Initialize to an appropriate value
-            Database.WriteProject(projectName);
+            DatabaseAccessor.WriteProject(projectName);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }

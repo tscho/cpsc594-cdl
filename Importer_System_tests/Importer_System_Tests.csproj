@@ -74,6 +74,10 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\cpsc594_cdl.common\cpsc594_cdl.Common.csproj">
+      <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
+      <Name>cpsc594_cdl.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Importer_System\Importer_System.csproj">
       <Project>{F42814B6-6A72-4384-9F4A-62F98CF4E7CB}</Project>
       <Name>Importer_System</Name>
@@ -82,30 +86,11 @@
   <ItemGroup>
     <Shadow Include="Test References\Importer_System.accessor" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Directory\Directory1\" />
-    <Folder Include="Directory\Directory2\Project1\" />
-    <Folder Include="Directory\Directory2\Project2\" />
-    <Folder Include="Directory\Directory2\Project3\" />
-    <Folder Include="Directory\Directory3\Project1\Comp1\" />
-    <Folder Include="Directory\Directory3\Project1\Comp2\" />
-    <Folder Include="Directory\Directory3\Project2\" />
-    <Folder Include="Directory\Directory3\Project3\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <None Include="app.config">
       <SubType>Designer</SubType>
     </None>
-    <None Include="LogFiles\normal_log.info" />
-    <None Include="LogFiles\normal_log2.info" />
-    <None Include="LogFiles\normal_log3.info" />
-    <None Include="LogFiles\normal_log4.info" />
-    <None Include="LogFiles\rare_log.info" />
-    <None Include="LogFiles\rare_log2.info" />
-    <None Include="LogFiles\rare_log3.info" />
-    <None Include="LogFiles\rare_log4.info" />
-    <None Include="LogFiles\unexpected_log.info" />
-    <None Include="LogFiles\unexpected_log2.info" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
