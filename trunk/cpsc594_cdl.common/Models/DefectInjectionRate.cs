@@ -9,22 +9,22 @@ namespace cpsc594_cdl.Common.Models
     {
         public int GetValue()
         {
-            return 0 ?? NumberOfHighDefects+NumberOfMediumDefects+NumberOfLowDefects ;
+            return NumberOfHighDefects+NumberOfMediumDefects+NumberOfLowDefects ;
         }
 
         public int GetHighDefects()
         {
-            return 0 ?? NumberOfHighDefects ;
+            return NumberOfHighDefects ;
         }
 
         public int GetMediumDefects()
         {
-            return 0 ?? NumberOfMediumDefects;
+            return NumberOfMediumDefects;
         }
 
         public int GetLowDefects()
         {
-            return 0 ?? NumberOfLowDefects;
+            return NumberOfLowDefects;
         }
 
     }
