@@ -141,14 +141,17 @@ namespace Importer_System
             }
             catch (NullReferenceException)
             {
+                currentAction.Text = "Config file entries are not entered correctly....";
                 Reporter.AddMessageToReporter("Config file entries are not entered correctly", true, true);
             }
             catch (OutputDatabaseConnectionException odce)
             {
+                currentAction.Text = "Could not connect to output database...";
                 Reporter.AddMessageToReporter(odce.ErrorMessage, true, true);
             }
             catch (NoExistanceOfDirectoryException neode)
             {
+                currentAction.Text = "Root directory does not exist....";
                 Reporter.AddMessageToReporter(neode.ErrorMessage, true, true);
             }
             finally

@@ -192,7 +192,7 @@ namespace Importer_System
                 foreach (FileInfo testFile in testFiles.GetFiles())
                 {
                     currFile = Path.Combine(projectDirectory, testFile.Name);
-                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID);
+                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProjectName);
                 }
 
                 

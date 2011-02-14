@@ -546,12 +546,12 @@
     </Options>
     <!-- Diagram content (shape and connector positions) -->
     <Diagrams>
-      <Diagram Name="cpsc594_cdl">
+      <Diagram Name="CPSC594">
         <EntityTypeShape EntityType="CPSC594Model.Component" Width="1.5" PointX="3" PointY="6.625" Height="2.5571907552083344" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.Coverage" Width="1.5" PointX="5.25" PointY="6.5" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.DefectInjectionRate" Width="1.5" PointX="8.25" PointY="6.5" Height="2.7494921874999996" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.DefectRepairRate" Width="1.5" PointX="5.25" PointY="2.625" Height="2.5571907552083335" IsExpanded="true" />
-        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="9.5" PointY="2.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="CPSC594Model.Iteration" Width="1.5" PointX="10.125" PointY="2.375" Height="2.3648893229166656" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.Project" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499987" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.TestEffectiveness" Width="1.5" PointX="5.25" PointY="10.625" Height="2.5571907552083317" IsExpanded="true" />
         <AssociationConnector Association="CPSC594Model.FK_Component_Project" ManuallyRouted="false">
@@ -580,24 +580,26 @@
           <ConnectorPoint PointX="5.25" PointY="11.903595377604166" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.5" PointY="4.9898893229166656" />
-          <ConnectorPoint PointX="9.125" PointY="5.3648893229166656" />
-          <ConnectorPoint PointX="9.125" PointY="6.125" />
+          <ConnectorPoint PointX="10.125" PointY="4.7398893229166656" />
+          <ConnectorPoint PointX="9.75" PointY="5.1148893229166656" />
+          <ConnectorPoint PointX="9.75" PointY="6.125" />
           <ConnectorPoint PointX="7.125" PointY="6.125" />
           <ConnectorPoint PointX="6.75" PointY="6.5" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectInjectionRate_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.375000499999999" PointY="4.9898893229166656" />
-          <ConnectorPoint PointX="10.375000499999999" PointY="7.87474609375" />
+          <ConnectorPoint PointX="10.9062525" PointY="4.7398893229166656" />
+          <ConnectorPoint PointX="10.9062525" PointY="7.87474609375" />
+          <ConnectorPoint PointX="10.598959583333334" PointY="7.8747460937499989" />
+          <ConnectorPoint PointX="10.432292916666667" PointY="7.87474609375" />
           <ConnectorPoint PointX="9.75" PointY="7.87474609375" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectRepairRate_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="9.5" PointY="3.776192161458332" />
-          <ConnectorPoint PointX="6.75" PointY="3.776192161458332" />
+          <ConnectorPoint PointX="10.125" PointY="3.651192161458332" />
+          <ConnectorPoint PointX="6.75" PointY="3.651192161458332" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_TestEffectiveness_Iteration" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.71875275" PointY="4.9898893229166656" />
-          <ConnectorPoint PointX="10.71875275" PointY="11.903595377604166" />
+          <ConnectorPoint PointX="10.51562625" PointY="4.7398893229166656" />
+          <ConnectorPoint PointX="10.51562625" PointY="11.903595377604166" />
           <ConnectorPoint PointX="6.75" PointY="11.903595377604166" />
         </AssociationConnector>
       </Diagram>
