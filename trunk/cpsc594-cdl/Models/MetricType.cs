@@ -4,6 +4,7 @@
     {
         Coverage,
         DefectInjectionRate,
-        DefectRepairRate
+        DefectRepairRate,
+        TestEffectiveness
     }
 }
