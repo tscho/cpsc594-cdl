@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Data;
 using System.Linq;
+using System.Windows.Forms;
 
 namespace cpsc594_cdl.Common.Models
 {
@@ -124,7 +125,7 @@ namespace cpsc594_cdl.Common.Models
         {
             var lastIteration =
                 (from i in _context.Iterations
-                 orderby i.IterationID ascending
+                 orderby i.IterationID descending
                  select i).FirstOrDefault();
             if (lastIteration != null)
             {
@@ -359,6 +360,36 @@ namespace cpsc594_cdl.Common.Models
                     //MessageBox.Show(e.InnerException.Message); should thorw up!
                 }
                 id = defectRepairRate.DefectRepairRateID;
+            }
+            return id;
+        }
+
+        public static int WriteTestEffectiveness(string projectName, string componentName, int testCases, int iteration)
+        {
+            var componentTestCases = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+
+            int id = -1;
+
+            if (componentTestCases != null)
+            {
+                var testEffect = new TestEffectiveness()
+                {
+                    ComponentID = componentTestCases.ComponentID,
+                    IterationID = iteration,
+                    TestCases = testCases,
+                    Date = DateTime.Now
+                };
+                _context.TestEffectivenesses.AddObject(testEffect);
+                try
+                {
+                    _context.SaveChanges();
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show(e.InnerException.Message); //should throw up!
+                    return id;
+                }
+                id = testEffect.TestEffectivenessID;
             }
             return id;
         }
