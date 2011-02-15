@@ -32,6 +32,7 @@
                         new { Id = (int)MetricType.Coverage , Name = "Code Coverage" },
                         new { Id = (int)MetricType.DefectInjectionRate , Name = "Defect Injection Rate" },
                         new { Id = (int)MetricType.DefectRepairRate , Name = "Defect Repair Rate" },
+                        new { Id = (int)MetricType.TestEffectiveness , Name = "Test Effectiveness" },
                     }, "Id", "Name"), new { @size = "7" })%></td>
                 </tr>
                 <tr>
