@@ -9,8 +9,8 @@ namespace cpsc594_cdl.Common.Models
     {
         public int getValue()
         {
-            DefectInjectionRate inject = this.Iteration.DefectInjectionRates.Last();
-            return this.TestCases / inject.GetValue();
+            DefectInjectionRate inject = this.Iteration.DefectInjectionRates.FirstOrDefault(x => x.ComponentID == this.ComponentID);
+            return this.TestCases / (inject.GetValue() == 0 ? 1 : inject.GetValue());
         }
     }
 }
