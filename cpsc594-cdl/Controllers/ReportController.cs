@@ -86,6 +86,9 @@ namespace cpsc594_cdl.Controllers
                         case MetricType.DefectRepairRate:
                             metric = new DefectRepairMetric(iterations);
                             break;
+                        case MetricType.TestEffectiveness:
+                            metric = new TestEffectivenessMetric(iterations);
+                            break;
                     }
                     model.Metrics.Add(metric);
                 }

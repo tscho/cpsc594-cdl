@@ -19,7 +19,7 @@ namespace cpsc594_cdl.Models
 
         public override string GenerateOverviewGraph(string title, IEnumerable<Component> components)
         {
-            Chart chart = ChartFactory.CreateChart(title, true);
+            Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisX.Title = "Components";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
