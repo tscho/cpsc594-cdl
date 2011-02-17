@@ -72,6 +72,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="StatusNode.cs" />
+    <Compile Include="TerminateException.cs" />
     <EmbeddedResource Include="ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>

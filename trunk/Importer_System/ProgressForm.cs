@@ -139,20 +139,10 @@ namespace Importer_System
                 // Update the metric log files
                 //engine.UpdateArchiveDirectory();
             }
-            catch (NullReferenceException)
+            catch (TerminateException terminateException)
             {
-                currentAction.Text = "Config file entries are not entered correctly....";
-                Reporter.AddMessageToReporter("Config file entries are not entered correctly", true, true);
-            }
-            catch (OutputDatabaseConnectionException odce)
-            {
-                currentAction.Text = "Could not connect to output database...";
-                Reporter.AddMessageToReporter(odce.ErrorMessage, true, true);
-            }
-            catch (NoExistanceOfDirectoryException neode)
-            {
-                currentAction.Text = "Root directory does not exist....";
-                Reporter.AddMessageToReporter(neode.ErrorMessage, true, true);
+                Reporter.AddMessageToReporter(terminateException.Message, true, true);
+                currentAction.Text = terminateException.Message;
             }
             finally
             {
