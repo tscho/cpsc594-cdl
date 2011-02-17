@@ -17,33 +17,28 @@ namespace Importer_System
 
     class ImportEngine
     {
-        private string _rootDirectory;                           // Root directory of the folders
-        private string _rootArchiveDirectory;                    // Archive directory for files after being read
-        private int _archivePeriod;                              //number of days the logfiles exist in the archive directory
-        private string _testDirectory;
-        private string _outputDatabaseConnection;                // Connection string to output the information to
-        private string _bugzillaDatabaseConnection;              // Connection string to the bugzilla database
-        private int _iterationLength;                            //Iteration length in weeks
-        private DateTime _iterationStart;                        //Begin date of iteration
-        private CodeCoverage _codeCoverageMetric;                // Class that calculates code coverage
-        private DefectMetrics _defectMetrics;                    // Class that calculates the injection rate and repair rate
-        private TestEffectivenessMetric _testEffectivenessMetric;            // Class that calculates the test effectiveness
-        private ConnectionStringSettings _outputDbSettings;      //
-        private ConnectionStringSettings _bugzillaDbSettings;    //
-        private Boolean computeMetricThree = true;               // Checks if the database for the metric is available, if not sets it to false
-        private ProgressForm progressForm = null;
+        private string _rootDirectory;                            // Root directory of the folders
+        private string _rootArchiveDirectory;                     // Archive directory for files after being read
+        private int _archivePeriod;                               //number of days the logfiles exist in the archive directory
+        private string _testDirectory;                            // ???
+        private string _outputDatabaseConnection;                 // Connection string to output the information to
+        private int _iterationLength;                             //Iteration length in weeks
+        private DateTime _iterationStart;                         //Begin date of iteration
+        private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
+        private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
+        private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
+        private ConnectionStringSettings _outputDbSettings;       //
+        private ProgressForm progressForm = null;                 // Reference to relay status
 
         /// <summary>
         ///     Customized constructor to initialize the behavior.
         /// </summary>
         public ImportEngine()
         {
+            // Create the metric classes that do the calculations
+            CreateMetrics();
             // Read in the configuration file for settings
             ReadConfigFile();
-            // Test connection of output database
-            EstablishConnectionToOutputDatabase();
-            // Test existance of the root directory
-            EstablishExistanceOfDirectory(_rootDirectory);
         }
 
         public static object RunStatic(Type classType, string method)
@@ -54,90 +49,148 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     Create metrics needed for the program.
+        /// </summary>
+        private void CreateMetrics()
+        {
+            // CREATE METRIC 1
+            _codeCoverageMetric = new CodeCoverage();
+            //CREATE METRIC 2
+            _testEffectivenessMetric = new TestEffectivenessMetric();
+            // CREATE METRIC 3 and 4
+            _defectMetrics = new DefectMetrics();
+        }
+
+        /// <summary>
         ///     Reads in the configuration file for the program and does the following:
         ///     1. Sets the engines rootDirectory and outputDatabaseConnection
         ///     2. Create all the coverage tools with the appropriate settings
         /// </summary>
-        public void ReadConfigFile()
+        private void ReadConfigFile()
+        {   
+            // _archivePeriod
+            ValidateArchivePeriod(ConfigurationManager.AppSettings["ArchivePeriod"]);
+            // _rootDirectory
+            ValidateRootDirectory(ConfigurationManager.AppSettings["RootDirectory"]);
+            // _rootArchiveDirectory
+            ValidateRootArchiveDirectory(ConfigurationManager.AppSettings["ArchiveDirectory"]);
+            // ???
+            _testDirectory = ConfigurationManager.AppSettings["TestDirectory"];
+            // _outputDatabase, _outputDbSettings
+            ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
+            // _bugzillaDatabaseConnection, bugzillaDbSettings
+            ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            // _iterationStart
+            ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
+            // _iterationLength
+            ValidateIterationLength(ConfigurationManager.AppSettings["IterationLength"]);
+        }
+
+        /// <summary>
+        ///     Does not terminate program if error.
+        /// </summary>
+        private void ValidateArchivePeriod(string strNum)
         {
-            #pragma warning disable
-            try { _archivePeriod = Int32.Parse(ConfigurationManager.AppSettings["ArchivePeriod"]);            
+            try {
+                _archivePeriod = Int32.Parse(strNum);
             }
-            catch (Exception e)
+            catch
             {
                 _archivePeriod = -1;
                 Reporter.AddMessageToReporter("ArchivePeriod key in configuration file is not a valid integer. Cannot update archive", true, false);
             }
-            _rootDirectory = ConfigurationManager.AppSettings["RootDirectory"];
-            _rootArchiveDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"];
-
-            _testDirectory = ConfigurationManager.AppSettings["TestDirectory"];
-
-            _outputDbSettings = ConfigurationManager.ConnectionStrings["CPSC594Entities"];
-            _outputDatabaseConnection = _outputDbSettings.ConnectionString;
-
-            _bugzillaDbSettings = ConfigurationManager.ConnectionStrings["BugzillaDatabase"];
-            _bugzillaDatabaseConnection = _bugzillaDbSettings.ConnectionString;
-
-            _iterationStart = DateTime.Parse(ConfigurationManager.AppSettings["IterationStartDate"]);
-            try { _iterationLength = Int32.Parse(ConfigurationManager.AppSettings["IterationLength"]);
-            }catch{
-                _archivePeriod = -1;
-                Reporter.AddMessageToReporter("The iteration length key in the configuration file is not a valid integer.", true, false);
-            }
-
-            // CREATE METRIC 1
-            _codeCoverageMetric = new CodeCoverage();
-
-            //CREATE METRIC 2
-            _testEffectivenessMetric = new TestEffectivenessMetric();
-
-            // CREATE METRIC 3 and 4
-            // Attempt a connection to the bugzilla database, if failed, set a flag to skip the metrics which require it
-            _defectMetrics = new DefectMetrics(_bugzillaDatabaseConnection);
-            if (!_defectMetrics.EstablishConnection())
-            {
-                Reporter.AddMessageToReporter("[Metric 3 and 4: DefectInjectionRate/DefectRepairRate] Could not make a connection to database with connection string " + _bugzillaDatabaseConnection + ". Skipping metrics 3 and 4", true, false);
-                computeMetricThree = false;
-            }
         }
 
         /// <summary>
-        ///     Attempts to connect to the database connection string provided /outputDatabaseConnection/
-        ///     If fail
-        ///         throw new OutputDatabaseConnectionException
+        ///     Does terminate program if error.
         /// </summary>
-        /// <throws>
-        ///     OutputDatabaseConnectionException
-        /// </throws>
-        public void EstablishConnectionToOutputDatabase()
+        /// <param name="path"></param>
+        private void ValidateRootDirectory(string path)
         {
+            if (!Directory.Exists(path))
+                throw new TerminateException("Root Directory does not exist.");
+            _rootDirectory = path;
+        }
+
+        /// <summary>
+        ///     Does not terminate program if error.
+        /// </summary>
+        /// <param name="path"></param>
+        private void ValidateRootArchiveDirectory(string path)
+        {
+            // If the directory exists OR the directory is not specified
+            if(Directory.Exists(path) || path.Length==0)
+                _rootArchiveDirectory = path;
+            else
+                _rootArchiveDirectory = "";
+        }
+
+        /// <summary>
+        ///     Terminates program if error.
+        /// </summary>
+        /// <param name="connectionSettings"></param>
+        private void ValidateOutputDatabaseConnection(ConnectionStringSettings connectionSettings)
+        {
+            string connectionString = connectionSettings.ConnectionString;
             Boolean connectionExists = false;
             // If failed connection
             try
             {
                 if (DatabaseAccessor.Connection())
+                {
                     connectionExists = true;
+                    _outputDatabaseConnection = connectionString;
+                    _outputDbSettings = connectionSettings;
+                }
             }
             catch (TypeInitializationException) { }
-            if(!connectionExists)
-                throw new OutputDatabaseConnectionException("Connection to the web-output database with string: " + _outputDatabaseConnection + " failed");
+            if (!connectionExists)
+                throw new TerminateException("Connection to output database with string: " + connectionString + " failed.");
         }
 
+        /// <summary>
+        ///     Does not terminate if error.
+        /// </summary>
+        /// <param name="connectionSettings"></param>
+        private void ValidateBugzillaDatabaseConnection(ConnectionStringSettings connectionSettings)
+        {
+            string connectionString = connectionSettings.ConnectionString;
+            _defectMetrics.SetConnectionString(connectionString);
+            if (!_defectMetrics.EstablishConnection())
+                throw new TerminateException("Connection to bugzilla database with string: " + connectionString + " failed.");
+        }
 
         /// <summary>
-        ///     Attempts to check if the /rootDirectory/ exists
-        ///     If fail
-        ///         throw new NoExistanceOfDirectoryException
+        ///     Does not terminate on fail.
         /// </summary>
-        /// <throws>
-        ///     NoExistanceOfDirectoryException
-        /// </throws>
-        public void EstablishExistanceOfDirectory(string directory)
+        /// <param name="str"></param>
+        private void ValidateIterationLength(string str)
         {
-            // If no root directory
-            if(!Directory.Exists(_rootDirectory))
-                throw new NoExistanceOfDirectoryException("Root directory : " + directory + " could not be found");
+            try
+            {
+                _iterationLength = Int32.Parse(ConfigurationManager.AppSettings["IterationLength"]);
+            }
+            catch
+            {
+                _iterationLength = 2;
+                Reporter.AddMessageToReporter("The iteration length key in the configuration file is not a valid integer.", true, false);
+            }
+        }
+
+        /// <summary>
+        ///     Terminates the program if date is wrong.
+        /// </summary>
+        /// <param name="str"></param>
+        private void ValidateIterationStart(string str)
+        {
+            try
+            {
+                _iterationStart = DateTime.Parse(ConfigurationManager.AppSettings["IterationStartDate"]);
+            }
+            catch
+            {
+                throw new TerminateException("Iteration Start date is not a valid date format. Please use dd/mm/yyyy format.");
+            }
         }
 
         /// <summary>
@@ -185,8 +238,6 @@ namespace Importer_System
                     DatabaseAccessor.WriteProject(currentProjectName);
                 }
 
-
-
                 string projectDirectory = Path.Combine(_rootDirectory, currentProjectName);
                 DirectoryInfo testFiles = new DirectoryInfo(projectDirectory);
                 foreach (FileInfo testFile in testFiles.GetFiles())
@@ -194,7 +245,6 @@ namespace Importer_System
                     currFile = Path.Combine(projectDirectory, testFile.Name);
                     _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProjectName);
                 }
-
                 
                 // Iterate through the selected projects components);
                 foreach (DirectoryInfo component in project.GetDirectories())
@@ -207,7 +257,6 @@ namespace Importer_System
                     {
                         DatabaseAccessor.WriteComponent(currentProjectName, currentComponentName);
                     }
-
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 1 - CODE COVERAGE
                     // ---------------------------------------------------------------------
@@ -237,12 +286,9 @@ namespace Importer_System
                     // --------------------------------------------------------------------
                     // END METRIC 1
                     // --------------------------------------------------------------------
-
-
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
                     // ---------------------------------------------------------------------
-                    if (computeMetricThree)
                         _defectMetrics.CalculateMetric(currentProjectName, currentComponentName, currIteration);
                     // --------------------------------------------------------------------
                     // END METRIC 3 AND 4
@@ -251,26 +297,7 @@ namespace Importer_System
                 UpdateProjectStatus(currentProjectName, "Done");
                 
             }
-
-            initialDirectory = new DirectoryInfo(_testDirectory);
-
-
-            //Loop through the project folders in the test directory
-            //foreach (DirectoryInfo project in initialDirectory.GetDirectories())
-            //{
-                // Get the projects name
-                //string currentProjectName = project.Name;
-
-                // Update WinForm Status
-                //UpdateProjectStatus(currentProjectName, "Calculating");
-            
-                //_testEffectivenessMetric.CalculateMetric();
-
-                // Update WinForm Status
-                //UpdateProjectStatus(currentProjectName, "Done");
-            //}
-            
-            
+            initialDirectory = new DirectoryInfo(_testDirectory);            
             long endTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks) / TimeSpan.TicksPerMillisecond;
             progressForm.SetFinishStatus(endTime - startTime);
         }

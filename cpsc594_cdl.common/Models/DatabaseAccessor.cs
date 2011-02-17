@@ -318,10 +318,8 @@ namespace cpsc594_cdl.Common.Models
                 {
                     _context.SaveChanges();
                 }
-                catch (Exception e)
-                {
-                    //MessageBox.Show(e.InnerException.Message); should throw up!
-                }
+                catch
+                {}
                 id = defectInjectionRate.DefectInjectionRateID;
             }
             return id;
@@ -355,9 +353,8 @@ namespace cpsc594_cdl.Common.Models
                 {
                     _context.SaveChanges();
                 }
-                catch (Exception e)
+                catch
                 {
-                    //MessageBox.Show(e.InnerException.Message); should thorw up!
                 }
                 id = defectRepairRate.DefectRepairRateID;
             }

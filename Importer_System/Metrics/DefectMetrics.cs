@@ -23,9 +23,9 @@ namespace Importer_System
         private Iteration iteration;
         private MySqlConnection connection;
 
-        public DefectMetrics(string conString)
+        public DefectMetrics()
         {
-            bugzillaConnectionString = conString;
+
         }
 
         /// <summary>
@@ -44,6 +44,15 @@ namespace Importer_System
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        ///     Sets the connection string.
+        /// </summary>
+        /// <param name="connectionString"></param>
+        public void SetConnectionString(string connectionString)
+        {
+            bugzillaConnectionString = connectionString;
         }
 
         /// <summary>
