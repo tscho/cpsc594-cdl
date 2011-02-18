@@ -36,6 +36,7 @@
             this.currentAction = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.cPSC594EntitiesBindingSource = new System.Windows.Forms.BindingSource(this.components);
+            this.logfileLink = new System.Windows.Forms.LinkLabel();
             this.bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cPSC594EntitiesBindingSource)).BeginInit();
@@ -44,6 +45,7 @@
             // bottomPanel
             // 
             this.bottomPanel.BackColor = System.Drawing.Color.White;
+            this.bottomPanel.Controls.Add(this.logfileLink);
             this.bottomPanel.Controls.Add(this.statusTable);
             this.bottomPanel.Controls.Add(this.hidedetailsLink);
             this.bottomPanel.Controls.Add(this.currentAction);
@@ -112,6 +114,18 @@
             // 
             this.cPSC594EntitiesBindingSource.DataSource = typeof(cpsc594_cdl.Common.Models.CPSC594Entities);
             // 
+            // logfileLink
+            // 
+            this.logfileLink.AutoSize = true;
+            this.logfileLink.Location = new System.Drawing.Point(597, 99);
+            this.logfileLink.Name = "logfileLink";
+            this.logfileLink.Size = new System.Drawing.Size(66, 17);
+            this.logfileLink.TabIndex = 11;
+            this.logfileLink.TabStop = true;
+            this.logfileLink.Text = "Open log";
+            this.logfileLink.Visible = false;
+            this.logfileLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logfileLink_LinkClicked);
+            // 
             // ProgressForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -140,6 +154,7 @@
         private System.Windows.Forms.ProgressBar progressBar;
         private System.Windows.Forms.BindingSource cPSC594EntitiesBindingSource;
         private System.Windows.Forms.DataGridView statusTable;
+        private System.Windows.Forms.LinkLabel logfileLink;
 
 
     }

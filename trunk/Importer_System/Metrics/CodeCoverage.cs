@@ -123,13 +123,13 @@ namespace Importer_System
                 //       - LF
                 //       - LH
                 // Log the error
-                Reporter.AddMessageToReporter("[Metric 1: Code Coverage] Missing lines in code coverage log file " + locationOfLog, true, false);
+                Reporter.AddErrorMessageToReporter("[Metric 1: Code Coverage] Missing lines in code coverage log file " + locationOfLog);
                 saveResult = false;
             }
             catch (IndexOutOfRangeException)
             {
                 // Log the error
-                Reporter.AddMessageToReporter("[Metric 1: Code Coverage] Illegal syntax in code coverage log file " + locationOfLog, true, false);
+                Reporter.AddErrorMessageToReporter("[Metric 1: Code Coverage] Illegal syntax in code coverage log file " + locationOfLog);
                 // Split function did not work, log file has invalid data
                 saveResult = false;
             }
