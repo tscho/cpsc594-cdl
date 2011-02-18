@@ -87,6 +87,7 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     ValidateArchivePeriod - If the input provided is not a number, default archive to -1
         ///     Does not terminate program if error.
         /// </summary>
         private void ValidateArchivePeriod(string strNum)
@@ -97,11 +98,12 @@ namespace Importer_System
             catch
             {
                 _archivePeriod = -1;
-                Reporter.AddMessageToReporter("ArchivePeriod key in configuration file is not a valid integer. Cannot update archive", true, false);
+                Reporter.AddErrorMessageToReporter("ArchivePeriod key in configuration file is not a valid integer. Cannot update archive");
             }
         }
 
         /// <summary>
+        ///     ValidateRootDirectory - Checks whether the directory exists or not.
         ///     Does terminate program if error.
         /// </summary>
         /// <param name="path"></param>
@@ -113,6 +115,7 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     ValidateRootArchiveDirectory - Checks whether the archive directory exists, if not set it to null.
         ///     Does not terminate program if error.
         /// </summary>
         /// <param name="path"></param>
@@ -126,6 +129,7 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     ValidateOutputDatabaseConnection - Attempts to establish a connection to the MS SQL database.
         ///     Terminates program if error.
         /// </summary>
         /// <param name="connectionSettings"></param>
@@ -149,6 +153,7 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     ValidateBugzillaDatabaseConnection - Attempts to establish a connection to the bugzilla MySQL database.
         ///     Does not terminate if error.
         /// </summary>
         /// <param name="connectionSettings"></param>
@@ -161,6 +166,7 @@ namespace Importer_System
         }
 
         /// <summary>
+        ///     ValidateIterationLength - If the input is not a number, default it to 2.
         ///     Does not terminate on fail.
         /// </summary>
         /// <param name="str"></param>
@@ -173,11 +179,12 @@ namespace Importer_System
             catch
             {
                 _iterationLength = 2;
-                Reporter.AddMessageToReporter("The iteration length key in the configuration file is not a valid integer.", true, false);
+                Reporter.AddErrorMessageToReporter("The iteration length key in the configuration file is not a valid integer.");
             }
         }
 
         /// <summary>
+        ///     ValidateIterationStart - If the input is not a date throw exception.
         ///     Terminates the program if date is wrong.
         /// </summary>
         /// <param name="str"></param>
@@ -194,7 +201,7 @@ namespace Importer_System
         }
 
         /// <summary>
-        /// 
+        ///     GetListOfProjects - returns the list of projects in the _rootDirectory
         /// </summary>
         /// <returns></returns>
         public List<String> GetListOfProjects()
@@ -238,6 +245,9 @@ namespace Importer_System
                     DatabaseAccessor.WriteProject(currentProjectName);
                 }
 
+                // ---------------------------------------------------------------------
+                // COMPUTE METRIC 2 - TEST EFFECTIVENESS
+                // ---------------------------------------------------------------------
                 string projectDirectory = Path.Combine(_rootDirectory, currentProjectName);
                 DirectoryInfo testFiles = new DirectoryInfo(projectDirectory);
                 foreach (FileInfo testFile in testFiles.GetFiles())
@@ -245,8 +255,10 @@ namespace Importer_System
                     currFile = Path.Combine(projectDirectory, testFile.Name);
                     _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProjectName);
                 }
-                
-                // Iterate through the selected projects components);
+                // ---------------------------------------------------------------------
+                // END METRIC 2
+                // ---------------------------------------------------------------------                
+                // Iterate through the selected projects components;
                 foreach (DirectoryInfo component in project.GetDirectories())
                 {
                     // Save the current components name
@@ -273,7 +285,6 @@ namespace Importer_System
                                 coverageID = _codeCoverageMetric.CalculateMetric(currentProjectName, currentComponentName, currFile, currIteration.IterationID);
                                 if(coverageID >= 0)
                                 {
-                                    //archiveFile(currentProjectName, currentComponentName, logFile.Name);
                                     uniqueFileName = BuildUniqueFilename(logFile.Name, coverageID);
                                     RenameFile(currFile, Path.Combine(currentMetric1Directory, uniqueFileName));
                                     DatabaseAccessor.UpdateCoverage(coverageID, logFile.LastWriteTimeUtc.Date, uniqueFileName );

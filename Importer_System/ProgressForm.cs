@@ -16,6 +16,8 @@ namespace Importer_System
         private int MAX_VALUE;
         private Size EXPAND_SIZE = new Size(700, 450);
         private Size COLLAPSE_SIZE = new Size(700, 172);
+        private String FATAL_ERROR = "An error has caused the program to terminate. Please view the log file.";
+        private String LOGFILE_NAME = "metric.log";
         private Boolean showingDetails = true;
         public ProgressForm()
         {
@@ -107,6 +109,7 @@ namespace Importer_System
         {
             double timeS = Math.Round(((double)timeMS / (double)1000), 2);
             currentAction.Text = "Complete. Total time: "+timeS+" second(s).";
+            logfileLink.Visible = true;
         }
         /// <summary>
         /// 
@@ -141,8 +144,9 @@ namespace Importer_System
             }
             catch (TerminateException terminateException)
             {
-                Reporter.AddMessageToReporter(terminateException.Message, true, true);
-                currentAction.Text = terminateException.Message;
+                Reporter.AddTerminateMessageToReporter(terminateException.Message);
+                currentAction.Text = FATAL_ERROR;
+                logfileLink.Visible = true;
             }
             finally
             {
@@ -169,6 +173,23 @@ namespace Importer_System
                 this.Size = EXPAND_SIZE;
             }
             showingDetails = !showingDetails;
+        }
+
+        /// <summary>
+        ///     Open the programs log file.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void logfileLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            try
+            {
+                System.Diagnostics.Process.Start(LOGFILE_NAME);
+            }
+            catch(Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }
