@@ -45,16 +45,22 @@
                                 <ul>
                                     <% foreach (var metric in Model.Metrics)
                                        { %>
-                                        <li><a href="#<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
+                                           <% if(!metric.OverviewOnly) 
+                                              { %>
+                                                <li><a href="#<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
+                                           <% } %>
                                        <% } %>
                                 </ul>
                                 <% foreach (var metric in Model.Metrics)
                                    { %>
-                                    <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                        <img src="data:image/png;base64,<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
-                                        alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
-                                    </div>
+                                   <% if(!metric.OverviewOnly) 
+                                      { %>
+                                        <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
+                                            <img src="data:image/png;base64,<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                            alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
+                                        </div>
                                    <% } %>
+                               <% } %>
                             </div>
                        </div>
                    <% } %>
