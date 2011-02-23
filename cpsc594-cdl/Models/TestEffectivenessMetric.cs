@@ -14,6 +14,7 @@ namespace cpsc594_cdl.Models
     {
         public override string Name { get { return "Test Effectiveness"; }}
         public override int ID { get { return (int)MetricType.TestEffectiveness;  } }
+        public override bool OverviewOnly { get { return true; } }
 
         public TestEffectivenessMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
