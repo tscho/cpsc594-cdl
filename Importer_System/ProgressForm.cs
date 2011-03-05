@@ -60,7 +60,10 @@ namespace Importer_System
                 outputList.Add(new StatusNode(str, "Waiting to calculate"));
             }
             statusTable.DataSource = outputList;
-            MAX_VALUE = 100/outputList.Count;
+            if (outputList.Count == 0)
+                MAX_VALUE = 100;
+            else
+                MAX_VALUE = 100 / outputList.Count;
             progressBar.Step = MAX_VALUE;
         }
 

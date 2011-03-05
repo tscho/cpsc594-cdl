@@ -27,6 +27,7 @@ namespace Importer_System
         private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
+        private ResourceUtilization _resourceUtilization;         // Class that calculates work hours per project
         private ConnectionStringSettings _outputDbSettings;       //
         private ProgressForm progressForm = null;                 // Reference to relay status
 
@@ -59,6 +60,8 @@ namespace Importer_System
             _testEffectivenessMetric = new TestEffectivenessMetric();
             // CREATE METRIC 3 and 4
             _defectMetrics = new DefectMetrics();
+            // CREATE METRIC 5 
+            _resourceUtilization = new ResourceUtilization();
         }
 
         /// <summary>
@@ -80,6 +83,8 @@ namespace Importer_System
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
             ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            // _projectDataExcelConnectionString
+            ValidateProjectDataExcelSpreadSheetConnection(ConfigurationManager.ConnectionStrings["ProjectData"]);
             // _iterationStart
             ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
             // _iterationLength
@@ -154,7 +159,7 @@ namespace Importer_System
 
         /// <summary>
         ///     ValidateBugzillaDatabaseConnection - Attempts to establish a connection to the bugzilla MySQL database.
-        ///     Does not terminate if error.
+        ///     Does terminate if error.
         /// </summary>
         /// <param name="connectionSettings"></param>
         private void ValidateBugzillaDatabaseConnection(ConnectionStringSettings connectionSettings)
@@ -163,6 +168,17 @@ namespace Importer_System
             _defectMetrics.SetConnectionString(connectionString);
             if (!_defectMetrics.EstablishConnection())
                 throw new TerminateException("Connection to bugzilla database with string: " + connectionString + " failed.");
+        }
+
+        /// <summary>
+        ///     ValidateProjectDataExcelSpreadSheetConnection - If we cannot connect to the spread sheet
+        /// </summary>
+        /// <param name="str"></param>
+        private void ValidateProjectDataExcelSpreadSheetConnection(ConnectionStringSettings str)
+        {
+            _resourceUtilization.SetConnectionString(str.ConnectionString);
+            if (!_resourceUtilization.EstablishConnection())
+                throw new TerminateException("Connection to excel project data spread sheet with string: " + str.ConnectionString + " failed.");
         }
 
         /// <summary>
@@ -257,7 +273,14 @@ namespace Importer_System
                 }
                 // ---------------------------------------------------------------------
                 // END METRIC 2
-                // ---------------------------------------------------------------------                
+                // ---------------------------------------------------------------------
+                // ---------------------------------------------------------------------
+                // COMPUTE METRIC 5 - RESOURCE UTILIZATION
+                // ---------------------------------------------------------------------
+                _resourceUtilization.CalculateMetric(currentProjectName, currIteration.IterationID);
+                // ---------------------------------------------------------------------
+                // END METRIC 2
+                // ---------------------------------------------------------------------
                 // Iterate through the selected projects components;
                 foreach (DirectoryInfo component in project.GetDirectories())
                 {
