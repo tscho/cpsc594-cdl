@@ -70,7 +70,7 @@
                                    <% if(!metric.OverviewOnly) 
                                       { %>
                                         <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                            <img src="data:image/png;base64,<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
                                             alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
                                         </div>
                                    <% } %>
