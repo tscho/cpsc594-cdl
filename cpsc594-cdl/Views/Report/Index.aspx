@@ -4,11 +4,25 @@
     <link rel="Stylesheet" href="/content/jquery-ui-1.8.7.custom.css" />
     <script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript" language="javascript"></script>
     <script src="/Scripts/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript"></script>
+    <script type="text/javascript">
+        var isHidden = true;
+        function menu_toggle() {
+            if (isHidden) {
+                window.parent.document.all.frame.cols = '400,*';
+               document.getElementById('toggle').value = '<';
+            } else {
+               window.parent.document.all.frame.cols = '0,*';
+               document.getElementById('toggle').value = '>';
+            }
+            isHidden = !isHidden;
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Import Namespace="cpsc594_cdl.Models" %>
 <body>
     <div id="content">
+    <input id="toggle" type="submit" value=">" onclick="menu_toggle();return false;" />
     <div id="info">
         <% if (Html.ValidationSummary()!=null) { %>
             <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
@@ -56,7 +70,7 @@
                                    <% if(!metric.OverviewOnly) 
                                       { %>
                                         <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <img src="data:image/png;base64,<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                            <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
                                             alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
                                         </div>
                                    <% } %>
