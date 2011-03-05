@@ -47,8 +47,12 @@ namespace cpsc594_cdl.Models
             chart.SaveImage(imageStream, ChartImageFormat.Png);
             imageStream.Position = 0;
 
-            string base64_output = System.Convert.ToBase64String(imageStream.ToArray());
-            return base64_output;
+            string filename = "Content/cache/" + Path.GetRandomFileName() + ".png";
+            string fullpath_filename = HttpRuntime.AppDomainAppPath + filename;
+            FileStream fileStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate);
+            imageStream.WriteTo(fileStream);
+
+            return filename;
         }
 
         public override string GenerateComponentGraph(string title, Component component)
