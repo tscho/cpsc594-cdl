@@ -1,6 +1,11 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<cpsc594_cdl.Models.IndexModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+    <script type="text/javascript">
+        function menu_toggle_off() {
+            window.parent.document.all.frame.cols = '0,*';
+        }
+    </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Import Namespace="cpsc594_cdl.Models" %>
@@ -37,7 +42,7 @@
                 </tr>
                 <tr>
                     <td id="menuItem"></td>
-                    <td><input type="submit" value="Search" /></td>
+                    <td><input type="submit" value="Search" onclick="menu_toggle_off();" /></td>
                 </tr>
             <% } %>
         <% } %>
