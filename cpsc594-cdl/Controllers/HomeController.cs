@@ -18,6 +18,17 @@ namespace cpsc594_cdl.Controllers
 
         public ActionResult Index()
         {
+            //Remove 
+            DateTime currentTime = DateTime.Now;
+            DateTime lastAccessTime;
+            string[] cacheFiles = System.IO.Directory.GetFiles(HttpRuntime.AppDomainAppPath + "Content/cache/");
+            foreach (string cacheFile in cacheFiles)
+            {
+                lastAccessTime = System.IO.File.GetLastAccessTime(cacheFile);
+                if ((currentTime - lastAccessTime).TotalSeconds > 30)
+                    System.IO.File.Delete(cacheFile);
+            }
+
             IndexModel model = new IndexModel();
             return View(model);
         }

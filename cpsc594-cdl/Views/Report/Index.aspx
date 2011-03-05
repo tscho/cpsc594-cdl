@@ -47,7 +47,7 @@
                         <% foreach (var metric in Model.Metrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
-                                <img src="data:image/png;base64,<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />
+                                <img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />
                             </div>
                            <% } %>
                     </div>
@@ -70,7 +70,7 @@
                                    <% if(!metric.OverviewOnly) 
                                       { %>
                                         <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <img src="data:image/png;base64,<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                            <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
                                             alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
                                         </div>
                                    <% } %>
