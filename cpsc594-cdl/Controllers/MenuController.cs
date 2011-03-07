@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using cpsc594_cdl.Models;
+using cpsc594_cdl.Infrastructure;
 using cpsc594_cdl.Common.Models;
 
 namespace cpsc594_cdl.Controllers
@@ -16,6 +17,7 @@ namespace cpsc594_cdl.Controllers
         {
         }
 
+        [DatabaseRequired]
         public ActionResult Index()
         {
             IndexModel model = new IndexModel();
@@ -29,6 +31,7 @@ namespace cpsc594_cdl.Controllers
         }
 
         [HttpPost]
+        [DatabaseRequired]
         public ActionResult Index(IndexModel model)
         {
             List<Project> plist = new List<Project>();

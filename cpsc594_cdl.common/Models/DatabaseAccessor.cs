@@ -26,8 +26,15 @@ namespace cpsc594_cdl.Common.Models
         /// <returns>true if no error occured, false otherwise</returns>
         public static Boolean Connection()
         {
-            if (_context.DatabaseExists())
-                return true;
+            try
+            {
+                if (_context.DatabaseExists())
+                    return true;
+            }
+            catch (System.Data.SqlClient.SqlException e)
+            {
+                return false;
+            }
             return false;
         }
 
