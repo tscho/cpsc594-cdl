@@ -7,10 +7,11 @@ namespace cpsc594_cdl.Common.Models
 {
     public partial class TestEffectiveness
     {
+        public DefectInjectionRate AssociatedDefectRate { get { return this.Iteration.DefectInjectionRates.FirstOrDefault(x => x.ComponentID == this.ComponentID); } }
+
         public int getValue()
         {
-            DefectInjectionRate inject = this.Iteration.DefectInjectionRates.FirstOrDefault(x => x.ComponentID == this.ComponentID);
-            return this.TestCases / (inject.GetValue() == 0 ? 1 : inject.GetValue());
+            return AssociatedDefectRate.GetValue() / this.TestCases > 0 ? this.TestCases : 1;
         }
     }
 }
