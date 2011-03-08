@@ -9,10 +9,12 @@ namespace cpsc594_cdl.Models
     public abstract class Metric
     {
         protected Iteration[] Iterations;
+        private int[] iterationIDs;
 
         public Metric(IEnumerable<Iteration> iterations)
         {
             Iterations = iterations.ToArray();
+            iterationIDs = Iterations.Select(x => x.IterationID).ToArray();
         }
 
         public abstract string Name { get; }
@@ -20,5 +22,12 @@ namespace cpsc594_cdl.Models
         public virtual bool OverviewOnly { get { return false; } }
         public abstract string GenerateOverviewGraph(string title, IEnumerable<Component> components);
         public abstract string GenerateComponentGraph(string title, Component component);
+
+        public string GetCacheCode(int[] componentIDs)
+        {
+            Array.Sort(iterationIDs);
+            Array.Sort(componentIDs);
+            return string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
+        }
     }
 }
