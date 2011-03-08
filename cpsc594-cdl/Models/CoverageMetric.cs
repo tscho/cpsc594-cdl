@@ -47,9 +47,15 @@ namespace cpsc594_cdl.Models
             imageStream.Position = 0;
 
             string filename = "Content/cache/" + Path.GetRandomFileName() + ".png";
-            string fullpath_filename = HttpRuntime.AppDomainAppPath + filename;
-            FileStream fileStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate);
-            imageStream.WriteTo(fileStream);
+            filename = Path.Combine("Content/cache/", this.GetCacheCode(componentIds.ToArray()) + ".png");
+            string fullpath_filename = Path.Combine(HttpRuntime.AppDomainAppPath, filename);
+            if (!File.Exists(fullpath_filename))
+            {
+                using (FileStream fileStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate))
+                {
+                    imageStream.WriteTo(fileStream);
+                }
+            }
 
             return filename;
         }
