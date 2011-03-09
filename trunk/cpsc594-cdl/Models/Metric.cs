@@ -27,7 +27,7 @@ namespace cpsc594_cdl.Models
         {
             Array.Sort(iterationIDs);
             Array.Sort(componentIDs);
-            return string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
+            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
         }
     }
 }

@@ -4,14 +4,15 @@ using System.Linq;
 using System.Web;
 using System.Timers;
 using System.IO;
+using System.Configuration;
 
 namespace cpsc594_cdl.Infrastructure
 {
     public class ChartImageCache
     {
-        private const int MAX_AGE = 3;
         private static ChartImageCache instance;
 
+        private int MAX_AGE;
         private string cacheDir;
         private Timer cleanTimer;
         private Dictionary<string, int> cachedFileAge;
@@ -27,31 +28,49 @@ namespace cpsc594_cdl.Infrastructure
 
         private ChartImageCache()
         {
-            //cacheDir = System.Configuration.ConfigurationManager.AppSettings["ChartCacheDir"];
-            //cleanTimer = new Timer(Convert.ToDouble(System.Configuration.ConfigurationManager.AppSettings["ChartCacheCleanIntervalSeconds"]) * 1000);
-            cacheDir = @"Content\cache";
-            cleanTimer = new Timer(30000);
+            cacheDir = ConfigurationManager.AppSettings["ChartCacheDir"];
+
+            cachedFileAge = new Dictionary<string, int>();
+
+            cacheAccessLock = new object();
+
+            ClearCache();
+
+            MAX_AGE = Convert.ToInt32(ConfigurationManager.AppSettings["ChartCacheItemMaxAge"]);
+
+            cleanTimer = new Timer(Convert.ToDouble(ConfigurationManager.AppSettings["ChartCacheCleanIntervalMinutes"]) * 1000 * 60);
             cleanTimer.Elapsed += this.CleanCache;
             cleanTimer.Start();
         }
 
+        private void ClearCache()
+        {
+            foreach (var file in Directory.EnumerateFiles(Path.Combine(HttpRuntime.AppDomainAppPath, cacheDir)))
+            {
+                File.Delete(file);
+            }
+        }
+
         private void CleanCache(Object sender, ElapsedEventArgs args)
         {
+            cleanTimer.Stop();
             lock (cacheAccessLock)
             {
-                foreach (var cacheItem in cachedFileAge.Keys)
+                string[] keys = cachedFileAge.Keys.ToArray();
+                foreach (var cacheItemKey in keys)
                 {
-                    cachedFileAge[cacheItem] += 1;
-                    if (cachedFileAge[cacheItem] >= MAX_AGE)
-                        RemoveCacheItem(cacheItem);
+                    cachedFileAge[cacheItemKey] += 1;
+                    if (cachedFileAge[cacheItemKey] >= MAX_AGE)
+                        RemoveCacheItem(cacheItemKey);
                 }
             }
+            cleanTimer.Start();
         }
 
         private void RemoveCacheItem(string cacheItem)
         {
             cachedFileAge.Remove(cacheItem);
-            File.Delete(Path.Combine(cacheDir, cacheItem));
+            File.Delete(Path.Combine(HttpRuntime.AppDomainAppPath, cacheDir, cacheItem + ".png"));
         }
 
         public string SaveChartImage(string cacheKey, System.Web.UI.DataVisualization.Charting.Chart chart)
@@ -61,7 +80,7 @@ namespace cpsc594_cdl.Infrastructure
 
             lock (cacheAccessLock)
             {
-                if (cachedFileAge[cacheKey] == null)
+                if (!cachedFileAge.ContainsKey(cacheKey))
                 {
                     using (FileStream imageStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate))
                     {
@@ -70,7 +89,7 @@ namespace cpsc594_cdl.Infrastructure
                 }
 
                 cachedFileAge[cacheKey] = 0;
-                return relativepath_filename;
+                return relativepath_filename.Replace('\\', '/');
             }
         }
     }
