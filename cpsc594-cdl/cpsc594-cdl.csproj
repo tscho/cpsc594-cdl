@@ -81,6 +81,7 @@
     </Compile>
     <Compile Include="Infrastructure\ChartFactory.cs" />
     <Compile Include="Infrastructure\DatabaseRequiredAttribute.cs" />
+    <Compile Include="Infrastructure\GraphImageCache.cs" />
     <Compile Include="Models\CoverageMetric.cs" />
     <Compile Include="Models\DefectInjectionMetric.cs" />
     <Compile Include="Models\DefectRepairMetric.cs" />
