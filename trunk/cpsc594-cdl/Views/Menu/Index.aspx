@@ -3,7 +3,7 @@
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
     <script type="text/javascript">
         function menu_toggle_off() {
-            window.parent.document.all.frame.cols = '0,*';
+            parent.document.getElementById('frame').cols = '0,*';
         }
     </script>
 </asp:Content>
