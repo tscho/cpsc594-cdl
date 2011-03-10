@@ -8,11 +8,11 @@
         var isHidden = true;
         function menu_toggle() {
             if (isHidden) {
-                window.parent.document.all.frame.cols = '400,*';
-               document.getElementById('toggle').value = '<';
+               parent.document.getElementById('frame').cols = '400,*';
+               document.getElementById('toggle').value = 'Hide Menu';
             } else {
-               window.parent.document.all.frame.cols = '0,*';
-               document.getElementById('toggle').value = '>';
+               parent.document.getElementById('frame').cols = '0,*';
+               document.getElementById('toggle').value = 'Show Menu';
             }
             isHidden = !isHidden;
         }
@@ -22,7 +22,7 @@
 <%@ Import Namespace="cpsc594_cdl.Models" %>
 <body>
     <div id="content">
-    <input id="toggle" type="submit" value=">" onclick="menu_toggle();return false;" />
+    <input id="toggle" type="submit" value="Show Menu" onclick="menu_toggle();return false;" />
     <div id="info">
         <% if (Html.ValidationSummary()!=null) { %>
             <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
