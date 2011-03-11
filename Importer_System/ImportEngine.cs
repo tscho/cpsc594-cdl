@@ -326,7 +326,7 @@ namespace Importer_System
                 // Iterate through each product data .xls file to calculate resource utilization
                 foreach (FileInfo projectData in projectDataList.GetFiles())
                 {
-                    _resourceUtilization.CalculateMetric(Path.Combine(_projectDataDirectory,projectData.Name), currIteration.IterationID);
+                    _resourceUtilization.CalculateMetric(Path.Combine(_projectDataDirectory,projectData.Name), currIteration);
                 }
             }
             // ---------------------------------------------------------------------

@@ -398,7 +398,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteResourceUtilization(string project, int iteration, string personName, double hours)
+        public static int WriteResourceUtilization(string project, string personName, double hours, int iteration)
         {
             return 1;
         }

@@ -18,23 +18,31 @@ namespace Importer_System
         /// <summary>
         ///     CheckConnection - throws an exception which is handled above in resourceUtilization if no connect is made
         /// </summary>
-        public void CheckConnection()
+        public Boolean CheckConnection()
         {
-            System.Data.OleDb.OleDbConnection ExcelConnection = new System.Data.OleDb.OleDbConnection(connectionString);
-            System.Data.OleDb.OleDbCommand ExcelCommand = new System.Data.OleDb.OleDbCommand("SELECT * FROM [Sheet1$]", ExcelConnection);
-            ExcelConnection.Open();
-            System.Data.OleDb.OleDbDataReader ExcelReader;
-            ExcelReader = ExcelCommand.ExecuteReader();
-            ExcelReader.Read();
-            ExcelConnection.Close();
+            try
+            {
+                System.Data.OleDb.OleDbConnection ExcelConnection = new System.Data.OleDb.OleDbConnection(connectionString);
+                System.Data.OleDb.OleDbCommand ExcelCommand = new System.Data.OleDb.OleDbCommand("SELECT * FROM [Sheet1$]", ExcelConnection);
+                ExcelConnection.Open();
+                System.Data.OleDb.OleDbDataReader ExcelReader;
+                ExcelReader = ExcelCommand.ExecuteReader();
+                ExcelReader.Read();
+                ExcelConnection.Close();
+            }
+            catch
+            {
+                return false;
+            }
+            return true;
         }
 
         /// <summary>
         ///     SelectQuery - takes in a query and executes it, returns a list of string, each results it on a line with a comma delimeter
         /// </summary>
         /// <param name="query"></param>
-        /// <returns></returns>
-        public List<string> SelectQuery(string query)
+        /// <returns>List<String[]></returns>
+        public List<string[]> SelectQuery(string query)
         {
             System.Data.OleDb.OleDbConnection ExcelConnection = new System.Data.OleDb.OleDbConnection(connectionString);
 
@@ -43,17 +51,15 @@ namespace Importer_System
             System.Data.OleDb.OleDbDataReader ExcelReader;
 
             ExcelReader = ExcelCommand.ExecuteReader();
-            List<string> data = new List<string>();
+            List<string[]> data = new List<string[]>();
             while (ExcelReader.Read())
             {
-                string tempData = "";
+                string[] columnData = new string[ExcelReader.FieldCount];
                 for (int i = 0; i < ExcelReader.FieldCount; i++)
                 {
-                    tempData += ExcelReader.GetValue(i).ToString();
-                    if (i != ExcelReader.FieldCount - 1)
-                        tempData += ",";
+                    columnData[i] = ExcelReader.GetValue(i).ToString();
                 }
-                data.Add(tempData);
+                data.Add(columnData);
             }
             ExcelConnection.Close();
             return data;
