@@ -19,12 +19,18 @@ namespace Importer_System
         private String FATAL_ERROR = "An error has caused the program to terminate. Please view the log file.";
         private String LOGFILE_NAME = "metric.log";
         private Boolean showingDetails = true;
+        private ImportEngine engine;        // Engine that computes all the metrics
+        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         public ProgressForm()
         {
             InitializeComponent();
             InitializeData();
-            ExecuteProgram();
+            InitializeEngine();
         }
+
+        /// <summary>
+        ///     InitializeData - Initializes the form components.
+        /// </summary>
         private void InitializeData()
         {
             
@@ -46,6 +52,14 @@ namespace Importer_System
             statusTable.Columns.Add(statusColumn);
 
             statusTable.CellStateChanged += new DataGridViewCellStateChangedEventHandler(statusTable_CellStateChanged);
+        }
+
+        /// <summary>
+        ///     InitializeEngine - Read in the config file from the engine and validate the information.
+        /// </summary>
+        private void InitializeEngine()
+        {
+
         }
 
         /// <summary>
@@ -113,6 +127,7 @@ namespace Importer_System
             double timeS = Math.Round(((double)timeMS / (double)1000), 2);
             currentAction.Text = "Complete. Total time: "+timeS+" second(s).";
             logfileLink.Visible = true;
+            Reporter.CloseReporter();
         }
         /// <summary>
         /// 
@@ -130,32 +145,10 @@ namespace Importer_System
         /// </summary>
         public void ExecuteProgram()
         {
-            try
-            {
-                // Boot the engine that reads configuration file and begins importing
-                Reporter.OpenReporter();
-                // Start engine to initialize config file
-                ImportEngine engine = new ImportEngine();
-                // Set form
-                engine.SetProgressForm(this);
-                // Get data for table
-                SetTableData(engine.GetListOfProjects());
-                // Start the importing of metrics
-                engine.BeginImporting();
-                // Update the metric log files
-                //engine.UpdateArchiveDirectory();
-            }
-            catch (TerminateException terminateException)
-            {
-                Reporter.AddTerminateMessageToReporter(terminateException.Message);
-                currentAction.Text = FATAL_ERROR;
-                logfileLink.Visible = true;
-            }
-            finally
-            {
-                // Close reporter log
-                Reporter.CloseReporter();
-            }
+            //Start the engine to begin the importin
+            engine.BeginImporting();
+            // Update the metric log files
+            //engine.UpdateArchiveDirectory();
         }
 
         /// <summary>
@@ -193,6 +186,17 @@ namespace Importer_System
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void startBtn_Click(object sender, EventArgs e)
+        {
+            startBtn.Visible = false;
+            ExecuteProgram();
         }
     }
 }

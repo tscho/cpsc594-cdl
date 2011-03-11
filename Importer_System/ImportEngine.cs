@@ -19,6 +19,7 @@ namespace Importer_System
     {
         private string _rootDirectory;                            // Root directory of the folders
         private string _rootArchiveDirectory;                     // Archive directory for files after being read
+        private string _projectDataDirectory = null;              // Directory containing .xls project data files
         private int _archivePeriod;                               //number of days the logfiles exist in the archive directory
         private string _testDirectory;                            // ???
         private string _outputDatabaseConnection;                 // Connection string to output the information to
@@ -29,7 +30,6 @@ namespace Importer_System
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
         private ResourceUtilization _resourceUtilization;         // Class that calculates work hours per project
         private ConnectionStringSettings _outputDbSettings;       //
-        private ProgressForm progressForm = null;                 // Reference to relay status
 
         /// <summary>
         ///     Customized constructor to initialize the behavior.
@@ -83,8 +83,8 @@ namespace Importer_System
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
             ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
-            // _projectDataExcelConnectionString
-            ValidateProjectDataExcelSpreadSheetConnection(ConfigurationManager.ConnectionStrings["ProjectData"]);
+            // _projectDataDirectory
+            ValidateProjectDataDirectory(ConfigurationManager.AppSettings["ProjectData"]);
             // _iterationStart
             ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
             // _iterationLength
@@ -171,14 +171,15 @@ namespace Importer_System
         }
 
         /// <summary>
-        ///     ValidateProjectDataExcelSpreadSheetConnection - If we cannot connect to the spread sheet
+        ///     ValidateProjectDataDirectory
         /// </summary>
         /// <param name="str"></param>
-        private void ValidateProjectDataExcelSpreadSheetConnection(ConnectionStringSettings str)
+        private void ValidateProjectDataDirectory(String str)
         {
-            _resourceUtilization.SetConnectionString(str.ConnectionString);
-            if (!_resourceUtilization.EstablishConnection())
-                throw new TerminateException("Connection to excel project data spread sheet with string: " + str.ConnectionString + " failed.");
+            if(Directory.Exists(str))
+                _projectDataDirectory = str;
+            else
+                Reporter.AddErrorMessageToReporter("Could not calculate Resource Utilization Metric becauses the projectData directory "+str+" could not be found.");
         }
 
         /// <summary>
@@ -251,9 +252,6 @@ namespace Importer_System
             { 
                 // Save the current projects name
                 string currentProjectName = project.Name;
-                
-                // Update WinForm Status
-                UpdateProjectStatus(currentProjectName, "Calculating");
 
                 // Check if project is in DB
                 if(!DatabaseAccessor.ProjectExists(currentProjectName))
@@ -271,16 +269,6 @@ namespace Importer_System
                     currFile = Path.Combine(projectDirectory, testFile.Name);
                     _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProjectName);
                 }
-                // ---------------------------------------------------------------------
-                // END METRIC 2
-                // ---------------------------------------------------------------------
-                // ---------------------------------------------------------------------
-                // COMPUTE METRIC 5 - RESOURCE UTILIZATION
-                // ---------------------------------------------------------------------
-                _resourceUtilization.CalculateMetric(currentProjectName, currIteration.IterationID);
-                // ---------------------------------------------------------------------
-                // END METRIC 2
-                // ---------------------------------------------------------------------
                 // Iterate through the selected projects components;
                 foreach (DirectoryInfo component in project.GetDirectories())
                 {
@@ -328,12 +316,23 @@ namespace Importer_System
                     // END METRIC 3 AND 4
                     // --------------------------------------------------------------------
                 }
-                UpdateProjectStatus(currentProjectName, "Done");
-                
             }
+            // ---------------------------------------------------------------------
+            // COMPUTE METRIC 5 - RESOURCE UTILIZATION
+            // ---------------------------------------------------------------------
+            if(_projectDataDirectory!=null)
+            {
+                DirectoryInfo projectDataList = new DirectoryInfo(_projectDataDirectory);
+                // Iterate through each product data .xls file to calculate resource utilization
+                foreach (FileInfo projectData in projectDataList.GetFiles())
+                {
+                    _resourceUtilization.CalculateMetric(Path.Combine(_projectDataDirectory,projectData.Name), currIteration.IterationID);
+                }
+            }
+            // ---------------------------------------------------------------------
+            // END METRIC 5
+            // ---------------------------------------------------------------------
             initialDirectory = new DirectoryInfo(_testDirectory);            
-            long endTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks) / TimeSpan.TicksPerMillisecond;
-            progressForm.SetFinishStatus(endTime - startTime);
         }
 
         /// <summary>
@@ -492,26 +491,6 @@ namespace Importer_System
                     }
                 }
             }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="project"></param>
-        /// <param name="status"></param>
-        private void UpdateProjectStatus(string project, string status)
-        {
-            if (progressForm != null)
-                progressForm.SetMetricStatus(project, status);
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="progressForm"></param>
-        public void SetProgressForm(ProgressForm progressForm)
-        {
-            this.progressForm = progressForm;
         }
     }
 }

@@ -511,8 +511,7 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="linesExecuted">Initial value of the LinesExecuted property.</param>
         /// <param name="coverageID">Initial value of the CoverageID property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
-        /// <param name="date">Initial value of the Date property.</param>
-        public static Coverage CreateCoverage(global::System.Int32 componentID, global::System.Int32 linesCovered, global::System.Int32 linesExecuted, global::System.Int32 coverageID, global::System.Int32 iterationID, global::System.DateTime date)
+        public static Coverage CreateCoverage(global::System.Int32 componentID, global::System.Int32 linesCovered, global::System.Int32 linesExecuted, global::System.Int32 coverageID, global::System.Int32 iterationID)
         {
             Coverage coverage = new Coverage();
             coverage.ComponentID = componentID;
@@ -520,7 +519,6 @@ namespace cpsc594_cdl.Common.Models
             coverage.LinesExecuted = linesExecuted;
             coverage.CoverageID = coverageID;
             coverage.IterationID = iterationID;
-            coverage.Date = date;
             return coverage;
         }
 
@@ -677,9 +675,9 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=true)]
         [DataMemberAttribute()]
-        public global::System.DateTime Date
+        public Nullable<global::System.DateTime> Date
         {
             get
             {
@@ -694,8 +692,8 @@ namespace cpsc594_cdl.Common.Models
                 OnDateChanged();
             }
         }
-        private global::System.DateTime _Date;
-        partial void OnDateChanging(global::System.DateTime value);
+        private Nullable<global::System.DateTime> _Date;
+        partial void OnDateChanging(Nullable<global::System.DateTime> value);
         partial void OnDateChanged();
 
         #endregion

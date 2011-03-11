@@ -68,7 +68,7 @@
           <Property Name="LinesExecuted" Type="int" Nullable="false" />
           <Property Name="CoverageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
           <Property Name="IterationID" Type="int" Nullable="false" />
-          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
         </EntityType>
         <EntityType Name="DefectInjectionRate">
           <Key>
@@ -105,7 +105,7 @@
           <Key>
             <PropertyRef Name="ProjectID" />
           </Key>
-          <Property Name="ProjectName" Type="text" Nullable="false" />
+          <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="ProjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <EntityType Name="TestEffectiveness">
@@ -299,7 +299,7 @@
           <Property Name="LinesExecuted" Type="Int32" Nullable="false" />
           <Property Name="CoverageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <Property Name="IterationID" Type="Int32" Nullable="false" />
-          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="true" />
           <NavigationProperty Name="Component" Relationship="CPSC594Model.FK_Coverage_ComponentID" FromRole="Coverage" ToRole="Component" />
           <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_Coverage_IterationID" FromRole="Coverage" ToRole="Iteration" />
         </EntityType>

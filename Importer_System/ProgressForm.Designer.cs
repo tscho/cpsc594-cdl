@@ -31,12 +31,13 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ProgressForm));
             this.bottomPanel = new System.Windows.Forms.Panel();
+            this.logfileLink = new System.Windows.Forms.LinkLabel();
             this.statusTable = new System.Windows.Forms.DataGridView();
             this.hidedetailsLink = new System.Windows.Forms.LinkLabel();
             this.currentAction = new System.Windows.Forms.Label();
             this.progressBar = new System.Windows.Forms.ProgressBar();
             this.cPSC594EntitiesBindingSource = new System.Windows.Forms.BindingSource(this.components);
-            this.logfileLink = new System.Windows.Forms.LinkLabel();
+            this.startBtn = new System.Windows.Forms.Button();
             this.bottomPanel.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.statusTable)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.cPSC594EntitiesBindingSource)).BeginInit();
@@ -45,6 +46,7 @@
             // bottomPanel
             // 
             this.bottomPanel.BackColor = System.Drawing.Color.White;
+            this.bottomPanel.Controls.Add(this.startBtn);
             this.bottomPanel.Controls.Add(this.logfileLink);
             this.bottomPanel.Controls.Add(this.statusTable);
             this.bottomPanel.Controls.Add(this.hidedetailsLink);
@@ -55,6 +57,18 @@
             this.bottomPanel.Name = "bottomPanel";
             this.bottomPanel.Size = new System.Drawing.Size(682, 405);
             this.bottomPanel.TabIndex = 0;
+            // 
+            // logfileLink
+            // 
+            this.logfileLink.AutoSize = true;
+            this.logfileLink.Location = new System.Drawing.Point(597, 99);
+            this.logfileLink.Name = "logfileLink";
+            this.logfileLink.Size = new System.Drawing.Size(66, 17);
+            this.logfileLink.TabIndex = 11;
+            this.logfileLink.TabStop = true;
+            this.logfileLink.Text = "Open log";
+            this.logfileLink.Visible = false;
+            this.logfileLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logfileLink_LinkClicked);
             // 
             // statusTable
             // 
@@ -114,17 +128,15 @@
             // 
             this.cPSC594EntitiesBindingSource.DataSource = typeof(cpsc594_cdl.Common.Models.CPSC594Entities);
             // 
-            // logfileLink
+            // startBtn
             // 
-            this.logfileLink.AutoSize = true;
-            this.logfileLink.Location = new System.Drawing.Point(597, 99);
-            this.logfileLink.Name = "logfileLink";
-            this.logfileLink.Size = new System.Drawing.Size(66, 17);
-            this.logfileLink.TabIndex = 11;
-            this.logfileLink.TabStop = true;
-            this.logfileLink.Text = "Open log";
-            this.logfileLink.Visible = false;
-            this.logfileLink.LinkClicked += new System.Windows.Forms.LinkLabelLinkClickedEventHandler(this.logfileLink_LinkClicked);
+            this.startBtn.Location = new System.Drawing.Point(569, 12);
+            this.startBtn.Name = "startBtn";
+            this.startBtn.Size = new System.Drawing.Size(101, 39);
+            this.startBtn.TabIndex = 12;
+            this.startBtn.Text = "Run";
+            this.startBtn.UseVisualStyleBackColor = true;
+            this.startBtn.Click += new System.EventHandler(this.startBtn_Click);
             // 
             // ProgressForm
             // 
@@ -155,6 +167,7 @@
         private System.Windows.Forms.BindingSource cPSC594EntitiesBindingSource;
         private System.Windows.Forms.DataGridView statusTable;
         private System.Windows.Forms.LinkLabel logfileLink;
+        private System.Windows.Forms.Button startBtn;
 
 
     }

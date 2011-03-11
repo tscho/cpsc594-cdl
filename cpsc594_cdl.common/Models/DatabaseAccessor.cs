@@ -31,7 +31,7 @@ namespace cpsc594_cdl.Common.Models
                 if (_context.DatabaseExists())
                     return true;
             }
-            catch (System.Data.SqlClient.SqlException e)
+            catch (System.Data.SqlClient.SqlException)
             {
                 return false;
             }
