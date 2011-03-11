@@ -16,11 +16,6 @@ namespace Importer_System
         private int MAX_VALUE;
         private Size EXPAND_SIZE = new Size(700, 450);
         private Size COLLAPSE_SIZE = new Size(700, 172);
-        private String FATAL_ERROR = "An error has caused the program to terminate. Please view the log file.";
-        private String LOGFILE_NAME = "metric.log";
-        private Boolean showingDetails = true;
-        private ImportEngine engine;        // Engine that computes all the metrics
-        private System.ComponentModel.BackgroundWorker backgroundWorker1;
         public ProgressForm()
         {
             InitializeComponent();
@@ -145,10 +140,6 @@ namespace Importer_System
         /// </summary>
         public void ExecuteProgram()
         {
-            //Start the engine to begin the importin
-            engine.BeginImporting();
-            // Update the metric log files
-            //engine.UpdateArchiveDirectory();
         }
 
         /// <summary>
@@ -158,17 +149,6 @@ namespace Importer_System
         /// <param name="e"></param>
         private void hidedetailsLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            if (showingDetails)
-            {
-                hidedetailsLink.Text = "Show details";
-                this.Size = COLLAPSE_SIZE;
-            }
-            else
-            {
-                hidedetailsLink.Text = "Hide details";
-                this.Size = EXPAND_SIZE;
-            }
-            showingDetails = !showingDetails;
         }
 
         /// <summary>
@@ -178,14 +158,7 @@ namespace Importer_System
         /// <param name="e"></param>
         private void logfileLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
         {
-            try
-            {
-                System.Diagnostics.Process.Start(LOGFILE_NAME);
-            }
-            catch(Exception ex)
-            {
-                MessageBox.Show(ex.Message);
-            }
+
         }
         
         /// <summary>
@@ -195,8 +168,6 @@ namespace Importer_System
         /// <param name="e"></param>
         private void startBtn_Click(object sender, EventArgs e)
         {
-            startBtn.Visible = false;
-            ExecuteProgram();
         }
     }
 }
