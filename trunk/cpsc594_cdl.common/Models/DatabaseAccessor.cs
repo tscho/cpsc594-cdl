@@ -356,18 +356,20 @@ namespace cpsc594_cdl.Common.Models
                     Date = DateTime.Now
                 };
                 _context.DefectRepairRates.AddObject(defectRepairRate);
-                try
-                {
-                    _context.SaveChanges();
-                }
-                catch
-                {
-                }
+                _context.SaveChanges();
                 id = defectRepairRate.DefectRepairRateID;
             }
             return id;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="testCases"></param>
+        /// <param name="iteration"></param>
+        /// <returns></returns>
         public static int WriteTestEffectiveness(string projectName, string componentName, int testCases, int iteration)
         {
             var componentTestCases = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
@@ -384,23 +386,40 @@ namespace cpsc594_cdl.Common.Models
                     Date = DateTime.Now
                 };
                 _context.TestEffectivenesses.AddObject(testEffect);
-                try
-                {
-                    _context.SaveChanges();
-                }
-                catch (Exception e)
-                {
-                    MessageBox.Show(e.InnerException.Message); //should throw up!
-                    return id;
-                }
+                _context.SaveChanges();
                 id = testEffect.TestEffectivenessID;
             }
             return id;
         }
 
-        public static int WriteResourceUtilization(string project, string personName, double hours, int iteration)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="projectName"></param>
+        /// <param name="personName"></param>
+        /// <param name="hours"></param>
+        /// <param name="p"></param>
+        public static int WriteResourceUtilization(string projectName, string personName, double hours, int iteration)
         {
-            return 1;
+            var componentResourceUtilization = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (componentResourceUtilization != null)
+            {
+                var resourseUtil = new ResourceUtilization()
+                {
+                    ProjectID = componentResourceUtilization.ProjectID,
+                    IterationID = iteration,
+                    PersonName = personName,
+                    PersonHours = hours,
+                    Date = DateTime.Now
+                };
+                _context.ResourceUtilizations.AddObject(resourseUtil);
+                _context.SaveChanges();
+                id = resourseUtil.ResourceUtilizationID;
+            }
+            return id;
         }
     }
 }
