@@ -12,6 +12,7 @@
           <EntitySet Name="DefectRepairRate" EntityType="CPSC594Model.Store.DefectRepairRate" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Iteration" EntityType="CPSC594Model.Store.Iteration" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Project" EntityType="CPSC594Model.Store.Project" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ResourceUtilization" EntityType="CPSC594Model.Store.ResourceUtilization" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TestEffectiveness" EntityType="CPSC594Model.Store.TestEffectiveness" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Component_Project" Association="CPSC594Model.Store.FK_Component_Project">
             <End Role="Project" EntitySet="Project" />
@@ -40,6 +41,14 @@
           <AssociationSet Name="FK_DefectRepairRate_IterationID" Association="CPSC594Model.Store.FK_DefectRepairRate_IterationID">
             <End Role="Iteration" EntitySet="Iteration" />
             <End Role="DefectRepairRate" EntitySet="DefectRepairRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_IterationID" Association="CPSC594Model.Store.FK_ResourceUtilization_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_ProjectID" Association="CPSC594Model.Store.FK_ResourceUtilization_ProjectID">
+            <End Role="Project" EntitySet="Project" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilization" />
           </AssociationSet>
           <AssociationSet Name="FK_TestEffectiveness_ComponentID" Association="CPSC594Model.Store.FK_TestEffectiveness_ComponentID">
             <End Role="Component" EntitySet="Component" />
@@ -107,6 +116,17 @@
           </Key>
           <Property Name="ProjectName" Type="varchar" Nullable="false" MaxLength="100" />
           <Property Name="ProjectID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="ResourceUtilization">
+          <Key>
+            <PropertyRef Name="ResourceUtilizationID" />
+          </Key>
+          <Property Name="ProjectID" Type="int" Nullable="false" />
+          <Property Name="ResourceUtilizationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonName" Type="varchar" Nullable="false" MaxLength="50" />
+          <Property Name="PersonHours" Type="float" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TestEffectiveness">
           <Key>
@@ -203,6 +223,30 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_ResourceUtilization_IterationID">
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="CPSC594Model.Store.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_ProjectID">
+          <End Role="Project" Type="CPSC594Model.Store.Project" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="CPSC594Model.Store.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TestEffectiveness_ComponentID">
           <End Role="Component" Type="CPSC594Model.Store.Component" Multiplicity="1" />
           <End Role="TestEffectiveness" Type="CPSC594Model.Store.TestEffectiveness" Multiplicity="*" />
@@ -275,6 +319,15 @@
             <End Role="Iteration" EntitySet="Iterations" />
             <End Role="TestEffectiveness" EntitySet="TestEffectivenesses" />
           </AssociationSet>
+          <EntitySet Name="ResourceUtilizations" EntityType="CPSC594Model.ResourceUtilization" />
+          <AssociationSet Name="FK_ResourceUtilization_IterationID" Association="CPSC594Model.FK_ResourceUtilization_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_ProjectID" Association="CPSC594Model.FK_ResourceUtilization_ProjectID">
+            <End Role="Project" EntitySet="Projects" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilizations" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Component">
           <Key>
@@ -341,6 +394,7 @@
           <NavigationProperty Name="DefectInjectionRates" Relationship="CPSC594Model.FK_DefectInjectionRate_IterationID" FromRole="Iteration" ToRole="DefectInjectionRate" />
           <NavigationProperty Name="DefectRepairRates" Relationship="CPSC594Model.FK_DefectRepairRate_IterationID" FromRole="Iteration" ToRole="DefectRepairRate" />
           <NavigationProperty Name="TestEffectivenesses" Relationship="CPSC594Model.FK_TestEffectiveness_Iteration" FromRole="Iteration" ToRole="TestEffectiveness" />
+          <NavigationProperty Name="ResourceUtilizations" Relationship="CPSC594Model.FK_ResourceUtilization_IterationID" FromRole="Iteration" ToRole="ResourceUtilization" />
         </EntityType>
         <EntityType Name="Project">
           <Key>
@@ -349,6 +403,7 @@
           <Property Name="ProjectName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
           <Property Name="ProjectID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
           <NavigationProperty Name="Components" Relationship="CPSC594Model.FK_Component_Project" FromRole="Project" ToRole="Component" />
+          <NavigationProperty Name="ResourceUtilizations" Relationship="CPSC594Model.FK_ResourceUtilization_ProjectID" FromRole="Project" ToRole="ResourceUtilization" />
         </EntityType>
         <EntityType Name="TestEffectiveness">
           <Key>
@@ -471,6 +526,43 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="ResourceUtilization">
+          <Key>
+            <PropertyRef Name="ResourceUtilizationID" />
+          </Key>
+          <Property Type="Int32" Name="ProjectID" Nullable="false" />
+          <Property Type="Int32" Name="ResourceUtilizationID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="String" Name="PersonName" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Type="Double" Name="PersonHours" Nullable="false" />
+          <Property Type="Int32" Name="IterationID" Nullable="false" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_ResourceUtilization_IterationID" FromRole="ResourceUtilization" ToRole="Iteration" />
+          <NavigationProperty Name="Project" Relationship="CPSC594Model.FK_ResourceUtilization_ProjectID" FromRole="ResourceUtilization" ToRole="Project" />
+        </EntityType>
+        <Association Name="FK_ResourceUtilization_IterationID">
+          <End Type="CPSC594Model.Iteration" Role="Iteration" Multiplicity="1" />
+          <End Type="CPSC594Model.ResourceUtilization" Role="ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_ProjectID">
+          <End Type="CPSC594Model.Project" Role="Project" Multiplicity="1" />
+          <End Type="CPSC594Model.ResourceUtilization" Role="ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Project">
+              <PropertyRef Name="ProjectID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="ProjectID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -525,6 +617,18 @@
             <ScalarProperty Name="TestCases" ColumnName="TestCases" />
             <ScalarProperty Name="Date" ColumnName="Date" />
           </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ResourceUtilizations">
+            <EntityTypeMapping TypeName="CPSC594Model.ResourceUtilization">
+              <MappingFragment StoreEntitySet="ResourceUtilization">
+                <ScalarProperty Name="Date" ColumnName="Date" />
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+                <ScalarProperty Name="PersonHours" ColumnName="PersonHours" />
+                <ScalarProperty Name="PersonName" ColumnName="PersonName" />
+                <ScalarProperty Name="ResourceUtilizationID" ColumnName="ResourceUtilizationID" />
+                <ScalarProperty Name="ProjectID" ColumnName="ProjectID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -554,8 +658,8 @@
         <EntityTypeShape EntityType="CPSC594Model.Project" Width="1.5" PointX="0.75" PointY="7.125" Height="1.5956835937499987" IsExpanded="true" />
         <EntityTypeShape EntityType="CPSC594Model.TestEffectiveness" Width="1.5" PointX="5.25" PointY="10.625" Height="2.5571907552083317" IsExpanded="true" />
         <AssociationConnector Association="CPSC594Model.FK_Component_Project" ManuallyRouted="false">
-          <ConnectorPoint PointX="2.25" PointY="7.922841796875" />
-          <ConnectorPoint PointX="3" PointY="7.922841796875" />
+          <ConnectorPoint PointX="2.25" PointY="8.0189925130208337" />
+          <ConnectorPoint PointX="3" PointY="8.0189925130208337" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_ComponentID" ManuallyRouted="false">
           <ConnectorPoint PointX="4.5" PointY="7.9035953776041676" />
@@ -579,27 +683,45 @@
           <ConnectorPoint PointX="5.25" PointY="11.903595377604166" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.125" PointY="4.7398893229166656" />
-          <ConnectorPoint PointX="9.75" PointY="5.1148893229166656" />
+          <ConnectorPoint PointX="10.125" PointY="4.9321907552083326" />
+          <ConnectorPoint PointX="9.75" PointY="5.3071907552083317" />
           <ConnectorPoint PointX="9.75" PointY="6.125" />
           <ConnectorPoint PointX="7.125" PointY="6.125" />
           <ConnectorPoint PointX="6.75" PointY="6.5" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectInjectionRate_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.9062525" PointY="4.7398893229166656" />
-          <ConnectorPoint PointX="10.9062525" PointY="7.87474609375" />
-          <ConnectorPoint PointX="10.598959583333334" PointY="7.8747460937499989" />
-          <ConnectorPoint PointX="10.432292916666667" PointY="7.87474609375" />
+          <ConnectorPoint PointX="11.070313125" PointY="4.9321907552083326" />
+          <ConnectorPoint PointX="11.070313125" PointY="7.87474609375" />
+          <ConnectorPoint PointX="10.680989895833333" PointY="7.8747460937499989" />
+          <ConnectorPoint PointX="10.514323229166665" PointY="7.87474609375" />
           <ConnectorPoint PointX="9.75" PointY="7.87474609375" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectRepairRate_IterationID" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.125" PointY="3.651192161458332" />
-          <ConnectorPoint PointX="6.75" PointY="3.651192161458332" />
+          <ConnectorPoint PointX="10.125" PointY="3.7473428776041655" />
+          <ConnectorPoint PointX="6.75" PointY="3.7473428776041655" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_TestEffectiveness_Iteration" ManuallyRouted="false">
-          <ConnectorPoint PointX="10.51562625" PointY="4.7398893229166656" />
-          <ConnectorPoint PointX="10.51562625" PointY="11.903595377604166" />
+          <ConnectorPoint PointX="10.5976565625" PointY="4.9321907552083326" />
+          <ConnectorPoint PointX="10.5976565625" PointY="11.903595377604166" />
           <ConnectorPoint PointX="6.75" PointY="11.903595377604166" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CPSC594Model.ResourceUtilization" Width="1.5" PointX="12.375" PointY="4.375" Height="2.5571907552083317" />
+        <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_IterationID" >
+          <ConnectorPoint PointX="11.625" PointY="4.6535953776041659" />
+          <ConnectorPoint PointX="12.375" PointY="4.6535953776041659" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_ProjectID" >
+          <ConnectorPoint PointX="1.5" PointY="7.125" />
+          <ConnectorPoint PointX="1.5" PointY="5.6848453776041667" />
+          <ConnectorPoint PointX="3.6666666666666665" PointY="5.6848453776041659" />
+          <ConnectorPoint PointX="3.8333333333333335" PointY="5.6848453776041667" />
+          <ConnectorPoint PointX="9.6666666666666661" PointY="5.6848453776041659" />
+          <ConnectorPoint PointX="9.8333333333333339" PointY="5.6848453776041667" />
+          <ConnectorPoint PointX="10.514323229166665" PointY="5.6848453776041659" />
+          <ConnectorPoint PointX="10.680989895833333" PointY="5.6848453776041667" />
+          <ConnectorPoint PointX="10.986979791666666" PointY="5.6848453776041659" />
+          <ConnectorPoint PointX="11.153646458333334" PointY="5.6848453776041667" />
+          <ConnectorPoint PointX="12.375" PointY="5.6848453776041667" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

@@ -27,6 +27,8 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 
 #endregion
 
@@ -189,6 +191,22 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<TestEffectiveness> _TestEffectivenesses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ResourceUtilization> ResourceUtilizations
+        {
+            get
+            {
+                if ((_ResourceUtilizations == null))
+                {
+                    _ResourceUtilizations = base.CreateObjectSet<ResourceUtilization>("ResourceUtilizations");
+                }
+                return _ResourceUtilizations;
+            }
+        }
+        private ObjectSet<ResourceUtilization> _ResourceUtilizations;
 
         #endregion
         #region AddTo Methods
@@ -247,6 +265,14 @@ namespace cpsc594_cdl.Common.Models
         public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
         {
             base.AddObject("TestEffectivenesses", testEffectiveness);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ResourceUtilizations EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToResourceUtilizations(ResourceUtilization resourceUtilization)
+        {
+            base.AddObject("ResourceUtilizations", resourceUtilization);
         }
 
         #endregion
@@ -1527,6 +1553,28 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
+        public EntityCollection<ResourceUtilization> ResourceUtilizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1630,6 +1678,292 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("CPSC594Model.FK_Component_Project", "Component", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID", "ResourceUtilization")]
+        public EntityCollection<ResourceUtilization> ResourceUtilizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProjectID", "ResourceUtilization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProjectID", "ResourceUtilization", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="ResourceUtilization")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ResourceUtilization : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ResourceUtilization object.
+        /// </summary>
+        /// <param name="projectID">Initial value of the ProjectID property.</param>
+        /// <param name="resourceUtilizationID">Initial value of the ResourceUtilizationID property.</param>
+        /// <param name="personName">Initial value of the PersonName property.</param>
+        /// <param name="personHours">Initial value of the PersonHours property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        public static ResourceUtilization CreateResourceUtilization(global::System.Int32 projectID, global::System.Int32 resourceUtilizationID, global::System.String personName, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        {
+            ResourceUtilization resourceUtilization = new ResourceUtilization();
+            resourceUtilization.ProjectID = projectID;
+            resourceUtilization.ResourceUtilizationID = resourceUtilizationID;
+            resourceUtilization.PersonName = personName;
+            resourceUtilization.PersonHours = personHours;
+            resourceUtilization.IterationID = iterationID;
+            resourceUtilization.Date = date;
+            return resourceUtilization;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProjectID
+        {
+            get
+            {
+                return _ProjectID;
+            }
+            set
+            {
+                OnProjectIDChanging(value);
+                ReportPropertyChanging("ProjectID");
+                _ProjectID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectID");
+                OnProjectIDChanged();
+            }
+        }
+        private global::System.Int32 _ProjectID;
+        partial void OnProjectIDChanging(global::System.Int32 value);
+        partial void OnProjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ResourceUtilizationID
+        {
+            get
+            {
+                return _ResourceUtilizationID;
+            }
+            set
+            {
+                if (_ResourceUtilizationID != value)
+                {
+                    OnResourceUtilizationIDChanging(value);
+                    ReportPropertyChanging("ResourceUtilizationID");
+                    _ResourceUtilizationID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ResourceUtilizationID");
+                    OnResourceUtilizationIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ResourceUtilizationID;
+        partial void OnResourceUtilizationIDChanging(global::System.Int32 value);
+        partial void OnResourceUtilizationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PersonName
+        {
+            get
+            {
+                return _PersonName;
+            }
+            set
+            {
+                OnPersonNameChanging(value);
+                ReportPropertyChanging("PersonName");
+                _PersonName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PersonName");
+                OnPersonNameChanged();
+            }
+        }
+        private global::System.String _PersonName;
+        partial void OnPersonNameChanging(global::System.String value);
+        partial void OnPersonNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double PersonHours
+        {
+            get
+            {
+                return _PersonHours;
+            }
+            set
+            {
+                OnPersonHoursChanging(value);
+                ReportPropertyChanging("PersonHours");
+                _PersonHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PersonHours");
+                OnPersonHoursChanged();
+            }
+        }
+        private global::System.Double _PersonHours;
+        partial void OnPersonHoursChanging(global::System.Double value);
+        partial void OnPersonHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID", "Project")]
+        public Project Project
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID", "Project").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID", "Project").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Project> ProjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID", "Project");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID", "Project", value);
                 }
             }
         }

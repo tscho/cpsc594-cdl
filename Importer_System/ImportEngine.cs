@@ -28,7 +28,7 @@ namespace Importer_System
         private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
-        private ResourceUtilization _resourceUtilization;         // Class that calculates work hours per project
+        private ResourceUtilizationMetric _resourceUtilization;         // Class that calculates work hours per project
         private ConnectionStringSettings _outputDbSettings;       //
 
         /// <summary>
@@ -61,7 +61,7 @@ namespace Importer_System
             // CREATE METRIC 3 and 4
             _defectMetrics = new DefectMetrics();
             // CREATE METRIC 5 
-            _resourceUtilization = new ResourceUtilization();
+            _resourceUtilization = new ResourceUtilizationMetric();
         }
 
         /// <summary>
