@@ -29,5 +29,10 @@ namespace cpsc594_cdl.Models
             Array.Sort(componentIDs);
             return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
         }
+
+        public string GetCacheCode(int componentID)
+        {
+            return GetCacheCode(new int[] { componentID });
+        }
     }
 }
