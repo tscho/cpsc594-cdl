@@ -44,16 +44,7 @@ namespace cpsc594_cdl.Models
                 }
             }
 
-            MemoryStream imageStream = new MemoryStream();
-            chart.SaveImage(imageStream, ChartImageFormat.Png);
-            imageStream.Position = 0;
-
-            string filename = "Content/cache/" + Path.GetRandomFileName() + ".png";
-            string fullpath_filename = HttpRuntime.AppDomainAppPath + filename;
-            FileStream fileStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate);
-            imageStream.WriteTo(fileStream);
-
-            return filename;
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(componentIds.ToArray()), chart);
         }
 
         // x: interations, y: defects
@@ -95,16 +86,7 @@ namespace cpsc594_cdl.Models
                 }
             }
 
-            MemoryStream imageStream = new MemoryStream();
-            chart.SaveImage(imageStream, ChartImageFormat.Png);
-            imageStream.Position = 0;
-
-            string filename = "Content/cache/" + Path.GetRandomFileName() + ".png";
-            string fullpath_filename = HttpRuntime.AppDomainAppPath + filename;
-            FileStream fileStream = new FileStream(fullpath_filename, FileMode.OpenOrCreate);
-            imageStream.WriteTo(fileStream);
-
-            return filename;
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(component.ComponentID), chart);
         }
     }
 }
