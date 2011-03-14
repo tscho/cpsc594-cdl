@@ -403,15 +403,15 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="p"></param>
         public static int WriteResourceUtilization(string projectName, string personName, double hours, int iteration)
         {
-            var componentResourceUtilization = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+            var projectResourceUtilization = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
 
             int id = -1;
 
-            if (componentResourceUtilization != null)
+            if (projectResourceUtilization != null)
             {
                 var resourseUtil = new ResourceUtilization()
                 {
-                    ProjectID = componentResourceUtilization.ProjectID,
+                    ProjectID = projectResourceUtilization.ProjectID,
                     IterationID = iteration,
                     PersonName = personName,
                     PersonHours = hours,
@@ -420,6 +420,29 @@ namespace cpsc594_cdl.Common.Models
                 _context.ResourceUtilizations.AddObject(resourseUtil);
                 _context.SaveChanges();
                 id = resourseUtil.ResourceUtilizationID;
+            }
+            return id;
+        }
+
+        public static int WriteOutOfScopeWork(string projectName, string personName, double hours, int iteration)
+        {
+            var projectOutOfScopeWork = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (projectOutOfScopeWork != null)
+            {
+                var outOfScopeWork = new OutOfScopeWork()
+                {
+                    ProjectID = projectOutOfScopeWork.ProjectID,
+                    IterationID = iteration,
+                    PersonName = personName,
+                    PersonHours = hours,
+                    Date = DateTime.Now
+                };
+                _context.OutOfScopeWorks.AddObject(outOfScopeWork);
+                _context.SaveChanges();
+                id = outOfScopeWork.OutOfScopeWorkID;
             }
             return id;
         }

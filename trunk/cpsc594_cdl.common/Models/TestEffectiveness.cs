@@ -12,6 +12,7 @@ namespace cpsc594_cdl.Common.Models
         public int getValue()
         {
             return AssociatedDefectRate.GetValue() / (this.TestCases > 0 ? this.TestCases : 1);
+            return 1;
         }
     }
 }

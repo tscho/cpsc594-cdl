@@ -331,6 +331,7 @@ namespace Importer_System
                 foreach (FileInfo projectData in projectDataList.GetFiles())
                 {
                     _resourceUtilization.CalculateMetric(Path.Combine(_projectDataDirectory,projectData.Name), currIteration);
+                    _outOfScopeWork.CalculateMetric(Path.Combine(_projectDataDirectory, projectData.Name), currIteration);
                 }
             }
             // ---------------------------------------------------------------------
