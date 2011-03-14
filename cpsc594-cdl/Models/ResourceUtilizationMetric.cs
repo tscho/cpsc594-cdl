@@ -12,8 +12,8 @@ namespace cpsc594_cdl.Models
 {
     public class ResourceUtilizationMetric : Metric
     {
-        public override string Name { get { return "Out of Scope Work"; } }
-        public override int ID { get { return (int)MetricType.OutOfScopeWork; } }
+        public override string Name { get { return "Resource Utilization"; } }
+        public override int ID { get { return (int)MetricType.ResourceUtilization; } }
         public override bool OverviewOnly { get { return true; } }
 
         public ResourceUtilizationMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
@@ -24,23 +24,21 @@ namespace cpsc594_cdl.Models
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisX.Title = "Person";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisY.Title = "Resource Utilization (hours)";
+            chart.ChartAreas[0].AxisY.Title = "Resource Utilization(hours)";
 
             Series series;
             foreach (var iteration in Iterations)
             {
-                if (iteration.OutOfScopeWorks == null || iteration.OutOfScopeWorks.Count == 0)
+                if (iteration.ResourceUtilizations == null || iteration.ResourceUtilizations.Count == 0)
                     continue;
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
                 
-                double hours = iteration.OutOfScopeWorks.Aggregate((x, next) => x.PersonHours + next.PersonHours);
+                ResourceUtilization hours = iteration.ResourceUtilizations.Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
 
-                    series.Points.AddY(coverage.GetCoverage());
-                    series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = coverage.Component.ComponentName;
-                }
+                series.Points.AddY(hours.PersonHours);
+                series.Points.Last().MarkerSize = 10;
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(new int[] { components.First().ProjectID }), chart);
@@ -50,6 +48,5 @@ namespace cpsc594_cdl.Models
         {
             return GenerateOverviewGraph(title, new Component[] { component });
         }
-
     }
 }
