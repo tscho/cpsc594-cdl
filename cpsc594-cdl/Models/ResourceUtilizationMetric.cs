@@ -41,7 +41,7 @@ namespace cpsc594_cdl.Models
                 series.Points.Last().MarkerSize = 10;
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(new int[] { components.First().ProjectID }), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(new int[] { components.First().ProductID }), chart);
         }
 
         public override string GenerateComponentGraph(string title, Component component)

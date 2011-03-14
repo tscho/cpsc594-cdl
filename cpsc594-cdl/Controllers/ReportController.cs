@@ -16,24 +16,24 @@ namespace cpsc594_cdl.Controllers
         /*
         public ComponentRepository componentRepo;
         public IterationRepository iterationRepo;
-        public ProjectRepository projectRepo;
+        public ProducRepository productRepo;
         public MetricRepository metricRepo;
 
         public ReportController()
         {
             componentRepo = new ComponentRepository();
             iterationRepo = new IterationRepository();
-            projectRepo = new ProjectRepository();
+            productRepo = new ProductRepository();
             metricRepo = new MetricRepository();
         }
 
-        private Project BuildReportData(IndexModel model)
+        private Product BuildReportData(IndexModel model)
         {
-            int pid = Int32.Parse(model.ProjectID);
+            int pid = Int32.Parse(model.ProductID);
 
-            var project = projectRepo.getProject(pid);
-            model.ProjectName = project.Name;
-            List<Component> Components = componentRepo.getComponentsForProject(pid);
+            var product = productRepo.getProduct(pid);
+            model.ProductName = product.Name;
+            List<Component> Components = componentRepo.getComponentsForProduct(pid);
 
             List<Iteration> iterationList = iterationRepo.getIterations(12);
             
@@ -55,8 +55,8 @@ namespace cpsc594_cdl.Controllers
                     currIteration.defectInjection = componentDefectInjection;
                 }
             }
-            project.setComponents(Components, model.ComponentIDs);
-            return project;
+            product.setComponents(Components, model.ComponentIDs);
+            return product;
         }
          */
 
@@ -88,6 +88,12 @@ namespace cpsc594_cdl.Controllers
                             break;
                         case MetricType.TestEffectiveness:
                             metric = new TestEffectivenessMetric(iterations);
+                            break;
+                        case MetricType.OutOfScopeWork:
+                            metric = new OutOfScopeWorkMetric(iterations);
+                            break;
+                        case MetricType.ResourceUtilization:
+                            metric = new ResourceUtilizationMetric(iterations);
                             break;
                     }
                     model.Metrics.Add(metric);

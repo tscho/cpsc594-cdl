@@ -20,7 +20,7 @@ namespace Importer_System
     {
         private string _rootDirectory;                            // Root directory of the folders
         private string _rootArchiveDirectory;                     // Archive directory for files after being read
-        private string _projectDataDirectory = null;              // Directory containing .xls project data files
+        private string _productDataDirectory = null;              // Directory containing .xls product data files
         private int _archivePeriod;                               //number of days the logfiles exist in the archive directory
         private string _testDirectory;                            // ???
         private string _outputDatabaseConnection;                 // Connection string to output the information to
@@ -29,7 +29,7 @@ namespace Importer_System
         private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
-        private ResourceUtilizationMetric _resourceUtilization;         // Class that calculates work hours per project
+        private ResourceUtilizationMetric _resourceUtilization;         // Class that calculates work hours per product
         private OutOfScopeWorkMetric _outOfScopeWork;             //Calculates out of scope work
         private ConnectionStringSettings _outputDbSettings;       //
 
@@ -87,8 +87,8 @@ namespace Importer_System
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
             //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
-            // _projectDataDirectory
-            ValidateProjectDataDirectory(ConfigurationManager.AppSettings["ProjectData"]);
+            // _productDataDirectory
+            ValidateProductDataDirectory(ConfigurationManager.AppSettings["productData"]);
             // _iterationStart
             ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
             // _iterationLength
@@ -175,15 +175,15 @@ namespace Importer_System
         }
 
         /// <summary>
-        ///     ValidateProjectDataDirectory
+        ///     ValidateProductDataDirectory
         /// </summary>
         /// <param name="str"></param>
-        private void ValidateProjectDataDirectory(String str)
+        private void ValidateProductDataDirectory(String str)
         {
             if(Directory.Exists(str))
-                _projectDataDirectory = str;
+                _productDataDirectory = str;
             else
-                Reporter.AddErrorMessageToReporter("Could not calculate Resource Utilization Metric becauses the projectData directory "+str+" could not be found.");
+                Reporter.AddErrorMessageToReporter("Could not calculate Resource Utilization Metric becauses the ProductData directory "+str+" could not be found.");
         }
 
         /// <summary>
@@ -222,16 +222,16 @@ namespace Importer_System
         }
 
         /// <summary>
-        ///     GetListOfProjects - returns the list of projects in the _rootDirectory
+        ///     GetListOfProducts - returns the list of Products in the _rootDirectory
         /// </summary>
         /// <returns></returns>
-        public List<String> GetListOfProjects()
+        public List<String> GetListOfProducts()
         {
             List<String> tempList = new List<string>();
             DirectoryInfo initialDirectory = new DirectoryInfo(_rootDirectory);
-            foreach (DirectoryInfo project in initialDirectory.GetDirectories())
+            foreach (DirectoryInfo Product in initialDirectory.GetDirectories())
             {
-                tempList.Add(project.Name);
+                tempList.Add(Product.Name);
             }
             return tempList;
         }
@@ -251,43 +251,43 @@ namespace Importer_System
             // Start TimeStamp
             long startTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks)/TimeSpan.TicksPerMillisecond;
 
-            // Iterate through the projects in the code coverage directory
-            foreach (DirectoryInfo project in initialDirectory.GetDirectories())
+            // Iterate through the Products in the code coverage directory
+            foreach (DirectoryInfo product in initialDirectory.GetDirectories())
             { 
-                // Save the current projects name
-                string currentProjectName = project.Name;
+                // Save the current Products name
+                string currentProductName = product.Name;
 
-                // Check if project is in DB
-                if(!DatabaseAccessor.ProjectExists(currentProjectName))
+                // Check if Product is in DB
+                if(!DatabaseAccessor.ProductExists(currentProductName))
                 {
-                    DatabaseAccessor.WriteProject(currentProjectName);
+                    DatabaseAccessor.WriteProduct(currentProductName);
                 }
 
                 // ---------------------------------------------------------------------
                 // COMPUTE METRIC 2 - TEST EFFECTIVENESS
                 // ---------------------------------------------------------------------
-                string projectDirectory = Path.Combine(_rootDirectory, currentProjectName);
-                DirectoryInfo testFiles = new DirectoryInfo(projectDirectory);
+                string productDirectory = Path.Combine(_rootDirectory, currentProductName);
+                DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
                 foreach (FileInfo testFile in testFiles.GetFiles())
                 {
-                    currFile = Path.Combine(projectDirectory, testFile.Name);
-                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProjectName);
+                    currFile = Path.Combine(productDirectory, testFile.Name);
+                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
                 }
-                // Iterate through the selected projects components;
-                foreach (DirectoryInfo component in project.GetDirectories())
+                // Iterate through the selected Products components;
+                foreach (DirectoryInfo component in product.GetDirectories())
                 {
                     // Save the current components name
                     string currentComponentName = component.Name;
 
                     // Check if component is in DB
-                    if(!DatabaseAccessor.ComponentExists(currentProjectName,currentComponentName))
+                    if(!DatabaseAccessor.ComponentExists(currentProductName,currentComponentName))
                     {
-                        DatabaseAccessor.WriteComponent(currentProjectName, currentComponentName);
+                        DatabaseAccessor.WriteComponent(currentProductName, currentComponentName);
                     }
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 1 - CODE COVERAGE
                     // ---------------------------------------------------------------------
-                    string currentMetric1Directory = Path.Combine(_rootDirectory, currentProjectName, currentComponentName);
+                    string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
                     // Check if the code coverage folder exists
                     if(Directory.Exists(currentMetric1Directory))
                     {
@@ -297,13 +297,13 @@ namespace Importer_System
                             {
                                 currFile = Path.Combine(currentMetric1Directory, logFile.Name);
                                 // Archive the log file if returned true
-                                coverageID = _codeCoverageMetric.CalculateMetric(currentProjectName, currentComponentName, currFile, currIteration.IterationID);
+                                coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID);
                                 if(coverageID >= 0)
                                 {
                                     uniqueFileName = BuildUniqueFilename(logFile.Name, coverageID);
                                     RenameFile(currFile, Path.Combine(currentMetric1Directory, uniqueFileName));
                                     DatabaseAccessor.UpdateCoverage(coverageID, logFile.LastWriteTimeUtc.Date, uniqueFileName );
-                                    ArchiveFile(currentProjectName, currentComponentName, uniqueFileName);
+                                    ArchiveFile(currentProductName, currentComponentName, uniqueFileName);
                                 }
                                 coverageID = -1;
                                 uniqueFileName = "";
@@ -315,7 +315,7 @@ namespace Importer_System
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
                     // ---------------------------------------------------------------------
-                        _defectMetrics.CalculateMetric(currentProjectName, currentComponentName, currIteration);
+                        _defectMetrics.CalculateMetric(currentProductName, currentComponentName, currIteration);
                     // --------------------------------------------------------------------
                     // END METRIC 3 AND 4
                     // --------------------------------------------------------------------
@@ -324,14 +324,14 @@ namespace Importer_System
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 5 AND 6 - RESOURCE UTILIZATION AND OUT OF SCOPE WORK
             // ---------------------------------------------------------------------
-            if(_projectDataDirectory!=null)
+            if(_productDataDirectory!=null)
             {
-                DirectoryInfo projectDataList = new DirectoryInfo(_projectDataDirectory);
+                DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
                 // Iterate through each product data .xls file to calculate resource utilization
-                foreach (FileInfo projectData in projectDataList.GetFiles())
+                foreach (FileInfo productData in productDataList.GetFiles())
                 {
-                    _resourceUtilization.CalculateMetric(Path.Combine(_projectDataDirectory,projectData.Name), currIteration);
-                    _outOfScopeWork.CalculateMetric(Path.Combine(_projectDataDirectory, projectData.Name), currIteration);
+                    _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory,productData.Name), currIteration);
+                    _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                 }
             }
             // ---------------------------------------------------------------------
@@ -497,13 +497,13 @@ namespace Importer_System
         /// <summary>
         ///     Archives the code coverage metric files.
         /// </summary>
-        /// <param name="project">Current project</param>
+        /// <param name="product">Current product</param>
         /// <param name="component">Current component</param>
         /// <param name="file">File to be saved</param>
-        public bool ArchiveFile(string project, string component, string file)
+        public bool ArchiveFile(string product, string component, string file)
         {
-            string archMetric1Directory = Path.Combine(_rootArchiveDirectory, project, component, "Metric1");
-            string currMetric1Directory = Path.Combine(_rootDirectory, project, component, "Metric1");
+            string archMetric1Directory = Path.Combine(_rootArchiveDirectory, product, component, "Metric1");
+            string currMetric1Directory = Path.Combine(_rootDirectory, product, component, "Metric1");
 
             if(File.Exists(Path.Combine(currMetric1Directory, file)))
             {
@@ -542,18 +542,18 @@ namespace Importer_System
                 DirectoryInfo initialDirectory = new DirectoryInfo(_rootArchiveDirectory);
                 TimeSpan difference;
 
-                // Iterate through the projects in the directory
-                foreach (DirectoryInfo project in initialDirectory.GetDirectories())
+                // Iterate through the products in the directory
+                foreach (DirectoryInfo product in initialDirectory.GetDirectories())
                 {
-                    // Save the current projects name
-                    string archProjectName = project.Name;
-                    // Iterate through the selected projects components
-                    foreach (DirectoryInfo component in project.GetDirectories())
+                    // Save the current products name
+                    string archProductName = product.Name;
+                    // Iterate through the selected products components
+                    foreach (DirectoryInfo component in product.GetDirectories())
                     {
                         // Save the current components name
                         string archComponentName = component.Name;
 
-                        string archiveMetric1Directory = Path.Combine(_rootArchiveDirectory, archProjectName, archComponentName, "Metric1");
+                        string archiveMetric1Directory = Path.Combine(_rootArchiveDirectory, archProductName, archComponentName, "Metric1");
 
                         if (Directory.Exists(archiveMetric1Directory))
                         {

@@ -34,6 +34,8 @@
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Dropbox\School\CPSC594\Group\Project Data\MySql-Connector\bin\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="nunit.framework, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
+    <Reference Include="nunit.mocks, Version=2.5.9.10348, Culture=neutral, PublicKeyToken=96d09a1eb7f44a77, processorArchitecture=MSIL" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
@@ -58,9 +60,8 @@
     <Compile Include="Models\DefectInjectionRate.cs" />
     <Compile Include="Models\Iteration.cs" />
     <Compile Include="Models\NoExistanceOfDirectoryException.cs" />
-    <Compile Include="Models\OutOfScopeWork.cs" />
     <Compile Include="Models\OutputDatabaseConnectionException.cs" />
-    <Compile Include="Models\Project.cs" />
+    <Compile Include="Models\Product.cs" />
     <Compile Include="Models\TestEffectiveness.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -68,7 +69,9 @@
     <Folder Include="Models\Repositories\" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="App.Config" />
+    <None Include="App.Config">
+      <SubType>Designer</SubType>
+    </None>
     <EntityDeploy Include="Models\CPSC594.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
       <LastGenOutput>CPSC594.Designer.cs</LastGenOutput>

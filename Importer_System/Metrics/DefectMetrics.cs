@@ -78,7 +78,7 @@ namespace Importer_System
             // --------------------------------------
             // Count the number of minor bugs - LOW
             // --------------------------------------
-            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Bugs WHERE product = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'minor'", connection);
+            MySqlCommand cmd = new MySqlCommand("SELECT * FROM Bugs WHERE project = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'minor'", connection);
             MySqlDataReader myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -91,7 +91,7 @@ namespace Importer_System
             // --------------------------------------
             // Count the number of major bugs - MEDIUM
             // --------------------------------------
-            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE product = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'major'", connection);
+            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE project = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'major'", connection);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -104,7 +104,7 @@ namespace Importer_System
             // --------------------------------------
             // Count the number of critical bugs - HIGH
             // --------------------------------------
-            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE product = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'critical'", connection);
+            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE project = '" + project + "' AND component = '" + component + "' AND bug_status = 'CONFIRMED' AND bug_severity = 'critical'", connection);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -126,7 +126,7 @@ namespace Importer_System
             // --------------------------------------
             // Count the number of verified defects
             // --------------------------------------
-            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE product = '" + project + "' AND component = '" + component + "' AND bug_status = 'VERIFIED'", connection);
+            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE project = '" + project + "' AND component = '" + component + "' AND bug_status = 'VERIFIED'", connection);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
@@ -140,7 +140,7 @@ namespace Importer_System
             // --------------------------------------
             // Count the number of resolved defects
             // --------------------------------------
-            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE product = '" + project + "' AND component = '" + component + "' AND bug_status = 'RESOLVED'", connection);
+            cmd = new MySqlCommand("SELECT * FROM Bugs WHERE project = '" + project + "' AND component = '" + component + "' AND bug_status = 'RESOLVED'", connection);
             myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
