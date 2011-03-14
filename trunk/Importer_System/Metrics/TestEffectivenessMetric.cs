@@ -8,26 +8,26 @@ namespace Importer_System.Metrics
     {
         private string file; // File directory
         private int iteration;
-        private string project; // The project assigned
+        private string product; // The product assigned
         int _testsExecuted = 0;
 
 
         /// <summary>
         ///     Calculates the given log file 
         /// </summary>
-        /// <param name="project"></param>
+        /// <param name="product"></param>
         /// <param name="component"></param>
         /// <param name="file"></param>
         /// <returns>True if no errors</returns>
-        public void CalculateMetric(string file, int currIteration, String project)
+        public void CalculateMetric(string file, int currIteration, String product)
         {
             this.file = file;
             this.iteration = currIteration;
-            this.project = project;
+            this.product = product;
 
             // Parse the file and return true if passed, false if error
             if(parseLogFile(file))
-                StoreMetric(project, _testsExecuted);
+                StoreMetric(product, _testsExecuted);
         }
 
         /// <summary>
@@ -100,7 +100,7 @@ namespace Importer_System.Metrics
             directories = line.Split('/');
             foreach (String directory in directories)
             {     
-                if(directory == this.project)
+                if(directory == this.product)
                 {
                     component = directories[index + 1];
                     componentLine = component.Split(' ');
@@ -115,9 +115,9 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(String project, int testCases)
+        public int StoreMetric(String product, int testCases)
         {
-            return DatabaseAccessor.WriteTestEffectiveness(this.project, testCases, iteration);
+            return DatabaseAccessor.WriteTestEffectiveness(this.product, testCases, iteration);
         }
     }
 }

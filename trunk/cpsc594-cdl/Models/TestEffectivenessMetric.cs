@@ -35,12 +35,14 @@ namespace cpsc594_cdl.Models
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
+                /*
                 foreach(var testEffectiveness in iteration.TestEffectivenesses.Where(x => componentIds.Contains(x.ComponentID)))
                 {
                     series.Points.AddY(testEffectiveness.getValue());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = testEffectiveness.Component.ComponentName;
                 }
+                 */
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(componentIds.ToArray()), chart);

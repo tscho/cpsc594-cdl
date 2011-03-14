@@ -10,11 +10,11 @@ namespace cpsc594_cdl.Models
 {
     public class IndexModel
     {
-        public IEnumerable<Project> Projects { get; set; }
+        public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Component> Components { get; set; }
 
-        public int ProjectID { get; set; }
-        public string ProjectName { get; set; }
+        public int ProductID { get; set; }
+        public string ProductName { get; set; }
         public IEnumerable<int> ComponentIDs { get; set; }
         public IEnumerable<int> MetricIDs { get; set; }
 

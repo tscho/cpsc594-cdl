@@ -19,14 +19,14 @@
         <% using (Html.BeginForm("Index", "Menu"))
            { %>
             <tr>
-                <td id="menuItem">Project:</td>
-                <td><%= Html.DropDownListFor(m => m.ProjectID, new MultiSelectList(Model.Projects, "ProjectID", "ProjectName"), new { @onchange = "submit();" })%></td>
+                <td id="menuItem">Product:</td>
+                <td><%= Html.DropDownListFor(m => m.ProductID, new MultiSelectList(Model.Products, "ProductID", "ProductName"), new { @onchange = "submit();" })%></td>
             </tr>
         <% } %>
         <% if (Model.Components != null) { %>
             <% using (Html.BeginForm("Index", "Report", FormMethod.Post, new { @target = "report" }))
                { %>
-                <%= Html.HiddenFor(m => m.ProjectID)%>
+                <%= Html.HiddenFor(m => m.ProductID)%>
                 <tr>
                     <td id="menuItem">Components:</td>
                     <td><%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "ComponentName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%></td>

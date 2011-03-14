@@ -102,7 +102,7 @@ namespace Importer_System_Tests
             string projectName = string.Empty; // TODO: Initialize to an appropriate value
             bool expected = false; // TODO: Initialize to an appropriate value
             bool actual;
-            actual = DatabaseAccessor.ProjectExists(projectName);
+            actual = DatabaseAccessor.ProductExists(projectName);
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
@@ -173,7 +173,7 @@ namespace Importer_System_Tests
         public void WriteProjectTest()
         {
             string projectName = string.Empty; // TODO: Initialize to an appropriate value
-            DatabaseAccessor.WriteProject(projectName);
+            DatabaseAccessor.WriteProduct(projectName);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
     }

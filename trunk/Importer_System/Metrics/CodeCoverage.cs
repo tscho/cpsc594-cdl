@@ -10,7 +10,7 @@ namespace Importer_System
 {
     public class CodeCoverage : Metric
     {
-        private string project;     // The project assigned
+        private string product;     // The product assigned
         private string component;   // The component assigned
         private int linesCovered;   // The lines covered
         private int linesExecuted;  // The lines found
@@ -21,13 +21,13 @@ namespace Importer_System
         /// <summary>
         ///     Calculates the given log file 
         /// </summary>
-        /// <param name="project"></param>
+        /// <param name="product"></param>
         /// <param name="component"></param>
         /// <param name="file"></param>
         /// <returns>True if no errors</returns>
-        public int CalculateMetric(string project, string component, string file, int currIteration)
+        public int CalculateMetric(string product, string component, string file, int currIteration)
         {
-            this.project = project;
+            this.product = product;
             this.component = component;
             this.linesCovered = 0;
             this.linesExecuted = 0;
@@ -76,15 +76,15 @@ namespace Importer_System
                 {
                     if (line.Substring(0, 2).Equals("SF"))
                     {
-                        // Parse the Source File to see if it belongs in the Project and Component
+                        // Parse the Source File to see if it belongs in the product and Component
                         string[] sf_directory = line.Split(':');
                         string directory = sf_directory[1];
                         string[] folders = directory.Split('/');
-                        // Check the project name and component
-                        if (project.Equals(folders[folders.Length - 3]) && component.Equals(folders[folders.Length - 2]))
+                        // Check the product name and component
+                        if (product.Equals(folders[folders.Length - 3]) && component.Equals(folders[folders.Length - 2]))
                         {
                             Boolean foundCoverageLines = false;
-                            String project_comp_line = line;
+                            String product_comp_line = line;
                             // Read to the end of the file
                             while ((line = file.ReadLine()) != null)
                             {
@@ -145,7 +145,7 @@ namespace Importer_System
         /// </summary>
         public int StoreMetric()
         {
-            return DatabaseAccessor.WriteCodeCoverage(project, component, linesCovered, linesExecuted, iteration);
+            return DatabaseAccessor.WriteCodeCoverage(product, component, linesCovered, linesExecuted, iteration);
         }
     }
 }

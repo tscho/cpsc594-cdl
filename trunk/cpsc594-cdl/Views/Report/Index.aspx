@@ -27,7 +27,7 @@
         <% if (Html.ValidationSummary()!=null) { %>
             <%: Html.ValidationSummary(true, "Chart creation was unsuccessful. Please try again.") %>
         <% } else { %> 
-            <h1><%= Model.ProjectName%></h1>
+            <h1><%= Model.ProductName%></h1>
             <div id="tabs" class="tabs" style="overflow: visible; width: 100%;">
                 <ul>
                     <li><a href="#overview">Overview</a></li>

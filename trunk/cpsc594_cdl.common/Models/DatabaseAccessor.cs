@@ -89,15 +89,15 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <param name="linesCovered"></param>
         /// <param name="linesExecuted"></param>
         /// <param name="currIteration"></param>
         /// <returns></returns>
-        public static int WriteCodeCoverage(string projectName, string componentName, int linesCovered, int linesExecuted, int currIteration)
+        public static int WriteCodeCoverage(string productName, string componentName, int linesCovered, int linesExecuted, int currIteration)
         {
-            var componentCoverage = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            var componentCoverage = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
 
             int id = -1;
 
@@ -175,11 +175,11 @@ namespace cpsc594_cdl.Common.Models
         }
 
         //Component database methods
-        public static List<Component> GetComponents(int projectId)
+        public static List<Component> GetComponents(int productId)
         {
             IOrderedQueryable<Component> components;
 
-            components = (from c in _context.Components where c.ProjectID == projectId orderby c.ComponentName ascending select c);
+            components = (from c in _context.Components where c.ProductID == productId orderby c.ComponentName ascending select c);
 
             if (components != null)
             {
@@ -210,12 +210,12 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <returns></returns>
-        public static bool ComponentExists(string projectName, string componentName)
+        public static bool ComponentExists(string productName, string componentName)
         {
-            var componenet = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            var componenet = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
 
             if (componenet != null)
             {
@@ -230,34 +230,34 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="ProductName"></param>
         /// <param name="componenetName"></param>
-        public static void WriteComponent(string projectName, string componenetName)
+        public static void WriteComponent(string productName, string componenetName)
         {
-            var componentProject = (from c in _context.Projects where c.ProjectName == projectName select c).FirstOrDefault();
-            if (componentProject != null)
+            var componentProduct = (from c in _context.Products where c.ProductName == productName select c).FirstOrDefault();
+            if (componentProduct != null)
             {
-                var component = new Component { ProjectID = componentProject.ProjectID, ComponentName = componenetName };
+                var component = new Component { ProductID = componentProduct.ProductID, ComponentName = componenetName };
 
                 _context.Components.AddObject(component);
                 _context.SaveChanges();
             }
         }
 
-        //Project database methods
-        public static Project GetProject(int pid)
+        //Product database methods
+        public static Product GetProduct(int pid)
         {
-            Project project = (from p in _context.Projects where p.ProjectID == pid select p).FirstOrDefault();
-            return project;
+            Product product = (from p in _context.Products where p.ProductID == pid select p).FirstOrDefault();
+            return product;
         }
 
-        public static List<Project> GetProjects()
+        public static List<Product> GetProducts()
         {
-            IOrderedQueryable<Project> projects = (from p in _context.Projects orderby p.ProjectName ascending select p);
+            IOrderedQueryable<Product> products = (from p in _context.Products orderby p.ProductName ascending select p);
 
-            if(projects != null)
+            if(products != null)
             {
-                return projects.ToList();
+                return products.ToList();
             }
             else
             {
@@ -268,14 +268,14 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
-        public static void WriteProject(string projectName)
+        /// <param name="productName"></param>
+        public static void WriteProduct(string productName)
         {
-            var project = new Project();
+            var product = new Product();
 
-            project.ProjectName = projectName;
+            product.ProductName = productName;
 
-            _context.Projects.AddObject(project);
+            _context.Products.AddObject(product);
 
             _context.SaveChanges();
         }
@@ -283,13 +283,13 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <returns></returns>
-        public static bool ProjectExists(string projectName)
+        public static bool ProductExists(string productName)
         {
-            var project = (from c in _context.Projects where c.ProjectName == projectName select c).FirstOrDefault();
+            var product = (from c in _context.Products where c.ProductName == productName select c).FirstOrDefault();
 
-            if (project != null)
+            if (product != null)
             {
                 return true;
             }
@@ -301,14 +301,14 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <param name="numberOfHighDefects"></param>
         /// <param name="numberOfMediumDefects"></param>
         /// <param name="numberOfLowDefects"></param>
-        public static int WriteDefectInjectionRate(string projectName, string componentName, int numberOfHighDefects, int numberOfMediumDefects, int numberOfLowDefects, int curIteration)
+        public static int WriteDefectInjectionRate(string productName, string componentName, int numberOfHighDefects, int numberOfMediumDefects, int numberOfLowDefects, int curIteration)
         {
-            var componentDefectInjectionRate = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            var componentDefectInjectionRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
             int id = -1;
             if (componentDefectInjectionRate != null)
             {
@@ -336,15 +336,15 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <param name="numberOfVerifiedDefects"></param>
         /// <param name="numberOfResolvedDefects"></param>
         /// <param name="curIteration"></param>
         /// <returns></returns>
-        public static int WriteDefectRepairRate(string projectName, string componentName, int numberOfVerifiedDefects, int numberOfResolvedDefects, int curIteration)
+        public static int WriteDefectRepairRate(string productName, string componentName, int numberOfVerifiedDefects, int numberOfResolvedDefects, int curIteration)
         {
-            var componentDefectRepairRate = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            var componentDefectRepairRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
             int id = -1;
             if (componentDefectRepairRate != null)
             {
@@ -366,23 +366,23 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <param name="testCases"></param>
         /// <param name="iteration"></param>
         /// <returns></returns>
-        public static int WriteTestEffectiveness(string projectName, int testCases, int iteration)
+        public static int WriteTestEffectiveness(string productName, int testCases, int iteration)
         {
-            var projectTestCases =
-                (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+            var productTestCases =
+                (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
             int id = -1;
 
-            if (projectTestCases != null)
+            if (productTestCases != null)
             {
                 var testEffect = new TestEffectiveness()
                 {
-                    ProjectID = projectTestCases.ProjectID,
+                    ProductID = productTestCases.ProductID,
                     IterationID = iteration,
                     TestCases = testCases,
                     Date = DateTime.Now
@@ -397,21 +397,21 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projectName"></param>
+        /// <param name="productName"></param>
         /// <param name="personName"></param>
         /// <param name="hours"></param>
         /// <param name="p"></param>
-        public static int WriteResourceUtilization(string projectName, string personName, double hours, int iteration)
+        public static int WriteResourceUtilization(string productName, string personName, double hours, int iteration)
         {
-            var projectResourceUtilization = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+            var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
             int id = -1;
 
-            if (projectResourceUtilization != null)
+            if (productResourceUtilization != null)
             {
                 var resourseUtil = new ResourceUtilization()
                 {
-                    ProjectID = projectResourceUtilization.ProjectID,
+                    ProductID = productResourceUtilization.ProductID,
                     IterationID = iteration,
                     PersonName = personName,
                     PersonHours = hours,
@@ -424,17 +424,17 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteOutOfScopeWork(string projectName, string personName, double hours, int iteration)
+        public static int WriteOutOfScopeWork(string productName, string personName, double hours, int iteration)
         {
-            var projectOutOfScopeWork = (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
+            var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
             int id = -1;
 
-            if (projectOutOfScopeWork != null)
+            if (productOutOfScopeWork != null)
             {
                 var outOfScopeWork = new OutOfScopeWork()
                 {
-                    ProjectID = projectOutOfScopeWork.ProjectID,
+                    ProductID = productOutOfScopeWork.ProductID,
                     IterationID = iteration,
                     PersonName = personName,
                     PersonHours = hours,

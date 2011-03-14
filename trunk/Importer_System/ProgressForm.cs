@@ -34,8 +34,8 @@ namespace Importer_System
             this.Size = EXPAND_SIZE;
 
             DataGridViewTextBoxColumn metricColumn = new DataGridViewTextBoxColumn();
-            metricColumn.DataPropertyName = "Project";
-            metricColumn.HeaderText = "Project";
+            metricColumn.DataPropertyName = "Product";
+            metricColumn.HeaderText = "Product";
             metricColumn.SortMode = DataGridViewColumnSortMode.NotSortable;
 
             DataGridViewTextBoxColumn statusColumn = new DataGridViewTextBoxColumn();
@@ -60,11 +60,11 @@ namespace Importer_System
         /// <summary>
         /// 
         /// </summary>
-        /// <param name="projects"></param>
-        private void SetTableData(List<String> projects)
+        /// <param name="Products"></param>
+        private void SetTableData(List<String> products)
         {
             outputList = new BindingList<StatusNode>();
-            foreach (String str in projects)
+            foreach (String str in products)
             {
                 outputList.Add(new StatusNode(str, "Waiting to calculate"));
             }

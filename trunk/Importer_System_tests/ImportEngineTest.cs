@@ -7,7 +7,6 @@ using System.IO;
 using Importer_System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Forms;
-using NUnit.Framework;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
 
