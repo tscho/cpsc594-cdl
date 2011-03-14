@@ -38,6 +38,8 @@
                         new { Id = (int)MetricType.DefectInjectionRate , Name = "Defect Injection Rate" },
                         new { Id = (int)MetricType.DefectRepairRate , Name = "Defect Repair Rate" },
                         new { Id = (int)MetricType.TestEffectiveness , Name = "Test Effectiveness" },
+                        new { Id = (int)MetricType.ResourceUtilization , Name = "Resource Utilization" },
+                        new { Id = (int)MetricType.OutOfScopeWork , Name = "Out of Scope Work" }                                            
                     }, "Id", "Name"), new { @size = "7" })%></td>
                 </tr>
                 <tr>

@@ -32,7 +32,16 @@ namespace cpsc594_cdl.Models
             Series series;
             foreach (var iteration in Iterations)
             {
+                if (iteration.OutOfScopeWorks == null || iteration.OutOfScopeWorks.Count == 0)
+                    continue;
 
+                series = new Series(iteration.StartDate.ToShortDateString());
+                chart.Series.Add(series);
+
+                OutOfScopeWork hours = iteration.OutOfScopeWorks.Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
+
+                series.Points.AddY(hours.PersonHours);
+                series.Points.Last().MarkerSize = 10;
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(componentIds.ToArray()), chart);
