@@ -93,7 +93,6 @@ namespace Importer_System.Metrics
 
         private String FindComponent(String line)
         {
-            string lineValue;
             string[] directories;
             string[] componentLine;
             String component = null;

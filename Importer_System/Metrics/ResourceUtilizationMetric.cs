@@ -31,7 +31,11 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    List<string[]> workHours = xlsReader.SelectQuery("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='09-E' GROUP BY [Product], [Person Name]");
+                    //List<string[]> workHours = xlsReader.SelectQuery("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='09-E' GROUP BY [Product], [Person Name]");
+                    string query = String.Concat("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' GROUP BY [Product], [Person Name]");
+
+                    List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
                         string projectName = row[0];
