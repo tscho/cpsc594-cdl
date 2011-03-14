@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
+using System.Globalization;
 using System.Linq;
 using System.Reflection;
 using System.Runtime.CompilerServices;
@@ -29,6 +30,7 @@ namespace Importer_System
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
         private ResourceUtilizationMetric _resourceUtilization;         // Class that calculates work hours per project
+        private OutOfScopeWorkMetric _outOfScopeWork;             //Calculates out of scope work
         private ConnectionStringSettings _outputDbSettings;       //
 
         /// <summary>
@@ -62,6 +64,8 @@ namespace Importer_System
             _defectMetrics = new DefectMetrics();
             // CREATE METRIC 5 
             _resourceUtilization = new ResourceUtilizationMetric();
+            //CREATE METRIC 6
+            _outOfScopeWork = new OutOfScopeWorkMetric();
         }
 
         /// <summary>
@@ -82,7 +86,7 @@ namespace Importer_System
             // _outputDatabase, _outputDbSettings
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
-            ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _projectDataDirectory
             ValidateProjectDataDirectory(ConfigurationManager.AppSettings["ProjectData"]);
             // _iterationStart
@@ -283,7 +287,7 @@ namespace Importer_System
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 1 - CODE COVERAGE
                     // ---------------------------------------------------------------------
-                    string currentMetric1Directory = Path.Combine(_rootDirectory, currentProjectName, currentComponentName, "Metric1");
+                    string currentMetric1Directory = Path.Combine(_rootDirectory, currentProjectName, currentComponentName);
                     // Check if the code coverage folder exists
                     if(Directory.Exists(currentMetric1Directory))
                     {
@@ -318,7 +322,7 @@ namespace Importer_System
                 }
             }
             // ---------------------------------------------------------------------
-            // COMPUTE METRIC 5 - RESOURCE UTILIZATION
+            // COMPUTE METRIC 5 AND 6 - RESOURCE UTILIZATION AND OUT OF SCOPE WORK
             // ---------------------------------------------------------------------
             if(_projectDataDirectory!=null)
             {
@@ -341,23 +345,100 @@ namespace Importer_System
         /// <returns></returns>
         public Iteration UpdateIteration()
         {
+            int year = DateTime.Today.Year;
+            string yearText;
+            string iterationLabel;
+
             Iteration lastIteration = DatabaseAccessor.GetLastIteration();
 
             if (lastIteration == null)
             {
-                DatabaseAccessor.WriteIteration(_iterationStart, _iterationStart.AddDays(_iterationLength * 7));
+                year = _iterationStart.Year;
+                yearText = year.ToString();
+                yearText = yearText.Substring(yearText.Length - 2);
+                iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(_iterationStart));
+
+                DatabaseAccessor.WriteIteration(_iterationStart, GetIterationEnd(_iterationStart), iterationLabel);
+                lastIteration = DatabaseAccessor.GetLastIteration();
             }
             else
             {
-                var endDate = (DateTime)lastIteration.EndDate;
-                if (endDate.Date < DateTime.UtcNow.Date)
+                var endPreviousIteration = (DateTime)lastIteration.EndDate;
+                if (endPreviousIteration.Date < DateTime.UtcNow.Date)
                 {
-                    DatabaseAccessor.WriteIteration(endDate.AddDays(1), endDate.AddDays((_iterationLength * 7) + 1));
+                    //determine beggining and end dates of current
+                    DateTime startDate = GetIterationStart(endPreviousIteration);
+                    DateTime endDate = GetIterationEnd(startDate);
+
+                    //get year text
+                    year = _iterationStart.Year;
+                    yearText = year.ToString();
+                    yearText = yearText.Substring(yearText.Length - 2);
+                    iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(startDate));
+                    DatabaseAccessor.WriteIteration(startDate, GetIterationEnd(GetIterationStart(endDate)), iterationLabel);
                     lastIteration = DatabaseAccessor.GetLastIteration();
                 }
             }
 
             return lastIteration;
+        }
+
+        public char DetermineIterationLetter(DateTime iterationStart)
+        {
+            char[] alpha = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".ToCharArray();
+            DateTime today = DateTime.Today;
+            int weekNum = 1;
+            int iterationNum = 1;
+
+            weekNum = GetWeekNumber(iterationStart);
+
+            iterationNum = weekNum/2;
+
+            return alpha[iterationNum - 1];
+        }
+
+        public static DateTime GetIterationStart(DateTime endOfLastIteration)
+        {
+            int i = 1;
+            while(endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Monday)
+            {
+                i++;
+            }
+
+            return endOfLastIteration.AddDays(i);
+        }
+
+        public static DateTime GetIterationEnd(DateTime beginOfCurrIteration)
+        {
+            int i = 1;
+            DateTime endOfIteration = beginOfCurrIteration.AddDays(7);
+            int currYear = beginOfCurrIteration.Year;
+            while (endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Friday)
+            {
+                if (endOfIteration.AddDays(i).Year > currYear)
+                    break;
+                else
+                    i++;
+            }
+
+            return endOfIteration.AddDays(i);
+        }
+
+
+        public static int GetWeekNumber(DateTime day)
+        {
+            CultureInfo ciCurr = CultureInfo.CurrentCulture;
+            int weekNum = ciCurr.Calendar.GetWeekOfYear(day, CalendarWeekRule.FirstFullWeek, DayOfWeek.Monday);
+            return weekNum;
+        }
+
+        public static int FirstMondayOfYear(int year)
+        {
+            int day = 0;
+
+            while ((new DateTime(year, 01, ++day)).DayOfWeek != DayOfWeek.Monday) ;
+
+            return day;
         }
 
         /// <summary>

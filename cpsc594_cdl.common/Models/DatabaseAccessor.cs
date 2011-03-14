@@ -118,11 +118,12 @@ namespace cpsc594_cdl.Common.Models
         }
 
         //Iteration database methods
-        public static void WriteIteration(DateTime startDate, DateTime endDate)
+        public static void WriteIteration(DateTime startDate, DateTime endDate, string label)
         {
             var iteration = new Iteration();
             iteration.StartDate = startDate.Date;
             iteration.EndDate = endDate.Date;
+            iteration.IterationLabel = label;
 
             _context.Iterations.AddObject(iteration);
             _context.SaveChanges();
@@ -370,17 +371,18 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="testCases"></param>
         /// <param name="iteration"></param>
         /// <returns></returns>
-        public static int WriteTestEffectiveness(string projectName, string componentName, int testCases, int iteration)
+        public static int WriteTestEffectiveness(string projectName, int testCases, int iteration)
         {
-            var componentTestCases = (from p in _context.Projects join c in _context.Components on p.ProjectID equals c.ProjectID where p.ProjectName == projectName && c.ComponentName == componentName select c).FirstOrDefault();
+            var projectTestCases =
+                (from p in _context.Projects where p.ProjectName == projectName select p).FirstOrDefault();
 
             int id = -1;
 
-            if (componentTestCases != null)
+            if (projectTestCases != null)
             {
                 var testEffect = new TestEffectiveness()
                 {
-                    ComponentID = componentTestCases.ComponentID,
+                    ProjectID = projectTestCases.ProjectID,
                     IterationID = iteration,
                     TestCases = testCases,
                     Date = DateTime.Now

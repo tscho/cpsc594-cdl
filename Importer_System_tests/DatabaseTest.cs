@@ -162,7 +162,7 @@ namespace Importer_System_Tests
         {
             DateTime startDate = new DateTime(); // TODO: Initialize to an appropriate value
             DateTime endDate = new DateTime(); // TODO: Initialize to an appropriate value
-            DatabaseAccessor.WriteIteration(startDate, endDate);
+            DatabaseAccessor.WriteIteration(startDate, endDate, "10-A");
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
         }
 
