@@ -58,6 +58,7 @@
     <Compile Include="ExcelReader.cs" />
     <Compile Include="ImportEngine.cs" />
     <Compile Include="Metrics\CodeCoverage.cs" />
+    <Compile Include="Metrics\OutOfScopeWorkMetric.cs" />
     <Compile Include="Metrics\ResourceUtilizationMetric.cs" />
     <Compile Include="Metrics\TestEffectivenessMetric.cs" />
     <Compile Include="ProgressForm.cs">
