@@ -88,6 +88,8 @@
     <Compile Include="Models\Metric.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\MetricType.cs" />
+    <Compile Include="Models\OutOfScopeWorkMetric.cs" />
+    <Compile Include="Models\ResourceUtilizationMetric.cs" />
     <Compile Include="Models\TestEffectivenessMetric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

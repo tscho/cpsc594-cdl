@@ -5,6 +5,8 @@
         Coverage,
         DefectInjectionRate,
         DefectRepairRate,
-        TestEffectiveness
+        TestEffectiveness,
+        OutOfScopeWork,
+        ResourceUtilization
     }
 }

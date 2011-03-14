@@ -31,6 +31,11 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProjectID", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ProjectID", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID1", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork1), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID1", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization1), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProjectID1", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "OutOfScopeWork1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork1), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID1", "Project", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Project), "ResourceUtilization1", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization1), true)]
 
 #endregion
 
@@ -225,6 +230,38 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<TestEffectiveness> _TestEffectivenesses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<OutOfScopeWork1> OutOfScopeWork1
+        {
+            get
+            {
+                if ((_OutOfScopeWork1 == null))
+                {
+                    _OutOfScopeWork1 = base.CreateObjectSet<OutOfScopeWork1>("OutOfScopeWork1");
+                }
+                return _OutOfScopeWork1;
+            }
+        }
+        private ObjectSet<OutOfScopeWork1> _OutOfScopeWork1;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<ResourceUtilization1> ResourceUtilization1
+        {
+            get
+            {
+                if ((_ResourceUtilization1 == null))
+                {
+                    _ResourceUtilization1 = base.CreateObjectSet<ResourceUtilization1>("ResourceUtilization1");
+                }
+                return _ResourceUtilization1;
+            }
+        }
+        private ObjectSet<ResourceUtilization1> _ResourceUtilization1;
 
         #endregion
         #region AddTo Methods
@@ -299,6 +336,22 @@ namespace cpsc594_cdl.Common.Models
         public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
         {
             base.AddObject("TestEffectivenesses", testEffectiveness);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the OutOfScopeWork1 EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToOutOfScopeWork1(OutOfScopeWork1 outOfScopeWork1)
+        {
+            base.AddObject("OutOfScopeWork1", outOfScopeWork1);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the ResourceUtilization1 EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToResourceUtilization1(ResourceUtilization1 resourceUtilization1)
+        {
+            base.AddObject("ResourceUtilization1", resourceUtilization1);
         }
 
         #endregion
@@ -516,6 +569,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_ComponentID", "DefectRepairRate", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ComponentID", "TestEffectiveness")]
+        public EntityCollection<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ComponentID", "TestEffectiveness");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ComponentID", "TestEffectiveness", value);
                 }
             }
         }
@@ -1627,6 +1702,50 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID1", "OutOfScopeWork1")]
+        public EntityCollection<OutOfScopeWork1> OutOfScopeWorks_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork1>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "OutOfScopeWork1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork1>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "OutOfScopeWork1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID1", "ResourceUtilization1")]
+        public EntityCollection<ResourceUtilization1> ResourceUtilizations_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization1>("CPSC594Model.FK_ResourceUtilization_IterationID1", "ResourceUtilization1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization1>("CPSC594Model.FK_ResourceUtilization_IterationID1", "ResourceUtilization1", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1898,6 +2017,270 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="OutOfScopeWork1")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class OutOfScopeWork1 : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new OutOfScopeWork1 object.
+        /// </summary>
+        /// <param name="projectID">Initial value of the ProjectID property.</param>
+        /// <param name="outOfScopeWorkID">Initial value of the OutOfScopeWorkID property.</param>
+        /// <param name="personName">Initial value of the PersonName property.</param>
+        /// <param name="personHours">Initial value of the PersonHours property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        public static OutOfScopeWork1 CreateOutOfScopeWork1(global::System.Int32 projectID, global::System.Int32 outOfScopeWorkID, global::System.String personName, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        {
+            OutOfScopeWork1 outOfScopeWork1 = new OutOfScopeWork1();
+            outOfScopeWork1.ProjectID = projectID;
+            outOfScopeWork1.OutOfScopeWorkID = outOfScopeWorkID;
+            outOfScopeWork1.PersonName = personName;
+            outOfScopeWork1.PersonHours = personHours;
+            outOfScopeWork1.IterationID = iterationID;
+            outOfScopeWork1.Date = date;
+            return outOfScopeWork1;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProjectID
+        {
+            get
+            {
+                return _ProjectID;
+            }
+            set
+            {
+                OnProjectIDChanging(value);
+                ReportPropertyChanging("ProjectID");
+                _ProjectID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectID");
+                OnProjectIDChanged();
+            }
+        }
+        private global::System.Int32 _ProjectID;
+        partial void OnProjectIDChanging(global::System.Int32 value);
+        partial void OnProjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 OutOfScopeWorkID
+        {
+            get
+            {
+                return _OutOfScopeWorkID;
+            }
+            set
+            {
+                if (_OutOfScopeWorkID != value)
+                {
+                    OnOutOfScopeWorkIDChanging(value);
+                    ReportPropertyChanging("OutOfScopeWorkID");
+                    _OutOfScopeWorkID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("OutOfScopeWorkID");
+                    OnOutOfScopeWorkIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _OutOfScopeWorkID;
+        partial void OnOutOfScopeWorkIDChanging(global::System.Int32 value);
+        partial void OnOutOfScopeWorkIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PersonName
+        {
+            get
+            {
+                return _PersonName;
+            }
+            set
+            {
+                OnPersonNameChanging(value);
+                ReportPropertyChanging("PersonName");
+                _PersonName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PersonName");
+                OnPersonNameChanged();
+            }
+        }
+        private global::System.String _PersonName;
+        partial void OnPersonNameChanging(global::System.String value);
+        partial void OnPersonNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double PersonHours
+        {
+            get
+            {
+                return _PersonHours;
+            }
+            set
+            {
+                OnPersonHoursChanging(value);
+                ReportPropertyChanging("PersonHours");
+                _PersonHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PersonHours");
+                OnPersonHoursChanged();
+            }
+        }
+        private global::System.Double _PersonHours;
+        partial void OnPersonHoursChanging(global::System.Double value);
+        partial void OnPersonHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID1", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID1", "Iteration", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProjectID1", "Project")]
+        public Project Project
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "Project").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "Project").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Project> ProjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "Project");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "Project", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Project")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2060,6 +2443,50 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProjectID", "TestEffectiveness", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProjectID1", "OutOfScopeWork1")]
+        public EntityCollection<OutOfScopeWork1> OutOfScopeWorks_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork1>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "OutOfScopeWork1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork1>("CPSC594Model.FK_OutOfScopeWork_ProjectID1", "OutOfScopeWork1", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID1", "ResourceUtilization1")]
+        public EntityCollection<ResourceUtilization1> ResourceUtilizations_1
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization1>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "ResourceUtilization1");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization1>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "ResourceUtilization1", value);
                 }
             }
         }
@@ -2334,6 +2761,270 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="ResourceUtilization1")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class ResourceUtilization1 : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new ResourceUtilization1 object.
+        /// </summary>
+        /// <param name="projectID">Initial value of the ProjectID property.</param>
+        /// <param name="resourceUtilizationID">Initial value of the ResourceUtilizationID property.</param>
+        /// <param name="personName">Initial value of the PersonName property.</param>
+        /// <param name="personHours">Initial value of the PersonHours property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        /// <param name="date">Initial value of the Date property.</param>
+        public static ResourceUtilization1 CreateResourceUtilization1(global::System.Int32 projectID, global::System.Int32 resourceUtilizationID, global::System.String personName, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        {
+            ResourceUtilization1 resourceUtilization1 = new ResourceUtilization1();
+            resourceUtilization1.ProjectID = projectID;
+            resourceUtilization1.ResourceUtilizationID = resourceUtilizationID;
+            resourceUtilization1.PersonName = personName;
+            resourceUtilization1.PersonHours = personHours;
+            resourceUtilization1.IterationID = iterationID;
+            resourceUtilization1.Date = date;
+            return resourceUtilization1;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProjectID
+        {
+            get
+            {
+                return _ProjectID;
+            }
+            set
+            {
+                OnProjectIDChanging(value);
+                ReportPropertyChanging("ProjectID");
+                _ProjectID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProjectID");
+                OnProjectIDChanged();
+            }
+        }
+        private global::System.Int32 _ProjectID;
+        partial void OnProjectIDChanging(global::System.Int32 value);
+        partial void OnProjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ResourceUtilizationID
+        {
+            get
+            {
+                return _ResourceUtilizationID;
+            }
+            set
+            {
+                if (_ResourceUtilizationID != value)
+                {
+                    OnResourceUtilizationIDChanging(value);
+                    ReportPropertyChanging("ResourceUtilizationID");
+                    _ResourceUtilizationID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ResourceUtilizationID");
+                    OnResourceUtilizationIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ResourceUtilizationID;
+        partial void OnResourceUtilizationIDChanging(global::System.Int32 value);
+        partial void OnResourceUtilizationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.String PersonName
+        {
+            get
+            {
+                return _PersonName;
+            }
+            set
+            {
+                OnPersonNameChanging(value);
+                ReportPropertyChanging("PersonName");
+                _PersonName = StructuralObject.SetValidValue(value, false);
+                ReportPropertyChanged("PersonName");
+                OnPersonNameChanged();
+            }
+        }
+        private global::System.String _PersonName;
+        partial void OnPersonNameChanging(global::System.String value);
+        partial void OnPersonNameChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double PersonHours
+        {
+            get
+            {
+                return _PersonHours;
+            }
+            set
+            {
+                OnPersonHoursChanging(value);
+                ReportPropertyChanging("PersonHours");
+                _PersonHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("PersonHours");
+                OnPersonHoursChanged();
+            }
+        }
+        private global::System.Double _PersonHours;
+        partial void OnPersonHoursChanging(global::System.Double value);
+        partial void OnPersonHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID1", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID1", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID1", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID1", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID1", "Iteration", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProjectID1", "Project")]
+        public Project Project
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "Project").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "Project").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Project> ProjectReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "Project");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_ResourceUtilization_ProjectID1", "Project", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="TestEffectiveness")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2349,7 +3040,8 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="testCases">Initial value of the TestCases property.</param>
         /// <param name="date">Initial value of the Date property.</param>
         /// <param name="projectID">Initial value of the ProjectID property.</param>
-        public static TestEffectiveness CreateTestEffectiveness(global::System.Int32 testEffectivenessID, global::System.Int32 iterationID, global::System.Int32 testCases, global::System.DateTime date, global::System.Int32 projectID)
+        /// <param name="componentID">Initial value of the ComponentID property.</param>
+        public static TestEffectiveness CreateTestEffectiveness(global::System.Int32 testEffectivenessID, global::System.Int32 iterationID, global::System.Int32 testCases, global::System.DateTime date, global::System.Int32 projectID, global::System.Int32 componentID)
         {
             TestEffectiveness testEffectiveness = new TestEffectiveness();
             testEffectiveness.TestEffectivenessID = testEffectivenessID;
@@ -2357,6 +3049,7 @@ namespace cpsc594_cdl.Common.Models
             testEffectiveness.TestCases = testCases;
             testEffectiveness.Date = date;
             testEffectiveness.ProjectID = projectID;
+            testEffectiveness.ComponentID = componentID;
             return testEffectiveness;
         }
 
@@ -2485,6 +3178,30 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Int32 _ProjectID;
         partial void OnProjectIDChanging(global::System.Int32 value);
         partial void OnProjectIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ComponentID
+        {
+            get
+            {
+                return _ComponentID;
+            }
+            set
+            {
+                OnComponentIDChanging(value);
+                ReportPropertyChanging("ComponentID");
+                _ComponentID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ComponentID");
+                OnComponentIDChanged();
+            }
+        }
+        private global::System.Int32 _ComponentID;
+        partial void OnComponentIDChanging(global::System.Int32 value);
+        partial void OnComponentIDChanged();
 
         #endregion
     
@@ -2562,6 +3279,44 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Project>("CPSC594Model.FK_TestEffectiveness_ProjectID", "Project", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ComponentID", "Component")]
+        public Component Component
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_TestEffectiveness_ComponentID", "Component").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_TestEffectiveness_ComponentID", "Component").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Component> ComponentReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_TestEffectiveness_ComponentID", "Component");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_TestEffectiveness_ComponentID", "Component", value);
                 }
             }
         }
