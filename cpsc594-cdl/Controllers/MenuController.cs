@@ -45,7 +45,7 @@ namespace cpsc594_cdl.Controllers
             clist.AddRange(DatabaseAccessor.GetComponents(Convert.ToInt32(model.ProductID)));
             model.Components = clist;
 
-            model.MetricIDs = new[] { 0, 1, 2, 3 };
+            model.MetricIDs = new[] { 0, 1, 2, 3, 4, 5 };
 
             return View(model);
         }
