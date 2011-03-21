@@ -126,7 +126,14 @@ namespace cpsc594_cdl.Common.Models
             iteration.IterationLabel = label;
 
             _context.Iterations.AddObject(iteration);
-            _context.SaveChanges();
+            try
+            {
+                _context.SaveChanges();
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show(e.InnerException.Message);
+            }
         }
 
         public static Iteration GetLastIteration()
@@ -298,6 +305,41 @@ namespace cpsc594_cdl.Common.Models
                 return false;
             }
         }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contractID"></param>
+        /// <returns></returns>
+        public static bool ContractExists(int contractID)
+        {
+            var product = (from c in _context.Contracts where c.ContractID == contractID select c).FirstOrDefault();
+
+            if (product != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="contractID"></param>
+        public static void WriteContract(int contractID)
+        {
+            var contract = new Contract();
+
+            contract.ContractID = contractID;
+
+            _context.Contracts.AddObject(contract);
+
+            _context.SaveChanges();
+        }
+
         /// <summary>
         /// 
         /// </summary>
@@ -401,7 +443,7 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="personName"></param>
         /// <param name="hours"></param>
         /// <param name="p"></param>
-        public static int WriteResourceUtilization(string productName, string personName, double hours, int iteration)
+        public static int WriteResourceUtilization(string productName, int contractID, double hours, int iteration)
         {
             var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -413,7 +455,7 @@ namespace cpsc594_cdl.Common.Models
                 {
                     ProductID = productResourceUtilization.ProductID,
                     IterationID = iteration,
-                    PersonName = personName,
+                    ContractID = contractID,
                     PersonHours = hours,
                     Date = DateTime.Now
                 };
