@@ -31,18 +31,17 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    //List<string[]> workHours = xlsReader.SelectQuery("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='09-E' GROUP BY [Product], [Person Name]");
-                    string query = String.Concat("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' GROUP BY [Product], [Person Name]");
-
+                    string test = "09-L"; //iteration.IterationLabel
+                    string query = String.Concat("Select [Product], [Contract ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  test, "' GROUP BY [Product], [Contract ID]");
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        string personName = row[1];
+                        int  contractID = Int32.Parse(row[1]);
                         double personHours = Double.Parse(row[2]);
                         // Store data
-                        if(StoreMetric(productName, personName, personHours)==-1)
+                        if (StoreMetric(productName, contractID, personHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -58,9 +57,11 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, string personName, double hours)
+        public int StoreMetric(string productName, int contractID, double hours)
         {
-            return DatabaseAccessor.WriteResourceUtilization(productName, personName, hours, iteration.IterationID);
+            if (!DatabaseAccessor.ContractExists(contractID))
+                DatabaseAccessor.WriteContract(contractID);
+            return DatabaseAccessor.WriteResourceUtilization(productName, contractID, hours, iteration.IterationID);
         }
 
         /*internal bool EstablishConnection()

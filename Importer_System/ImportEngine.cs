@@ -86,7 +86,7 @@ namespace Importer_System
             // _outputDatabase, _outputDbSettings
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
-            //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
             ValidateProductDataDirectory(ConfigurationManager.AppSettings["productData"]);
             // _iterationStart
