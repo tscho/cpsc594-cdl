@@ -21,7 +21,7 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Person";
+            chart.ChartAreas[0].AxisX.Title = "Contract ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Resource Utilization(hours)";
 
@@ -34,10 +34,23 @@ namespace cpsc594_cdl.Models
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
                 
-                ResourceUtilization hours = iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID).Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
+                //ResourceUtilization hours = iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID).Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
 
-                series.Points.AddY(hours.PersonHours);
-                series.Points.Last().MarkerSize = 10;
+                //series.Points.AddY(hours.PersonHours);
+
+                foreach (var ru in iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID))
+                {
+                    var existingPoints = series.Points.Where(x => x.XValue == ru.ContractID);
+                    if (existingPoints.Count() != 0)
+                    {
+                        existingPoints.First().XValue += ru.PersonHours;
+                    }
+                    else
+                    {
+                        series.Points.AddXY(ru.ContractID, ru.PersonHours);
+                        series.Points.Last().MarkerSize = 10;
+                    }
+                }
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
