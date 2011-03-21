@@ -39,12 +39,22 @@
                 <div id="overview">
                     <div class="tabs" id="overview-metrics">
                         <ul>
-                            <% foreach (var metric in Model.Metrics)
+                            <% foreach (var metric in Model.ProductMetrics)
+                               { %>
+                                <li><a href="#overview-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
+                               <% } %>
+                            <% foreach (var metric in Model.ComponentMetrics)
                                { %>
                                 <li><a href="#overview-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
                                <% } %>
                         </ul>
-                        <% foreach (var metric in Model.Metrics)
+                        <% foreach (var metric in Model.ProductMetrics)
+                           { %>
+                            <div id="overview-<%= Html.Encode(metric.ID) %>">
+                                <img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Product) %>" alt="Overview" /><br />
+                            </div>
+                           <% } %>
+                        <% foreach (var metric in Model.ComponentMetrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
                                 <img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />
@@ -57,23 +67,17 @@
                        <div id="<%= Html.Encode(comp.ComponentID) %>">
                             <div class="tabs" id="<%= Html.Encode(comp.ComponentID) %>-metrics">
                                 <ul>
-                                    <% foreach (var metric in Model.Metrics)
+                                    <% foreach (var metric in Model.ComponentMetrics)
                                        { %>
-                                           <% if(!metric.OverviewOnly) 
-                                              { %>
-                                                <li><a href="#<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
-                                           <% } %>
+                                            <li><a href="#<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>"><%= Html.Encode(metric.Name) %></a> </li>
                                        <% } %>
                                 </ul>
-                                <% foreach (var metric in Model.Metrics)
+                                <% foreach (var metric in Model.ComponentMetrics)
                                    { %>
-                                   <% if(!metric.OverviewOnly) 
-                                      { %>
-                                        <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
-                                            alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
-                                        </div>
-                                   <% } %>
+                                    <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
+                                        <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                        alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
+                                    </div>
                                <% } %>
                             </div>
                        </div>
