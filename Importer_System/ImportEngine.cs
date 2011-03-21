@@ -18,20 +18,20 @@ namespace Importer_System
 
     class ImportEngine
     {
-        private string _rootDirectory;                            // Root directory of the folders
-        private string _rootArchiveDirectory;                     // Archive directory for files after being read
+        private string _rootDirectory = null;                            // Root directory of the folders
+        private string _rootArchiveDirectory = null;              // Archive directory for files after being read
         private string _productDataDirectory = null;              // Directory containing .xls product data files
-        private int _archivePeriod;                               //number of days the logfiles exist in the archive directory
+        private int _archivePeriod;                               // Number of days the logfiles exist in the archive directory
         private string _testDirectory;                            // ???
         private string _outputDatabaseConnection;                 // Connection string to output the information to
-        private int _iterationLength;                             //Iteration length in weeks
-        private DateTime _iterationStart;                         //Begin date of iteration
+        private int _iterationLength;                             // Iteration length in weeks
+        private DateTime _iterationStart;                         // Begin date of iteration
         private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
-        private ResourceUtilizationMetric _resourceUtilization;         // Class that calculates work hours per product
-        private OutOfScopeWorkMetric _outOfScopeWork;             //Calculates out of scope work
-        private ConnectionStringSettings _outputDbSettings;       //
+        private ResourceUtilizationMetric _resourceUtilization;   // Class that calculates work hours per product
+        private OutOfScopeWorkMetric _outOfScopeWork;             // Calculates out of scope work
+        private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
 
         /// <summary>
         ///     Customized constructor to initialize the behavior.
@@ -113,14 +113,15 @@ namespace Importer_System
 
         /// <summary>
         ///     ValidateRootDirectory - Checks whether the directory exists or not.
-        ///     Does terminate program if error.
+        ///     Does not terminate not program if error.
         /// </summary>
         /// <param name="path"></param>
         private void ValidateRootDirectory(string path)
         {
-            if (!Directory.Exists(path))
-                throw new TerminateException("Root Directory does not exist.");
-            _rootDirectory = path;
+            if (Directory.Exists(path))
+                _rootDirectory = path;
+            else
+                Reporter.AddErrorMessageToReporter("Root directory does not exist or was not specified. The program will skip [Code Coverage, TestEffectives, DefectRepairRate, DefectInjectionRate]");
         }
 
         /// <summary>
@@ -131,10 +132,10 @@ namespace Importer_System
         private void ValidateRootArchiveDirectory(string path)
         {
             // If the directory exists OR the directory is not specified
-            if(Directory.Exists(path) || path.Length==0)
+            if (Directory.Exists(path) || path.Length == 0)
                 _rootArchiveDirectory = path;
             else
-                _rootArchiveDirectory = "";
+                Reporter.AddErrorMessageToReporter("Archive directory does not exist or was not specified. The program will skip the archiving process.");
         }
 
         /// <summary>
@@ -163,7 +164,7 @@ namespace Importer_System
 
         /// <summary>
         ///     ValidateBugzillaDatabaseConnection - Attempts to establish a connection to the bugzilla MySQL database.
-        ///     Does terminate if error.
+        ///     Does not terminate if error.
         /// </summary>
         /// <param name="connectionSettings"></param>
         private void ValidateBugzillaDatabaseConnection(ConnectionStringSettings connectionSettings)
@@ -171,7 +172,7 @@ namespace Importer_System
             string connectionString = connectionSettings.ConnectionString;
             _defectMetrics.SetConnectionString(connectionString);
             if (!_defectMetrics.EstablishConnection())
-                throw new TerminateException("Connection to bugzilla database with string: " + connectionString + " failed.");
+                Reporter.AddErrorMessageToReporter("Could not establish a connection to the bugzilla database using connection string: " + connectionString + ". The program will skip Metrics [DefectInjectionRate, DefectRepairRate]");
         }
 
         /// <summary>
@@ -245,52 +246,52 @@ namespace Importer_System
             int coverageID = -1;
             string uniqueFileName = "";
             Iteration currIteration;
-            // Make directory structure
-            DirectoryInfo initialDirectory = new DirectoryInfo(_rootDirectory);
             currIteration = UpdateIteration();
-            // Start TimeStamp
-            long startTime = (DateTime.UtcNow.Ticks - DateTime.Parse("01/01/1970 00:00:00").Ticks)/TimeSpan.TicksPerMillisecond;
+            if (_rootDirectory != null)
+            {
+                // Make directory structure
+                DirectoryInfo initialDirectory = new DirectoryInfo(_rootDirectory);
 
-            // Iterate through the Products in the code coverage directory
-            foreach (DirectoryInfo product in initialDirectory.GetDirectories())
-            { 
-                // Save the current Products name
-                string currentProductName = product.Name;
-
-                // Check if Product is in DB
-                if(!DatabaseAccessor.ProductExists(currentProductName))
+                // Iterate through the Products in the code coverage directory
+                foreach (DirectoryInfo product in initialDirectory.GetDirectories())
                 {
-                    DatabaseAccessor.WriteProduct(currentProductName);
-                }
+                    // Save the current Products name
+                    string currentProductName = product.Name;
 
-                // ---------------------------------------------------------------------
-                // COMPUTE METRIC 2 - TEST EFFECTIVENESS
-                // ---------------------------------------------------------------------
-                string productDirectory = Path.Combine(_rootDirectory, currentProductName);
-                DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
-                foreach (FileInfo testFile in testFiles.GetFiles())
-                {
-                    currFile = Path.Combine(productDirectory, testFile.Name);
-                    _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
-                }
-                // Iterate through the selected Products components;
-                foreach (DirectoryInfo component in product.GetDirectories())
-                {
-                    // Save the current components name
-                    string currentComponentName = component.Name;
-
-                    // Check if component is in DB
-                    if(!DatabaseAccessor.ComponentExists(currentProductName,currentComponentName))
+                    // Check if Product is in DB
+                    if (!DatabaseAccessor.ProductExists(currentProductName))
                     {
-                        DatabaseAccessor.WriteComponent(currentProductName, currentComponentName);
+                        DatabaseAccessor.WriteProduct(currentProductName);
                     }
+
                     // ---------------------------------------------------------------------
-                    // COMPUTE METRIC 1 - CODE COVERAGE
+                    // COMPUTE METRIC 2 - TEST EFFECTIVENESS
                     // ---------------------------------------------------------------------
-                    string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
-                    // Check if the code coverage folder exists
-                    if(Directory.Exists(currentMetric1Directory))
+                    string productDirectory = Path.Combine(_rootDirectory, currentProductName);
+                    DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
+                    foreach (FileInfo testFile in testFiles.GetFiles())
                     {
+                        currFile = Path.Combine(productDirectory, testFile.Name);
+                        _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
+                    }
+                    // Iterate through the selected Products components;
+                    foreach (DirectoryInfo component in product.GetDirectories())
+                    {
+                        // Save the current components name
+                        string currentComponentName = component.Name;
+
+                        // Check if component is in DB
+                        if (!DatabaseAccessor.ComponentExists(currentProductName, currentComponentName))
+                        {
+                            DatabaseAccessor.WriteComponent(currentProductName, currentComponentName);
+                        }
+                        // ---------------------------------------------------------------------
+                        // COMPUTE METRIC 1 - CODE COVERAGE
+                        // ---------------------------------------------------------------------
+                        string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
+                        // Check if the code coverage folder exists
+                        if (Directory.Exists(currentMetric1Directory))
+                        {
                             DirectoryInfo logFiles = new DirectoryInfo(currentMetric1Directory);
                             // Iterate through each code coverage log file and calculate the metric
                             foreach (FileInfo logFile in logFiles.GetFiles())
@@ -298,27 +299,31 @@ namespace Importer_System
                                 currFile = Path.Combine(currentMetric1Directory, logFile.Name);
                                 // Archive the log file if returned true
                                 coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID);
-                                if(coverageID >= 0)
+                                if (coverageID >= 0)
                                 {
                                     uniqueFileName = BuildUniqueFilename(logFile.Name, coverageID);
                                     RenameFile(currFile, Path.Combine(currentMetric1Directory, uniqueFileName));
-                                    DatabaseAccessor.UpdateCoverage(coverageID, logFile.LastWriteTimeUtc.Date, uniqueFileName );
-                                    ArchiveFile(currentProductName, currentComponentName, uniqueFileName);
+                                    DatabaseAccessor.UpdateCoverage(coverageID, logFile.LastWriteTimeUtc.Date, uniqueFileName);
+                                    // If proper directory is specified
+                                    if(_rootArchiveDirectory != null)
+                                        ArchiveFile(currentProductName, currentComponentName, uniqueFileName);
                                 }
                                 coverageID = -1;
                                 uniqueFileName = "";
                             }
+                        }
+                        // --------------------------------------------------------------------
+                        // END METRIC 1
+                        // --------------------------------------------------------------------
+                        // ---------------------------------------------------------------------
+                        // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
+                        // ---------------------------------------------------------------------
+                        if(_defectMetrics.GetConnection()!=null)
+                            _defectMetrics.CalculateMetric(currentProductName, currentComponentName, currIteration);
+                        // --------------------------------------------------------------------
+                        // END METRIC 3 AND 4
+                        // --------------------------------------------------------------------
                     }
-                    // --------------------------------------------------------------------
-                    // END METRIC 1
-                    // --------------------------------------------------------------------
-                    // ---------------------------------------------------------------------
-                    // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
-                    // ---------------------------------------------------------------------
-                        _defectMetrics.CalculateMetric(currentProductName, currentComponentName, currIteration);
-                    // --------------------------------------------------------------------
-                    // END METRIC 3 AND 4
-                    // --------------------------------------------------------------------
                 }
             }
             // ---------------------------------------------------------------------
@@ -337,7 +342,7 @@ namespace Importer_System
             // ---------------------------------------------------------------------
             // END METRIC 5
             // ---------------------------------------------------------------------
-            initialDirectory = new DirectoryInfo(_testDirectory);            
+            //initialDirectory = new DirectoryInfo(_testDirectory);            
         }
 
         /// <summary>
