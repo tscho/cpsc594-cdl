@@ -43,7 +43,7 @@ namespace cpsc594_cdl.Models
                     var existingPoints = series.Points.Where(x => x.XValue == ru.ContractID);
                     if (existingPoints.Count() != 0)
                     {
-                        existingPoints.First().XValue += ru.PersonHours;
+                        existingPoints.First().YValues[0] += ru.PersonHours;
                     }
                     else
                     {
