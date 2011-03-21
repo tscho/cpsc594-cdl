@@ -36,10 +36,23 @@ namespace cpsc594_cdl.Models
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
 
-                OutOfScopeWork hours = iteration.OutOfScopeWorks.Where(x => x.ProductID == product.ProductID).Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
+                //OutOfScopeWork hours = iteration.OutOfScopeWorks.Where(x => x.ProductID == product.ProductID).Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
 
-                series.Points.AddY(hours.PersonHours);
-                series.Points.Last().MarkerSize = 10;
+                //series.Points.AddY(hours.PersonHours);
+
+                foreach (var oos in iteration.OutOfScopeWorks.Where(x => x.ProductID == product.ProductID))
+                {
+                    var existingPoints = series.Points.Where(x => x.XValue == oos.PersonName.GetHashCode());
+                    if (existingPoints.Count() != 0)
+                    {
+                        existingPoints.First().YValues[0] += oos.PersonHours;
+                    }
+                    else
+                    {
+                        series.Points.AddXY(oos.PersonName, oos.PersonHours);
+                        series.Points.Last().MarkerSize = 10;
+                    }
+                }
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
