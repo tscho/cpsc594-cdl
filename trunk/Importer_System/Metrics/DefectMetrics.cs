@@ -34,16 +34,26 @@ namespace Importer_System
         /// <returns></returns>
         public Boolean EstablishConnection()
         {
-            try { connection = new MySqlConnection(bugzillaConnectionString); } catch { return false; }
+            try { connection = new MySqlConnection(bugzillaConnectionString); } catch { connection = null;  return false; }
             try
             {
                 connection.Open();
             }
             catch (Exception)
             {
+                connection = null;
                 return false;
             }
             return true;
+        }
+
+        /// <summary>
+        ///     Retuns the mysql connection object
+        /// </summary>
+        /// <returns></returns>
+        public MySqlConnection GetConnection()
+        {
+            return connection;
         }
 
         /// <summary>
