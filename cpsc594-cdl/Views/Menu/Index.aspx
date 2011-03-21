@@ -33,14 +33,12 @@
                 </tr>
                 <tr>
                     <td id="menuItem">Metrics:</td>
-                    <td><%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(new[] {
-                        new { Id = (int)MetricType.Coverage , Name = "Code Coverage" },
-                        new { Id = (int)MetricType.DefectInjectionRate , Name = "Defect Injection Rate" },
-                        new { Id = (int)MetricType.DefectRepairRate , Name = "Defect Repair Rate" },
-                        new { Id = (int)MetricType.TestEffectiveness , Name = "Test Effectiveness" },
-                        new { Id = (int)MetricType.ResourceUtilization , Name = "Resource Utilization" },
-                        new { Id = (int)MetricType.OutOfScopeWork , Name = "Out of Scope Work" }                                            
-                    }, "Id", "Name"), new { @size = "7" })%></td>
+                    <td><%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(
+                        Enum.GetNames(typeof(MetricType)).Join<String, int, int, object>(
+                        (int[])Enum.GetValues(typeof(MetricType)), 
+                        x => (int)Enum.Parse(typeof(MetricType), x),
+                        y => y, (x, y) => new { Name = x, Id = y }),
+                    "Id", "Name"), new { @size = "7" })%></td>
                 </tr>
                 <tr>
                     <td id="menuItem"></td>

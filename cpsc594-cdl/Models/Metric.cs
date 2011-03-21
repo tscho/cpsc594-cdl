@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using cpsc594_cdl.Common.Models;
+using System.Reflection;
 
 namespace cpsc594_cdl.Models
 {
     public abstract class Metric
     {
         protected Iteration[] Iterations;
-        private int[] iterationIDs;
+        protected int[] iterationIDs;
 
         public Metric(IEnumerable<Iteration> iterations)
         {
@@ -19,20 +20,18 @@ namespace cpsc594_cdl.Models
 
         public abstract string Name { get; }
         public abstract int ID { get; }
-        public virtual bool OverviewOnly { get { return false; } }
-        public abstract string GenerateOverviewGraph(string title, IEnumerable<Component> components);
-        public abstract string GenerateComponentGraph(string title, Component component);
 
-        public string GetCacheCode(int[] componentIDs)
+        public static Metric CreateMetricInstanceFromType(MetricType metricType, IEnumerable<Iteration> constructorArg)
         {
-            Array.Sort(iterationIDs);
-            Array.Sort(componentIDs);
-            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
+            string metricName = typeof(Metric).Namespace + "." + metricType.ToString() + "Metric";
+            Type t = Type.GetType(metricName, true);
+
+            ConstructorInfo c = t.GetConstructor(new Type[] { typeof(IEnumerable<Iteration>) });
+
+            Metric m = (Metric)c.Invoke(new object[] { constructorArg });
+
+            return m;
         }
 
-        public string GetCacheCode(int componentID)
-        {
-            return GetCacheCode(new int[] { componentID });
-        }
     }
 }

@@ -10,7 +10,7 @@ using cpsc594_cdl.Infrastructure;
 
 namespace cpsc594_cdl.Models
 {
-    public class CoverageMetric : Metric
+    public class CoverageMetric : PerComponentMetric
     {
         public override string Name { get { return "Code Coverage"; }}
         public override int ID { get { return (int)MetricType.Coverage;  } }

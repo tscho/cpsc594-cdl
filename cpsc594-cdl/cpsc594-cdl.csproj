@@ -83,12 +83,14 @@
     <Compile Include="Infrastructure\DatabaseRequiredAttribute.cs" />
     <Compile Include="Infrastructure\GraphImageCache.cs" />
     <Compile Include="Models\CoverageMetric.cs" />
-    <Compile Include="Models\DefectInjectionMetric.cs" />
-    <Compile Include="Models\DefectRepairMetric.cs" />
+    <Compile Include="Models\DefectInjectionRateMetric.cs" />
+    <Compile Include="Models\DefectRepairRateMetric.cs" />
     <Compile Include="Models\Metric.cs" />
     <Compile Include="Models\MainModel.cs" />
     <Compile Include="Models\MetricType.cs" />
     <Compile Include="Models\OutOfScopeWorkMetric.cs" />
+    <Compile Include="Models\PerComponentMetric.cs" />
+    <Compile Include="Models\PerProjectMetric.cs" />
     <Compile Include="Models\ResourceUtilizationMetric.cs" />
     <Compile Include="Models\TestEffectivenessMetric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -152,7 +154,6 @@
   <ItemGroup>
     <Content Include="Views\Shared\Site.Master" />
   </ItemGroup>
-  <ItemGroup />
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
