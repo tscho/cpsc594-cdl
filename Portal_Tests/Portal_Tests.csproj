@@ -67,7 +67,8 @@
     </CodeAnalysisDependentAssemblyPaths>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="MetricTests.cs" />
+    <Compile Include="Models\MetricTests.cs" />
+    <Compile Include="Models\PerComponentMetricTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
