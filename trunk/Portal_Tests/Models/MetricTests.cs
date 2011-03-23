@@ -6,7 +6,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using cpsc594_cdl.Models;
 using cpsc594_cdl.Common.Models;
 
-namespace Portal_Tests
+namespace Portal_Tests.Models
 {
     [TestClass]
     public class MetricTests
