@@ -24,8 +24,10 @@ namespace cpsc594_cdl.Models
             chart.ChartAreas[0].AxisX.Title = "Components";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Coverage %";
-
+            
             IEnumerable<int> componentIds = components.Select(x => x.ComponentID);
+            List<int> usedComponentIds = new List<int>();
+            
             Series series;
             foreach (var iteration in Iterations)
             {
@@ -36,9 +38,15 @@ namespace cpsc594_cdl.Models
                 chart.Series.Add(series);
                 foreach(var coverage in iteration.Coverages.Where(x => componentIds.Contains(x.ComponentID)))
                 {
-                    series.Points.AddY(coverage.GetCoverage());
-                    series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = coverage.Component.ComponentName;
+                    // Remove Duplicate Component in the same metric first
+                    if (!usedComponentIds.Contains(coverage.ComponentID))
+                    {
+                        usedComponentIds.Add(coverage.ComponentID);
+
+                        series.Points.AddY(coverage.GetCoverage());
+                        series.Points.Last().MarkerSize = 10;
+                        series.Points.Last().AxisLabel = coverage.Component.ComponentName;
+                    }
                 }
             }
 

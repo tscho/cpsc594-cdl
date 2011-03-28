@@ -1,6 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<cpsc594_cdl.Models.IndexModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
+    <meta http-equiv="cache-control" content="no-cache">
     <link rel="Stylesheet" href="/content/jquery-ui-1.8.7.custom.css" />
     <script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript" language="javascript"></script>
     <script src="/Scripts/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript"></script>
