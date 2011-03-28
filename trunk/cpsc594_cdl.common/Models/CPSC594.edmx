@@ -15,7 +15,9 @@
           <EntitySet Name="OutOfScopeWork" EntityType="CPSC594Model.Store.OutOfScopeWork" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="Product" EntityType="CPSC594Model.Store.Product" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="ResourceUtilization" EntityType="CPSC594Model.Store.ResourceUtilization" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rework" EntityType="CPSC594Model.Store.Rework" store:Type="Tables" Schema="dbo" />
           <EntitySet Name="TestEffectiveness" EntityType="CPSC594Model.Store.TestEffectiveness" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VelocityTrend" EntityType="CPSC594Model.Store.VelocityTrend" store:Type="Tables" Schema="dbo" />
           <AssociationSet Name="FK_Component_Product" Association="CPSC594Model.Store.FK_Component_Product">
             <End Role="Product" EntitySet="Product" />
             <End Role="Component" EntitySet="Component" />
@@ -68,6 +70,18 @@
             <End Role="Product" EntitySet="Product" />
             <End Role="ResourceUtilization" EntitySet="ResourceUtilization" />
           </AssociationSet>
+          <AssociationSet Name="FK_Rework_ContractID" Association="CPSC594Model.Store.FK_Rework_ContractID">
+            <End Role="Contract" EntitySet="Contract" />
+            <End Role="Rework" EntitySet="Rework" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_IterationID" Association="CPSC594Model.Store.FK_Rework_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Rework" EntitySet="Rework" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_ProductID" Association="CPSC594Model.Store.FK_Rework_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Rework" EntitySet="Rework" />
+          </AssociationSet>
           <AssociationSet Name="FK_TestEffectiveness_Iteration" Association="CPSC594Model.Store.FK_TestEffectiveness_Iteration">
             <End Role="Iteration" EntitySet="Iteration" />
             <End Role="TestEffectiveness" EntitySet="TestEffectiveness" />
@@ -75,6 +89,18 @@
           <AssociationSet Name="FK_TestEffectiveness_ProductID" Association="CPSC594Model.Store.FK_TestEffectiveness_ProductID">
             <End Role="Product" EntitySet="Product" />
             <End Role="TestEffectiveness" EntitySet="TestEffectiveness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ContractID" Association="CPSC594Model.Store.FK_VelocityTrend_ContractID">
+            <End Role="Contract" EntitySet="Contract" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_IterationID" Association="CPSC594Model.Store.FK_VelocityTrend_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ProductID" Association="CPSC594Model.Store.FK_VelocityTrend_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrend" />
           </AssociationSet>
         </EntityContainer>
         <EntityType Name="Component">
@@ -164,6 +190,16 @@
           <Property Name="IterationID" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
+        <EntityType Name="Rework">
+          <Key>
+            <PropertyRef Name="ReworkID" />
+          </Key>
+          <Property Name="ReworkID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReworkHours" Type="float" Nullable="false" />
+          <Property Name="ContractID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+        </EntityType>
         <EntityType Name="TestEffectiveness">
           <Key>
             <PropertyRef Name="TestEffectivenessID" />
@@ -173,6 +209,17 @@
           <Property Name="TestCases" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VelocityTrend">
+          <Key>
+            <PropertyRef Name="VelocityTrendID" />
+          </Key>
+          <Property Name="ContractID" Type="int" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="EstimatedHours" Type="float" Nullable="false" />
+          <Property Name="ActualHours" Type="float" Nullable="false" />
+          <Property Name="VelocityTrendID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
         </EntityType>
         <Association Name="FK_Component_Product">
           <End Role="Product" Type="CPSC594Model.Store.Product" Multiplicity="1" />
@@ -330,6 +377,42 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <Association Name="FK_Rework_ContractID">
+          <End Role="Contract" Type="CPSC594Model.Store.Contract" Multiplicity="1" />
+          <End Role="Rework" Type="CPSC594Model.Store.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="ContractID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ContractID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_IterationID">
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
+          <End Role="Rework" Type="CPSC594Model.Store.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_ProductID">
+          <End Role="Product" Type="CPSC594Model.Store.Product" Multiplicity="1" />
+          <End Role="Rework" Type="CPSC594Model.Store.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         <Association Name="FK_TestEffectiveness_Iteration">
           <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
           <End Role="TestEffectiveness" Type="CPSC594Model.Store.TestEffectiveness" Multiplicity="*" />
@@ -350,6 +433,42 @@
               <PropertyRef Name="ProductID" />
             </Principal>
             <Dependent Role="TestEffectiveness">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ContractID">
+          <End Role="Contract" Type="CPSC594Model.Store.Contract" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="CPSC594Model.Store.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="ContractID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="ContractID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_IterationID">
+          <End Role="Iteration" Type="CPSC594Model.Store.Iteration" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="CPSC594Model.Store.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ProductID">
+          <End Role="Product" Type="CPSC594Model.Store.Product" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="CPSC594Model.Store.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
               <PropertyRef Name="ProductID" />
             </Dependent>
           </ReferentialConstraint>
@@ -429,6 +548,32 @@
             <End Role="Product" EntitySet="Products" />
             <End Role="OutOfScopeWork" EntitySet="OutOfScopeWorks" />
           </AssociationSet>
+          <EntitySet Name="Reworks" EntityType="CPSC594Model.Rework" />
+          <EntitySet Name="VelocityTrends" EntityType="CPSC594Model.VelocityTrend" />
+          <AssociationSet Name="FK_Rework_ContractID" Association="CPSC594Model.FK_Rework_ContractID">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="Rework" EntitySet="Reworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ContractID" Association="CPSC594Model.FK_VelocityTrend_ContractID">
+            <End Role="Contract" EntitySet="Contracts" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_IterationID" Association="CPSC594Model.FK_Rework_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Rework" EntitySet="Reworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_IterationID" Association="CPSC594Model.FK_VelocityTrend_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_ProductID" Association="CPSC594Model.FK_Rework_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Rework" EntitySet="Reworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ProductID" Association="CPSC594Model.FK_VelocityTrend_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrends" />
+          </AssociationSet>
         </EntityContainer>
         <EntityType Name="Component">
           <Key>
@@ -449,6 +594,8 @@
           <Property Type="Int32" Name="ContractID" Nullable="false" />
           <NavigationProperty Name="ResourceUtilizations" Relationship="CPSC594Model.FK_ResourceUtilization_ContractID" FromRole="Contract" ToRole="ResourceUtilization" />
           <NavigationProperty Name="OutOfScopeWorks" Relationship="CPSC594Model.FK_OutOfScopeWork_ConractID" FromRole="Contract" ToRole="OutOfScopeWork" />
+          <NavigationProperty Name="Reworks" Relationship="CPSC594Model.FK_Rework_ContractID" FromRole="Contract" ToRole="Rework" />
+          <NavigationProperty Name="VelocityTrends" Relationship="CPSC594Model.FK_VelocityTrend_ContractID" FromRole="Contract" ToRole="VelocityTrend" />
         </EntityType>
         <EntityType Name="Coverage">
           <Key>
@@ -505,6 +652,8 @@
           <NavigationProperty Name="ResourceUtilizations" Relationship="CPSC594Model.FK_ResourceUtilization_IterationID" FromRole="Iteration" ToRole="ResourceUtilization" />
           <NavigationProperty Name="TestEffectivenesses" Relationship="CPSC594Model.FK_TestEffectiveness_Iteration" FromRole="Iteration" ToRole="TestEffectiveness" />
           <NavigationProperty Name="OutOfScopeWorks" Relationship="CPSC594Model.FK_OutOfScopeWork_IterationID" FromRole="Iteration" ToRole="OutOfScopeWork" />
+          <NavigationProperty Name="Reworks" Relationship="CPSC594Model.FK_Rework_IterationID" FromRole="Iteration" ToRole="Rework" />
+          <NavigationProperty Name="VelocityTrends" Relationship="CPSC594Model.FK_VelocityTrend_IterationID" FromRole="Iteration" ToRole="VelocityTrend" />
         </EntityType>
         <EntityType Name="Product">
           <Key>
@@ -516,6 +665,8 @@
           <NavigationProperty Name="ResourceUtilizations" Relationship="CPSC594Model.FK_ResourceUtilization_ProductID" FromRole="Product" ToRole="ResourceUtilization" />
           <NavigationProperty Name="TestEffectivenesses" Relationship="CPSC594Model.FK_TestEffectiveness_ProductID" FromRole="Product" ToRole="TestEffectiveness" />
           <NavigationProperty Name="OutOfScopeWorks" Relationship="CPSC594Model.FK_OutOfScopeWork_ProductID" FromRole="Product" ToRole="OutOfScopeWork" />
+          <NavigationProperty Name="Reworks" Relationship="CPSC594Model.FK_Rework_ProductID" FromRole="Product" ToRole="Rework" />
+          <NavigationProperty Name="VelocityTrends" Relationship="CPSC594Model.FK_VelocityTrend_ProductID" FromRole="Product" ToRole="VelocityTrend" />
         </EntityType>
         <EntityType Name="ResourceUtilization">
           <Key>
@@ -737,6 +888,105 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
+        <EntityType Name="Rework">
+          <Key>
+            <PropertyRef Name="ReworkID" />
+          </Key>
+          <Property Type="Int32" Name="ReworkID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Type="Double" Name="ReworkHours" Nullable="false" />
+          <Property Type="Int32" Name="ContractID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="IterationID" Nullable="false" />
+          <NavigationProperty Name="Contract" Relationship="CPSC594Model.FK_Rework_ContractID" FromRole="Rework" ToRole="Contract" />
+          <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_Rework_IterationID" FromRole="Rework" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="CPSC594Model.FK_Rework_ProductID" FromRole="Rework" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="VelocityTrend">
+          <Key>
+            <PropertyRef Name="VelocityTrendID" />
+          </Key>
+          <Property Type="Int32" Name="ContractID" Nullable="false" />
+          <Property Type="Int32" Name="ProductID" Nullable="false" />
+          <Property Type="Int32" Name="IterationID" Nullable="false" />
+          <Property Type="Double" Name="EstimatedHours" Nullable="false" />
+          <Property Type="Double" Name="ActualHours" Nullable="false" />
+          <Property Type="Int32" Name="VelocityTrendID" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Contract" Relationship="CPSC594Model.FK_VelocityTrend_ContractID" FromRole="VelocityTrend" ToRole="Contract" />
+          <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_VelocityTrend_IterationID" FromRole="VelocityTrend" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="CPSC594Model.FK_VelocityTrend_ProductID" FromRole="VelocityTrend" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Rework_ContractID">
+          <End Type="CPSC594Model.Contract" Role="Contract" Multiplicity="1" />
+          <End Type="CPSC594Model.Rework" Role="Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="ContractID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ContractID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ContractID">
+          <End Type="CPSC594Model.Contract" Role="Contract" Multiplicity="1" />
+          <End Type="CPSC594Model.VelocityTrend" Role="VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Contract">
+              <PropertyRef Name="ContractID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="ContractID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_IterationID">
+          <End Type="CPSC594Model.Iteration" Role="Iteration" Multiplicity="1" />
+          <End Type="CPSC594Model.Rework" Role="Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_IterationID">
+          <End Type="CPSC594Model.Iteration" Role="Iteration" Multiplicity="1" />
+          <End Type="CPSC594Model.VelocityTrend" Role="VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_ProductID">
+          <End Type="CPSC594Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="CPSC594Model.Rework" Role="Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ProductID">
+          <End Type="CPSC594Model.Product" Role="Product" Multiplicity="1" />
+          <End Type="CPSC594Model.VelocityTrend" Role="VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
         </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -850,6 +1100,29 @@
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <EntitySetMapping Name="Reworks">
+            <EntityTypeMapping TypeName="CPSC594Model.Rework">
+              <MappingFragment StoreEntitySet="Rework">
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+                <ScalarProperty Name="ReworkHours" ColumnName="ReworkHours" />
+                <ScalarProperty Name="ReworkID" ColumnName="ReworkID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VelocityTrends">
+            <EntityTypeMapping TypeName="CPSC594Model.VelocityTrend">
+              <MappingFragment StoreEntitySet="VelocityTrend">
+                <ScalarProperty Name="VelocityTrendID" ColumnName="VelocityTrendID" />
+                <ScalarProperty Name="ActualHours" ColumnName="ActualHours" />
+                <ScalarProperty Name="EstimatedHours" ColumnName="EstimatedHours" />
+                <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+                <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+                <ScalarProperty Name="ContractID" ColumnName="ContractID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>
@@ -881,7 +1154,7 @@
         <EntityTypeShape EntityType="CPSC594Model.ResourceUtilization" Width="1.5" PointX="4.375" PointY="13.625" Height="2.7494921875000031" />
         <EntityTypeShape EntityType="CPSC594Model.TestEffectiveness" Width="1.5" PointX="7.75" PointY="13" Height="2.3648893229166674" />
         <AssociationConnector Association="CPSC594Model.FK_Component_Product" >
-          <ConnectorPoint PointX="3.625" PointY="3.297587890625" />
+          <ConnectorPoint PointX="3.625" PointY="3.6821907552083331" />
           <ConnectorPoint PointX="3.625" PointY="5" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_ComponentID" >
@@ -895,16 +1168,16 @@
           <ConnectorPoint PointX="4.75" PointY="10.124746093749998" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectInjectionRate_ComponentID" >
-          <ConnectorPoint PointX="3.2066321153846156" PointY="7.3648893229166745" />
-          <ConnectorPoint PointX="3.2066321153846156" PointY="8.65625" />
+          <ConnectorPoint PointX="3.2066321153846151" PointY="7.3648893229166745" />
+          <ConnectorPoint PointX="3.2066321153846151" PointY="8.65625" />
           <ConnectorPoint PointX="4.104166666666667" PointY="8.65625" />
           <ConnectorPoint PointX="4.270833333333333" PointY="8.65625" />
           <ConnectorPoint PointX="4.322916666666667" PointY="8.65625" />
           <ConnectorPoint PointX="4.489583333333333" PointY="8.65625" />
           <ConnectorPoint PointX="4.526041666666667" PointY="8.65625" />
           <ConnectorPoint PointX="4.692708333333333" PointY="8.65625" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="8.65625" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="8.65625" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="8.65625" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="8.65625" />
           <ConnectorPoint PointX="10.25" PointY="8.65625" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectRepairRate_ComponentID" >
@@ -918,8 +1191,8 @@
           <ConnectorPoint PointX="4.75" PointY="6.1384993537660293" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_ContractID" >
-          <ConnectorPoint PointX="6.65625" PointY="4.09568359375" />
-          <ConnectorPoint PointX="6.65625" PointY="14.999746093750002" />
+          <ConnectorPoint PointX="6.5605478124999994" PointY="4.4802864583333335" />
+          <ConnectorPoint PointX="6.5605478124999994" PointY="14.999746093750002" />
           <ConnectorPoint PointX="5.875" PointY="14.999746093750002" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Coverage_IterationID" >
@@ -933,19 +1206,19 @@
           <ConnectorPoint PointX="4.75" PointY="9.374873046874999" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectInjectionRate_IterationID" >
-          <ConnectorPoint PointX="2.375" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="4.104166666666667" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="4.270833333333333" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="4.526041666666667" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="4.692708333333333" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="11.626892903645832" />
-          <ConnectorPoint PointX="11" PointY="11.626892903645832" />
+          <ConnectorPoint PointX="2.375" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="4.104166666666667" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="4.270833333333333" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="11.819194335937498" />
+          <ConnectorPoint PointX="11" PointY="11.819194335937498" />
           <ConnectorPoint PointX="11" PointY="11.374492187499996" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectRepairRate_IterationID" >
-          <ConnectorPoint PointX="1.625" PointY="8.75" />
-          <ConnectorPoint PointX="1.625" PointY="4.90625" />
+          <ConnectorPoint PointX="1.42187375" PointY="8.75" />
+          <ConnectorPoint PointX="1.42187375" PointY="4.90625" />
           <ConnectorPoint PointX="3.5416666666666665" PointY="4.9062499999999991" />
           <ConnectorPoint PointX="3.7083333333333335" PointY="4.90625" />
           <ConnectorPoint PointX="4.104166666666667" PointY="4.9062499999999991" />
@@ -957,61 +1230,124 @@
           <ConnectorPoint PointX="4.75" PointY="4.90625" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_IterationID" >
-          <ConnectorPoint PointX="1.4422842788461538" PointY="11.691793619791666" />
-          <ConnectorPoint PointX="1.4422842788461538" PointY="14.999746093750002" />
+          <ConnectorPoint PointX="1.4074473197115385" PointY="12.076396484375" />
+          <ConnectorPoint PointX="1.4074473197115385" PointY="14.999746093750002" />
           <ConnectorPoint PointX="4.375" PointY="14.999746093750002" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_TestEffectiveness_Iteration" >
-          <ConnectorPoint PointX="1.9398946394230769" PointY="11.691793619791666" />
-          <ConnectorPoint PointX="1.9398946394230769" PointY="13.398439374999995" />
-          <ConnectorPoint PointX="4.526041666666667" PointY="13.398439374999995" />
-          <ConnectorPoint PointX="4.692708333333333" PointY="13.398439374999995" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="13.398439374999995" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="13.398439374999995" />
-          <ConnectorPoint PointX="7.75" PointY="13.398439374999995" />
+          <ConnectorPoint PointX="1.9224761598557691" PointY="12.076396484375" />
+          <ConnectorPoint PointX="1.9224761598557691" PointY="13.396486093750003" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="13.396486093750003" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="13.396486093750003" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="13.396486093750003" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="13.396486093750003" />
+          <ConnectorPoint PointX="7.75" PointY="13.396486093750003" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_ProductID" >
-          <ConnectorPoint PointX="4.609375" PointY="3.297587890625" />
+          <ConnectorPoint PointX="4.609375" PointY="3.6821907552083331" />
           <ConnectorPoint PointX="4.609375" PointY="13.625" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_TestEffectiveness_ProductID" >
-          <ConnectorPoint PointX="4.1875" PointY="3.297587890625" />
-          <ConnectorPoint PointX="4.1875" PointY="13.167967187500004" />
-          <ConnectorPoint PointX="4.526041666666667" PointY="13.167967187500004" />
-          <ConnectorPoint PointX="4.692708333333333" PointY="13.167967187500004" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="13.167967187500004" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="13.167967187500004" />
-          <ConnectorPoint PointX="7.75" PointY="13.167967187500004" />
+          <ConnectorPoint PointX="4.1875" PointY="3.6821907552083331" />
+          <ConnectorPoint PointX="4.1875" PointY="13.166990546875" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="13.166990546875" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="13.166990546875" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="13.166990546875" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="13.166990546875" />
+          <ConnectorPoint PointX="7.75" PointY="13.166990546875" />
         </AssociationConnector>
         <EntityTypeShape EntityType="CPSC594Model.OutOfScopeWork" Width="1.5" PointX="7.75" PointY="5" Height="2.7494921875000031" />
         <AssociationConnector Association="CPSC594Model.FK_OutOfScopeWork_ConractID" >
-          <ConnectorPoint PointX="6.8593775" PointY="4.09568359375" />
-          <ConnectorPoint PointX="6.8593775" PointY="7.622091471354171" />
+          <ConnectorPoint PointX="6.81152640625" PointY="4.4802864583333335" />
+          <ConnectorPoint PointX="6.81152640625" PointY="7.622091471354171" />
+          <ConnectorPoint PointX="7.291666666666667" PointY="7.62209147135417" />
+          <ConnectorPoint PointX="7.458333333333333" PointY="7.622091471354171" />
           <ConnectorPoint PointX="7.75" PointY="7.622091471354171" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_OutOfScopeWork_IterationID" >
-          <ConnectorPoint PointX="2.0312525" PointY="8.75" />
-          <ConnectorPoint PointX="2.0312525" PointY="7.7170443294270807" />
-          <ConnectorPoint PointX="3.1232987820512821" PointY="7.71704432942708" />
-          <ConnectorPoint PointX="3.289965448717949" PointY="7.7170443294270807" />
-          <ConnectorPoint PointX="4.104166666666667" PointY="7.71704432942708" />
-          <ConnectorPoint PointX="4.41125757061297" PointY="7.7170443294270807" />
-          <ConnectorPoint PointX="4.526041666666667" PointY="7.71704432942708" />
-          <ConnectorPoint PointX="4.692708333333333" PointY="7.7170443294270807" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="7.71704432942708" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="7.7170443294270807" />
-          <ConnectorPoint PointX="7.75" PointY="7.7170443294270807" />
+          <ConnectorPoint PointX="1.9296893750000002" PointY="8.75" />
+          <ConnectorPoint PointX="1.9296893750000002" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="3.1232987820512816" PointY="7.717044329427087" />
+          <ConnectorPoint PointX="3.2899654487179486" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="4.104166666666667" PointY="7.717044329427087" />
+          <ConnectorPoint PointX="4.4112575706129773" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="7.717044329427087" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="7.717044329427087" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="7.291666666666667" PointY="7.717044329427087" />
+          <ConnectorPoint PointX="7.458333333333333" PointY="7.7170443294270878" />
+          <ConnectorPoint PointX="7.75" PointY="7.7170443294270878" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_OutOfScopeWork_ProductID" >
-          <ConnectorPoint PointX="4.3984375" PointY="3.297587890625" />
-          <ConnectorPoint PointX="4.3984375" PointY="7.5271386132812612" />
-          <ConnectorPoint PointX="4.526041666666667" PointY="7.52713861328126" />
-          <ConnectorPoint PointX="4.692708333333333" PointY="7.5271386132812612" />
-          <ConnectorPoint PointX="6.572916666666667" PointY="7.52713861328126" />
-          <ConnectorPoint PointX="6.739583333333333" PointY="7.5271386132812612" />
-          <ConnectorPoint PointX="6.7760441666666669" PointY="7.52713861328126" />
-          <ConnectorPoint PointX="6.9427108333333329" PointY="7.5271386132812612" />
-          <ConnectorPoint PointX="7.75" PointY="7.5271386132812612" />
+          <ConnectorPoint PointX="4.3984375" PointY="3.6821907552083331" />
+          <ConnectorPoint PointX="4.3984375" PointY="7.5271386132812541" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="7.5271386132812532" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="7.5271386132812541" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="7.5271386132812532" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="7.5271386132812541" />
+          <ConnectorPoint PointX="6.7281930729166666" PointY="7.5271386132812532" />
+          <ConnectorPoint PointX="6.8948597395833326" PointY="7.5271386132812541" />
+          <ConnectorPoint PointX="7.291666666666667" PointY="7.5271386132812532" />
+          <ConnectorPoint PointX="7.458333333333333" PointY="7.5271386132812541" />
+          <ConnectorPoint PointX="7.75" PointY="7.5271386132812541" />
+        </AssociationConnector>
+        <EntityTypeShape EntityType="CPSC594Model.Rework" Width="1.5" PointX="11.125" PointY="4" Height="2.5571907552083317" />
+        <EntityTypeShape EntityType="CPSC594Model.VelocityTrend" Width="1.5" PointX="7.75" PointY="1.25" Height="2.7494921875000031" />
+        <AssociationConnector Association="CPSC594Model.FK_Rework_ContractID" >
+          <ConnectorPoint PointX="7" PointY="4.2401432291666667" />
+          <ConnectorPoint PointX="7.4260156250000033" PointY="4.2401432291666659" />
+          <ConnectorPoint PointX="7.5926822916666694" PointY="4.2401432291666667" />
+          <ConnectorPoint PointX="11.125" PointY="4.2401432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_VelocityTrend_ContractID" >
+          <ConnectorPoint PointX="7" PointY="3.2497460937500016" />
+          <ConnectorPoint PointX="7.75" PointY="3.2497460937500016" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_Rework_IterationID" >
+          <ConnectorPoint PointX="1.117184375" PointY="8.75" />
+          <ConnectorPoint PointX="1.117184375" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="3.5416666666666665" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="3.7083333333333335" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="4.104166666666667" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="4.270833333333333" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="4.315104166666667" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="4.481770833333333" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="6.7281930729166666" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="6.8948597395833326" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="7.291666666666667" PointY="4.6776432291666659" />
+          <ConnectorPoint PointX="7.458333333333333" PointY="4.6776432291666667" />
+          <ConnectorPoint PointX="11.125" PointY="4.6776432291666667" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_VelocityTrend_IterationID" >
+          <ConnectorPoint PointX="2.375" PointY="8.7511528461538468" />
+          <ConnectorPoint PointX="2.7511528461538468" PointY="8.375" />
+          <ConnectorPoint PointX="3.1232987820512816" PointY="8.375" />
+          <ConnectorPoint PointX="3.2899654487179486" PointY="8.375" />
+          <ConnectorPoint PointX="4.104166666666667" PointY="8.375" />
+          <ConnectorPoint PointX="4.270833333333333" PointY="8.375" />
+          <ConnectorPoint PointX="4.322916666666667" PointY="8.375" />
+          <ConnectorPoint PointX="4.489583333333333" PointY="8.375" />
+          <ConnectorPoint PointX="4.526041666666667" PointY="8.375" />
+          <ConnectorPoint PointX="4.692708333333333" PointY="8.375" />
+          <ConnectorPoint PointX="6.4772144791666664" PointY="8.375" />
+          <ConnectorPoint PointX="6.6438811458333324" PointY="8.375" />
+          <ConnectorPoint PointX="7.375" PointY="8.375" />
+          <ConnectorPoint PointX="7.375" PointY="4.3744921875000031" />
+          <ConnectorPoint PointX="7.75" PointY="3.9994921875000031" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_Rework_ProductID" >
+          <ConnectorPoint PointX="4.75" PointY="1.15625" />
+          <ConnectorPoint PointX="11.875" PointY="1.15625" />
+          <ConnectorPoint PointX="11.875" PointY="4" />
+        </AssociationConnector>
+        <AssociationConnector Association="CPSC594Model.FK_VelocityTrend_ProductID" >
+          <ConnectorPoint PointX="4.75" PointY="1.84375" />
+          <ConnectorPoint PointX="7.75" PointY="1.84375" />
         </AssociationConnector>
       </Diagram>
     </Diagrams>

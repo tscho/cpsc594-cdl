@@ -33,6 +33,12 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_ContractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
 
 #endregion
 
@@ -243,6 +249,38 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<OutOfScopeWork> _OutOfScopeWorks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<Rework> Reworks
+        {
+            get
+            {
+                if ((_Reworks == null))
+                {
+                    _Reworks = base.CreateObjectSet<Rework>("Reworks");
+                }
+                return _Reworks;
+            }
+        }
+        private ObjectSet<Rework> _Reworks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<VelocityTrend> VelocityTrends
+        {
+            get
+            {
+                if ((_VelocityTrends == null))
+                {
+                    _VelocityTrends = base.CreateObjectSet<VelocityTrend>("VelocityTrends");
+                }
+                return _VelocityTrends;
+            }
+        }
+        private ObjectSet<VelocityTrend> _VelocityTrends;
 
         #endregion
         #region AddTo Methods
@@ -325,6 +363,22 @@ namespace cpsc594_cdl.Common.Models
         public void AddToOutOfScopeWorks(OutOfScopeWork outOfScopeWork)
         {
             base.AddObject("OutOfScopeWorks", outOfScopeWork);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the Reworks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToReworks(Rework rework)
+        {
+            base.AddObject("Reworks", rework);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the VelocityTrends EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToVelocityTrends(VelocityTrend velocityTrend)
+        {
+            base.AddObject("VelocityTrends", velocityTrend);
         }
 
         #endregion
@@ -644,6 +698,50 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ConractID", "OutOfScopeWork", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ContractID", "Rework")]
+        public EntityCollection<Rework> Reworks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_ContractID", "Rework");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_ContractID", "Rework", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "VelocityTrend")]
+        public EntityCollection<VelocityTrend> VelocityTrends
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ContractID", "VelocityTrend");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ContractID", "VelocityTrend", value);
                 }
             }
         }
@@ -1755,6 +1853,50 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_IterationID", "Rework")]
+        public EntityCollection<Rework> Reworks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_IterationID", "Rework");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_IterationID", "Rework", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "VelocityTrend")]
+        public EntityCollection<VelocityTrend> VelocityTrends
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_IterationID", "VelocityTrend");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_IterationID", "VelocityTrend", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2229,6 +2371,50 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ProductID", "Rework")]
+        public EntityCollection<Rework> Reworks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_ProductID", "Rework");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_ProductID", "Rework", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "VelocityTrend")]
+        public EntityCollection<VelocityTrend> VelocityTrends
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ProductID", "VelocityTrend");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ProductID", "VelocityTrend", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -2538,6 +2724,282 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Rework")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class Rework : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new Rework object.
+        /// </summary>
+        /// <param name="reworkID">Initial value of the ReworkID property.</param>
+        /// <param name="reworkHours">Initial value of the ReworkHours property.</param>
+        /// <param name="contractID">Initial value of the ContractID property.</param>
+        /// <param name="productID">Initial value of the ProductID property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        public static Rework CreateRework(global::System.Int32 reworkID, global::System.Double reworkHours, global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID)
+        {
+            Rework rework = new Rework();
+            rework.ReworkID = reworkID;
+            rework.ReworkHours = reworkHours;
+            rework.ContractID = contractID;
+            rework.ProductID = productID;
+            rework.IterationID = iterationID;
+            return rework;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ReworkID
+        {
+            get
+            {
+                return _ReworkID;
+            }
+            set
+            {
+                if (_ReworkID != value)
+                {
+                    OnReworkIDChanging(value);
+                    ReportPropertyChanging("ReworkID");
+                    _ReworkID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("ReworkID");
+                    OnReworkIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _ReworkID;
+        partial void OnReworkIDChanging(global::System.Int32 value);
+        partial void OnReworkIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double ReworkHours
+        {
+            get
+            {
+                return _ReworkHours;
+            }
+            set
+            {
+                OnReworkHoursChanging(value);
+                ReportPropertyChanging("ReworkHours");
+                _ReworkHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ReworkHours");
+                OnReworkHoursChanged();
+            }
+        }
+        private global::System.Double _ReworkHours;
+        partial void OnReworkHoursChanging(global::System.Double value);
+        partial void OnReworkHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ContractID
+        {
+            get
+            {
+                return _ContractID;
+            }
+            set
+            {
+                OnContractIDChanging(value);
+                ReportPropertyChanging("ContractID");
+                _ContractID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ContractID");
+                OnContractIDChanged();
+            }
+        }
+        private global::System.Int32 _ContractID;
+        partial void OnContractIDChanging(global::System.Int32 value);
+        partial void OnContractIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProductID
+        {
+            get
+            {
+                return _ProductID;
+            }
+            set
+            {
+                OnProductIDChanging(value);
+                ReportPropertyChanging("ProductID");
+                _ProductID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProductID");
+                OnProductIDChanged();
+            }
+        }
+        private global::System.Int32 _ProductID;
+        partial void OnProductIDChanging(global::System.Int32 value);
+        partial void OnProductIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ContractID", "Contract")]
+        public Contract Contract
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Contract> ContractReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_IterationID", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ProductID", "Product")]
+        public Product Product
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Product> ProductReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
     [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="TestEffectiveness")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
@@ -2766,6 +3228,308 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_TestEffectiveness_ProductID", "Product", value);
+                }
+            }
+        }
+
+        #endregion
+    }
+    
+    /// <summary>
+    /// No Metadata Documentation available.
+    /// </summary>
+    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="VelocityTrend")]
+    [Serializable()]
+    [DataContractAttribute(IsReference=true)]
+    public partial class VelocityTrend : EntityObject
+    {
+        #region Factory Method
+    
+        /// <summary>
+        /// Create a new VelocityTrend object.
+        /// </summary>
+        /// <param name="contractID">Initial value of the ContractID property.</param>
+        /// <param name="productID">Initial value of the ProductID property.</param>
+        /// <param name="iterationID">Initial value of the IterationID property.</param>
+        /// <param name="estimatedHours">Initial value of the EstimatedHours property.</param>
+        /// <param name="actualHours">Initial value of the ActualHours property.</param>
+        /// <param name="velocityTrendID">Initial value of the VelocityTrendID property.</param>
+        public static VelocityTrend CreateVelocityTrend(global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.Double estimatedHours, global::System.Double actualHours, global::System.Int32 velocityTrendID)
+        {
+            VelocityTrend velocityTrend = new VelocityTrend();
+            velocityTrend.ContractID = contractID;
+            velocityTrend.ProductID = productID;
+            velocityTrend.IterationID = iterationID;
+            velocityTrend.EstimatedHours = estimatedHours;
+            velocityTrend.ActualHours = actualHours;
+            velocityTrend.VelocityTrendID = velocityTrendID;
+            return velocityTrend;
+        }
+
+        #endregion
+        #region Primitive Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ContractID
+        {
+            get
+            {
+                return _ContractID;
+            }
+            set
+            {
+                OnContractIDChanging(value);
+                ReportPropertyChanging("ContractID");
+                _ContractID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ContractID");
+                OnContractIDChanged();
+            }
+        }
+        private global::System.Int32 _ContractID;
+        partial void OnContractIDChanging(global::System.Int32 value);
+        partial void OnContractIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 ProductID
+        {
+            get
+            {
+                return _ProductID;
+            }
+            set
+            {
+                OnProductIDChanging(value);
+                ReportPropertyChanging("ProductID");
+                _ProductID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ProductID");
+                OnProductIDChanged();
+            }
+        }
+        private global::System.Int32 _ProductID;
+        partial void OnProductIDChanging(global::System.Int32 value);
+        partial void OnProductIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 IterationID
+        {
+            get
+            {
+                return _IterationID;
+            }
+            set
+            {
+                OnIterationIDChanging(value);
+                ReportPropertyChanging("IterationID");
+                _IterationID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("IterationID");
+                OnIterationIDChanged();
+            }
+        }
+        private global::System.Int32 _IterationID;
+        partial void OnIterationIDChanging(global::System.Int32 value);
+        partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double EstimatedHours
+        {
+            get
+            {
+                return _EstimatedHours;
+            }
+            set
+            {
+                OnEstimatedHoursChanging(value);
+                ReportPropertyChanging("EstimatedHours");
+                _EstimatedHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("EstimatedHours");
+                OnEstimatedHoursChanged();
+            }
+        }
+        private global::System.Double _EstimatedHours;
+        partial void OnEstimatedHoursChanging(global::System.Double value);
+        partial void OnEstimatedHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Double ActualHours
+        {
+            get
+            {
+                return _ActualHours;
+            }
+            set
+            {
+                OnActualHoursChanging(value);
+                ReportPropertyChanging("ActualHours");
+                _ActualHours = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ActualHours");
+                OnActualHoursChanged();
+            }
+        }
+        private global::System.Double _ActualHours;
+        partial void OnActualHoursChanging(global::System.Double value);
+        partial void OnActualHoursChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 VelocityTrendID
+        {
+            get
+            {
+                return _VelocityTrendID;
+            }
+            set
+            {
+                if (_VelocityTrendID != value)
+                {
+                    OnVelocityTrendIDChanging(value);
+                    ReportPropertyChanging("VelocityTrendID");
+                    _VelocityTrendID = StructuralObject.SetValidValue(value);
+                    ReportPropertyChanged("VelocityTrendID");
+                    OnVelocityTrendIDChanged();
+                }
+            }
+        }
+        private global::System.Int32 _VelocityTrendID;
+        partial void OnVelocityTrendIDChanging(global::System.Int32 value);
+        partial void OnVelocityTrendIDChanged();
+
+        #endregion
+    
+        #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "Contract")]
+        public Contract Contract
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Contract> ContractReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "Iteration")]
+        public Iteration Iteration
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Iteration> IterationReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "Product")]
+        public Product Product
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Product> ProductReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product", value);
                 }
             }
         }
