@@ -12,8 +12,6 @@ namespace cpsc594_cdl.Models
 {
     public class OutOfScopeWorkMetric : PerProductMetric
     {
-        //
-        // GET: /OutOfScopeWorkMetric/
         public override string Name { get { return "Out of Scope Work"; } }
         public override int ID { get { return (int)MetricType.OutOfScopeWork; } }
 
@@ -23,7 +21,7 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Person";
+            chart.ChartAreas[0].AxisX.Title = "Contract ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Out Of Scope Work(hours)";
 
@@ -42,14 +40,14 @@ namespace cpsc594_cdl.Models
 
                 foreach (var oos in iteration.OutOfScopeWorks.Where(x => x.ProductID == product.ProductID))
                 {
-                    var existingPoints = series.Points.Where(x => x.XValue == oos.PersonName.GetHashCode());
+                    var existingPoints = series.Points.Where(x => x.XValue == oos.ContractID);
                     if (existingPoints.Count() != 0)
                     {
                         existingPoints.First().YValues[0] += oos.PersonHours;
                     }
                     else
                     {
-                        series.Points.AddXY(oos.PersonName, oos.PersonHours);
+                        series.Points.AddXY(oos.ContractID, oos.PersonHours);
                         series.Points.Last().MarkerSize = 10;
                     }
                 }

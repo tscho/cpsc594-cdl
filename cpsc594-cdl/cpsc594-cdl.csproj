@@ -92,7 +92,9 @@
     <Compile Include="Models\PerComponentMetric.cs" />
     <Compile Include="Models\PerProjectMetric.cs" />
     <Compile Include="Models\ResourceUtilizationMetric.cs" />
+    <Compile Include="Models\ReworkMetric.cs" />
     <Compile Include="Models\TestEffectivenessMetric.cs" />
+    <Compile Include="Models\VelocityTrendMetric.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
