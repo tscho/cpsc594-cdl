@@ -488,5 +488,10 @@ namespace cpsc594_cdl.Common.Models
             }
             return id;
         }
+
+        public static int WriteReworkMetric()
+        {
+            throw new NotImplementedException();
+        }
     }
 }
