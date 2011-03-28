@@ -86,7 +86,7 @@ namespace Importer_System
             // _outputDatabase, _outputDbSettings
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
-            ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
             ValidateProductDataDirectory(ConfigurationManager.AppSettings["productData"]);
             // _iterationStart
@@ -381,7 +381,7 @@ namespace Importer_System
                     yearText = year.ToString();
                     yearText = yearText.Substring(yearText.Length - 2);
                     iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(startDate));
-                    DatabaseAccessor.WriteIteration(startDate, GetIterationEnd(GetIterationStart(endDate)), iterationLabel);
+                    DatabaseAccessor.WriteIteration(startDate, endDate, iterationLabel);
                     lastIteration = DatabaseAccessor.GetLastIteration();
                 }
             }

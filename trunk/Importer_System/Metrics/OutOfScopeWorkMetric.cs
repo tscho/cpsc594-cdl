@@ -28,17 +28,18 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], [Person Name], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product], [Person Name]");
+                    string query = String.Concat("Select [Product], [Contract ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product], [Contract ID]");
 
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
+                        int contractID = Int32.Parse(row[1]);
                         string personName = row[1];
                         double personHours = Double.Parse(row[2]);
                         // Store data
-                        if(StoreMetric(productName, personName, personHours)==-1)
+                        if(StoreMetric(productName, personName, contractID, personHours)==-1)
                             Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -54,9 +55,9 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, string personName, double hours)
+        public int StoreMetric(string productName, string personName, int contractID, double hours)
         {
-            return DatabaseAccessor.WriteOutOfScopeWork(productName, personName, hours, iteration.IterationID);
+            return DatabaseAccessor.WriteOutOfScopeWork(productName, contractID, hours, iteration.IterationID);
         }
    }
 }

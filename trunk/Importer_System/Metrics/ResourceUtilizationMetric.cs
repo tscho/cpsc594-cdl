@@ -31,9 +31,8 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string test = "09-L"; //iteration.IterationLabel
                     string query = String.Concat("Select [Product], [Contract ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  test, "' GROUP BY [Product], [Contract ID]");
+                                  iteration.IterationLabel, "' GROUP BY [Product], [Contract ID]");
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
