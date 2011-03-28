@@ -40,6 +40,7 @@ namespace cpsc594_cdl.Models
 
                 foreach (var oos in iteration.OutOfScopeWorks.Where(x => x.ProductID == product.ProductID))
                 {
+                    //var existingPoints = series.Points.Where(x => x.XValue == oos.ContractID.GetHashCode());
                     var existingPoints = series.Points.Where(x => x.XValue == oos.ContractID);
                     if (existingPoints.Count() != 0)
                     {

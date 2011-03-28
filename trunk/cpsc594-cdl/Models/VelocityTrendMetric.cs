@@ -21,19 +21,25 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Person";
+            chart.ChartAreas[0].AxisX.Title = "Contract ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisY.Title = "Out Of Scope Work(hours)";
+            chart.ChartAreas[0].AxisY.Title = "Estimated / Actual";
 
             Series series;
             foreach (var iteration in Iterations)
             {
-                if (iteration.OutOfScopeWorks == null || iteration.OutOfScopeWorks.Count == 0)
+                if (iteration.VelocityTrends == null || iteration.VelocityTrends.Count == 0)
                     continue;
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
 
+                foreach (var vTrend in iteration.VelocityTrends.Where(x => x.ProductID == product.ProductID))
+                {
+                    series.Points.AddXY(vTrend.ContractID, vTrend.getValue());
+                    series.Points.Last().MarkerSize = 10;
+                    series.Points.Last().AxisLabel = vTrend.ContractID.ToString();
+                }
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
