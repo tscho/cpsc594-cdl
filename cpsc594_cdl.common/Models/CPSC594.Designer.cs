@@ -2739,7 +2739,8 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
-        public static Rework CreateRework(global::System.Int32 reworkID, global::System.Double reworkHours, global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID)
+        /// <param name="date">Initial value of the Date property.</param>
+        public static Rework CreateRework(global::System.Int32 reworkID, global::System.Double reworkHours, global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.DateTime date)
         {
             Rework rework = new Rework();
             rework.ReworkID = reworkID;
@@ -2747,6 +2748,7 @@ namespace cpsc594_cdl.Common.Models
             rework.ContractID = contractID;
             rework.ProductID = productID;
             rework.IterationID = iterationID;
+            rework.Date = date;
             return rework;
         }
 
@@ -2875,6 +2877,30 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Int32 _IterationID;
         partial void OnIterationIDChanging(global::System.Int32 value);
         partial void OnIterationIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
 
         #endregion
     
@@ -3254,7 +3280,8 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="estimatedHours">Initial value of the EstimatedHours property.</param>
         /// <param name="actualHours">Initial value of the ActualHours property.</param>
         /// <param name="velocityTrendID">Initial value of the VelocityTrendID property.</param>
-        public static VelocityTrend CreateVelocityTrend(global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.Double estimatedHours, global::System.Double actualHours, global::System.Int32 velocityTrendID)
+        /// <param name="date">Initial value of the Date property.</param>
+        public static VelocityTrend CreateVelocityTrend(global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.Double estimatedHours, global::System.Double actualHours, global::System.Int32 velocityTrendID, global::System.DateTime date)
         {
             VelocityTrend velocityTrend = new VelocityTrend();
             velocityTrend.ContractID = contractID;
@@ -3263,6 +3290,7 @@ namespace cpsc594_cdl.Common.Models
             velocityTrend.EstimatedHours = estimatedHours;
             velocityTrend.ActualHours = actualHours;
             velocityTrend.VelocityTrendID = velocityTrendID;
+            velocityTrend.Date = date;
             return velocityTrend;
         }
 
@@ -3415,6 +3443,30 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Int32 _VelocityTrendID;
         partial void OnVelocityTrendIDChanging(global::System.Int32 value);
         partial void OnVelocityTrendIDChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.DateTime Date
+        {
+            get
+            {
+                return _Date;
+            }
+            set
+            {
+                OnDateChanging(value);
+                ReportPropertyChanging("Date");
+                _Date = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("Date");
+                OnDateChanged();
+            }
+        }
+        private global::System.DateTime _Date;
+        partial void OnDateChanging(global::System.DateTime value);
+        partial void OnDateChanged();
 
         #endregion
     

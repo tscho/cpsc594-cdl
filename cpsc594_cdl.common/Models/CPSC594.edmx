@@ -199,6 +199,7 @@
           <Property Name="ContractID" Type="int" Nullable="false" />
           <Property Name="ProductID" Type="int" Nullable="false" />
           <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <EntityType Name="TestEffectiveness">
           <Key>
@@ -220,6 +221,7 @@
           <Property Name="EstimatedHours" Type="float" Nullable="false" />
           <Property Name="ActualHours" Type="float" Nullable="false" />
           <Property Name="VelocityTrendID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
         </EntityType>
         <Association Name="FK_Component_Product">
           <End Role="Product" Type="CPSC594Model.Store.Product" Multiplicity="1" />
@@ -900,6 +902,7 @@
           <NavigationProperty Name="Contract" Relationship="CPSC594Model.FK_Rework_ContractID" FromRole="Rework" ToRole="Contract" />
           <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_Rework_IterationID" FromRole="Rework" ToRole="Iteration" />
           <NavigationProperty Name="Product" Relationship="CPSC594Model.FK_Rework_ProductID" FromRole="Rework" ToRole="Product" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
         </EntityType>
         <EntityType Name="VelocityTrend">
           <Key>
@@ -914,6 +917,7 @@
           <NavigationProperty Name="Contract" Relationship="CPSC594Model.FK_VelocityTrend_ContractID" FromRole="VelocityTrend" ToRole="Contract" />
           <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_VelocityTrend_IterationID" FromRole="VelocityTrend" ToRole="Iteration" />
           <NavigationProperty Name="Product" Relationship="CPSC594Model.FK_VelocityTrend_ProductID" FromRole="VelocityTrend" ToRole="Product" />
+          <Property Type="DateTime" Name="Date" Nullable="false" />
         </EntityType>
         <Association Name="FK_Rework_ContractID">
           <End Type="CPSC594Model.Contract" Role="Contract" Multiplicity="1" />
@@ -1103,6 +1107,7 @@
           <EntitySetMapping Name="Reworks">
             <EntityTypeMapping TypeName="CPSC594Model.Rework">
               <MappingFragment StoreEntitySet="Rework">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="IterationID" ColumnName="IterationID" />
                 <ScalarProperty Name="ProductID" ColumnName="ProductID" />
                 <ScalarProperty Name="ContractID" ColumnName="ContractID" />
@@ -1114,6 +1119,7 @@
           <EntitySetMapping Name="VelocityTrends">
             <EntityTypeMapping TypeName="CPSC594Model.VelocityTrend">
               <MappingFragment StoreEntitySet="VelocityTrend">
+                <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="VelocityTrendID" ColumnName="VelocityTrendID" />
                 <ScalarProperty Name="ActualHours" ColumnName="ActualHours" />
                 <ScalarProperty Name="EstimatedHours" ColumnName="EstimatedHours" />

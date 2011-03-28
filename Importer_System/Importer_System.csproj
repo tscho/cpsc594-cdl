@@ -60,7 +60,9 @@
     <Compile Include="Metrics\CodeCoverage.cs" />
     <Compile Include="Metrics\OutOfScopeWorkMetric.cs" />
     <Compile Include="Metrics\ResourceUtilizationMetric.cs" />
+    <Compile Include="Metrics\ReworkMetric.cs" />
     <Compile Include="Metrics\TestEffectivenessMetric.cs" />
+    <Compile Include="Metrics\VelocityTrendMetric.cs" />
     <Compile Include="ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>

@@ -11,6 +11,8 @@ using System.Windows.Forms;
 using System.Threading;
 using cpsc594_cdl.Common.Models;
 using Importer_System.Metrics;
+using Rework = cpsc594_cdl.Common.Models.Rework;
+using VelocityTrend = cpsc594_cdl.Common.Models.VelocityTrend;
 
 
 namespace Importer_System
@@ -31,7 +33,10 @@ namespace Importer_System
         private TestEffectivenessMetric _testEffectivenessMetric; // Class that calculates the test effectiveness
         private ResourceUtilizationMetric _resourceUtilization;   // Class that calculates work hours per product
         private OutOfScopeWorkMetric _outOfScopeWork;             // Calculates out of scope work
+        private VelocityTrendMetric _velocityTrend;               // Calculates velocity trend metric
+        private ReworkMetric _rework;                             // Calculates rework
         private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
+        
 
         /// <summary>
         ///     Customized constructor to initialize the behavior.
@@ -66,6 +71,10 @@ namespace Importer_System
             _resourceUtilization = new ResourceUtilizationMetric();
             //CREATE METRIC 6
             _outOfScopeWork = new OutOfScopeWorkMetric();
+            //Create metric 7
+            _rework  = new ReworkMetric();
+            //create metric 8
+            _velocityTrend = new VelocityTrendMetric();
         }
 
         /// <summary>
@@ -337,6 +346,8 @@ namespace Importer_System
                 {
                     _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory,productData.Name), currIteration);
                     _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                    _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                    _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                 }
             }
             // ---------------------------------------------------------------------
