@@ -23,7 +23,7 @@ namespace cpsc594_cdl.Models
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisX.Title = "Person";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisY.Title = "Out Of Scope Work(hours)";
+            chart.ChartAreas[0].AxisY.Title = "Rework(hours)";
 
             Series series;
             foreach (var iteration in Iterations)
@@ -33,7 +33,20 @@ namespace cpsc594_cdl.Models
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
-
+				
+				foreach (var rw in iteration.Reworks.Where(x => x.ProductID == product.ProductID))
+                {
+                    var existingPoints = series.Points.Where(x => x.XValue == rw.ContractID);
+                    if (existingPoints.Count() != 0)
+                    {
+                        existingPoints.First().YValues[0] += rw.PersonHours;
+                    }
+                    else
+                    {
+                        series.Points.AddXY(rw.ContractID, rw.PersonHours);
+                        series.Points.Last().MarkerSize = 10;
+                    }
+                }
             }
 
             return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
