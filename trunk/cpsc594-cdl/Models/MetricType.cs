@@ -7,6 +7,8 @@
         DefectRepairRate,
         TestEffectiveness,
         OutOfScopeWork,
-        ResourceUtilization
+        ResourceUtilization,
+        Rework,
+        VelocityTrend
     }
 }
