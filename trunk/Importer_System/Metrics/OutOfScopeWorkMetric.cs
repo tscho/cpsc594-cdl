@@ -36,26 +36,25 @@ namespace Importer_System.Metrics
                     {
                         string productName = row[0];
                         int contractID = Int32.Parse(row[1]);
-                        string personName = row[1];
                         double personHours = Double.Parse(row[2]);
                         // Store data
-                        if(StoreMetric(productName, personName, contractID, personHours)==-1)
-                            Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
+                        if(StoreMetric(productName, contractID, personHours)==-1)
+                            Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Problem storing the out of scope work data to the database." + productDataPath);
                     }
                 }
                 catch
                 {
                     // If the format of the excel file is not correct
-                    Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] product data file cannot properly be parsed due to its columns " + productDataPath);
+                    Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] product data file cannot properly be parsed due to its columns " + productDataPath);
                 }
             } else
-                Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Unable to open product data file " + productDataPath);
+                Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Unable to open product data file " + productDataPath);
         }
 
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, string personName, int contractID, double hours)
+        public int StoreMetric(string productName, int contractID, double hours)
         {
             return DatabaseAccessor.WriteOutOfScopeWork(productName, contractID, hours, iteration.IterationID);
         }

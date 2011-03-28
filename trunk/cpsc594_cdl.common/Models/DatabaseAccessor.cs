@@ -411,9 +411,9 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="productName"></param>
         /// <param name="componentName"></param>
         /// <param name="testCases"></param>
-        /// <param name="iteration"></param>
+        /// <param name="iterationID"></param>
         /// <returns></returns>
-        public static int WriteTestEffectiveness(string productName, int testCases, int iteration)
+        public static int WriteTestEffectiveness(string productName, int testCases, int iterationID)
         {
             var productTestCases =
                 (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
@@ -425,7 +425,7 @@ namespace cpsc594_cdl.Common.Models
                 var testEffect = new TestEffectiveness()
                 {
                     ProductID = productTestCases.ProductID,
-                    IterationID = iteration,
+                    IterationID = iterationID,
                     TestCases = testCases,
                     Date = DateTime.Now
                 };
@@ -443,7 +443,7 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="personName"></param>
         /// <param name="hours"></param>
         /// <param name="p"></param>
-        public static int WriteResourceUtilization(string productName, int contractID, double hours, int iteration)
+        public static int WriteResourceUtilization(string productName, int contractID, double hours, int iterationID)
         {
             var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -454,7 +454,7 @@ namespace cpsc594_cdl.Common.Models
                 var resourseUtil = new ResourceUtilization()
                 {
                     ProductID = productResourceUtilization.ProductID,
-                    IterationID = iteration,
+                    IterationID = iterationID,
                     ContractID = contractID,
                     PersonHours = hours,
                     Date = DateTime.Now
@@ -466,7 +466,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iteration)
+        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iterationID)
         {
             var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -477,7 +477,7 @@ namespace cpsc594_cdl.Common.Models
                 var outOfScopeWork = new OutOfScopeWork()
                 {
                     ProductID = productOutOfScopeWork.ProductID,
-                    IterationID = iteration,
+                    IterationID = iterationID,
                     ContractID = contractID,
                     PersonHours = hours,
                     Date = DateTime.Now
@@ -489,9 +489,51 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteReworkMetric()
+        public static int WriteReworkMetric(string productName, int contractID, double reworkHours, int iterationID)
         {
-            throw new NotImplementedException();
+            var productRework = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productRework != null)
+            {
+                var rework = new Rework()
+                {
+                    ProductID = productRework.ProductID,
+                    IterationID = iterationID,
+                    ContractID = contractID,
+                    ReworkHours = reworkHours,
+                    Date = DateTime.Now
+                };
+                _context.Reworks.AddObject(rework);
+                _context.SaveChanges();
+                id = rework.ReworkID;
+            }
+            return id;
+        }
+
+        public static int WriteVelocityTrendMetric(string productName, int contractID, double estimatedHours, double actualHours, int iterationID)
+        {
+            var productVelocityTrend = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productVelocityTrend != null)
+            {
+                var velocityTrend = new VelocityTrend()
+                {
+                    ProductID = productVelocityTrend.ProductID,
+                    IterationID = iterationID,
+                    ContractID = contractID,
+                    EstimatedHours = estimatedHours,
+                    ActualHours = actualHours,
+                    Date = DateTime.Now
+                };
+                _context.VelocityTrends.AddObject(velocityTrend);
+                _context.SaveChanges();
+                id = velocityTrend.VelocityTrendID;
+            }
+            return id;
         }
     }
 }
