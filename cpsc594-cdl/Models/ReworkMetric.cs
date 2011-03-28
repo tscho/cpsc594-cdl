@@ -13,7 +13,7 @@ namespace cpsc594_cdl.Models
     public class ReworkMetric : PerProductMetric
     {
         public override string Name { get { return "Rework"; } }
-        public override int ID { get { return (int)MetricType.VelocityTrend; } }
+        public override int ID { get { return (int)MetricType.Rework; } }
 
         public ReworkMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
@@ -28,7 +28,7 @@ namespace cpsc594_cdl.Models
             Series series;
             foreach (var iteration in Iterations)
             {
-                if (iteration.OutOfScopeWorks == null || iteration.OutOfScopeWorks.Count == 0)
+                if (iteration.Reworks == null || iteration.Reworks.Count == 0)
                     continue;
 
                 series = new Series(iteration.StartDate.ToShortDateString());
@@ -39,11 +39,11 @@ namespace cpsc594_cdl.Models
                     var existingPoints = series.Points.Where(x => x.XValue == rw.ContractID);
                     if (existingPoints.Count() != 0)
                     {
-                        existingPoints.First().YValues[0] += rw.PersonHours;
+                        existingPoints.First().YValues[0] += rw.ReworkHours;
                     }
                     else
                     {
-                        series.Points.AddXY(rw.ContractID, rw.PersonHours);
+                        series.Points.AddXY(rw.ContractID, rw.ReworkHours);
                         series.Points.Last().MarkerSize = 10;
                     }
                 }

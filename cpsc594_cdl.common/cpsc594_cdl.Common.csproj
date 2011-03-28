@@ -63,6 +63,7 @@
     <Compile Include="Models\OutputDatabaseConnectionException.cs" />
     <Compile Include="Models\Product.cs" />
     <Compile Include="Models\TestEffectiveness.cs" />
+    <Compile Include="Models\VelocityTrend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
