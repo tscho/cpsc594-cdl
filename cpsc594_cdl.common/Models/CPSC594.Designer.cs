@@ -26,12 +26,13 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 
 #endregion
 
@@ -182,22 +183,6 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<OutOfScopeWork> OutOfScopeWorks
-        {
-            get
-            {
-                if ((_OutOfScopeWorks == null))
-                {
-                    _OutOfScopeWorks = base.CreateObjectSet<OutOfScopeWork>("OutOfScopeWorks");
-                }
-                return _OutOfScopeWorks;
-            }
-        }
-        private ObjectSet<OutOfScopeWork> _OutOfScopeWorks;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Product> Products
         {
             get
@@ -242,6 +227,22 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<TestEffectiveness> _TestEffectivenesses;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<OutOfScopeWork> OutOfScopeWorks
+        {
+            get
+            {
+                if ((_OutOfScopeWorks == null))
+                {
+                    _OutOfScopeWorks = base.CreateObjectSet<OutOfScopeWork>("OutOfScopeWorks");
+                }
+                return _OutOfScopeWorks;
+            }
+        }
+        private ObjectSet<OutOfScopeWork> _OutOfScopeWorks;
 
         #endregion
         #region AddTo Methods
@@ -295,14 +296,6 @@ namespace cpsc594_cdl.Common.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the OutOfScopeWorks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToOutOfScopeWorks(OutOfScopeWork outOfScopeWork)
-        {
-            base.AddObject("OutOfScopeWorks", outOfScopeWork);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Products EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProducts(Product product)
@@ -324,6 +317,14 @@ namespace cpsc594_cdl.Common.Models
         public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
         {
             base.AddObject("TestEffectivenesses", testEffectiveness);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the OutOfScopeWorks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToOutOfScopeWorks(OutOfScopeWork outOfScopeWork)
+        {
+            base.AddObject("OutOfScopeWorks", outOfScopeWork);
         }
 
         #endregion
@@ -621,6 +622,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ContractID", "ResourceUtilization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "OutOfScopeWork")]
+        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ConractID", "OutOfScopeWork");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ConractID", "OutOfScopeWork", value);
                 }
             }
         }
@@ -1673,28 +1696,6 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "OutOfScopeWork")]
-        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
         public EntityCollection<ResourceUtilization> ResourceUtilizations
         {
@@ -1732,6 +1733,28 @@ namespace cpsc594_cdl.Common.Models
                 }
             }
         }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "OutOfScopeWork")]
+        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork", value);
+                }
+            }
+        }
 
         #endregion
     }
@@ -1751,16 +1774,16 @@ namespace cpsc594_cdl.Common.Models
         /// </summary>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="outOfScopeWorkID">Initial value of the OutOfScopeWorkID property.</param>
-        /// <param name="personName">Initial value of the PersonName property.</param>
+        /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="personHours">Initial value of the PersonHours property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static OutOfScopeWork CreateOutOfScopeWork(global::System.Int32 productID, global::System.Int32 outOfScopeWorkID, global::System.String personName, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        public static OutOfScopeWork CreateOutOfScopeWork(global::System.Int32 productID, global::System.Int32 outOfScopeWorkID, global::System.Int32 contractID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
         {
             OutOfScopeWork outOfScopeWork = new OutOfScopeWork();
             outOfScopeWork.ProductID = productID;
             outOfScopeWork.OutOfScopeWorkID = outOfScopeWorkID;
-            outOfScopeWork.PersonName = personName;
+            outOfScopeWork.ContractID = contractID;
             outOfScopeWork.PersonHours = personHours;
             outOfScopeWork.IterationID = iterationID;
             outOfScopeWork.Date = date;
@@ -1826,24 +1849,24 @@ namespace cpsc594_cdl.Common.Models
         /// </summary>
         [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
         [DataMemberAttribute()]
-        public global::System.String PersonName
+        public global::System.Int32 ContractID
         {
             get
             {
-                return _PersonName;
+                return _ContractID;
             }
             set
             {
-                OnPersonNameChanging(value);
-                ReportPropertyChanging("PersonName");
-                _PersonName = StructuralObject.SetValidValue(value, false);
-                ReportPropertyChanged("PersonName");
-                OnPersonNameChanged();
+                OnContractIDChanging(value);
+                ReportPropertyChanging("ContractID");
+                _ContractID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("ContractID");
+                OnContractIDChanged();
             }
         }
-        private global::System.String _PersonName;
-        partial void OnPersonNameChanging(global::System.String value);
-        partial void OnPersonNameChanged();
+        private global::System.Int32 _ContractID;
+        partial void OnContractIDChanging(global::System.Int32 value);
+        partial void OnContractIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -1920,6 +1943,44 @@ namespace cpsc594_cdl.Common.Models
         #endregion
     
         #region Navigation Properties
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "Contract")]
+        public Contract Contract
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract").Value;
+            }
+            set
+            {
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract").Value = value;
+            }
+        }
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [BrowsableAttribute(false)]
+        [DataMemberAttribute()]
+        public EntityReference<Contract> ContractReference
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract", value);
+                }
+            }
+        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2109,28 +2170,6 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "OutOfScopeWork")]
-        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "ResourceUtilization")]
         public EntityCollection<ResourceUtilization> ResourceUtilizations
         {
@@ -2165,6 +2204,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "OutOfScopeWork")]
+        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork", value);
                 }
             }
         }

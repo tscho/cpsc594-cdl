@@ -466,7 +466,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteOutOfScopeWork(string productName, string personName, double hours, int iteration)
+        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iteration)
         {
             var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -478,7 +478,7 @@ namespace cpsc594_cdl.Common.Models
                 {
                     ProductID = productOutOfScopeWork.ProductID,
                     IterationID = iteration,
-                    PersonName = personName,
+                    ContractID = contractID,
                     PersonHours = hours,
                     Date = DateTime.Now
                 };
