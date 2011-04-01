@@ -76,12 +76,13 @@ namespace cpsc594_cdl.Infrastructure
 
         public string SaveChartImage(string cacheKey, System.Web.UI.DataVisualization.Charting.Chart chart)
         {
+            // Fix Chart: Change color, Remove vertical lines
             string[] colors = new string[10] { "#4572A7", "#AA4643", "#CCE8CF", "#71588F", "#4198AF", "#DB843D", "#93A9CF", "#D19392", "#B9CD96", "#A99BBD" };
-
             int max = (chart.Series.Count<10) ? chart.Series.Count : 10;
             for (int i=0; i<max; i++) {
                 chart.Series[i].Color = ColorTranslator.FromHtml(colors[i]);
             }
+            chart.ChartAreas[0].AxisX.MajorGrid.Enabled = false;
 
             string relativepath_filename = Path.Combine(cacheDir, cacheKey + ".png");
             string fullpath_filename = Path.Combine(HttpRuntime.AppDomainAppPath, relativepath_filename);
