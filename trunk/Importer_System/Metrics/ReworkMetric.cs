@@ -28,8 +28,8 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], [Contract ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product], [Contract ID]");
+                    string query = String.Concat("Select [Product], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product]");
 
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
@@ -38,7 +38,7 @@ namespace Importer_System.Metrics
                         int contractID = Int32.Parse(row[1]);
                         double reworkHours = Double.Parse(row[2]);
                         // Store data
-                        if (StoreMetric(productName, contractID, reworkHours) == -1)
+                        if (StoreMetric(productName, reworkHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -55,9 +55,9 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, int contractID, double reworkHours)
+        public int StoreMetric(string productName, double reworkHours)
         {
-            return DatabaseAccessor.WriteReworkMetric(productName, contractID, reworkHours, iteration.IterationID);
+            return DatabaseAccessor.WriteReworkMetric(productName, reworkHours, iteration.IterationID);
         }
     }
 }

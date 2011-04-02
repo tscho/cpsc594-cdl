@@ -275,7 +275,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iterationID)
+        public static int WriteOutOfScopeWork(string productName, double hours, int iterationID)
         {
             var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -308,7 +308,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteReworkMetric(string productName, int contractID, double reworkHours, int iterationID)
+        public static int WriteReworkMetric(string productName, double reworkHours, int iterationID)
         {
             var productRework = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -341,7 +341,7 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteVelocityTrendMetric(string productName, int contractID, double estimatedHours, double actualHours, int iterationID)
+        public static int WriteVelocityTrendMetric(string productName,  double estimatedHours, double actualHours, int iterationID)
         {
             var productVelocityTrend = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 

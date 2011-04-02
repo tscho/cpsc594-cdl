@@ -99,7 +99,7 @@ namespace Importer_System
             // _bugzillaDatabaseConnection, bugzillaDbSettings
             //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
-            ValidateProductDataDirectory(ConfigurationManager.AppSettings["productData"]);
+            ValidateProductDataDirectory(ConfigurationManager.AppSettings["ProductData"]);
             // _iterationStart
             ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
             // _iterationLength
@@ -336,6 +336,7 @@ namespace Importer_System
                 }
             }
 
+            
 
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 5 AND 6 - RESOURCE UTILIZATION AND OUT OF SCOPE WORK
