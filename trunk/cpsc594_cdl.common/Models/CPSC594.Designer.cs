@@ -22,22 +22,18 @@ using System.Runtime.Serialization;
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ContractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_ContractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "Contract", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Contract), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
 [assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
 
 #endregion
@@ -109,22 +105,6 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<Contract> Contracts
-        {
-            get
-            {
-                if ((_Contracts == null))
-                {
-                    _Contracts = base.CreateObjectSet<Contract>("Contracts");
-                }
-                return _Contracts;
-            }
-        }
-        private ObjectSet<Contract> _Contracts;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Coverage> Coverages
         {
             get
@@ -189,6 +169,22 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
+        public ObjectSet<OutOfScopeWork> OutOfScopeWorks
+        {
+            get
+            {
+                if ((_OutOfScopeWorks == null))
+                {
+                    _OutOfScopeWorks = base.CreateObjectSet<OutOfScopeWork>("OutOfScopeWorks");
+                }
+                return _OutOfScopeWorks;
+            }
+        }
+        private ObjectSet<OutOfScopeWork> _OutOfScopeWorks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
         public ObjectSet<Product> Products
         {
             get
@@ -221,38 +217,6 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// No Metadata Documentation available.
         /// </summary>
-        public ObjectSet<TestEffectiveness> TestEffectivenesses
-        {
-            get
-            {
-                if ((_TestEffectivenesses == null))
-                {
-                    _TestEffectivenesses = base.CreateObjectSet<TestEffectiveness>("TestEffectivenesses");
-                }
-                return _TestEffectivenesses;
-            }
-        }
-        private ObjectSet<TestEffectiveness> _TestEffectivenesses;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        public ObjectSet<OutOfScopeWork> OutOfScopeWorks
-        {
-            get
-            {
-                if ((_OutOfScopeWorks == null))
-                {
-                    _OutOfScopeWorks = base.CreateObjectSet<OutOfScopeWork>("OutOfScopeWorks");
-                }
-                return _OutOfScopeWorks;
-            }
-        }
-        private ObjectSet<OutOfScopeWork> _OutOfScopeWorks;
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
         public ObjectSet<Rework> Reworks
         {
             get
@@ -265,6 +229,22 @@ namespace cpsc594_cdl.Common.Models
             }
         }
         private ObjectSet<Rework> _Reworks;
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        public ObjectSet<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                if ((_TestEffectivenesses == null))
+                {
+                    _TestEffectivenesses = base.CreateObjectSet<TestEffectiveness>("TestEffectivenesses");
+                }
+                return _TestEffectivenesses;
+            }
+        }
+        private ObjectSet<TestEffectiveness> _TestEffectivenesses;
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -291,14 +271,6 @@ namespace cpsc594_cdl.Common.Models
         public void AddToComponents(Component component)
         {
             base.AddObject("Components", component);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the Contracts EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToContracts(Contract contract)
-        {
-            base.AddObject("Contracts", contract);
         }
     
         /// <summary>
@@ -334,6 +306,14 @@ namespace cpsc594_cdl.Common.Models
         }
     
         /// <summary>
+        /// Deprecated Method for adding a new object to the OutOfScopeWorks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToOutOfScopeWorks(OutOfScopeWork outOfScopeWork)
+        {
+            base.AddObject("OutOfScopeWorks", outOfScopeWork);
+        }
+    
+        /// <summary>
         /// Deprecated Method for adding a new object to the Products EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToProducts(Product product)
@@ -350,27 +330,19 @@ namespace cpsc594_cdl.Common.Models
         }
     
         /// <summary>
-        /// Deprecated Method for adding a new object to the TestEffectivenesses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
-        {
-            base.AddObject("TestEffectivenesses", testEffectiveness);
-        }
-    
-        /// <summary>
-        /// Deprecated Method for adding a new object to the OutOfScopeWorks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
-        /// </summary>
-        public void AddToOutOfScopeWorks(OutOfScopeWork outOfScopeWork)
-        {
-            base.AddObject("OutOfScopeWorks", outOfScopeWork);
-        }
-    
-        /// <summary>
         /// Deprecated Method for adding a new object to the Reworks EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
         /// </summary>
         public void AddToReworks(Rework rework)
         {
             base.AddObject("Reworks", rework);
+        }
+    
+        /// <summary>
+        /// Deprecated Method for adding a new object to the TestEffectivenesses EntitySet. Consider using the .Add method of the associated ObjectSet&lt;T&gt; property instead.
+        /// </summary>
+        public void AddToTestEffectivenesses(TestEffectiveness testEffectiveness)
+        {
+            base.AddObject("TestEffectivenesses", testEffectiveness);
         }
     
         /// <summary>
@@ -596,152 +568,6 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_ComponentID", "DefectRepairRate", value);
-                }
-            }
-        }
-
-        #endregion
-    }
-    
-    /// <summary>
-    /// No Metadata Documentation available.
-    /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Contract")]
-    [Serializable()]
-    [DataContractAttribute(IsReference=true)]
-    public partial class Contract : EntityObject
-    {
-        #region Factory Method
-    
-        /// <summary>
-        /// Create a new Contract object.
-        /// </summary>
-        /// <param name="contractID">Initial value of the ContractID property.</param>
-        public static Contract CreateContract(global::System.Int32 contractID)
-        {
-            Contract contract = new Contract();
-            contract.ContractID = contractID;
-            return contract;
-        }
-
-        #endregion
-        #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=true, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ContractID
-        {
-            get
-            {
-                return _ContractID;
-            }
-            set
-            {
-                if (_ContractID != value)
-                {
-                    OnContractIDChanging(value);
-                    ReportPropertyChanging("ContractID");
-                    _ContractID = StructuralObject.SetValidValue(value);
-                    ReportPropertyChanged("ContractID");
-                    OnContractIDChanged();
-                }
-            }
-        }
-        private global::System.Int32 _ContractID;
-        partial void OnContractIDChanging(global::System.Int32 value);
-        partial void OnContractIDChanged();
-
-        #endregion
-    
-        #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ContractID", "ResourceUtilization")]
-        public EntityCollection<ResourceUtilization> ResourceUtilizations
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ContractID", "ResourceUtilization");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ContractID", "ResourceUtilization", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "OutOfScopeWork")]
-        public EntityCollection<OutOfScopeWork> OutOfScopeWorks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ConractID", "OutOfScopeWork");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ConractID", "OutOfScopeWork", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ContractID", "Rework")]
-        public EntityCollection<Rework> Reworks
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_ContractID", "Rework");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_ContractID", "Rework", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "VelocityTrend")]
-        public EntityCollection<VelocityTrend> VelocityTrends
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ContractID", "VelocityTrend");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ContractID", "VelocityTrend", value);
                 }
             }
         }
@@ -1794,50 +1620,6 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
-        public EntityCollection<ResourceUtilization> ResourceUtilizations
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "TestEffectiveness")]
-        public EntityCollection<TestEffectiveness> TestEffectivenesses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "OutOfScopeWork")]
         public EntityCollection<OutOfScopeWork> OutOfScopeWorks
         {
@@ -1860,6 +1642,28 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
+        public EntityCollection<ResourceUtilization> ResourceUtilizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_IterationID", "Rework")]
         public EntityCollection<Rework> Reworks
         {
@@ -1872,6 +1676,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_IterationID", "Rework", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "TestEffectiveness")]
+        public EntityCollection<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness", value);
                 }
             }
         }
@@ -2092,44 +1918,6 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ConractID", "Contract")]
-        public Contract Contract
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Contract> ContractReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_OutOfScopeWork_ConractID", "Contract", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration")]
         public Iteration Iteration
         {
@@ -2312,50 +2100,6 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "ResourceUtilization")]
-        public EntityCollection<ResourceUtilization> ResourceUtilizations
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "TestEffectiveness")]
-        public EntityCollection<TestEffectiveness> TestEffectivenesses
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness", value);
-                }
-            }
-        }
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "OutOfScopeWork")]
         public EntityCollection<OutOfScopeWork> OutOfScopeWorks
         {
@@ -2378,6 +2122,28 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "ResourceUtilization")]
+        public EntityCollection<ResourceUtilization> ResourceUtilizations
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
         [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ProductID", "Rework")]
         public EntityCollection<Rework> Reworks
         {
@@ -2390,6 +2156,28 @@ namespace cpsc594_cdl.Common.Models
                 if ((value != null))
                 {
                     ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_ProductID", "Rework", value);
+                }
+            }
+        }
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [XmlIgnoreAttribute()]
+        [SoapIgnoreAttribute()]
+        [DataMemberAttribute()]
+        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "TestEffectiveness")]
+        public EntityCollection<TestEffectiveness> TestEffectivenesses
+        {
+            get
+            {
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness");
+            }
+            set
+            {
+                if ((value != null))
+                {
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness", value);
                 }
             }
         }
@@ -2603,44 +2391,6 @@ namespace cpsc594_cdl.Common.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ContractID", "Contract")]
-        public Contract Contract
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_ResourceUtilization_ContractID", "Contract").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_ResourceUtilization_ContractID", "Contract").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Contract> ContractReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_ResourceUtilization_ContractID", "Contract");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_ResourceUtilization_ContractID", "Contract", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2905,44 +2655,6 @@ namespace cpsc594_cdl.Common.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ContractID", "Contract")]
-        public Contract Contract
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Contract> ContractReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_Rework_ContractID", "Contract", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -3471,44 +3183,6 @@ namespace cpsc594_cdl.Common.Models
         #endregion
     
         #region Navigation Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [XmlIgnoreAttribute()]
-        [SoapIgnoreAttribute()]
-        [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ContractID", "Contract")]
-        public Contract Contract
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract").Value;
-            }
-            set
-            {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract").Value = value;
-            }
-        }
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [BrowsableAttribute(false)]
-        [DataMemberAttribute()]
-        public EntityReference<Contract> ContractReference
-        {
-            get
-            {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract");
-            }
-            set
-            {
-                if ((value != null))
-                {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Contract>("CPSC594Model.FK_VelocityTrend_ContractID", "Contract", value);
-                }
-            }
-        }
     
         /// <summary>
         /// No Metadata Documentation available.
