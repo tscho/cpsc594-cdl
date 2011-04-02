@@ -1,0 +1,43 @@
+﻿<Window x:Class="Importer_System.Importer_Gui"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             Height="350" Width="525">
+    <Window.Resources>
+        <DataTemplate x:Key="HeaderTemplate">
+            <DockPanel>
+                <TextBlock FontSize="10" FontWeight="Bold" >
+                    <TextBlock.Text>
+                        <Binding/>
+                    </TextBlock.Text>
+                </TextBlock>
+            </DockPanel>
+        </DataTemplate>
+    </Window.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="15*" />
+            <RowDefinition Height="30*" />
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
+                <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Height="25" Margin="2,10,2,10" Width="380" HorizontalAlignment="Stretch" Name="status_label" VerticalAlignment="Top"/>
+                <Button  Content="Run" Margin="5,10,5,10" Width="50" Click="Button_Click_Run"/>
+                <Button Content="Config" Margin="5,10,5,10" Width="50" Click="Button_Click_Config"/>
+            </StackPanel>
+            <ProgressBar Name="progressBar" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,2,5,0" Value="{Binding Prog.ProgPercent, Mode=OneWay,ElementName=window}"/>
+            <Label Name="logLabel" Content="Open Log" HorizontalAlignment="Right" FlowDirection="RightToLeft" />
+        </StackPanel>
+        <ListView Grid.Row="1" Name="metricStatusList">
+            <ListView.View>
+                <GridView AllowsColumnReorder="False" ColumnHeaderTemplate="{StaticResource HeaderTemplate}" >
+                    <!-- Add GridVeiw Columns -->
+                    <GridViewColumn Header="Metric #" Width="50" DisplayMemberBinding="{Binding Path=Id}" />
+                    <GridViewColumn Header=" Name" Width="125" DisplayMemberBinding="{Binding Path=Name}" />
+                    <GridViewColumn Header=" Status" Width="300" DisplayMemberBinding="{Binding Path=Status}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+    </Grid>
+</Window>

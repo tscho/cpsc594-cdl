@@ -37,12 +37,15 @@
     <Reference Include="MySql.Data">
       <HintPath>..\..\..\..\..\Dropbox\School\CPSC594\Group\Project Data\MySql-Connector\bin\MySql.Data.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Xaml" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -51,20 +54,25 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
+    <Reference Include="WindowsBase" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ExcelReader.cs" />
+    <Compile Include="Gui\DisplayMetric.cs" />
     <Compile Include="ImportEngine.cs" />
-    <Compile Include="Metrics\CodeCoverage.cs" />
+    <Compile Include="Gui\Importer_Gui.xaml.cs">
+      <DependentUpon>Importer_Gui.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Metrics\CodeCoverageMetric.cs" />
     <Compile Include="Metrics\OutOfScopeWorkMetric.cs" />
     <Compile Include="Metrics\ResourceUtilizationMetric.cs" />
     <Compile Include="Metrics\ReworkMetric.cs" />
     <Compile Include="Metrics\TestEffectivenessMetric.cs" />
     <Compile Include="Metrics\VelocityTrendMetric.cs" />
-    <Compile Include="ProgressForm.cs">
+    <Compile Include="Gui\ProgressForm.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ProgressForm.Designer.cs">
+    <Compile Include="Gui\ProgressForm.Designer.cs">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </Compile>
     <Compile Include="Metrics\DefectMetrics.cs" />
@@ -76,7 +84,7 @@
     </Compile>
     <Compile Include="StatusNode.cs" />
     <Compile Include="TerminateException.cs" />
-    <EmbeddedResource Include="ProgressForm.resx">
+    <EmbeddedResource Include="Gui\ProgressForm.resx">
       <DependentUpon>ProgressForm.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
@@ -88,7 +96,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <None Include="app.config">
+    <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
     <None Include="Properties\DataSources\Importer_System.Util.CPSC594Entities.datasource" />
@@ -107,6 +115,12 @@
       <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
       <Name>cpsc594_cdl.Common</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Page Include="Gui\Importer_Gui.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

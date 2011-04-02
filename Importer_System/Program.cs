@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading;
 using System.Windows.Forms;
+using System.Configuration;
+using System.Windows;
 
 namespace Importer_System
 {
@@ -14,20 +16,20 @@ namespace Importer_System
         [STAThread]
         static void Main()
         {
-            //Application.EnableVisualStyles();
-            //Application.SetCompatibleTextRenderingDefault(false);
-            //Application.Run(new ProgressForm());
             try
             {
-                // Boot the engine that reads configuration file and begins importing
-                Reporter.OpenReporter();
-                // Start engine to initialize config file
-                ImportEngine engine = new ImportEngine();
+                //ProgressForm form = new ProgressForm();
+                //form.ShowDialog();
 
-                Thread threadTest = new Thread(engine.BeginImporting);          // Kick off a new thread
-                threadTest.Start();                               // running WriteY()
+                Window importer_gui = new Importer_Gui();
+                importer_gui.ShowDialog();
+                // Boot the engine that reads configuration file and begins importing
+                //Reporter.OpenReporter();
+                // Start engine to initialize config file
+                //ImportEngine engine = new ImportEngine();
                 // Start the metric importing
                 //engine.BeginImporting();
+                
             }
             catch (TerminateException terminateException)
             {

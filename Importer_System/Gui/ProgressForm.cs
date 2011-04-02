@@ -169,5 +169,15 @@ namespace Importer_System
         private void startBtn_Click(object sender, EventArgs e)
         {
         }
+
+        private void currentAction_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void statusTable_CellContentClick(object sender, DataGridViewCellEventArgs e)
+        {
+
+        }
     }
 }
