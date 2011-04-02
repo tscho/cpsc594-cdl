@@ -13,6 +13,8 @@ using cpsc594_cdl.Common.Models;
 using Importer_System.Metrics;
 using Rework = cpsc594_cdl.Common.Models.Rework;
 using VelocityTrend = cpsc594_cdl.Common.Models.VelocityTrend;
+using System.Collections.ObjectModel;
+using Importer_System.Gui;
 
 
 namespace Importer_System
@@ -249,7 +251,7 @@ namespace Importer_System
         /// <summary>
         ///     Begin to calculate the metrics from the sources
         /// </summary>
-        public void BeginImporting()
+        public void BeginImporting(ObservableCollection<DisplayMetric> metricList)
         {
             string currFile;
             int coverageID = -1;
@@ -324,6 +326,11 @@ namespace Importer_System
                         // --------------------------------------------------------------------
                         // END METRIC 1
                         // --------------------------------------------------------------------
+                        DisplayMetric metric = new DisplayMetric(metricList.ElementAt(1).Id, metricList.ElementAt(1).Name, "sadasdas");
+                        metricList.RemoveAt(1);
+                        metricList.Insert(1, metric);
+                        
+
                         // ---------------------------------------------------------------------
                         // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
                         // ---------------------------------------------------------------------
