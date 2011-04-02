@@ -27,8 +27,8 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], [Contract ID], Sum([Estimate]), Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' and [Scope]='True' GROUP BY [Product], [Contract ID]");
+                    string query = String.Concat("Select [Product], Sum([Estimate]), Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' and [Scope]='True' GROUP BY [Product]");
 
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
@@ -38,7 +38,7 @@ namespace Importer_System.Metrics
                         double estimatedHours = Double.Parse(row[2]);
                         double actualHours = Double.Parse(row[3]);
                         // Store data
-                        if (StoreMetric(productName, contractID, estimatedHours, actualHours) == -1)
+                        if (StoreMetric(productName, estimatedHours, actualHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 8: Velocity Trend] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -55,9 +55,9 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, int contractID, double estimatedHours, double actualHours)
+        public int StoreMetric(string productName, double estimatedHours, double actualHours)
         {
-            return DatabaseAccessor.WriteVelocityTrendMetric(productName, contractID, estimatedHours, actualHours, iteration.IterationID);
+            return DatabaseAccessor.WriteVelocityTrendMetric(productName, estimatedHours, actualHours, iteration.IterationID);
         }
     }
 }

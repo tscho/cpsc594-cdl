@@ -31,8 +31,8 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], [Contract ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' GROUP BY [Product], [Contract ID]");
+                    string query = String.Concat("Select [Product], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' GROUP BY [Product]");
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
@@ -40,7 +40,7 @@ namespace Importer_System.Metrics
                         int  contractID = Int32.Parse(row[1]);
                         double personHours = Double.Parse(row[2]);
                         // Store data
-                        if (StoreMetric(productName, contractID, personHours) == -1)
+                        if (StoreMetric(productName, personHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -56,7 +56,7 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, int contractID, double hours)
+        public int StoreMetric(string productName, double hours)
         {
             return DatabaseAccessor.WriteResourceUtilization(productName, hours, iteration.IterationID);
         }
