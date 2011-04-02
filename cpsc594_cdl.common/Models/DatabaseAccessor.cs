@@ -68,26 +68,7 @@ namespace cpsc594_cdl.Common.Models
         }
 
         /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="id"></param>
-        /// <param name="date"></param>
-        /// <param name="fileName"></param>
-        public static void UpdateCoverage(int id, DateTime date, string fileName)
-        {
-            var key = new EntityKey("CPSC594Entities.Coverages", "CoverageID", id);
-
-            var coverage = (Coverage)_context.GetObjectByKey(key);
-            if (coverage != null)
-            {
-                coverage.Date = date;
-                coverage.FileName = fileName;
-                _context.SaveChanges();
-            }
-        }
-
-        /// <summary>
-        /// 
+        /// Writes code coverage values to the Database. Updates them if an entry already exists for that component and iteration.
         /// </summary>
         /// <param name="productName"></param>
         /// <param name="componentName"></param>
@@ -98,24 +79,356 @@ namespace cpsc594_cdl.Common.Models
         public static int WriteCodeCoverage(string productName, string componentName, int linesCovered, int linesExecuted, int currIteration, string fileName)
         {
             var componentCoverage = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
-
             int id = -1;
 
             if (componentCoverage != null)
             {
-                var coverage = new Coverage
+                var entryExists = (from coverage in _context.Coverages where coverage.ComponentID == componentCoverage.ComponentID && coverage.IterationID == currIteration select coverage).FirstOrDefault();
+                if(entryExists == null)
                 {
-                    ComponentID = componentCoverage.ComponentID,
-                    IterationID = currIteration,
-                    LinesCovered = linesCovered,
-                    LinesExecuted = linesExecuted,
-                    FileName = fileName
-                };
-                _context.Coverages.AddObject(coverage);
-                _context.SaveChanges();
-                id = coverage.CoverageID;
+                    var coverage = new Coverage
+                    {
+                        ComponentID = componentCoverage.ComponentID,
+                        IterationID = currIteration,
+                        LinesCovered = linesCovered,
+                        LinesExecuted = linesExecuted,
+                        FileName = fileName
+                    };
+                    _context.Coverages.AddObject(coverage);
+                    _context.SaveChanges();
+                    id = coverage.CoverageID;
+                }
+                else{
+                    entryExists.LinesCovered = linesCovered;
+                    entryExists.LinesExecuted = linesExecuted;
+                    entryExists.FileName = fileName;
+                    _context.SaveChanges();
+                    id = entryExists.CoverageID;
+                }
             }
             return id;
+        }
+
+        /// <summary>
+        /// Writes defect injection rate values to the Database. Updates them if an entry already exists for that component and iteration.
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="numberOfHighDefects"></param>
+        /// <param name="numberOfMediumDefects"></param>
+        /// <param name="numberOfLowDefects"></param>
+        public static int WriteDefectInjectionRate(string productName, string componentName, int numberOfHighDefects, int numberOfMediumDefects, int numberOfLowDefects, int currIteration)
+        {
+            var componentDefectInjectionRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
+            int id = -1;
+            if (componentDefectInjectionRate != null)
+            {
+                var entryExists = (from defectInjection in _context.DefectInjectionRates where defectInjection.ComponentID == componentDefectInjectionRate.ComponentID && defectInjection.IterationID == currIteration select defectInjection).FirstOrDefault();
+                if (entryExists == null)
+                {
+
+                    var defectInjectionRate = new DefectInjectionRate
+                    {
+                        ComponentID = componentDefectInjectionRate.ComponentID,
+                        NumberOfHighDefects = numberOfHighDefects,
+                        IterationID = currIteration,
+                        NumberOfMediumDefects = numberOfMediumDefects,
+                        NumberOfLowDefects = numberOfLowDefects,
+                        Date = DateTime.Now
+                    };
+                    _context.DefectInjectionRates.AddObject(defectInjectionRate);
+                    _context.SaveChanges();
+                    id = defectInjectionRate.DefectInjectionRateID;
+                }
+                else
+                {
+                    entryExists.NumberOfHighDefects = numberOfHighDefects;
+                    entryExists.NumberOfMediumDefects = numberOfMediumDefects;
+                    entryExists.NumberOfLowDefects = numberOfLowDefects;
+                    _context.SaveChanges();
+                    id = entryExists.DefectInjectionRateID;
+                }
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="numberOfVerifiedDefects"></param>
+        /// <param name="numberOfResolvedDefects"></param>
+        /// <param name="curIteration"></param>
+        /// <returns></returns>
+        public static int WriteDefectRepairRate(string productName, string componentName, int numberOfVerifiedDefects, int numberOfResolvedDefects, int currIteration)
+        {
+            var componentDefectRepairRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
+            int id = -1;
+            if (componentDefectRepairRate != null)
+            {
+                var entryExists = (from defectRepair in _context.DefectRepairRates where defectRepair.ComponentID == componentDefectRepairRate.ComponentID && defectRepair.IterationID == currIteration select defectRepair).FirstOrDefault();
+                if (entryExists == null)
+                {
+
+                    var defectRepairRate = new DefectRepairRate
+                    {
+                        ComponentID = componentDefectRepairRate.ComponentID,
+                        NumberOfVerifiedDefects = numberOfVerifiedDefects,
+                        NumberOfResolvedDefects = numberOfResolvedDefects,
+                        IterationID = currIteration,
+                        Date = DateTime.Now
+                    };
+                    _context.DefectRepairRates.AddObject(defectRepairRate);
+                    _context.SaveChanges();
+                    id = defectRepairRate.DefectRepairRateID;
+                }
+                else
+                {
+                    entryExists.NumberOfVerifiedDefects = numberOfVerifiedDefects;
+                    entryExists.NumberOfResolvedDefects = numberOfResolvedDefects;
+                    _context.SaveChanges();
+                    id = entryExists.DefectRepairRateID;
+                }
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="componentName"></param>
+        /// <param name="testCases"></param>
+        /// <param name="iterationID"></param>
+        /// <returns></returns>
+        public static int WriteTestEffectiveness(string productName, int testCases, int iterationID)
+        {
+            var productTestCases = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productTestCases != null)
+            {
+                var entryExists = (from testEffect in _context.TestEffectivenesses where testEffect.ProductID == productTestCases.ProductID && testEffect.IterationID == iterationID select testEffect).FirstOrDefault();
+
+                if (entryExists == null)
+                {
+                    var testEffect = new TestEffectiveness()
+                    {
+                        ProductID = productTestCases.ProductID,
+                        IterationID = iterationID,
+                        TestCases = testCases,
+                        Date = DateTime.Now
+                    };
+                    _context.TestEffectivenesses.AddObject(testEffect);
+                    _context.SaveChanges();
+                    id = testEffect.TestEffectivenessID;
+                }
+                else
+                {
+                    entryExists.TestCases = testCases;
+                    _context.SaveChanges();
+                    id = entryExists.TestEffectivenessID;
+                }
+            }
+            return id;
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <param name="personName"></param>
+        /// <param name="hours"></param>
+        /// <param name="p"></param>
+        public static int WriteResourceUtilization(string productName, double hours, int iterationID)
+        {
+            var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productResourceUtilization != null)
+            {
+                var entryExists = (from resource in _context.ResourceUtilizations where resource.ProductID == productResourceUtilization.ProductID && resource.IterationID == iterationID select resource).FirstOrDefault();
+
+                if (entryExists == null)
+                {
+                    var resourseUtil = new ResourceUtilization()
+                    {
+                        ProductID = productResourceUtilization.ProductID,
+                        IterationID = iterationID,
+                        PersonHours = hours,
+                        Date = DateTime.Now
+                    };
+                    _context.ResourceUtilizations.AddObject(resourseUtil);
+                    _context.SaveChanges();
+                    id = resourseUtil.ResourceUtilizationID;
+                }
+                else
+                {
+                    entryExists.PersonHours = hours;
+                    _context.SaveChanges();
+                    id = entryExists.ResourceUtilizationID;
+                }
+            }
+            return id;
+        }
+
+        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iterationID)
+        {
+            var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productOutOfScopeWork != null)
+            {
+                var entryExists = (from scope in _context.OutOfScopeWorks where scope.ProductID == productOutOfScopeWork.ProductID && scope.IterationID == iterationID select scope).FirstOrDefault();
+
+                if (entryExists == null)
+                {
+                    var outOfScopeWork = new OutOfScopeWork()
+                    {
+                        ProductID = productOutOfScopeWork.ProductID,
+                        IterationID = iterationID,
+                        PersonHours = hours,
+                        Date = DateTime.Now
+                    };
+                    _context.OutOfScopeWorks.AddObject(outOfScopeWork);
+                    _context.SaveChanges();
+                    id = outOfScopeWork.OutOfScopeWorkID;
+                }
+                else
+                {
+                    entryExists.PersonHours = hours;
+                    _context.SaveChanges();
+                    id = entryExists.OutOfScopeWorkID;
+                }
+            }
+            return id;
+        }
+
+        public static int WriteReworkMetric(string productName, int contractID, double reworkHours, int iterationID)
+        {
+            var productRework = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productRework != null)
+            {
+                var entryExists = (from rework in _context.Reworks where rework.ProductID == productRework.ProductID && rework.IterationID == iterationID select rework).FirstOrDefault();
+
+                if (entryExists == null)
+                {
+                    var rework = new Rework()
+                    {
+                        ProductID = productRework.ProductID,
+                        IterationID = iterationID,
+                        ReworkHours = reworkHours,
+                        Date = DateTime.Now
+                    };
+                    _context.Reworks.AddObject(rework);
+                    _context.SaveChanges();
+                    id = rework.ReworkID;
+                }
+                else
+                {
+                    entryExists.ReworkHours = reworkHours;
+                    _context.SaveChanges();
+                    id = entryExists.ReworkID;
+                }
+            }
+            return id;
+        }
+
+        public static int WriteVelocityTrendMetric(string productName, int contractID, double estimatedHours, double actualHours, int iterationID)
+        {
+            var productVelocityTrend = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            int id = -1;
+
+            if (productVelocityTrend != null)
+            {
+                var entryExists = (from velocity in _context.VelocityTrends where velocity.ProductID == productVelocityTrend.ProductID && velocity.IterationID == iterationID select velocity).FirstOrDefault();
+
+                if (entryExists == null)
+                {
+                    var velocityTrend = new VelocityTrend()
+                    {
+                        ProductID = productVelocityTrend.ProductID,
+                        IterationID = iterationID,
+                        EstimatedHours = estimatedHours,
+                        ActualHours = actualHours,
+                        Date = DateTime.Now
+                    };
+                    _context.VelocityTrends.AddObject(velocityTrend);
+                    _context.SaveChanges();
+                    id = velocityTrend.VelocityTrendID;
+                }
+                else
+                {
+                    entryExists.ActualHours = actualHours;
+                    entryExists.EstimatedHours = estimatedHours;
+                    _context.SaveChanges();
+                    id = entryExists.VelocityTrendID;
+                }
+            }
+            return id;
+        }
+
+        //Product database methods
+        public static Product GetProduct(int pid)
+        {
+            Product product = (from p in _context.Products where p.ProductID == pid select p).FirstOrDefault();
+            return product;
+        }
+
+        public static List<Product> GetProducts()
+        {
+            IOrderedQueryable<Product> products = (from p in _context.Products orderby p.ProductName ascending select p);
+
+            if (products != null)
+            {
+                return products.ToList();
+            }
+            else
+            {
+                return null;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productName"></param>
+        public static void WriteProduct(string productName)
+        {
+            var product = new Product();
+
+            product.ProductName = productName;
+
+            _context.Products.AddObject(product);
+
+            _context.SaveChanges();
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="productName"></param>
+        /// <returns></returns>
+        public static bool ProductExists(string productName)
+        {
+            var product = (from c in _context.Products where c.ProductName == productName select c).FirstOrDefault();
+
+            if (product != null)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
 
         //Iteration database methods
@@ -250,291 +563,6 @@ namespace cpsc594_cdl.Common.Models
                 _context.Components.AddObject(component);
                 _context.SaveChanges();
             }
-        }
-
-        //Product database methods
-        public static Product GetProduct(int pid)
-        {
-            Product product = (from p in _context.Products where p.ProductID == pid select p).FirstOrDefault();
-            return product;
-        }
-
-        public static List<Product> GetProducts()
-        {
-            IOrderedQueryable<Product> products = (from p in _context.Products orderby p.ProductName ascending select p);
-
-            if(products != null)
-            {
-                return products.ToList();
-            }
-            else
-            {
-                return null;
-            }
-        }
-        
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        public static void WriteProduct(string productName)
-        {
-            var product = new Product();
-
-            product.ProductName = productName;
-
-            _context.Products.AddObject(product);
-
-            _context.SaveChanges();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        /// <returns></returns>
-        public static bool ProductExists(string productName)
-        {
-            var product = (from c in _context.Products where c.ProductName == productName select c).FirstOrDefault();
-
-            if (product != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="contractID"></param>
-        /// <returns></returns>
-        public static bool ContractExists(int contractID)
-        {
-            var product = (from c in _context.Contracts where c.ContractID == contractID select c).FirstOrDefault();
-
-            if (product != null)
-            {
-                return true;
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="contractID"></param>
-        public static void WriteContract(int contractID)
-        {
-            var contract = new Contract();
-
-            contract.ContractID = contractID;
-
-            _context.Contracts.AddObject(contract);
-
-            _context.SaveChanges();
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        /// <param name="componentName"></param>
-        /// <param name="numberOfHighDefects"></param>
-        /// <param name="numberOfMediumDefects"></param>
-        /// <param name="numberOfLowDefects"></param>
-        public static int WriteDefectInjectionRate(string productName, string componentName, int numberOfHighDefects, int numberOfMediumDefects, int numberOfLowDefects, int curIteration)
-        {
-            var componentDefectInjectionRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
-            int id = -1;
-            if (componentDefectInjectionRate != null)
-            {
-                var defectInjectionRate = new DefectInjectionRate
-                {
-                    ComponentID = componentDefectInjectionRate.ComponentID,
-                    NumberOfHighDefects = numberOfHighDefects,
-                    IterationID = curIteration,
-                    NumberOfMediumDefects = numberOfMediumDefects,
-                    NumberOfLowDefects = numberOfLowDefects,
-                    Date = DateTime.Now
-                };
-                _context.DefectInjectionRates.AddObject(defectInjectionRate);
-                try
-                {
-                    _context.SaveChanges();
-                }
-                catch
-                {}
-                id = defectInjectionRate.DefectInjectionRateID;
-            }
-            return id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        /// <param name="componentName"></param>
-        /// <param name="numberOfVerifiedDefects"></param>
-        /// <param name="numberOfResolvedDefects"></param>
-        /// <param name="curIteration"></param>
-        /// <returns></returns>
-        public static int WriteDefectRepairRate(string productName, string componentName, int numberOfVerifiedDefects, int numberOfResolvedDefects, int curIteration)
-        {
-            var componentDefectRepairRate = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
-            int id = -1;
-            if (componentDefectRepairRate != null)
-            {
-                var defectRepairRate = new DefectRepairRate
-                {
-                    ComponentID = componentDefectRepairRate.ComponentID,
-                    NumberOfVerifiedDefects = numberOfVerifiedDefects,
-                    NumberOfResolvedDefects = numberOfResolvedDefects,
-                    IterationID = curIteration,
-                    Date = DateTime.Now
-                };
-                _context.DefectRepairRates.AddObject(defectRepairRate);
-                _context.SaveChanges();
-                id = defectRepairRate.DefectRepairRateID;
-            }
-            return id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        /// <param name="componentName"></param>
-        /// <param name="testCases"></param>
-        /// <param name="iterationID"></param>
-        /// <returns></returns>
-        public static int WriteTestEffectiveness(string productName, int testCases, int iterationID)
-        {
-            var productTestCases =
-                (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
-
-            int id = -1;
-
-            if (productTestCases != null)
-            {
-                var testEffect = new TestEffectiveness()
-                {
-                    ProductID = productTestCases.ProductID,
-                    IterationID = iterationID,
-                    TestCases = testCases,
-                    Date = DateTime.Now
-                };
-                _context.TestEffectivenesses.AddObject(testEffect);
-                _context.SaveChanges();
-                id = testEffect.TestEffectivenessID;
-            }
-            return id;
-        }
-
-        /// <summary>
-        /// 
-        /// </summary>
-        /// <param name="productName"></param>
-        /// <param name="personName"></param>
-        /// <param name="hours"></param>
-        /// <param name="p"></param>
-        public static int WriteResourceUtilization(string productName, int contractID, double hours, int iterationID)
-        {
-            var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
-
-            int id = -1;
-
-            if (productResourceUtilization != null)
-            {
-                var resourseUtil = new ResourceUtilization()
-                {
-                    ProductID = productResourceUtilization.ProductID,
-                    IterationID = iterationID,
-                    ContractID = contractID,
-                    PersonHours = hours,
-                    Date = DateTime.Now
-                };
-                _context.ResourceUtilizations.AddObject(resourseUtil);
-                _context.SaveChanges();
-                id = resourseUtil.ResourceUtilizationID;
-            }
-            return id;
-        }
-
-        public static int WriteOutOfScopeWork(string productName, int contractID, double hours, int iterationID)
-        {
-            var productOutOfScopeWork = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
-
-            int id = -1;
-
-            if (productOutOfScopeWork != null)
-            {
-                var outOfScopeWork = new OutOfScopeWork()
-                {
-                    ProductID = productOutOfScopeWork.ProductID,
-                    IterationID = iterationID,
-                    ContractID = contractID,
-                    PersonHours = hours,
-                    Date = DateTime.Now
-                };
-                _context.OutOfScopeWorks.AddObject(outOfScopeWork);
-                _context.SaveChanges();
-                id = outOfScopeWork.OutOfScopeWorkID;
-            }
-            return id;
-        }
-
-        public static int WriteReworkMetric(string productName, int contractID, double reworkHours, int iterationID)
-        {
-            var productRework = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
-
-            int id = -1;
-
-            if (productRework != null)
-            {
-                var rework = new Rework()
-                {
-                    ProductID = productRework.ProductID,
-                    IterationID = iterationID,
-                    ContractID = contractID,
-                    ReworkHours = reworkHours,
-                    Date = DateTime.Now
-                };
-                _context.Reworks.AddObject(rework);
-                _context.SaveChanges();
-                id = rework.ReworkID;
-            }
-            return id;
-        }
-
-        public static int WriteVelocityTrendMetric(string productName, int contractID, double estimatedHours, double actualHours, int iterationID)
-        {
-            var productVelocityTrend = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
-
-            int id = -1;
-
-            if (productVelocityTrend != null)
-            {
-                var velocityTrend = new VelocityTrend()
-                {
-                    ProductID = productVelocityTrend.ProductID,
-                    IterationID = iterationID,
-                    ContractID = contractID,
-                    EstimatedHours = estimatedHours,
-                    ActualHours = actualHours,
-                    Date = DateTime.Now
-                };
-                _context.VelocityTrends.AddObject(velocityTrend);
-                _context.SaveChanges();
-                id = velocityTrend.VelocityTrendID;
-            }
-            return id;
         }
     }
 }
