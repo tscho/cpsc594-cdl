@@ -215,40 +215,5 @@ namespace Importer_System_Tests
             files = Directory.GetFiles(archDirectory);
             Assert.AreEqual(files.Length, 2);
         }
-
-        /// <summary>
-        ///A test for renameFile
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
-        public void RenameFileTest()
-        {
-            ImportEngine_Accessor target = new ImportEngine_Accessor(); // TODO: Initialize to an appropriate value
-            string currFile = ConfigurationManager.AppSettings["rootDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1" + "\\" + "curr.info"; // TODO: Initialize to an appropriate value
-            string newFile = ConfigurationManager.AppSettings["rootDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1" + "\\" + "new.info"; // TODO: Initialize to an appropriate value
-            bool actual;
-            actual = target.RenameFile(currFile, newFile);
-            Assert.AreEqual(true, actual);
-            actual = target.RenameFile("dne.info", newFile);
-            Assert.AreEqual(false, actual);
-        }
-
-
-
-        /// <summary>
-        ///A test for buildUniqueFilename
-        ///</summary>
-        [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
-        public void BuildUniqueFilenameTest()
-        {
-            ImportEngine_Accessor target = new ImportEngine_Accessor(); // TODO: Initialize to an appropriate value
-            string fileName = "curr.info"; // TODO: Initialize to an appropriate value
-            int id = 21; // TODO: Initialize to an appropriate value
-            string expected = "curr.21.info"; // TODO: Initialize to an appropriate value
-            string actual;
-            actual = target.BuildUniqueFilename(fileName, id);
-            Assert.AreEqual(expected, actual);
-        }
     }
 }

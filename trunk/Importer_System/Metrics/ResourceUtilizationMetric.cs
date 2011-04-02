@@ -58,9 +58,7 @@ namespace Importer_System.Metrics
         /// </summary>
         public int StoreMetric(string productName, int contractID, double hours)
         {
-            if (!DatabaseAccessor.ContractExists(contractID))
-                DatabaseAccessor.WriteContract(contractID);
-            return DatabaseAccessor.WriteResourceUtilization(productName, contractID, hours, iteration.IterationID);
+            return DatabaseAccessor.WriteResourceUtilization(productName, hours, iteration.IterationID);
         }
 
         /*internal bool EstablishConnection()

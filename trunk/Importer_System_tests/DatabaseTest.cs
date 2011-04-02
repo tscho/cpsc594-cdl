@@ -108,19 +108,6 @@ namespace Importer_System_Tests
         }
 
         /// <summary>
-        ///A test for UpdateCoverage
-        ///</summary>
-        [TestMethod()]
-        public void UpdateCoverageTest()
-        {
-            int id = 0; // TODO: Initialize to an appropriate value
-            DateTime date = new DateTime(); // TODO: Initialize to an appropriate value
-            string fileName = string.Empty; // TODO: Initialize to an appropriate value
-            DatabaseAccessor.UpdateCoverage(id, date, fileName);
-            Assert.Inconclusive("A method that does not return a value cannot be verified.");
-        }
-
-        /// <summary>
         ///A test for WriteCodeCoverage
         ///</summary>
         [TestMethod()]
@@ -133,7 +120,7 @@ namespace Importer_System_Tests
             int expected = 0; // TODO: Initialize to an appropriate value
             int actual;
             int iteration = 1;
-            actual = DatabaseAccessor.WriteCodeCoverage(projectName, componentName, linesCovered, linesExecuted, iteration);
+            actual = DatabaseAccessor.WriteCodeCoverage(projectName, componentName, linesCovered, linesExecuted, iteration, "filename");
             Assert.AreEqual(expected, actual);
             Assert.Inconclusive("Verify the correctness of this test method.");
         }
