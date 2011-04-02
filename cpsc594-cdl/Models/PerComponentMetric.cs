@@ -25,12 +25,15 @@ namespace cpsc594_cdl.Models
             return GetCacheCode(new int[] { componentID });
         }
 
-        public static IEnumerable<int> IDs()
+        public static IEnumerable<int> IDs
         {
-            foreach (MetricType t in new MetricType[] { MetricType.Coverage, MetricType.DefectInjectionRate, 
-                MetricType.DefectRepairRate })
+            get
             {
-                yield return (int)t;
+                foreach (MetricType t in new MetricType[] { MetricType.Coverage, MetricType.DefectInjectionRate, 
+                MetricType.DefectRepairRate })
+                {
+                    yield return (int)t;
+                }
             }
         }
     }

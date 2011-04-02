@@ -18,12 +18,15 @@ namespace cpsc594_cdl.Models
             return this.ID + "--" + string.Join("-", iterationIDs) + "--" + projectID;
         }
 
-        public static IEnumerable<int> IDs()
+        public static IEnumerable<int> IDs
         {
-            foreach (MetricType t in new MetricType[] { MetricType.OutOfScopeWork, MetricType.ResourceUtilization,
-                MetricType.Rework, MetricType.TestEffectiveness, MetricType.VelocityTrend })
+            get
             {
-                yield return (int)t;
+                foreach (MetricType t in new MetricType[] { MetricType.OutOfScopeWork, MetricType.ResourceUtilization,
+                MetricType.Rework, MetricType.TestEffectiveness, MetricType.VelocityTrend })
+                {
+                    yield return (int)t;
+                }
             }
         }
     }
