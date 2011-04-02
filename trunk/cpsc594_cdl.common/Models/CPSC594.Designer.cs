@@ -1742,16 +1742,14 @@ namespace cpsc594_cdl.Common.Models
         /// </summary>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="outOfScopeWorkID">Initial value of the OutOfScopeWorkID property.</param>
-        /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="personHours">Initial value of the PersonHours property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static OutOfScopeWork CreateOutOfScopeWork(global::System.Int32 productID, global::System.Int32 outOfScopeWorkID, global::System.Int32 contractID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        public static OutOfScopeWork CreateOutOfScopeWork(global::System.Int32 productID, global::System.Int32 outOfScopeWorkID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
         {
             OutOfScopeWork outOfScopeWork = new OutOfScopeWork();
             outOfScopeWork.ProductID = productID;
             outOfScopeWork.OutOfScopeWorkID = outOfScopeWorkID;
-            outOfScopeWork.ContractID = contractID;
             outOfScopeWork.PersonHours = personHours;
             outOfScopeWork.IterationID = iterationID;
             outOfScopeWork.Date = date;
@@ -1811,30 +1809,6 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Int32 _OutOfScopeWorkID;
         partial void OnOutOfScopeWorkIDChanging(global::System.Int32 value);
         partial void OnOutOfScopeWorkIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ContractID
-        {
-            get
-            {
-                return _ContractID;
-            }
-            set
-            {
-                OnContractIDChanging(value);
-                ReportPropertyChanging("ContractID");
-                _ContractID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ContractID");
-                OnContractIDChanged();
-            }
-        }
-        private global::System.Int32 _ContractID;
-        partial void OnContractIDChanging(global::System.Int32 value);
-        partial void OnContractIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2222,16 +2196,14 @@ namespace cpsc594_cdl.Common.Models
         /// </summary>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="resourceUtilizationID">Initial value of the ResourceUtilizationID property.</param>
-        /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="personHours">Initial value of the PersonHours property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static ResourceUtilization CreateResourceUtilization(global::System.Int32 productID, global::System.Int32 resourceUtilizationID, global::System.Int32 contractID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        public static ResourceUtilization CreateResourceUtilization(global::System.Int32 productID, global::System.Int32 resourceUtilizationID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
         {
             ResourceUtilization resourceUtilization = new ResourceUtilization();
             resourceUtilization.ProductID = productID;
             resourceUtilization.ResourceUtilizationID = resourceUtilizationID;
-            resourceUtilization.ContractID = contractID;
             resourceUtilization.PersonHours = personHours;
             resourceUtilization.IterationID = iterationID;
             resourceUtilization.Date = date;
@@ -2291,30 +2263,6 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Int32 _ResourceUtilizationID;
         partial void OnResourceUtilizationIDChanging(global::System.Int32 value);
         partial void OnResourceUtilizationIDChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ContractID
-        {
-            get
-            {
-                return _ContractID;
-            }
-            set
-            {
-                OnContractIDChanging(value);
-                ReportPropertyChanging("ContractID");
-                _ContractID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ContractID");
-                OnContractIDChanged();
-            }
-        }
-        private global::System.Int32 _ContractID;
-        partial void OnContractIDChanging(global::System.Int32 value);
-        partial void OnContractIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2486,16 +2434,14 @@ namespace cpsc594_cdl.Common.Models
         /// </summary>
         /// <param name="reworkID">Initial value of the ReworkID property.</param>
         /// <param name="reworkHours">Initial value of the ReworkHours property.</param>
-        /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static Rework CreateRework(global::System.Int32 reworkID, global::System.Double reworkHours, global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.DateTime date)
+        public static Rework CreateRework(global::System.Int32 reworkID, global::System.Double reworkHours, global::System.Int32 productID, global::System.Int32 iterationID, global::System.DateTime date)
         {
             Rework rework = new Rework();
             rework.ReworkID = reworkID;
             rework.ReworkHours = reworkHours;
-            rework.ContractID = contractID;
             rework.ProductID = productID;
             rework.IterationID = iterationID;
             rework.Date = date;
@@ -2555,30 +2501,6 @@ namespace cpsc594_cdl.Common.Models
         private global::System.Double _ReworkHours;
         partial void OnReworkHoursChanging(global::System.Double value);
         partial void OnReworkHoursChanged();
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ContractID
-        {
-            get
-            {
-                return _ContractID;
-            }
-            set
-            {
-                OnContractIDChanging(value);
-                ReportPropertyChanging("ContractID");
-                _ContractID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ContractID");
-                OnContractIDChanged();
-            }
-        }
-        private global::System.Int32 _ContractID;
-        partial void OnContractIDChanging(global::System.Int32 value);
-        partial void OnContractIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
@@ -2986,17 +2908,15 @@ namespace cpsc594_cdl.Common.Models
         /// <summary>
         /// Create a new VelocityTrend object.
         /// </summary>
-        /// <param name="contractID">Initial value of the ContractID property.</param>
         /// <param name="productID">Initial value of the ProductID property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="estimatedHours">Initial value of the EstimatedHours property.</param>
         /// <param name="actualHours">Initial value of the ActualHours property.</param>
         /// <param name="velocityTrendID">Initial value of the VelocityTrendID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static VelocityTrend CreateVelocityTrend(global::System.Int32 contractID, global::System.Int32 productID, global::System.Int32 iterationID, global::System.Double estimatedHours, global::System.Double actualHours, global::System.Int32 velocityTrendID, global::System.DateTime date)
+        public static VelocityTrend CreateVelocityTrend(global::System.Int32 productID, global::System.Int32 iterationID, global::System.Double estimatedHours, global::System.Double actualHours, global::System.Int32 velocityTrendID, global::System.DateTime date)
         {
             VelocityTrend velocityTrend = new VelocityTrend();
-            velocityTrend.ContractID = contractID;
             velocityTrend.ProductID = productID;
             velocityTrend.IterationID = iterationID;
             velocityTrend.EstimatedHours = estimatedHours;
@@ -3008,30 +2928,6 @@ namespace cpsc594_cdl.Common.Models
 
         #endregion
         #region Primitive Properties
-    
-        /// <summary>
-        /// No Metadata Documentation available.
-        /// </summary>
-        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
-        [DataMemberAttribute()]
-        public global::System.Int32 ContractID
-        {
-            get
-            {
-                return _ContractID;
-            }
-            set
-            {
-                OnContractIDChanging(value);
-                ReportPropertyChanging("ContractID");
-                _ContractID = StructuralObject.SetValidValue(value);
-                ReportPropertyChanged("ContractID");
-                OnContractIDChanged();
-            }
-        }
-        private global::System.Int32 _ContractID;
-        partial void OnContractIDChanging(global::System.Int32 value);
-        partial void OnContractIDChanged();
     
         /// <summary>
         /// No Metadata Documentation available.
