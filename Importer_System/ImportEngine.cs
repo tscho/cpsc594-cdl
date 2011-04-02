@@ -255,7 +255,6 @@ namespace Importer_System
         {
             string currFile;
             int coverageID = -1;
-            string uniqueFileName = "";
             Iteration currIteration;
             currIteration = UpdateIteration();
             if (_rootDirectory != null)
@@ -309,26 +308,20 @@ namespace Importer_System
                             {
                                 currFile = Path.Combine(currentMetric1Directory, logFile.Name);
                                 // Archive the log file if returned true
-                                coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID);
+                                coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID, logFile.Name);
                                 if (coverageID >= 0)
                                 {
-                                    uniqueFileName = BuildUniqueFilename(logFile.Name, coverageID);
-                                    RenameFile(currFile, Path.Combine(currentMetric1Directory, uniqueFileName));
-                                    DatabaseAccessor.UpdateCoverage(coverageID, logFile.LastWriteTimeUtc.Date, uniqueFileName);
                                     // If proper directory is specified
                                     if(_rootArchiveDirectory != null)
-                                        ArchiveFile(currentProductName, currentComponentName, uniqueFileName);
+                                        ArchiveFile(currentProductName, currentComponentName, logFile.Name);
                                 }
                                 coverageID = -1;
-                                uniqueFileName = "";
                             }
                         }
                         // --------------------------------------------------------------------
                         // END METRIC 1
                         // --------------------------------------------------------------------
-                        DisplayMetric metric = new DisplayMetric(metricList.ElementAt(1).Id, metricList.ElementAt(1).Name, "sadasdas");
-                        metricList.RemoveAt(1);
-                        metricList.Insert(1, metric);
+                        
                         
 
                         // ---------------------------------------------------------------------
@@ -342,6 +335,8 @@ namespace Importer_System
                     }
                 }
             }
+
+
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 5 AND 6 - RESOURCE UTILIZATION AND OUT OF SCOPE WORK
             // ---------------------------------------------------------------------
@@ -361,6 +356,13 @@ namespace Importer_System
             // END METRIC 5
             // ---------------------------------------------------------------------
             //initialDirectory = new DirectoryInfo(_testDirectory);            
+        }
+
+        public void upadateMetricStatus(ObservableCollection<DisplayMetric> metricList, int id, string status)
+        {
+            DisplayMetric metric = new DisplayMetric(metricList.ElementAt(id).Id, metricList.ElementAt(id).Name, status);
+            metricList.RemoveAt(id);
+            metricList.Insert(id, metric);
         }
 
         /// <summary>
@@ -463,58 +465,6 @@ namespace Importer_System
             while ((new DateTime(year, 01, ++day)).DayOfWeek != DayOfWeek.Monday) ;
 
             return day;
-        }
-
-        /// <summary>
-        ///     Renames the given file.
-        /// </summary>
-        /// <param name="currFile">Current file name</param>
-        /// <param name="newFile">New file name</param>
-        /// <returns></returns>
-        public bool RenameFile(string currFile, string newFile)
-        {
-            if(File.Exists(currFile))
-            {
-                File.Copy(currFile, newFile);
-                if (File.Exists(newFile))
-                {
-                    File.Delete(currFile);
-                    return true;
-                }
-                else
-                {
-                    return false;
-                }    
-            }
-            else
-            {
-                return false;
-            }
-        }
-
-        /// <summary>
-        ///     Appends the filename with a unique id tag.
-        /// </summary>
-        /// <param name="fileName">Current file name</param>
-        /// <param name="id">Unique ID</param>
-        /// <returns></returns>
-        // ReSharper disable MemberCanBeMadeStatic.Local
-        public string BuildUniqueFilename(string fileName, int id)
-        // ReSharper restore MemberCanBeMadeStatic.Local
-        {
-            string[] separatedFileName;
-            string uniqueFileName = "";
-
-            separatedFileName = fileName.Split('.');
-            uniqueFileName = separatedFileName[0];
-            for(int i = 1; i < separatedFileName.Length; i++)
-            {
-                if (i == separatedFileName.Length - 1)
-                    uniqueFileName = uniqueFileName + "." + id.ToString();
-                uniqueFileName = uniqueFileName + "." + separatedFileName[i];
-            }
-
-            return uniqueFileName;
         }
 
         /// <summary>
