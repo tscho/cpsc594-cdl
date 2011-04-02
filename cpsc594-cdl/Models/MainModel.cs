@@ -12,12 +12,19 @@ namespace cpsc594_cdl.Models
     {
         public IEnumerable<Product> Products { get; set; }
         public IEnumerable<Component> Components { get; set; }
-        public int ProductID { get; set; }
+        public IEnumerable<Iteration> Iterations { get; set; }
 
         public Product Product { get; set; }
         public string ProductName { get; set; }
-        public IEnumerable<int> ComponentIDs { get; set; }
+
         public IEnumerable<int> MetricIDs { get; set; }
+
+        public int ProductID { get; set; }
+        public IEnumerable<int> ComponentIDs { get; set; }
+
+        public IEnumerable<int> ProductIDs { get; set; }
+        public int startIteration;
+        public int endIteration;
 
         public List<PerComponentMetric> ComponentMetrics { get; set; }
         public List<PerProductMetric> ProductMetrics { get; set; }
