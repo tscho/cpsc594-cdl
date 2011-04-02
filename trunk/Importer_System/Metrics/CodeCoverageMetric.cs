@@ -16,6 +16,7 @@ namespace Importer_System
         private int linesExecuted;  // The lines found
         private string file;        // File directory
         private int iteration;
+        private string fileName;
 
 
         /// <summary>
@@ -25,7 +26,7 @@ namespace Importer_System
         /// <param name="component"></param>
         /// <param name="file"></param>
         /// <returns>True if no errors</returns>
-        public int CalculateMetric(string product, string component, string file, int currIteration)
+        public int CalculateMetric(string product, string component, string file, int currIteration, string fileName)
         {
             this.product = product;
             this.component = component;
@@ -33,6 +34,7 @@ namespace Importer_System
             this.linesExecuted = 0;
             this.file = file;
             this.iteration = currIteration;
+            this.fileName = fileName;
 
             // Parse the file and return true if passed, false if error
             if(parseLogFile(file))
@@ -145,7 +147,7 @@ namespace Importer_System
         /// </summary>
         public int StoreMetric()
         {
-            return DatabaseAccessor.WriteCodeCoverage(product, component, linesCovered, linesExecuted, iteration);
+            return DatabaseAccessor.WriteCodeCoverage(product, component, linesCovered, linesExecuted, iteration, fileName);
         }
     }
 }

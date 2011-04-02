@@ -95,7 +95,7 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="linesExecuted"></param>
         /// <param name="currIteration"></param>
         /// <returns></returns>
-        public static int WriteCodeCoverage(string productName, string componentName, int linesCovered, int linesExecuted, int currIteration)
+        public static int WriteCodeCoverage(string productName, string componentName, int linesCovered, int linesExecuted, int currIteration, string fileName)
         {
             var componentCoverage = (from p in _context.Products join c in _context.Components on p.ProductID equals c.ProductID where p.ProductName == productName && c.ComponentName == componentName select c).FirstOrDefault();
 
@@ -108,7 +108,8 @@ namespace cpsc594_cdl.Common.Models
                     ComponentID = componentCoverage.ComponentID,
                     IterationID = currIteration,
                     LinesCovered = linesCovered,
-                    LinesExecuted = linesExecuted
+                    LinesExecuted = linesExecuted,
+                    FileName = fileName
                 };
                 _context.Coverages.AddObject(coverage);
                 _context.SaveChanges();
