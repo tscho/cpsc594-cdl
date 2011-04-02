@@ -25,8 +25,9 @@
                     (int[])Enum.GetValues(typeof(MetricType)), 
                     x => (int)Enum.Parse(typeof(MetricType), x),
                     y => y, (x, y) => new { Name = x, Id = y }),
-                "Id", "Name"), new { @size = "7", @onchange = "submit" })%></td>
+                "Id", "Name"), new { @size = "8"})%></td>
             </tr>
+            <tr><input type="submit" value="Next" /></tr>
         <% } %>
         <% if (Model.MetricIDs != null) { %>
             <% using (Html.BeginForm("Index", "Report", FormMethod.Post, new { @target = "report" }))
