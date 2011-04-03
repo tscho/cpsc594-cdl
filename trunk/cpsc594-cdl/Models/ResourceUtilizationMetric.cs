@@ -17,13 +17,15 @@ namespace cpsc594_cdl.Models
 
         public ResourceUtilizationMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public override string GenerateOverviewGraph(string title, Product product)
+        public override string GenerateOverviewGraph(string title, IEnumerable<Product> products)
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisX.Title = "Contract ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Resource Utilization(hours)";
+
+            var productIds = products.Select<Product, int>(x => x.ProductID);
 
             Series series;
             foreach (var iteration in Iterations)
@@ -34,11 +36,7 @@ namespace cpsc594_cdl.Models
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
                 
-                //ResourceUtilization hours = iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID).Aggregate((x, next) => { x.PersonHours += next.PersonHours; return x; });
-
-                //series.Points.AddY(hours.PersonHours);
-
-                foreach (var ru in iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID))
+                foreach (var ru in iteration.ResourceUtilizations.Where(x => productIds.Contains(x.ProductID)))
                 {
                     var existingPoints = series.Points.Where(x => x.XValue == ru.ProductID);
                     if (existingPoints.Count() != 0)
@@ -53,7 +51,7 @@ namespace cpsc594_cdl.Models
                 }
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(productIds.ToArray<int>()), chart);
         }
     }
 }

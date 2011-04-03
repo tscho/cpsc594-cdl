@@ -17,13 +17,15 @@ namespace cpsc594_cdl.Models
 
         public VelocityTrendMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public override string GenerateOverviewGraph(string title, Product product)
+        public override string GenerateOverviewGraph(string title, IEnumerable<Product> products)
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisX.Title = "Contract ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Estimated / Actual";
+
+            var productIds = products.Select<Product, int>(x => x.ProductID);
 
             Series series;
             foreach (var iteration in Iterations)
@@ -34,7 +36,7 @@ namespace cpsc594_cdl.Models
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
 
-                foreach (var vTrend in iteration.VelocityTrends.Where(x => x.ProductID == product.ProductID))
+                foreach (var vTrend in iteration.VelocityTrends.Where(x => productIds.Contains(x.ProductID)))
                 {
                     series.Points.AddXY(vTrend.ProductID, vTrend.getValue());
                     series.Points.Last().MarkerSize = 10;
@@ -42,7 +44,7 @@ namespace cpsc594_cdl.Models
                 }
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(productIds.ToArray<int>()), chart);
         }
     }
 }
