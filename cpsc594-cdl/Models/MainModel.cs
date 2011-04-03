@@ -15,16 +15,16 @@ namespace cpsc594_cdl.Models
         public IEnumerable<Iteration> Iterations { get; set; }
 
         public Product Product { get; set; }
-        public string ProductName { get; set; }
+        //public string ProductName { get; set; }
 
-        public IEnumerable<int> MetricIDs { get; set; }
+        public int[] MetricIDs { get; set; }
 
-        public int ProductID { get; set; }
+        public int? ProductID { get; set; }
         public IEnumerable<int> ComponentIDs { get; set; }
 
         public IEnumerable<int> ProductIDs { get; set; }
-        public int startIteration;
-        public int endIteration;
+        public int StartIteration { get; set; }
+        public int EndIteration { get; set; }
 
         public List<PerComponentMetric> ComponentMetrics { get; set; }
         public List<PerProductMetric> ProductMetrics { get; set; }

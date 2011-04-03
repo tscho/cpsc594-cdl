@@ -17,13 +17,14 @@ namespace cpsc594_cdl.Models
 
         public TestEffectivenessMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public override string GenerateOverviewGraph(string title, Product product)
+        public override string GenerateOverviewGraph(string title, IEnumerable<Product> products)
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            //chart.ChartAreas[0].AxisX.Title = "Components";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Tests per defect injected";
+
+            var productIds = products.Select<Product, int>(x => x.ProductID);
 
             Series series;
             foreach (var iteration in Iterations)
@@ -33,15 +34,15 @@ namespace cpsc594_cdl.Models
 
                 series = new Series(iteration.StartDate.ToShortDateString());
                 chart.Series.Add(series);
-                foreach(var testEffectiveness in iteration.TestEffectivenesses.Where(x => x.ProductID == product.ProductID))
+                foreach(var testEffectiveness in iteration.TestEffectivenesses.Where(x => productIds.Contains(x.ProductID)))
                 {
-                    series.Points.AddY(testEffectiveness.getValue());
+                    series.Points.AddXY(testEffectiveness.ProductID, testEffectiveness.getValue());
                     series.Points.Last().MarkerSize = 10;
                     series.Points.Last().AxisLabel = testEffectiveness.Product.ProductName;
                 }
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(product.ProductID), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(productIds.ToArray<int>()), chart);
         }
     }
 }

@@ -90,7 +90,7 @@
     <Compile Include="Models\MetricType.cs" />
     <Compile Include="Models\OutOfScopeWorkMetric.cs" />
     <Compile Include="Models\PerComponentMetric.cs" />
-    <Compile Include="Models\PerProjectMetric.cs" />
+    <Compile Include="Models\PerProductMetric.cs" />
     <Compile Include="Models\ResourceUtilizationMetric.cs" />
     <Compile Include="Models\ReworkMetric.cs" />
     <Compile Include="Models\TestEffectivenessMetric.cs" />

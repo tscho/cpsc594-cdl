@@ -397,6 +397,13 @@ namespace cpsc594_cdl.Common.Models
             }
         }
 
+        public static IEnumerable<Product> GetProducts(IEnumerable<int> pids)
+        {
+            IOrderedQueryable<Product> products = (from p in _context.Products where pids.Contains(p.ProductID) orderby p.ProductName ascending select p );
+
+            return products;
+        }
+
         /// <summary>
         /// 
         /// </summary>

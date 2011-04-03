@@ -8,14 +8,15 @@ namespace cpsc594_cdl.Models
 {
     public abstract class PerProductMetric : Metric
     {
-        public abstract string GenerateOverviewGraph(string title, Product product);
+        public abstract string GenerateOverviewGraph(string title, IEnumerable<Product> products);
 
         public PerProductMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public string GetCacheCode(int projectID)
+        public string GetCacheCode(int[] productIDs)
         {
             Array.Sort(iterationIDs);
-            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + projectID;
+            Array.Sort(productIDs);
+            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", productIDs);
         }
 
         public static IEnumerable<int> IDs

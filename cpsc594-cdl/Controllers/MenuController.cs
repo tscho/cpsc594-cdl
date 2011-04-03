@@ -28,11 +28,8 @@ namespace cpsc594_cdl.Controllers
         [DatabaseRequired]
         public ActionResult Index(IndexModel model)
         {
-            if (model.MetricIDs.Contains(-1))
+            if (model.MetricIDs.Count() == 0)
                 return View(model);
-
-            var metricIds = Enum.GetValues(typeof(MetricType));
-            model.MetricIDs = Enumerable.Range(0, metricIds.Length);
 
             var productList = new List<Product>();
             productList.Add(new Product() { ProductID = -1, ProductName = "Select a Product" });
