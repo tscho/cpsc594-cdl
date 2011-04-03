@@ -23,6 +23,7 @@ namespace Importer_System
 
                 Window importer_gui = new Importer_Gui();
                 importer_gui.ShowDialog();
+                
                 // Boot the engine that reads configuration file and begins importing
                 //Reporter.OpenReporter();
                 // Start engine to initialize config file
