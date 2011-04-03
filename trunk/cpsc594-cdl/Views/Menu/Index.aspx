@@ -27,7 +27,7 @@
                     y => y, (x, y) => new { Name = x, Id = y }),
                 "Id", "Name"), new { @size = "8"})%></td>
             </tr>
-            <tr><input type="submit" value="Next" /></tr>
+            <tr><td></td><input type="submit" value="Next" /></tr>
         <% } %>
         <% if (Model.MetricIDs != null) { %>
             <% using (Html.BeginForm("Index", "Report", FormMethod.Post, new { @target = "report" }))
@@ -51,7 +51,7 @@
                     </tr>
                     <tr>
                         <td id = "menuItem">Start Iteration</td>
-                        <td><%= Html.DropDownListFor(m => m.startIteration, new SelectList(Model.Iterations, "IterationID", "Label")) %></td>
+                        <td><%= Html.DropDownListFor(m => m.startIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
                     </tr>
                     <tr>
                         <td id = "Td1">End Iteration</td>

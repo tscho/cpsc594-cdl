@@ -11,18 +11,12 @@ namespace cpsc594_cdl.Controllers
 {
     public class MenuController : Controller
     {
-        //
-        // GET: /Home/
-        public MenuController()
-        {
-        }
-
         [DatabaseRequired]
         public ActionResult Index()
         {
             IndexModel model = new IndexModel();
 
-            List<Product> plist = new List<Product>();
+            var plist = new List<Product>();
             plist.Add(new Product() { ProductID = -1, ProductName = "Select a Product" });
             plist.AddRange(DatabaseAccessor.GetProducts());
             model.Products = plist;
@@ -34,19 +28,26 @@ namespace cpsc594_cdl.Controllers
         [DatabaseRequired]
         public ActionResult Index(IndexModel model)
         {
-            List<Product> plist = new List<Product>();
-            plist.Add(new Product() { ProductID = -1, ProductName = "Select a Product" });
-            plist.AddRange(DatabaseAccessor.GetProducts());
-            model.Products = plist;
-            if (model.ProductID == -1) return View(model);
+            if (model.MetricIDs.Contains(-1))
+                return View(model);
 
-            List<Component> clist = new List<Component>();
-            clist.Add(new Component() { ComponentID = -1, ProductID = -1, ComponentName = "Select All" });
-            clist.AddRange(DatabaseAccessor.GetComponents(Convert.ToInt32(model.ProductID)));
-            model.Components = clist;
+            var metricIds = Enum.GetValues(typeof(MetricType));
+            model.MetricIDs = Enumerable.Range(0, metricIds.Length);
 
-            var ids = Enum.GetValues(typeof(MetricType));
-            model.MetricIDs = Enumerable.Range(0, ids.Length);
+            var productList = new List<Product>();
+            productList.Add(new Product() { ProductID = -1, ProductName = "Select a Product" });
+            productList.AddRange(DatabaseAccessor.GetProducts());
+            model.Products = productList;
+
+            var componentList = new List<Component>();
+            componentList.Add(new Component() { ComponentID = -1, ProductID = -1, ComponentName = "Select All" });
+            componentList.AddRange(DatabaseAccessor.GetComponents(Convert.ToInt32(model.ProductID)));
+            model.Components = componentList;
+
+            var iterationList = new List<Iteration>();
+            iterationList.Add(new Iteration() { IterationID = -1, IterationLabel = "Select" });
+            iterationList.AddRange(DatabaseAccessor.GetIterations(26));
+            model.Iterations = iterationList;
 
             return View(model);
         }
