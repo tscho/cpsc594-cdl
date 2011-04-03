@@ -55,7 +55,7 @@
                     </tr>
                     <tr>
                         <td id = "Td1">End Iteration</td>
-                        <td><%= Html.DropDownListFor(m => m.endIteration, new SelectList(Model.Iterations, "IterationID", "Label")) %></td>
+                        <td><%= Html.DropDownListFor(m => m.endIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
                     </tr>
                 <% } %>
                 <tr>
