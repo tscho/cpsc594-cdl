@@ -251,15 +251,13 @@ namespace Importer_System
         /// <summary>
         ///     Begin to calculate the metrics from the sources
         /// </summary>
-        public void BeginImporting(ObservableCollection<DisplayMetric> metricList, System.Windows.Controls.TextBlock status_label)
+        public void BeginImporting(ObservableCollection<DisplayMetric> metricList)
         {
             string currFile;
             int coverageID = -1;
             Iteration currIteration;
             currIteration = UpdateIteration();
-
-            status_label.Text = "Determining iteration....";
-
+            
             if (_rootDirectory != null)
             {
                 // Make directory structure
@@ -280,14 +278,19 @@ namespace Importer_System
                     // ---------------------------------------------------------------------
                     // COMPUTE METRIC 2 - Value for Tests
                     // ---------------------------------------------------------------------
-                    status_label.Text = "Computing Value for Tests ....";
+                    DateTime fileDate = DateTime.MinValue;
                     string productDirectory = Path.Combine(_rootDirectory, currentProductName);
                     DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
                     foreach (FileInfo testFile in testFiles.GetFiles())
                     {
-                        currFile = Path.Combine(productDirectory, testFile.Name);
-                        _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
+                        if (fileDate.CompareTo(testFile.LastWriteTime) == -1)
+                        {
+                            fileDate = testFile.LastWriteTime;
+                            currFile = Path.Combine(productDirectory, testFile.Name);
+                            _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
+                        }  
                     }
+
                     // Iterate through the selected Products components;
                     foreach (DirectoryInfo component in product.GetDirectories())
                     {
@@ -302,23 +305,27 @@ namespace Importer_System
                         // ---------------------------------------------------------------------
                         // COMPUTE METRIC 1 - CODE COVERAGE
                         // ---------------------------------------------------------------------
-                        status_label.Text = "Computing Code Coverage ....";
                         string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
                         // Check if the code coverage folder exists
                         if (Directory.Exists(currentMetric1Directory))
                         {
                             DirectoryInfo logFiles = new DirectoryInfo(currentMetric1Directory);
+                            fileDate = DateTime.MinValue;
                             // Iterate through each code coverage log file and calculate the metric
                             foreach (FileInfo logFile in logFiles.GetFiles())
                             {
-                                currFile = Path.Combine(currentMetric1Directory, logFile.Name);
-                                // Archive the log file if returned true
-                                coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID, logFile.Name);
-                                if (coverageID >= 0)
+                                if (fileDate.CompareTo(logFile.LastWriteTime) == -1)
                                 {
-                                    // If proper directory is specified
-                                    if(_rootArchiveDirectory != null)
-                                        ArchiveFile(currentProductName, currentComponentName, logFile.Name);
+                                    fileDate = logFile.LastWriteTime;
+                                    currFile = Path.Combine(currentMetric1Directory, logFile.Name);
+                                    // Archive the log file if returned true
+                                    coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID, logFile.Name);
+                                    if (coverageID >= 0)
+                                    {
+                                        // If proper directory is specified
+                                        if (_rootArchiveDirectory != null)
+                                            ArchiveFile(currentProductName, currentComponentName, logFile.Name);
+                                    }
                                 }
                                 coverageID = -1;
                             }
@@ -334,7 +341,6 @@ namespace Importer_System
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
             // ---------------------------------------------------------------------
-            status_label.Text = "Computing Defect Injection and Repair rate ....";
             if (_defectMetrics.GetConnection() != null)
             {
                 List<Product> productList = DatabaseAccessor.GetProducts();
@@ -363,6 +369,7 @@ namespace Importer_System
                 {
                     findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
                 }
+
                 // Iterate through each product data .xls file to calculate resource utilization
                 foreach (FileInfo productData in productDataList.GetFiles())
                 {
@@ -374,7 +381,7 @@ namespace Importer_System
             }
             // ---------------------------------------------------------------------
             // END METRIC 5,6,7,8
-            // ---------------------------------------------------------------------      
+            // --------------------------------------------------------------------- 
         }
 
         private void findNewProducts(string file)

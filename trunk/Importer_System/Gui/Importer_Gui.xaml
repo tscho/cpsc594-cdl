@@ -26,7 +26,7 @@
                 <Button  Content="Run" Margin="5,10,5,10" Width="50" Click="Button_Click_Run"/>
                 <Button Content="Config" Margin="5,10,5,10" Width="50" Click="Button_Click_Config"/>
             </StackPanel>
-            <ProgressBar Name="progressBar" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,2,5,0" Value="{Binding Prog.ProgPercent, Mode=OneWay,ElementName=window}"/>
+            <ProgressBar Name="progressBar" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,2,5,0" Value="{Binding progressPercent}"/>
             <Label Name="logLabel" Content="Open Log" HorizontalAlignment="Right" FlowDirection="RightToLeft" />
         </StackPanel>
         <ListView Grid.Row="1" Name="metricStatusList">

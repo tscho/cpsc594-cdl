@@ -35,8 +35,7 @@ namespace Importer_System.Metrics
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        int contractID = Int32.Parse(row[1]);
-                        double personHours = Double.Parse(row[2]);
+                        double personHours = Double.Parse(row[1]);
                         // Store data
                         if(StoreMetric(productName, personHours)==-1)
                             Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Problem storing the out of scope work data to the database." + productDataPath);
