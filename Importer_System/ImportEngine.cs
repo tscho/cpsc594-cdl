@@ -251,12 +251,15 @@ namespace Importer_System
         /// <summary>
         ///     Begin to calculate the metrics from the sources
         /// </summary>
-        public void BeginImporting(ObservableCollection<DisplayMetric> metricList)
+        public void BeginImporting(ObservableCollection<DisplayMetric> metricList, System.Windows.Controls.TextBlock status_label)
         {
             string currFile;
             int coverageID = -1;
             Iteration currIteration;
             currIteration = UpdateIteration();
+
+            status_label.Text = "Determining iteration....";
+
             if (_rootDirectory != null)
             {
                 // Make directory structure
@@ -275,8 +278,9 @@ namespace Importer_System
                     }
 
                     // ---------------------------------------------------------------------
-                    // COMPUTE METRIC 2 - TEST EFFECTIVENESS
+                    // COMPUTE METRIC 2 - Value for Tests
                     // ---------------------------------------------------------------------
+                    status_label.Text = "Computing Value for Tests ....";
                     string productDirectory = Path.Combine(_rootDirectory, currentProductName);
                     DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
                     foreach (FileInfo testFile in testFiles.GetFiles())
@@ -298,6 +302,7 @@ namespace Importer_System
                         // ---------------------------------------------------------------------
                         // COMPUTE METRIC 1 - CODE COVERAGE
                         // ---------------------------------------------------------------------
+                        status_label.Text = "Computing Code Coverage ....";
                         string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
                         // Check if the code coverage folder exists
                         if (Directory.Exists(currentMetric1Directory))
@@ -322,28 +327,42 @@ namespace Importer_System
                         // END METRIC 1
                         // --------------------------------------------------------------------
                         
-                        
-
-                        // ---------------------------------------------------------------------
-                        // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
-                        // ---------------------------------------------------------------------
-                        if(_defectMetrics.GetConnection()!=null)
-                            _defectMetrics.CalculateMetric(currentProductName, currentComponentName, currIteration);
-                        // --------------------------------------------------------------------
-                        // END METRIC 3 AND 4
-                        // --------------------------------------------------------------------
                     }
                 }
             }
 
+            // ---------------------------------------------------------------------
+            // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
+            // ---------------------------------------------------------------------
+            status_label.Text = "Computing Defect Injection and Repair rate ....";
+            if (_defectMetrics.GetConnection() != null)
+            {
+                List<Product> productList = DatabaseAccessor.GetProducts();
+                foreach (var currProduct in productList)
+                {
+                    List<Component> componentList = DatabaseAccessor.GetComponents(currProduct.ProductID);
+                    foreach (var currComponent in componentList)
+                    {
+                        _defectMetrics.CalculateMetric(currProduct.ProductName, currComponent.ComponentName, currIteration);
+                    }
+                }
+            }
+            // --------------------------------------------------------------------
+            // END METRIC 3 AND 4
+            // --------------------------------------------------------------------
             
 
             // ---------------------------------------------------------------------
-            // COMPUTE METRIC 5 AND 6 - RESOURCE UTILIZATION AND OUT OF SCOPE WORK
+            // COMPUTE METRIC 5,6,7,8
             // ---------------------------------------------------------------------
             if(_productDataDirectory!=null)
             {
                 DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
+                //Iterate through each product data .xls to find any new products before we parse for data in the file
+                foreach (FileInfo productData in productDataList.GetFiles())
+                {
+                    findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
+                }
                 // Iterate through each product data .xls file to calculate resource utilization
                 foreach (FileInfo productData in productDataList.GetFiles())
                 {
@@ -354,9 +373,40 @@ namespace Importer_System
                 }
             }
             // ---------------------------------------------------------------------
-            // END METRIC 5
-            // ---------------------------------------------------------------------
-            //initialDirectory = new DirectoryInfo(_testDirectory);            
+            // END METRIC 5,6,7,8
+            // ---------------------------------------------------------------------      
+        }
+
+        private void findNewProducts(string file)
+        {
+            // Excel connection string
+            string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + file + ";Extended Properties=Excel 5.0";
+            // Get excel reader
+            ExcelReader xlsReader = new ExcelReader(connectionString);
+            if (xlsReader.CheckConnection())
+            {
+                try
+                {
+                    string query = String.Concat("Select distinct [Product] from [Sheet1$]");
+
+                    List<string[]> productList = xlsReader.SelectQuery(query);
+                    foreach (string[] row in productList)
+                    {
+                        string productName = row[0];
+                        if(!DatabaseAccessor.ProductExists(productName))
+                        {
+                            DatabaseAccessor.WriteProduct(productName);
+                        }
+                    }
+                }
+                catch
+                {
+                    // If the format of the excel file is not correct
+                    Reporter.AddErrorMessageToReporter("Product data file cannot properly be parsed due to its columns " +  file);
+                }
+            }
+            else
+                Reporter.AddErrorMessageToReporter("Unable to open product data file " + file);
         }
 
         public void upadateMetricStatus(ObservableCollection<DisplayMetric> metricList, int id, string status)

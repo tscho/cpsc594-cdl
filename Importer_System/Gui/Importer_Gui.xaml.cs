@@ -55,7 +55,7 @@ namespace Importer_System
             // Start engine to initialize config file
             ImportEngine engine = new ImportEngine();
             // Start the metric importing
-            engine.BeginImporting(metricList);
+            engine.BeginImporting(metricList, status_label);
         }
     }
 }
