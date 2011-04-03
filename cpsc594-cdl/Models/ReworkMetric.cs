@@ -21,39 +21,33 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Person";
+            chart.ChartAreas[0].AxisX.Title = "Iteration ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Rework(hours)";
 
             var productIds = products.Select<Product, int>(x => x.ProductID);
 
-            /***
-             * NOTE: Idea for trend...
-             * Each product should be a series
-             * Xvals are iteratoinID
-             ***/
-
-            //This isn't correct YET!
             Series series;
-            foreach (var iteration in Iterations)
+            foreach (var product in products)
             {
-                if (iteration.Reworks == null || iteration.Reworks.Count == 0)
+                if (product.Reworks == null || product.Reworks.Count == 0)
                     continue;
 
-                series = new Series(iteration.StartDate.ToShortDateString());
+                series = new Series(product.ProductName);
                 chart.Series.Add(series);
 				
-				foreach (var rw in iteration.Reworks.Where(x => productIds.Contains(x.ProductID)))
+				foreach (var rw in product.Reworks.Where(x => iterationIDs.Contains(x.IterationID)))
                 {
-                    var existingPoints = series.Points.Where(x => x.XValue == rw.ProductID);
+                    var existingPoints = series.Points.Where(x => x.XValue == rw.IterationID);
                     if (existingPoints.Count() != 0)
                     {
                         existingPoints.First().YValues[0] += rw.ReworkHours;
                     }
                     else
                     {
-                        series.Points.AddXY(rw.ProductID, rw.ReworkHours);
+                        series.Points.AddXY(rw.IterationID, rw.ReworkHours);
                         series.Points.Last().MarkerSize = 10;
+                        series.Points.Last().AxisLabel = rw.Iteration.IterationLabel;
                     }
                 }
             }

@@ -57,6 +57,8 @@ namespace cpsc594_cdl.Controllers
                         ModelState.AddModelError("startIteration", "Starting iteration not set");
                     if (model.EndIteration < 0)
                         ModelState.AddModelError("endIteration", "Ending iteration not set");
+                    if (model.EndIteration < model.StartIteration)
+                        ModelState.AddModelError("startEndIteration", "Ending iteration before Starting iteration");
                 }
             }
 
