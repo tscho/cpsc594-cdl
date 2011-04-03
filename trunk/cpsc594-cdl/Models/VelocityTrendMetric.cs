@@ -21,26 +21,26 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Contract ID";
+            chart.ChartAreas[0].AxisX.Title = "Iteration ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Estimated / Actual";
 
             var productIds = products.Select<Product, int>(x => x.ProductID);
 
             Series series;
-            foreach (var iteration in Iterations)
+            foreach (var product in products)
             {
-                if (iteration.VelocityTrends == null || iteration.VelocityTrends.Count == 0)
+                if (product.VelocityTrends == null || product.VelocityTrends.Count == 0)
                     continue;
 
-                series = new Series(iteration.StartDate.ToShortDateString());
+                series = new Series(product.ProductName);
                 chart.Series.Add(series);
 
-                foreach (var vTrend in iteration.VelocityTrends.Where(x => productIds.Contains(x.ProductID)))
+                foreach (var vTrend in product.VelocityTrends.Where(x => iterationIDs.Contains(x.IterationID)))
                 {
-                    series.Points.AddXY(vTrend.ProductID, vTrend.getValue());
+                    series.Points.AddXY(vTrend.IterationID, vTrend.getValue());
                     series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = vTrend.Product.ProductName;
+                    series.Points.Last().AxisLabel = vTrend.Iteration.IterationLabel;
                 }
             }
 

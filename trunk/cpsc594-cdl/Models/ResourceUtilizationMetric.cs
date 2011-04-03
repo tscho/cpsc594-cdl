@@ -21,32 +21,33 @@ namespace cpsc594_cdl.Models
         {
             Chart chart = ChartFactory.CreateChart(title);
             chart.ChartAreas[0].AxisX.TitleFont = new Font("Arial", 12, FontStyle.Bold);
-            chart.ChartAreas[0].AxisX.Title = "Contract ID";
+            chart.ChartAreas[0].AxisX.Title = "Iteration ID";
             chart.ChartAreas[0].AxisY.TitleFont = new Font("Arial", 12, FontStyle.Bold);
             chart.ChartAreas[0].AxisY.Title = "Resource Utilization(hours)";
 
             var productIds = products.Select<Product, int>(x => x.ProductID);
 
             Series series;
-            foreach (var iteration in Iterations)
+            foreach (var product in products)
             {
-                if (iteration.ResourceUtilizations == null || iteration.ResourceUtilizations.Count == 0)
+                if (product.ResourceUtilizations == null || product.ResourceUtilizations.Count == 0)
                     continue;
 
-                series = new Series(iteration.StartDate.ToShortDateString());
+                series = new Series(product.ProductName);
                 chart.Series.Add(series);
                 
-                foreach (var ru in iteration.ResourceUtilizations.Where(x => productIds.Contains(x.ProductID)))
+                foreach (var ru in product.ResourceUtilizations.Where(x => iterationIDs.Contains(x.IterationID)))
                 {
-                    var existingPoints = series.Points.Where(x => x.XValue == ru.ProductID);
+                    var existingPoints = series.Points.Where(x => x.XValue == ru.IterationID);
                     if (existingPoints.Count() != 0)
                     {
                         existingPoints.First().YValues[0] += ru.PersonHours;
                     }
                     else
                     {
-                        series.Points.AddXY(ru.ProductID, ru.PersonHours);
+                        series.Points.AddXY(ru.IterationID, ru.PersonHours);
                         series.Points.Last().MarkerSize = 10;
+                        series.Points.Last().AxisLabel = ru.Iteration.IterationLabel;
                     }
                 }
             }
