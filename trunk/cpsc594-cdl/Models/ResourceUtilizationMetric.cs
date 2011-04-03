@@ -40,14 +40,14 @@ namespace cpsc594_cdl.Models
 
                 foreach (var ru in iteration.ResourceUtilizations.Where(x => x.ProductID == product.ProductID))
                 {
-                    var existingPoints = series.Points.Where(x => x.XValue == ru.ContractID);
+                    var existingPoints = series.Points.Where(x => x.XValue == ru.ProductID);
                     if (existingPoints.Count() != 0)
                     {
                         existingPoints.First().YValues[0] += ru.PersonHours;
                     }
                     else
                     {
-                        series.Points.AddXY(ru.ContractID, ru.PersonHours);
+                        series.Points.AddXY(ru.ProductID, ru.PersonHours);
                         series.Points.Last().MarkerSize = 10;
                     }
                 }

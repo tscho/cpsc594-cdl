@@ -36,9 +36,9 @@ namespace cpsc594_cdl.Models
 
                 foreach (var vTrend in iteration.VelocityTrends.Where(x => x.ProductID == product.ProductID))
                 {
-                    series.Points.AddXY(vTrend.ContractID, vTrend.getValue());
+                    series.Points.AddXY(vTrend.ProductID, vTrend.getValue());
                     series.Points.Last().MarkerSize = 10;
-                    series.Points.Last().AxisLabel = vTrend.ContractID.ToString();
+                    series.Points.Last().AxisLabel = vTrend.Product.ProductName;
                 }
             }
 
