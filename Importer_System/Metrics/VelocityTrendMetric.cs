@@ -34,9 +34,8 @@ namespace Importer_System.Metrics
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        int contractID = Int32.Parse(row[1]);
-                        double estimatedHours = Double.Parse(row[2]);
-                        double actualHours = Double.Parse(row[3]);
+                        double estimatedHours = Double.Parse(row[1]);
+                        double actualHours = Double.Parse(row[2]);
                         // Store data
                         if (StoreMetric(productName, estimatedHours, actualHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 8: Velocity Trend] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);

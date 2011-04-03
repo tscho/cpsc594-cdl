@@ -28,15 +28,14 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product]");
+                    string query = String.Concat("Select [Product], [Work Action ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' GROUP BY [Product], [Work Action ID]");
 
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        int contractID = Int32.Parse(row[1]);
-                        double reworkHours = Double.Parse(row[2]);
+                        double reworkHours = Double.Parse(row[1]);
                         // Store data
                         if (StoreMetric(productName, reworkHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);

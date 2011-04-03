@@ -37,8 +37,7 @@ namespace Importer_System.Metrics
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        int  contractID = Int32.Parse(row[1]);
-                        double personHours = Double.Parse(row[2]);
+                        double personHours = Double.Parse(row[1]);
                         // Store data
                         if (StoreMetric(productName, personHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);

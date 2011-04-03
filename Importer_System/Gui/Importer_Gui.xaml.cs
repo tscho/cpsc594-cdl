@@ -21,26 +21,13 @@ namespace Importer_System
     /// </summary>
     public partial class Importer_Gui : Window
     {
-
-        ObservableCollection<DisplayMetric> metricList = new ObservableCollection<DisplayMetric>();
+        GUIElements gui_elements = new GUIElements();
 
         public Importer_Gui()
         {
             InitializeComponent();
-            setupMetricList();
-            metricStatusList.ItemsSource = metricList;
-        }
-
-        private void setupMetricList()
-        {
-            metricList.Add(new DisplayMetric(1, "Code Coverage", ""));
-            metricList.Add(new DisplayMetric(2, "Test Effectiveness", ""));
-            metricList.Add(new DisplayMetric(3, "Defect Injection Rate", ""));
-            metricList.Add(new DisplayMetric(4, "Defect Repair Rate", ""));
-            metricList.Add(new DisplayMetric(5, "Resource Utilization", ""));
-            metricList.Add(new DisplayMetric(6, "Out of Scope Work", ""));
-            metricList.Add(new DisplayMetric(7, "Re-work", ""));
-            metricList.Add(new DisplayMetric(8, "Velocity Trend", ""));
+            metricStatusList.ItemsSource = gui_elements.metricList;
+            progressBar.DataContext = gui_elements.progressPercent;
         }
 
         private void Button_Click_Config(object sender, RoutedEventArgs e)
@@ -55,7 +42,7 @@ namespace Importer_System
             // Start engine to initialize config file
             ImportEngine engine = new ImportEngine();
             // Start the metric importing
-            engine.BeginImporting(metricList, status_label);
+            engine.BeginImporting(gui_elements.metricList);
         }
     }
 }
