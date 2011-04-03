@@ -28,8 +28,7 @@ namespace cpsc594_cdl.Controllers
                 if (model.StartIteration < 0 || model.EndIteration < 0)
                     iterations = DatabaseAccessor.GetIterations(2);
                 else
-                    //iterations = DatabaseAccessor.GetIterations(model.startIteration, model.endIteration);
-                    iterations = DatabaseAccessor.GetIterations(model.StartIteration);
+                    iterations = DatabaseAccessor.GetIterations(model.StartIteration, model.EndIteration);
 
                 foreach (int metricID in model.MetricIDs)
                 {

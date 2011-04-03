@@ -490,7 +490,7 @@ namespace cpsc594_cdl.Common.Models
         public static List<Iteration> GetIterations(int limits)
         {
             IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.IterationID ascending select i);
-            iterations.Take(12);
+            iterations.Take(limits);
 
             if (iterations != null)
             {
@@ -500,6 +500,18 @@ namespace cpsc594_cdl.Common.Models
             {
                 return null;
             }
+        }
+
+        public static List<Iteration> GetIterations(int startId, int endId)
+        {
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.IterationID >= startId && i.IterationID <= endId orderby i.IterationID ascending select i);
+
+            if (iterations != null)
+            {
+                return iterations.ToList();
+            }
+
+            return null;
         }
 
         //Component database methods
