@@ -71,10 +71,12 @@
     <Compile Include="DatabaseTest.cs" />
     <Compile Include="DefectInjectionRateTest.cs" />
     <Compile Include="DefectRepairRateTest.cs" />
+    <Compile Include="ExcelReaderTest.cs" />
     <Compile Include="ImportEngineTest.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ResourceUtilizationTest.cs" />
     <Compile Include="TestEffectivenessMetricTest.cs" />
   </ItemGroup>
   <ItemGroup>
