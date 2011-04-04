@@ -23,7 +23,7 @@ namespace Importer_System
     public partial class Importer_Gui : Window
     {
         ObservableCollection<DisplayMetric> metricList = new ObservableCollection<DisplayMetric>();
-
+        
         public Importer_Gui()
         {
             InitializeComponent();
@@ -43,23 +43,16 @@ namespace Importer_System
             metricList.Add(new DisplayMetric(8, "Velocity Trend", ""));
         }
 
-        private void Button_Click_Config(object sender, RoutedEventArgs e)
-        {
-
-        }
-
-        private void OnListChanged(object sender, EventArgs eventArgs)
+/*        private void OnListChanged(object sender, EventArgs eventArgs)
         {
             var list = (ObservableCollection<DisplayMetric>) sender;
             metricStatusList.ItemsSource = list;
-        }
+        }*/
 
         private void Button_Click_Run(object sender, RoutedEventArgs e)
         {
             // Boot the engine that reads configuration file and begins importing
             Reporter.OpenReporter();
-            metricList.CollectionChanged += new NotifyCollectionChangedEventHandler(OnListChanged);
-            
             // Start engine to initialize config file
             ImportEngine engine = new ImportEngine();
             // Start the metric importing

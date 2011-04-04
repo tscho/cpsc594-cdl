@@ -1,11 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
 namespace Importer_System.Gui
 {
-        class DisplayMetric
+        class DisplayMetric : INotifyPropertyChanged 
         {
 
             public DisplayMetric(Int16 metricID, string metricName, string metricStatus)
@@ -34,7 +35,15 @@ namespace Importer_System.Gui
             public string Status
             {
                 get { return status; }
-                set { status = value; }
+                set { if(status != value)
+                        {
+                            status = value;
+                            if(PropertyChanged != null)
+                                PropertyChanged(this, new PropertyChangedEventArgs("Status"));
+                        } 
+                }
             }
+
+            public event PropertyChangedEventHandler PropertyChanged;
         }
 }

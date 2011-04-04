@@ -37,7 +37,7 @@ namespace Importer_System
         private VelocityTrendMetric _velocityTrend;               // Calculates velocity trend metric
         private ReworkMetric _rework;                             // Calculates rework
         private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
-        enum Metrics { CodeCoverage, TestEffectiveness, DefectInjectionRate, DefectRepairRate, ResourceUtilization, OutOfScopeWork, Rework, VelocityTrend };
+        public enum Metrics { CodeCoverage, TestEffectiveness, DefectInjectionRate, DefectRepairRate, ResourceUtilization, OutOfScopeWork, Rework, VelocityTrend };
         
 
         /// <summary>
@@ -166,7 +166,7 @@ namespace Importer_System
             if (!connectionExists)
                 throw new TerminateException("Connection to output database with string: " + connectionString + " failed.");
         }
-
+        
         /// <summary>
         ///     ValidateBugzillaDatabaseConnection - Attempts to establish a connection to the bugzilla MySQL database.
         ///     Does not terminate if error.
@@ -223,83 +223,116 @@ namespace Importer_System
                 DirectoryInfo initialDirectory = new DirectoryInfo(_rootDirectory);
 
                 // Iterate through the Products in the code coverage directory
-                foreach (DirectoryInfo product in initialDirectory.GetDirectories())
+                if (initialDirectory.GetDirectories().Count() != 0)
                 {
-                    // Save the current Products name
-                    string currentProductName = product.Name;
-
-                    // Check if Product is in DB
-                    if (!DatabaseAccessor.ProductExists(currentProductName))
+                    foreach (DirectoryInfo product in initialDirectory.GetDirectories())
                     {
-                        DatabaseAccessor.WriteProduct(currentProductName);
-                    }
+                        // Save the current Products name
+                        string currentProductName = product.Name;
 
-                    // ---------------------------------------------------------------------
-                    // COMPUTE METRIC 2 - Value for Tests
-                    // ---------------------------------------------------------------------
-                    DateTime fileDate = DateTime.MinValue;
-                    string productDirectory = Path.Combine(_rootDirectory, currentProductName);
-                    DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
-                    foreach (FileInfo testFile in testFiles.GetFiles())
-                    {
-                        if (fileDate.CompareTo(testFile.LastWriteTime) == -1)
+                        // Check if Product is in DB
+                        if (!DatabaseAccessor.ProductExists(currentProductName))
                         {
-                            fileDate = testFile.LastWriteTime;
-                            currFile = Path.Combine(productDirectory, testFile.Name);
-                            _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
+                            DatabaseAccessor.WriteProduct(currentProductName);
                         }
-                    }
 
-                    // Iterate through the selected Products components;
-                    foreach (DirectoryInfo component in product.GetDirectories())
-                    {
-                        // Save the current components name
-                        string currentComponentName = component.Name;
+                        // ---------------------------------------------------------------------
+                        // COMPUTE METRIC 2 - Value for Tests
+                        // ---------------------------------------------------------------------
+                        DateTime fileDate = DateTime.MinValue;
+                        string productDirectory = Path.Combine(_rootDirectory, currentProductName);
+                        DirectoryInfo testFiles = new DirectoryInfo(productDirectory);
 
-                        // Check if component is in DB
-                        if (!DatabaseAccessor.ComponentExists(currentProductName, currentComponentName))
+                        if (testFiles.GetFiles().Count() != 0)
                         {
-                            DatabaseAccessor.WriteComponent(currentProductName, currentComponentName);
-                        }
-                        // ---------------------------------------------------------------------
-                        // COMPUTE METRIC 1 - CODE COVERAGE
-                        // ---------------------------------------------------------------------
-                        string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName, currentComponentName);
-                        // Check if the code coverage folder exists
-                        if (Directory.Exists(currentMetric1Directory))
-                        {
-                            DirectoryInfo logFiles = new DirectoryInfo(currentMetric1Directory);
-                            fileDate = DateTime.MinValue;
-                            // Iterate through each code coverage log file and calculate the metric
-                            foreach (FileInfo logFile in logFiles.GetFiles())
+                            foreach (FileInfo testFile in testFiles.GetFiles())
                             {
-                                if (fileDate.CompareTo(logFile.LastWriteTime) == -1)
+                                if (fileDate.CompareTo(testFile.LastWriteTime) == -1)
                                 {
-                                    fileDate = logFile.LastWriteTime;
-                                    currFile = Path.Combine(currentMetric1Directory, logFile.Name);
-                                    // Archive the log file if returned true
-                                    coverageID = _codeCoverageMetric.CalculateMetric(currentProductName, currentComponentName, currFile, currIteration.IterationID, logFile.Name);
-                                    if (coverageID >= 0)
-                                    {
-                                        // If proper directory is specified
-                                        if (_rootArchiveDirectory != null)
-                                            ArchiveFile(currentProductName, currentComponentName, logFile.Name);
-                                    }
+                                    fileDate = testFile.LastWriteTime;
+                                    currFile = Path.Combine(productDirectory, testFile.Name);
+                                    if (
+                                        _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID,
+                                                                                 currentProductName) == -1)
+                                        upadateMetricStatus(metricList, (int) Metrics.TestEffectiveness, "Errors existed during value for tests import, see log file.");
                                 }
-                                coverageID = -1;
                             }
                         }
-                        // --------------------------------------------------------------------
-                        // END METRIC 1
-                        // --------------------------------------------------------------------
+                        else
+                        {
+                            // If the format of the excel file is not correct
+                            Reporter.AddErrorMessageToReporter(
+                                "No files exist to parse for value of tests in directory: " + productDirectory);
+                            upadateMetricStatus(metricList, (int) Metrics.TestEffectiveness,
+                                                "Errors existed during value for tests import, see log file.");
+                        }
 
+
+                        // Iterate through the selected Products components;
+                        foreach (DirectoryInfo component in product.GetDirectories())
+                        {
+                            // Save the current components name
+                            string currentComponentName = component.Name;
+
+                            // Check if component is in DB
+                            if (!DatabaseAccessor.ComponentExists(currentProductName, currentComponentName))
+                            {
+                                DatabaseAccessor.WriteComponent(currentProductName, currentComponentName);
+                            }
+                            // ---------------------------------------------------------------------
+                            // COMPUTE METRIC 1 - CODE COVERAGE
+                            // ---------------------------------------------------------------------
+                            string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName,
+                                                                          currentComponentName);
+                            // Check if the code coverage folder exists
+                            if (Directory.Exists(currentMetric1Directory))
+                            {
+                                DirectoryInfo logFiles = new DirectoryInfo(currentMetric1Directory);
+                                fileDate = DateTime.MinValue;
+                                // Iterate through each code coverage log file and calculate the metric
+                                foreach (FileInfo logFile in logFiles.GetFiles())
+                                {
+                                    if (fileDate.CompareTo(logFile.LastWriteTime) == -1)
+                                    {
+                                        fileDate = logFile.LastWriteTime;
+                                        currFile = Path.Combine(currentMetric1Directory, logFile.Name);
+                                        // Archive the log file if returned true
+                                        coverageID = _codeCoverageMetric.CalculateMetric(currentProductName,
+                                                                                         currentComponentName, currFile,
+                                                                                         currIteration.IterationID,
+                                                                                         logFile.Name);
+                                        if (coverageID >= 0)
+                                        {
+                                            // If proper directory is specified
+                                            if (_rootArchiveDirectory != null)
+                                                ArchiveFile(currentProductName, currentComponentName, logFile.Name);
+                                        }
+                                        else
+                                        {
+                                            upadateMetricStatus(metricList, (int) Metrics.CodeCoverage,
+                                                                "Errors existed during coverage import, see log file.");
+                                        }
+                                    }
+                                    coverageID = -1;
+                                }
+                            }
+                            // --------------------------------------------------------------------
+                            // END METRIC 1
+                            // --------------------------------------------------------------------
+
+                        }
                     }
+                }
+                else
+                {
+                    upadateMetricStatus(metricList, (int)Metrics.CodeCoverage, "Errors existed during coverage import, no products within input directory.");
+                    upadateMetricStatus(metricList, (int)Metrics.TestEffectiveness, "Errors existed during value for tests import, no products within input directory.");
                 }
             }
             else
             {
-                upadateMetricStatus(metricList, (int)Metrics.CodeCoverage, "Failed to import see logfile");
-                upadateMetricStatus(metricList, (int)Metrics.TestEffectiveness, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.CodeCoverage, "Errors existed during coverage import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.TestEffectiveness, "Errors existed during value for tests import, no input directory configured.");
             }
 
             // ---------------------------------------------------------------------
@@ -319,8 +352,8 @@ namespace Importer_System
             }
             else
             {
-                upadateMetricStatus(metricList, (int)Metrics.DefectInjectionRate, "Failed to import see logfile");
-                upadateMetricStatus(metricList, (int)Metrics.DefectRepairRate, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.DefectInjectionRate, "Errors existed during Defect Injection Rate import, no connection to bugzilla database.");
+                upadateMetricStatus(metricList, (int)Metrics.DefectRepairRate, "Errors existed during Defect Repair Rate import, no connection to bugzilla database.");
             }
             // --------------------------------------------------------------------
             // END METRIC 3 AND 4
@@ -333,27 +366,37 @@ namespace Importer_System
             if (_productDataDirectory != null)
             {
                 DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
-                //Iterate through each product data .xls to find any new products before we parse for data in the file
-                foreach (FileInfo productData in productDataList.GetFiles())
-                {
-                    findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
-                }
+               if(productDataList.GetFiles().Count() != 0)
+               {
+                   //Iterate through each product data .xls to find any new products before we parse for data in the file))
+                   foreach (FileInfo productData in productDataList.GetFiles())
+                   {
+                       findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
+                   }
 
-                // Iterate through each product data .xls file to calculate resource utilization
-                foreach (FileInfo productData in productDataList.GetFiles())
-                {
-                    _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                    _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                    _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                    _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                }
+                   // Iterate through each product data .xls file to calculate resource utilization
+                   foreach (FileInfo productData in productDataList.GetFiles())
+                   {
+                       _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                       _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                       _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                       _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
+                   }
+               }
+               else
+               {
+                   upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input files within directory.");
+               }    
             }
             else
             {
-                upadateMetricStatus(metricList, (int) Metrics.ResourceUtilization, "Failed to import see logfile");
-                upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Failed to import see logfile");
-                upadateMetricStatus(metricList, (int)Metrics.Rework, "Failed to import see logfile");
-                upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input directory configured.");
             }
             // ---------------------------------------------------------------------
             // END METRIC 5,6,7,8
@@ -394,9 +437,7 @@ namespace Importer_System
 
         public void upadateMetricStatus(ObservableCollection<DisplayMetric> metricList, int id, string status)
         {
-            DisplayMetric metric = new DisplayMetric(metricList.ElementAt(id).Id, metricList.ElementAt(id).Name, status);
-            metricList.RemoveAt(id);
-            metricList.Insert(id, metric);
+            metricList.ElementAt(id).Status = status;
         }
 
         /// <summary>
