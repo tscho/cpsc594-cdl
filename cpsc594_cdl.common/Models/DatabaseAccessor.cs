@@ -39,9 +39,9 @@ namespace cpsc594_cdl.Common.Models
         }
 
         //Metric database methods
-        public static Coverage GetCoverage(int iterationID, int componentID)
+        public static Coverage GetCoverage(int iterationId, int componentId)
         {
-            var componentCoverage = (from m in _context.Coverages where m.ComponentID == componentID && m.IterationID == iterationID orderby m.Date ascending select m).FirstOrDefault();
+            var componentCoverage = (from m in _context.Coverages where m.ComponentID == componentId && m.IterationID == iterationId orderby m.Date ascending select m).FirstOrDefault();
 
             if(componentCoverage != null)
             {

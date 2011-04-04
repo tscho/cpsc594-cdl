@@ -454,7 +454,7 @@ namespace Importer_System
             weekNum = GetWeekNumber(iterationStart);
             iterationNum = weekNum/2;
 
-            return alpha[iterationNum - 1];
+            return alpha[iterationNum];
         }
 
         public static DateTime GetIterationStart(DateTime endOfLastIteration)
