@@ -16,10 +16,12 @@ namespace cpsc594_cdl.Controllers
         {
             IndexModel model = new IndexModel();
 
+            /*
             var plist = new List<Product>();
             plist.Add(new Product() { ProductID = -1, ProductName = "Select a Product" });
             plist.AddRange(DatabaseAccessor.GetProducts());
             model.Products = plist;
+             */
 
             return View(model);
         }
