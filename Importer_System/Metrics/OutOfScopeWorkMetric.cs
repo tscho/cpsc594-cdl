@@ -47,7 +47,7 @@ namespace Importer_System.Metrics
                     else
                     {
                         query = String.Concat("Select [Product] from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' and GROUP BY [Product]");
+                                  iteration.IterationLabel, "' GROUP BY [Product]");
                         personHours = 0;
                         workHours.Clear();
                         workHours = xlsReader.SelectQuery(query);
