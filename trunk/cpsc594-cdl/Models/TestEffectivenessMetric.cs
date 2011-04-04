@@ -12,7 +12,7 @@ namespace cpsc594_cdl.Models
 {
     public class TestEffectivenessMetric : PerProductMetric
     {
-        public override string Name { get { return "Test Effectiveness"; }}
+        public override string Name { get { return "Value For Tests"; }}
         public override int ID { get { return (int)MetricType.TestEffectiveness;  } }
 
         public TestEffectivenessMetric(IEnumerable<Iteration> iterations) : base(iterations) { }

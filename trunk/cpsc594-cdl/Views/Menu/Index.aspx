@@ -29,6 +29,7 @@
             </tr>
             <tr><td></td><td><input type="submit" value="Next" /></td></tr>
         <% } %>
+        </table>
         <% if (Model.MetricIDs != null) { %>
             <% using (Html.BeginForm("Index", "Report", FormMethod.Post, new { @id = "reportForm", @target = "report" }))
                { %>
@@ -38,38 +39,45 @@
                <% } %>
                <% if (Model.MetricIDs.Intersect(PerComponentMetric.IDs).Count() > 0)
                   { %>
-                    <tr>
-                        <td class="menuItem">Product:</td>
-                        <td><%= Html.DropDownListFor(m => m.ProductID, new SelectList(Model.Products, "ProductID", "ProductName"), new { @onchange = "document.getElementById('reportForm').action='/Menu'; document.getElementById('reportForm').target='menu'; submit();" })%></td>
-                    </tr>
-                    <tr>
-                        <td class="menuItem">Components:</td>
-                        <td><%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "ComponentName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%></td>
-                    </tr>
+                    <hr />
+                    <table>
+                        <tr>
+                            <td class="menuItem">Product:</td>
+                            <td><%= Html.DropDownListFor(m => m.ProductID, new SelectList(Model.Products, "ProductID", "ProductName"), new { @onchange = "document.getElementById('reportForm').action='/Menu'; document.getElementById('reportForm').target='menu'; submit();" })%></td>
+                        </tr>
+                        <tr>
+                            <td class="menuItem">Components:</td>
+                            <td><%= Html.ListBoxFor(m => m.ComponentIDs, new MultiSelectList(Model.Components, "ComponentID", "ComponentName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" })%></td>
+                        </tr>
+                    </table>
                 <% } %>
                 <% if (Model.MetricIDs.Intersect(PerProductMetric.IDs).Count() > 0)
                   { %>
-                    <tr>
-                        <td class="menuItem">Products:</td>
-                        <% Model.Products.First().ProductName = "Select All"; %>
-                        <td><%= Html.ListBoxFor(m => m.ProductIDs, new MultiSelectList(Model.Products, "ProductID", "ProductName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" }) %></td>
-                    </tr>
-                    <tr>
-                        <td class="menuItem">Start Iteration:</td>
-                        <td><%= Html.DropDownListFor(m => m.StartIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
-                    </tr>
-                    <tr>
-                        <td id = "Td1">End Iteration:</td>
-                        <td><%= Html.DropDownListFor(m => m.EndIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
-                    </tr>
+                    <hr />
+                    <table>
+                        <tr>
+                            <td class="menuItem">Products:</td>
+                            <% Model.Products.First().ProductName = "Select All"; %>
+                            <td><%= Html.ListBoxFor(m => m.ProductIDs, new MultiSelectList(Model.Products, "ProductID", "ProductName"), new { @size = "5", @onclick = "if (options[0].selected) {for(i=0; i<options.length; i++) options[i].selected = true; options[0].selected=false;}" }) %></td>
+                        </tr>
+                        <tr>
+                            <td class="menuItem">Start Iteration:</td>
+                            <td><%= Html.DropDownListFor(m => m.StartIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
+                        </tr>
+                        <tr>
+                            <td id = "Td1">End Iteration:</td>
+                            <td><%= Html.DropDownListFor(m => m.EndIteration, new SelectList(Model.Iterations, "IterationID", "IterationLabel")) %></td>
+                        </tr>
+                    </table>
                 <% } %>
-                <tr>
-                    <td class="menuItem"></td>
-                    <td><input type="submit" value="Search" onclick="menu_toggle_off();" /></td>
-                </tr>
+                <table>
+                    <tr>
+                        <td class="menuItem"></td>
+                        <td><input type="submit" value="Search" onclick="menu_toggle_off();" /></td>
+                    </tr>
+                </table>
             <% } %>
         <% } %>
-        </table>
     </div>
     </div>
 </body>
