@@ -31,15 +31,16 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' GROUP BY [Product]");
+                    string query = String.Concat("Select [Product], [Work Action ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' GROUP BY [Product], [Work Action ID]");
                     List<string[]> workHours = xlsReader.SelectQuery(query);
                     foreach (string[] row in workHours)
                     {
                         string productName = row[0];
-                        double personHours = Double.Parse(row[1]);
+                        int workActionId = Int16.Parse(row[1]);
+                        double personHours = Double.Parse(row[2]);
                         // Store data
-                        if (StoreMetric(productName, personHours) == -1)
+                        if (StoreMetric(productName, workActionId, personHours) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 5: Resource Utilization] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -55,9 +56,9 @@ namespace Importer_System.Metrics
         /// <summary>
         ///     Database call to store the results.
         /// </summary>
-        public int StoreMetric(string productName, double hours)
+        public int StoreMetric(string productName, int workActionId, double hours)
         {
-            return DatabaseAccessor.WriteResourceUtilization(productName, hours, iteration.IterationID);
+            return DatabaseAccessor.WriteResourceUtilization(productName, hours, workActionId, iteration.IterationID);
         }
 
         /*internal bool EstablishConnection()

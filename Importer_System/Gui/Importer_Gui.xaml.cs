@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Text;
 using System.Windows;
@@ -21,13 +22,25 @@ namespace Importer_System
     /// </summary>
     public partial class Importer_Gui : Window
     {
-        GUIElements gui_elements = new GUIElements();
+        ObservableCollection<DisplayMetric> metricList = new ObservableCollection<DisplayMetric>();
 
         public Importer_Gui()
         {
             InitializeComponent();
-            metricStatusList.ItemsSource = gui_elements.metricList;
-            progressBar.DataContext = gui_elements.progressPercent;
+            setupMetricList();
+            metricStatusList.ItemsSource = metricList;
+        }
+
+        private void setupMetricList()
+        {
+            metricList.Add(new DisplayMetric(1, "Code Coverage", ""));
+            metricList.Add(new DisplayMetric(2, "Value for Tests", ""));
+            metricList.Add(new DisplayMetric(3, "Defect Injection Rate", ""));
+            metricList.Add(new DisplayMetric(4, "Defect Repair Rate", ""));
+            metricList.Add(new DisplayMetric(5, "Resource Utilization", ""));
+            metricList.Add(new DisplayMetric(6, "Out of Scope Work", ""));
+            metricList.Add(new DisplayMetric(7, "Rework", ""));
+            metricList.Add(new DisplayMetric(8, "Velocity Trend", ""));
         }
 
         private void Button_Click_Config(object sender, RoutedEventArgs e)
@@ -35,14 +48,23 @@ namespace Importer_System
 
         }
 
+        private void OnListChanged(object sender, EventArgs eventArgs)
+        {
+            var list = (ObservableCollection<DisplayMetric>) sender;
+            metricStatusList.ItemsSource = list;
+        }
+
         private void Button_Click_Run(object sender, RoutedEventArgs e)
         {
             // Boot the engine that reads configuration file and begins importing
             Reporter.OpenReporter();
+            metricList.CollectionChanged += new NotifyCollectionChangedEventHandler(OnListChanged);
+            
             // Start engine to initialize config file
             ImportEngine engine = new ImportEngine();
             // Start the metric importing
-            engine.BeginImporting(gui_elements.metricList);
+            engine.BeginImporting(metricList);
         }
+
     }
 }

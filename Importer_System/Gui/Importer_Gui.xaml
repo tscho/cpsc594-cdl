@@ -22,14 +22,13 @@
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
-                <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Height="25" Margin="2,10,2,10" Width="380" HorizontalAlignment="Stretch" Name="status_label" VerticalAlignment="Top"/>
+                <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Height="25" Margin="2,10,2,10" Width="435" HorizontalAlignment="Stretch" Name="status_label" VerticalAlignment="Top"/>
                 <Button  Content="Run" Margin="5,10,5,10" Width="50" Click="Button_Click_Run"/>
-                <Button Content="Config" Margin="5,10,5,10" Width="50" Click="Button_Click_Config"/>
             </StackPanel>
             <ProgressBar Name="progressBar" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,2,5,0" Value="{Binding progressPercent}"/>
             <Label Name="logLabel" Content="Open Log" HorizontalAlignment="Right" FlowDirection="RightToLeft" />
         </StackPanel>
-        <ListView Grid.Row="1" Name="metricStatusList">
+        <ListView Grid.Row="1" Name="metricStatusList" >
             <ListView.View>
                 <GridView AllowsColumnReorder="False" ColumnHeaderTemplate="{StaticResource HeaderTemplate}" >
                     <!-- Add GridVeiw Columns -->

@@ -38,6 +38,7 @@ namespace Importer_System
         private VelocityTrendMetric _velocityTrend;               // Calculates velocity trend metric
         private ReworkMetric _rework;                             // Calculates rework
         private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
+        enum Metrics { CodeCoverage, TestEffectiveness, DefectInjectionRate, DefectRepairRate, ResourceUtilization, OutOfScopeWork, Rework, VelocityTrend };
         
 
         /// <summary>
@@ -92,8 +93,6 @@ namespace Importer_System
             ValidateRootDirectory(ConfigurationManager.AppSettings["RootDirectory"]);
             // _rootArchiveDirectory
             ValidateRootArchiveDirectory(ConfigurationManager.AppSettings["ArchiveDirectory"]);
-            // ???
-            _testDirectory = ConfigurationManager.AppSettings["TestDirectory"];
             // _outputDatabase, _outputDbSettings
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
@@ -257,7 +256,7 @@ namespace Importer_System
             int coverageID = -1;
             Iteration currIteration;
             currIteration = UpdateIteration();
-            
+
             if (_rootDirectory != null)
             {
                 // Make directory structure
@@ -288,7 +287,7 @@ namespace Importer_System
                             fileDate = testFile.LastWriteTime;
                             currFile = Path.Combine(productDirectory, testFile.Name);
                             _testEffectivenessMetric.CalculateMetric(currFile, currIteration.IterationID, currentProductName);
-                        }  
+                        }
                     }
 
                     // Iterate through the selected Products components;
@@ -333,9 +332,14 @@ namespace Importer_System
                         // --------------------------------------------------------------------
                         // END METRIC 1
                         // --------------------------------------------------------------------
-                        
+
                     }
                 }
+            }
+            else
+            {
+                upadateMetricStatus(metricList, (int)Metrics.CodeCoverage, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.TestEffectiveness, "Failed to import see logfile");
             }
 
             // ---------------------------------------------------------------------
@@ -353,15 +357,20 @@ namespace Importer_System
                     }
                 }
             }
+            else
+            {
+                upadateMetricStatus(metricList, (int)Metrics.DefectInjectionRate, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.DefectRepairRate, "Failed to import see logfile");
+            }
             // --------------------------------------------------------------------
             // END METRIC 3 AND 4
             // --------------------------------------------------------------------
-            
+
 
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 5,6,7,8
             // ---------------------------------------------------------------------
-            if(_productDataDirectory!=null)
+            if (_productDataDirectory != null)
             {
                 DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
                 //Iterate through each product data .xls to find any new products before we parse for data in the file
@@ -373,11 +382,18 @@ namespace Importer_System
                 // Iterate through each product data .xls file to calculate resource utilization
                 foreach (FileInfo productData in productDataList.GetFiles())
                 {
-                    _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory,productData.Name), currIteration);
+                    _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                     _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                     _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                     _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
                 }
+            }
+            else
+            {
+                upadateMetricStatus(metricList, (int) Metrics.ResourceUtilization, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.Rework, "Failed to import see logfile");
+                upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Failed to import see logfile");
             }
             // ---------------------------------------------------------------------
             // END METRIC 5,6,7,8
