@@ -69,12 +69,6 @@
     <Compile Include="Metrics\ReworkMetric.cs" />
     <Compile Include="Metrics\TestEffectivenessMetric.cs" />
     <Compile Include="Metrics\VelocityTrendMetric.cs" />
-    <Compile Include="Gui\ProgressForm.cs">
-      <SubType>Form</SubType>
-    </Compile>
-    <Compile Include="Gui\ProgressForm.Designer.cs">
-      <DependentUpon>ProgressForm.cs</DependentUpon>
-    </Compile>
     <Compile Include="Metrics\DefectMetrics.cs" />
     <Compile Include="Metrics\Metric.cs" />
     <Compile Include="Program.cs" />
@@ -82,11 +76,7 @@
     <Compile Include="Reporter.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="StatusNode.cs" />
     <Compile Include="TerminateException.cs" />
-    <EmbeddedResource Include="Gui\ProgressForm.resx">
-      <DependentUpon>ProgressForm.cs</DependentUpon>
-    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

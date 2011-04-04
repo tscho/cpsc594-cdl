@@ -9,6 +9,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Forms;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
+using cpsc594_cdl.Common.Models;
 
 namespace Importer_System_Tests
 {
@@ -322,6 +323,20 @@ namespace Importer_System_Tests
             string file = string.Empty; // TODO: Initialize to an appropriate value
             target.findNewProducts(file);
             Assert.Inconclusive("A method that does not return a value cannot be verified.");
+        }
+
+        /// <summary>
+        ///A test for UpdateIteration
+        ///</summary>
+        [TestMethod()]
+        public void UpdateIterationTest()
+        {
+            ImportEngine target = new ImportEngine(); // TODO: Initialize to an appropriate value
+            Iteration expected = null; // TODO: Initialize to an appropriate value
+            Iteration actual;
+            actual = target.UpdateIteration();
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
         }
     }
 }
