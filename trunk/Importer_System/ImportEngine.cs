@@ -27,7 +27,6 @@ namespace Importer_System
         private string _productDataDirectory = null;              // Directory containing .xls product data files
         private int _archivePeriod;                               // Number of days the logfiles exist in the archive directory
         private string _outputDatabaseConnection;                 // Connection string to output the information to
-        private int _iterationLength;                             // Iteration length in weeks
         private DateTime _iterationStart;                         // Begin date of iteration
         private CodeCoverage _codeCoverageMetric;                 // Class that calculates code coverage
         private DefectMetrics _defectMetrics;                     // Class that calculates the injection rate and repair rate
@@ -95,9 +94,28 @@ namespace Importer_System
             // _outputDatabase, _outputDbSettings
             ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
-            //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
+            ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
             ValidateProductDataDirectory(ConfigurationManager.AppSettings["ProductData"]);
+            //_iterationStartDate
+            ValidateIterationStart(ConfigurationManager.AppSettings["FirstIteration"]);
+        }
+
+        private void ValidateIterationStart(string iteration)
+        {
+            string[] items = iteration.Split('/');
+            try
+            {
+                _iterationStart = new DateTime(Int16.Parse(items[2]), Int16.Parse(items[1]), Int16.Parse(items[0]));
+            }
+            catch (IndexOutOfRangeException)
+            {
+                _iterationStart = DateTime.Now;
+            }
+            catch (NullReferenceException)
+            {
+                _iterationStart = DateTime.Now;
+            }
         }
 
         /// <summary>
@@ -454,7 +472,7 @@ namespace Importer_System
 
             if (lastIteration == null)
             {
-                _iterationStart = DateTime.Now;
+
                 year = _iterationStart.Year;
                 yearText = year.ToString();
                 yearText = yearText.Substring(yearText.Length - 2);
