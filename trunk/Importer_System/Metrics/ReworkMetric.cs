@@ -52,7 +52,7 @@ namespace Importer_System.Metrics
                             }
                         }
                         if (StoreMetric(currProduct.ProductName, sumRework) == -1)
-                            Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
+                            Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the rework data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
                 catch
