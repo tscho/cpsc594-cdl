@@ -68,10 +68,6 @@ namespace Importer_System_Tests
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch1.info", curr - old);
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch2.info", curr - zero);
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch3.info", curr - newer);
-
-            //Setup for renameFileTest
-            fs = File.Create(metricDirectory + "\\" + "curr.info");
-            fs.Close();
             
         }
 
@@ -87,9 +83,6 @@ namespace Importer_System_Tests
             archDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"] + "\\" + "Project1" + "\\" + "Comp2" + "\\" + "Metric1";
             File.Delete(archDirectory + "\\" + "arch2.info");
             File.Delete(archDirectory + "\\" + "arch3.info");
-
-            //Setup for renameFileTest
-            File.Delete(metricDirectory + "\\" + "new.info");
         }
 
        
@@ -223,7 +216,7 @@ namespace Importer_System_Tests
         public void GetListOfProductsTest()
         {
             ImportEngine target = new ImportEngine(); // TODO: Initialize to an appropriate value
-            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> expected = null;
             List<string> actual;
             actual = target.GetListOfProducts();
             Assert.AreEqual(expected, actual);
@@ -236,12 +229,15 @@ namespace Importer_System_Tests
         [TestMethod()]
         public void GetWeekNumberTest()
         {
-            DateTime day = new DateTime(); // TODO: Initialize to an appropriate value
-            int expected = 0; // TODO: Initialize to an appropriate value
             int actual;
+            DateTime day = new DateTime(2011, 1, 1);
             actual = ImportEngine.GetWeekNumber(day);
-            Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            Assert.AreEqual(1, actual);
+
+            day = new DateTime(2011,12,31);
+            actual = ImportEngine.GetWeekNumber(day);
+            Assert.AreEqual(52, actual);
+            //Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>

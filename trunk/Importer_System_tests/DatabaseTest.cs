@@ -14,8 +14,6 @@ namespace Importer_System_Tests
     [TestClass()]
     public class DatabaseTest
     {
-
-
         private TestContext _testContextInstance;
 
         /// <summary>

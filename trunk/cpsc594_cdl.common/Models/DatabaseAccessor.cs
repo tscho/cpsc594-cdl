@@ -361,6 +361,7 @@ namespace cpsc594_cdl.Common.Models
                 else
                 {
                     entryExists.ReworkHours = reworkHours;
+                    _context.AcceptAllChanges();
                     _context.SaveChanges();
                     id = entryExists.ReworkID;
                 }

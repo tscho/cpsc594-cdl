@@ -67,6 +67,7 @@
     <Compile Include="CodeCoverageTest.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DatabaseAccessorTest.cs" />
     <Compile Include="DatabaseTest.cs" />
     <Compile Include="DefectInjectionRateTest.cs" />
     <Compile Include="DefectRepairRateTest.cs" />
