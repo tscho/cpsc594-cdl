@@ -45,7 +45,7 @@ namespace Importer_System_Tests
         public static void ClassInit(TestContext context)
         {
           
-            String metricDirectory = ConfigurationManager.AppSettings["rootDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
+/*            String metricDirectory = ConfigurationManager.AppSettings["rootDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
             String archDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
 
             //Setup for ArchiveFileTest()
@@ -68,13 +68,13 @@ namespace Importer_System_Tests
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch1.info", curr - old);
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch2.info", curr - zero);
             File.SetLastWriteTimeUtc(archDirectory + "\\" + "arch3.info", curr - newer);
-            
+            */
         }
 
         [ClassCleanup()]
         public static void ClassCleanup()
         {
-            String archDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
+/*            String archDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
             String metricDirectory = ConfigurationManager.AppSettings["rootDirectory"] + "\\" + "Project1" + "\\" + "Comp1" + "\\" + "Metric1";
             //Cleanup for ArchiveFileTest()
             File.Delete(archDirectory + "\\" + "normal.info");
@@ -82,7 +82,7 @@ namespace Importer_System_Tests
             //Cleanup for  UpdateArchiveDirectoryTest()
             archDirectory = ConfigurationManager.AppSettings["ArchiveDirectory"] + "\\" + "Project1" + "\\" + "Comp2" + "\\" + "Metric1";
             File.Delete(archDirectory + "\\" + "arch2.info");
-            File.Delete(archDirectory + "\\" + "arch3.info");
+            File.Delete(archDirectory + "\\" + "arch3.info");*/
         }
 
        
@@ -230,14 +230,21 @@ namespace Importer_System_Tests
         public void GetWeekNumberTest()
         {
             int actual;
-            DateTime day = new DateTime(2011, 1, 1);
+
+            //First first monday of year
+            DateTime day = new DateTime(2011, 1, ImportEngine.FirstMondayOfYear(2011));
             actual = ImportEngine.GetWeekNumber(day);
             Assert.AreEqual(1, actual);
 
+            //Middle of year
+            day = new DateTime(2011, 6, 15);
+            actual = ImportEngine.GetWeekNumber(day);
+            Assert.AreEqual(24, actual);
+
+            //Last day of year
             day = new DateTime(2011,12,31);
             actual = ImportEngine.GetWeekNumber(day);
             Assert.AreEqual(52, actual);
-            //Assert.Inconclusive("Verify the correctness of this test method.");
         }
 
         /// <summary>
@@ -246,12 +253,24 @@ namespace Importer_System_Tests
         [TestMethod()]
         public void GetIterationStartTest()
         {
-            DateTime endOfLastIteration = new DateTime(); // TODO: Initialize to an appropriate value
-            DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
+            //Last friday of year
+            DateTime endOfLastIteration = new DateTime(2011, 12, 30); 
+            DateTime expected = new DateTime(2012,01,02);
             DateTime actual;
             actual = ImportEngine.GetIterationStart(endOfLastIteration);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+
+            //First friday of year
+            endOfLastIteration = new DateTime(2011, 1, 7);
+            expected = new DateTime(2011, 1, 10);
+            actual = ImportEngine.GetIterationStart(endOfLastIteration);
+            Assert.AreEqual(expected, actual);
+
+            //Last day of year is midweek (next business day)
+            endOfLastIteration = new DateTime(2012, 12, 31);
+            expected = new DateTime(2013, 1, 1);
+            actual = ImportEngine.GetIterationStart(endOfLastIteration);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
@@ -260,12 +279,30 @@ namespace Importer_System_Tests
         [TestMethod()]
         public void GetIterationEndTest()
         {
-            DateTime beginOfCurrIteration = new DateTime(); // TODO: Initialize to an appropriate value
-            DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
+            //Start at last monday of year (should be last day of year)
+            DateTime beginOfCurrIteration = new DateTime(2011, 12, 26); 
+            DateTime expected = new DateTime(2011,12,30);
             DateTime actual;
             actual = ImportEngine.GetIterationEnd(beginOfCurrIteration);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+
+            //Regular iteration start
+            beginOfCurrIteration = new DateTime(2011, 1, 1);
+            expected = new DateTime(2011, 1, 14); 
+            actual = ImportEngine.GetIterationEnd(beginOfCurrIteration);
+            Assert.AreEqual(expected, actual);
+
+            //Regular iteration start
+            beginOfCurrIteration = new DateTime(2013, 1, 1);
+            expected = new DateTime(2013, 1, 11);
+            actual = ImportEngine.GetIterationEnd(beginOfCurrIteration);
+            Assert.AreEqual(expected, actual);
+
+            //Start at 2nd last monday of year (should be last day of year)
+            beginOfCurrIteration = new DateTime(2012,12,24);
+            expected = new DateTime(2012,12,31); 
+            actual = ImportEngine.GetIterationEnd(beginOfCurrIteration);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
@@ -274,12 +311,18 @@ namespace Importer_System_Tests
         [TestMethod()]
         public void FirstMondayOfYearTest()
         {
-            int year = 0; // TODO: Initialize to an appropriate value
-            int expected = 0; // TODO: Initialize to an appropriate value
+            //2011
+            int year = 2011;
+            int expected = 3; 
             int actual;
             actual = ImportEngine.FirstMondayOfYear(year);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+            
+            //2012
+            year = 2012;
+            expected = 2;
+            actual = ImportEngine.FirstMondayOfYear(year);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>
@@ -288,13 +331,17 @@ namespace Importer_System_Tests
         [TestMethod()]
         public void DetermineIterationLetterTest()
         {
-            ImportEngine target = new ImportEngine(); // TODO: Initialize to an appropriate value
-            DateTime iterationStart = new DateTime(); // TODO: Initialize to an appropriate value
-            char expected = '\0'; // TODO: Initialize to an appropriate value
+            ImportEngine target = new ImportEngine(); 
+            DateTime iterationStart = new DateTime(2011,1,3); 
+            char expected = 'A';
             char actual;
             actual = target.DetermineIterationLetter(iterationStart);
             Assert.AreEqual(expected, actual);
-            Assert.Inconclusive("Verify the correctness of this test method.");
+
+            iterationStart = new DateTime(2011,1,17);
+            expected = 'B';
+            actual = target.DetermineIterationLetter(iterationStart);
+            Assert.AreEqual(expected, actual);
         }
 
         /// <summary>

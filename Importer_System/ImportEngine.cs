@@ -413,6 +413,7 @@ namespace Importer_System
 
             if (lastIteration == null)
             {
+                _iterationStart = DateTime.Now;
                 year = _iterationStart.Year;
                 yearText = year.ToString();
                 yearText = yearText.Substring(yearText.Length - 2);
@@ -451,7 +452,6 @@ namespace Importer_System
             int iterationNum = 1;
 
             weekNum = GetWeekNumber(iterationStart);
-
             iterationNum = weekNum/2;
 
             return alpha[iterationNum - 1];
@@ -460,12 +460,14 @@ namespace Importer_System
         public static DateTime GetIterationStart(DateTime endOfLastIteration)
         {
             int i = 1;
-            while(endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Monday)
+
+            while (endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Monday && endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Tuesday && endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Wednesday && endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Thursday && endOfLastIteration.AddDays(i).DayOfWeek != DayOfWeek.Friday)
             {
                 i++;
             }
+            DateTime iterationStart = endOfLastIteration.AddDays(i);
 
-            return endOfLastIteration.AddDays(i);
+            return iterationStart;
         }
 
         public static DateTime GetIterationEnd(DateTime beginOfCurrIteration)
@@ -473,12 +475,26 @@ namespace Importer_System
             int i = 1;
             DateTime endOfIteration = beginOfCurrIteration.AddDays(7);
             int currYear = beginOfCurrIteration.Year;
-            while (endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Friday)
+            if(endOfIteration.Year > beginOfCurrIteration.Year)
             {
-                if (endOfIteration.AddDays(i).Year > currYear)
-                    break;
-                else
-                    i++;
+                i = -1;
+                while (endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Monday && endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Tuesday && endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Wednesday && endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Thursday && endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Friday)
+                {
+                    i--;
+                }
+            }
+            else
+            {
+                while (endOfIteration.AddDays(i).DayOfWeek != DayOfWeek.Friday)
+                {
+                    if (endOfIteration.AddDays(i).Year > currYear)
+                    {
+                        i--;
+                        break;
+                    }
+                    else
+                        i++;
+                }
             }
 
             return endOfIteration.AddDays(i);
