@@ -37,7 +37,8 @@ namespace Importer_System
         private ReworkMetric _rework;                             // Calculates rework
         private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
         public enum Metrics { CodeCoverage, TestEffectiveness, DefectInjectionRate, DefectRepairRate, ResourceUtilization, OutOfScopeWork, Rework, VelocityTrend };
-        
+        private bool initialRun = false;
+        List<Iteration> importedIterations = new List<Iteration>();
 
         /// <summary>
         ///     Customized constructor to initialize the behavior.
@@ -353,6 +354,58 @@ namespace Importer_System
                 upadateMetricStatus(metricList, (int)Metrics.TestEffectiveness, "Errors existed during value for tests import, no input directory configured.");
             }
 
+
+            // ---------------------------------------------------------------------
+            // COMPUTE METRIC 5,6,7,8
+            // ---------------------------------------------------------------------
+            if (_productDataDirectory != null)
+            {
+                DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
+               if(productDataList.GetFiles().Count() != 0)
+               {
+                   //Iterate through each product data .xls to find any new products before we parse for data in the file))
+                   foreach (FileInfo productData in productDataList.GetFiles())
+                   {
+                       findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
+                   }
+
+                   if (importedIterations.Count == 0)
+                       importedIterations.Add(currIteration);
+
+                   // Iterate through each product data .xls file to calculate resource utilization
+                   foreach (FileInfo productData in productDataList.GetFiles())
+                   {
+                       foreach (var iter in importedIterations)
+                       {
+                           _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                       }
+                       foreach (var iter in importedIterations)
+                       {
+                           _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                       }
+                   }
+               }
+               else
+               {
+                   upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input files within directory.");
+                   upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input files within directory.");
+               }    
+            }
+            else
+            {
+                upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input directory configured.");
+                upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input directory configured.");
+            }
+            // ---------------------------------------------------------------------
+            // END METRIC 5,6,7,8
+            // --------------------------------------------------------------------- 
+
             // ---------------------------------------------------------------------
             // COMPUTE METRIC 3 AND 4 - DEFECTINJECTIONRATE AND DEFECTREPAIRRATE
             // ---------------------------------------------------------------------
@@ -376,50 +429,8 @@ namespace Importer_System
             // --------------------------------------------------------------------
             // END METRIC 3 AND 4
             // --------------------------------------------------------------------
-
-
-            // ---------------------------------------------------------------------
-            // COMPUTE METRIC 5,6,7,8
-            // ---------------------------------------------------------------------
-            if (_productDataDirectory != null)
-            {
-                DirectoryInfo productDataList = new DirectoryInfo(_productDataDirectory);
-               if(productDataList.GetFiles().Count() != 0)
-               {
-                   //Iterate through each product data .xls to find any new products before we parse for data in the file))
-                   foreach (FileInfo productData in productDataList.GetFiles())
-                   {
-                       findNewProducts(Path.Combine(_productDataDirectory, productData.Name));
-                   }
-
-                   // Iterate through each product data .xls file to calculate resource utilization
-                   foreach (FileInfo productData in productDataList.GetFiles())
-                   {
-                       _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                       _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                       _rework.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                       _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), currIteration);
-                   }
-               }
-               else
-               {
-                   upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input files within directory.");
-                   upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input files within directory.");
-                   upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input files within directory.");
-                   upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input files within directory.");
-               }    
-            }
-            else
-            {
-                upadateMetricStatus(metricList, (int)Metrics.ResourceUtilization, "Errors existed during Resource Utilization import, no input directory configured.");
-                upadateMetricStatus(metricList, (int)Metrics.OutOfScopeWork, "Errors existed during Out of Scope Work import, no input directory configured.");
-                upadateMetricStatus(metricList, (int)Metrics.Rework, "Errors existed during Rework import, no input directory configured.");
-                upadateMetricStatus(metricList, (int)Metrics.VelocityTrend, "Errors existed during Velocity Trend import, no input directory configured.");
-            }
-            // ---------------------------------------------------------------------
-            // END METRIC 5,6,7,8
-            // --------------------------------------------------------------------- 
         }
+
 
         private void findNewProducts(string file)
         {
@@ -472,30 +483,50 @@ namespace Importer_System
 
             if (lastIteration == null)
             {
+                initialRun = true;
+                DateTime endOfIteration;
+                do
+                {
+                    year = _iterationStart.Year;
+                    yearText = year.ToString();
+                    yearText = yearText.Substring(yearText.Length - 2);
+                    iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(_iterationStart));
+                    endOfIteration = GetIterationEnd(_iterationStart);
+                    Iteration currentImportIteration = DatabaseAccessor.WriteIteration(_iterationStart, endOfIteration, iterationLabel);
+                    if (currentImportIteration != null)
+                        importedIterations.Add(currentImportIteration);
 
-                year = _iterationStart.Year;
-                yearText = year.ToString();
-                yearText = yearText.Substring(yearText.Length - 2);
-                iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(_iterationStart));
+                    _iterationStart = GetIterationStart(endOfIteration);
+                } while (endOfIteration < DateTime.Now);
 
-                DatabaseAccessor.WriteIteration(_iterationStart, GetIterationEnd(_iterationStart), iterationLabel);
                 lastIteration = DatabaseAccessor.GetLastIteration();
             }
             else
             {
+                initialRun = false;
                 var endPreviousIteration = (DateTime)lastIteration.EndDate;
                 if (endPreviousIteration.Date < DateTime.UtcNow.Date)
                 {
+                    DateTime startDate;
+                    DateTime endDate;
                     //determine beggining and end dates of current
-                    DateTime startDate = GetIterationStart(endPreviousIteration);
-                    DateTime endDate = GetIterationEnd(startDate);
+                    do
+                    {
+                        startDate = GetIterationStart(endPreviousIteration);
+                        endDate = GetIterationEnd(startDate);
 
-                    //get year text
-                    year = _iterationStart.Year;
-                    yearText = year.ToString();
-                    yearText = yearText.Substring(yearText.Length - 2);
-                    iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(startDate));
-                    DatabaseAccessor.WriteIteration(startDate, endDate, iterationLabel);
+                        //get year text
+                        year = _iterationStart.Year;
+                        yearText = year.ToString();
+                        yearText = yearText.Substring(yearText.Length - 2);
+                        iterationLabel = string.Concat(yearText, '-', DetermineIterationLetter(startDate));
+                        Iteration currentImportIteration = DatabaseAccessor.WriteIteration(startDate, endDate, iterationLabel);
+                        if (currentImportIteration != null)
+                            importedIterations.Add(currentImportIteration);
+                        endPreviousIteration = endDate;
+
+                    } while (endDate < DateTime.Now);
+
                     lastIteration = DatabaseAccessor.GetLastIteration();
                 }
             }
