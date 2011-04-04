@@ -319,7 +319,7 @@ namespace cpsc594_cdl.Common.Models
             {
                 var entryExists = (from resource in _context.ResourceUtilizations
                                    where
-                                       resource.ProductID == product.ProductID && resource.IterationID != iterationId &&
+                                       resource.ProductID == product.ProductID && resource.IterationID < iterationId &&
                                        resource.WorkActionID == workActionId
                                    select resource).FirstOrDefault();
 
@@ -467,7 +467,7 @@ namespace cpsc594_cdl.Common.Models
         }
 
         //Iteration database methods
-        public static void WriteIteration(DateTime startDate, DateTime endDate, string label)
+        public static Iteration WriteIteration(DateTime startDate, DateTime endDate, string label)
         {
             var iteration = new Iteration();
             iteration.StartDate = startDate.Date;
@@ -478,10 +478,12 @@ namespace cpsc594_cdl.Common.Models
             try
             {
                 _context.SaveChanges();
+                return iteration;
             }
             catch (Exception e)
             {
                 MessageBox.Show(e.InnerException.Message);
+                return null;
             }
         }
 

@@ -20,6 +20,7 @@ namespace Importer_System.Metrics
         {
             // If we have a directory to check for .xls files
             this.iteration = curIteration;
+            double personHours = 0;
             // Excel connection string
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source="+productDataPath+";Extended Properties=Excel 5.0";
             // Get excel reader
@@ -30,16 +31,35 @@ namespace Importer_System.Metrics
                 {
                     string query = String.Concat("Select [Product], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
                                   iteration.IterationLabel, "' and [Scope]='False' GROUP BY [Product]");
-
+                    personHours = 0;
                     List<string[]> workHours = xlsReader.SelectQuery(query);
-                    foreach (string[] row in workHours)
+                    if (workHours.Count() != 0)
                     {
-                        string productName = row[0];
-                        double personHours = Double.Parse(row[1]);
-                        // Store data
-                        if(StoreMetric(productName, personHours)==-1)
-                            Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Problem storing the out of scope work data to the database." + productDataPath);
+                        foreach (string[] row in workHours)
+                        {
+                            string productName = row[0];
+                            personHours = Double.Parse(row[1]);
+                            // Store data
+                            if (StoreMetric(productName, personHours) == -1)
+                                Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Problem storing the out of scope work data to the database." + productDataPath);
+                        }
                     }
+                    else
+                    {
+                        query = String.Concat("Select [Product] from [Sheet1$] WHERE [Iteration]='",
+                                  iteration.IterationLabel, "' and GROUP BY [Product]");
+                        personHours = 0;
+                        workHours.Clear();
+                        workHours = xlsReader.SelectQuery(query);
+                        foreach (string[] row in workHours)
+                        {
+                            string productName = row[0];
+                            if (StoreMetric(productName, personHours) == -1)
+                                Reporter.AddErrorMessageToReporter("[Metric 6: Out of Scope Work] Problem storing the out of scope work data to the database." + productDataPath);
+                        }
+                   }
+
+                    
                 }
                 catch
                 {
