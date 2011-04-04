@@ -65,7 +65,7 @@ select
     width: 200px;
 }
 /* Menu */
-#menuItem
+.menuItem
 {
     width: 100px;
 }
