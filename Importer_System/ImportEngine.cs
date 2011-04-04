@@ -98,10 +98,6 @@ namespace Importer_System
             //ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
             ValidateProductDataDirectory(ConfigurationManager.AppSettings["ProductData"]);
-            // _iterationStart
-            ValidateIterationStart(ConfigurationManager.AppSettings["IterationStartDate"]);
-            // _iterationLength
-            ValidateIterationLength(ConfigurationManager.AppSettings["IterationLength"]);
         }
 
         /// <summary>
@@ -194,41 +190,6 @@ namespace Importer_System
                 _productDataDirectory = str;
             else
                 Reporter.AddErrorMessageToReporter("Could not calculate Resource Utilization Metric becauses the ProductData directory "+str+" could not be found.");
-        }
-
-        /// <summary>
-        ///     ValidateIterationLength - If the input is not a number, default it to 2.
-        ///     Does not terminate on fail.
-        /// </summary>
-        /// <param name="str"></param>
-        private void ValidateIterationLength(string str)
-        {
-            try
-            {
-                _iterationLength = Int32.Parse(ConfigurationManager.AppSettings["IterationLength"]);
-            }
-            catch
-            {
-                _iterationLength = 2;
-                Reporter.AddErrorMessageToReporter("The iteration length key in the configuration file is not a valid integer.");
-            }
-        }
-
-        /// <summary>
-        ///     ValidateIterationStart - If the input is not a date throw exception.
-        ///     Terminates the program if date is wrong.
-        /// </summary>
-        /// <param name="str"></param>
-        private void ValidateIterationStart(string str)
-        {
-            try
-            {
-                _iterationStart = DateTime.Parse(ConfigurationManager.AppSettings["IterationStartDate"]);
-            }
-            catch
-            {
-                throw new TerminateException("Iteration Start date is not a valid date format. Please use dd/mm/yyyy format.");
-            }
         }
 
         /// <summary>
