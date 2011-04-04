@@ -71,7 +71,9 @@ namespace cpsc594_cdl.Infrastructure
         private void RemoveCacheItem(string cacheItem)
         {
             cachedFileAge.Remove(cacheItem);
-            File.Delete(Path.Combine(HttpRuntime.AppDomainAppPath, cacheDir, cacheItem + ".png"));
+            var fileName = Path.Combine(HttpRuntime.AppDomainAppPath, cacheDir, cacheItem + ".png");
+            if(File.Exists(fileName))
+                File.Delete(fileName);
         }
 
         public string SaveChartImage(string cacheKey, System.Web.UI.DataVisualization.Charting.Chart chart)
