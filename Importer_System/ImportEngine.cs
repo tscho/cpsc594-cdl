@@ -26,7 +26,6 @@ namespace Importer_System
         private string _rootArchiveDirectory = null;              // Archive directory for files after being read
         private string _productDataDirectory = null;              // Directory containing .xls product data files
         private int _archivePeriod;                               // Number of days the logfiles exist in the archive directory
-        private string _testDirectory;                            // ???
         private string _outputDatabaseConnection;                 // Connection string to output the information to
         private int _iterationLength;                             // Iteration length in weeks
         private DateTime _iterationStart;                         // Begin date of iteration

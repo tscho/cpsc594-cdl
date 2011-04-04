@@ -17,7 +17,7 @@
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="15*" />
+            <RowDefinition Height="10*" />
             <RowDefinition Height="30*" />
         </Grid.RowDefinitions>
         <StackPanel Orientation="Vertical">
@@ -25,7 +25,6 @@
                 <TextBlock Text="{Binding Path=Name, UpdateSourceTrigger=PropertyChanged}" Height="25" Margin="2,10,2,10" Width="435" HorizontalAlignment="Stretch" Name="status_label" VerticalAlignment="Top"/>
                 <Button  Content="Run" Margin="5,10,5,10" Width="50" Click="Button_Click_Run"/>
             </StackPanel>
-            <ProgressBar Name="progressBar" Height="25" VerticalAlignment="Stretch" HorizontalAlignment="Stretch" Margin="5,2,5,0" Value="{Binding progressPercent}"/>
             <Label Name="logLabel" Content="Open Log" HorizontalAlignment="Right" FlowDirection="RightToLeft" />
         </StackPanel>
         <ListView Grid.Row="1" Name="metricStatusList" >
