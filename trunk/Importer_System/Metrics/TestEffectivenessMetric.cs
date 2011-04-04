@@ -19,16 +19,18 @@ namespace Importer_System.Metrics
         /// <param name="component"></param>
         /// <param name="file"></param>
         /// <returns>True if no errors</returns>
-        public void CalculateMetric(string file, int currIteration, String product)
+        public int CalculateMetric(string file, int currIteration, String product)
         {
             this.file = file;
             this.iteration = currIteration;
             this.product = product;
 
             // Parse the file and return true if passed, false if error
-            if(parseLogFile(file))
-                StoreMetric(product, _testsExecuted);
-        }
+            if (parseLogFile(file))
+                return StoreMetric(product, _testsExecuted);
+            else
+                return -1;
+       }
 
         /// <summary>
         ///     Opens the coverage log file and calculates the code coverage
@@ -73,6 +75,8 @@ namespace Importer_System.Metrics
             }
             catch (IndexOutOfRangeException)
             {
+                // Log the error
+                Reporter.AddErrorMessageToReporter("[Metric 1: Code Coverage] Illegal syntax in code coverage log file " + locationOfLog);
                 saveResult = false;
             }
             finally
