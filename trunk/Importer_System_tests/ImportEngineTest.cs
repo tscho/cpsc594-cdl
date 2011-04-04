@@ -215,5 +215,103 @@ namespace Importer_System_Tests
             files = Directory.GetFiles(archDirectory);
             Assert.AreEqual(files.Length, 2);
         }
+
+        /// <summary>
+        ///A test for GetListOfProducts
+        ///</summary>
+        [TestMethod()]
+        public void GetListOfProductsTest()
+        {
+            ImportEngine target = new ImportEngine(); // TODO: Initialize to an appropriate value
+            List<string> expected = null; // TODO: Initialize to an appropriate value
+            List<string> actual;
+            actual = target.GetListOfProducts();
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for GetWeekNumber
+        ///</summary>
+        [TestMethod()]
+        public void GetWeekNumberTest()
+        {
+            DateTime day = new DateTime(); // TODO: Initialize to an appropriate value
+            int expected = 0; // TODO: Initialize to an appropriate value
+            int actual;
+            actual = ImportEngine.GetWeekNumber(day);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for GetIterationStart
+        ///</summary>
+        [TestMethod()]
+        public void GetIterationStartTest()
+        {
+            DateTime endOfLastIteration = new DateTime(); // TODO: Initialize to an appropriate value
+            DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
+            DateTime actual;
+            actual = ImportEngine.GetIterationStart(endOfLastIteration);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for GetIterationEnd
+        ///</summary>
+        [TestMethod()]
+        public void GetIterationEndTest()
+        {
+            DateTime beginOfCurrIteration = new DateTime(); // TODO: Initialize to an appropriate value
+            DateTime expected = new DateTime(); // TODO: Initialize to an appropriate value
+            DateTime actual;
+            actual = ImportEngine.GetIterationEnd(beginOfCurrIteration);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for FirstMondayOfYear
+        ///</summary>
+        [TestMethod()]
+        public void FirstMondayOfYearTest()
+        {
+            int year = 0; // TODO: Initialize to an appropriate value
+            int expected = 0; // TODO: Initialize to an appropriate value
+            int actual;
+            actual = ImportEngine.FirstMondayOfYear(year);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for DetermineIterationLetter
+        ///</summary>
+        [TestMethod()]
+        public void DetermineIterationLetterTest()
+        {
+            ImportEngine target = new ImportEngine(); // TODO: Initialize to an appropriate value
+            DateTime iterationStart = new DateTime(); // TODO: Initialize to an appropriate value
+            char expected = '\0'; // TODO: Initialize to an appropriate value
+            char actual;
+            actual = target.DetermineIterationLetter(iterationStart);
+            Assert.AreEqual(expected, actual);
+            Assert.Inconclusive("Verify the correctness of this test method.");
+        }
+
+        /// <summary>
+        ///A test for findNewProducts
+        ///</summary>
+        [TestMethod()]
+        [DeploymentItem("Importer_System.exe")]
+        public void findNewProductsTest()
+        {
+            ImportEngine_Accessor target = new ImportEngine_Accessor(); // TODO: Initialize to an appropriate value
+            string file = string.Empty; // TODO: Initialize to an appropriate value
+            target.findNewProducts(file);
+            Assert.Inconclusive("A method that does not return a value cannot be verified.");
+        }
     }
 }
