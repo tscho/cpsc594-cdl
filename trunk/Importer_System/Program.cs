@@ -21,8 +21,8 @@ namespace Importer_System
                 //ProgressForm form = new ProgressForm();
                 //form.ShowDialog();
 
-                Window importer_gui = new Importer_Gui();
-                importer_gui.ShowDialog();
+                Window importerGui = new Importer_Gui();
+                importerGui.ShowDialog();
                 
                 // Boot the engine that reads configuration file and begins importing
                 //Reporter.OpenReporter();

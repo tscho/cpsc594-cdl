@@ -242,7 +242,9 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="personName"></param>
         /// <param name="hours"></param>
         /// <param name="p"></param>
-        public static int WriteResourceUtilization(string productName, double hours, int iterationID)
+        /// <param name="workActionId"></param>
+        /// <param name="iterationId"></param>
+        public static int WriteResourceUtilization(string productName, double hours, int workActionId, int iterationId)
         {
             var productResourceUtilization = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -250,14 +252,15 @@ namespace cpsc594_cdl.Common.Models
 
             if (productResourceUtilization != null)
             {
-                var entryExists = (from resource in _context.ResourceUtilizations where resource.ProductID == productResourceUtilization.ProductID && resource.IterationID == iterationID select resource).FirstOrDefault();
+                var entryExists = (from resource in _context.ResourceUtilizations where resource.ProductID == productResourceUtilization.ProductID && resource.IterationID == iterationId && resource.WorkActionID == workActionId select resource).FirstOrDefault();
 
                 if (entryExists == null)
                 {
                     var resourseUtil = new ResourceUtilization()
                     {
                         ProductID = productResourceUtilization.ProductID,
-                        IterationID = iterationID,
+                        IterationID = iterationId,
+                        WorkActionID = workActionId,
                         PersonHours = hours,
                         Date = DateTime.Now
                     };
@@ -308,7 +311,31 @@ namespace cpsc594_cdl.Common.Models
             return id;
         }
 
-        public static int WriteReworkMetric(string productName, double reworkHours, int iterationID)
+        public static bool CheckForRework(string productName, int iterationId, int workActionId)
+        {
+            var product = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
+
+            if (product != null)
+            {
+                var entryExists = (from resource in _context.ResourceUtilizations
+                                   where
+                                       resource.ProductID == product.ProductID && resource.IterationID != iterationId &&
+                                       resource.WorkActionID == workActionId
+                                   select resource).FirstOrDefault();
+
+                if (entryExists != null)
+                    return true;
+                else
+                    return false;
+            }
+            else
+            {
+                return false;
+            }
+            
+        }
+
+        public static int WriteReworkMetric(string productName, double reworkHours, int iterationId)
         {
             var productRework = (from p in _context.Products where p.ProductName == productName select p).FirstOrDefault();
 
@@ -316,14 +343,14 @@ namespace cpsc594_cdl.Common.Models
 
             if (productRework != null)
             {
-                var entryExists = (from rework in _context.Reworks where rework.ProductID == productRework.ProductID && rework.IterationID == iterationID select rework).FirstOrDefault();
+                var entryExists = (from rework in _context.Reworks where rework.ProductID == productRework.ProductID && rework.IterationID == iterationId select rework).FirstOrDefault();
 
                 if (entryExists == null)
                 {
                     var rework = new Rework()
                     {
                         ProductID = productRework.ProductID,
-                        IterationID = iterationID,
+                        IterationID = iterationId,
                         ReworkHours = reworkHours,
                         Date = DateTime.Now
                     };
@@ -399,7 +426,7 @@ namespace cpsc594_cdl.Common.Models
 
         public static IEnumerable<Product> GetProducts(IEnumerable<int> pids)
         {
-            IOrderedQueryable<Product> products = (from p in _context.Products where pids.Contains(p.ProductID) orderby p.ProductName ascending select p );
+            IOrderedQueryable<Product> products = (from p in _context.Products where pids.Contains(p.ProductID) orderby p.ProductName ascending select p);
 
             return products;
         }

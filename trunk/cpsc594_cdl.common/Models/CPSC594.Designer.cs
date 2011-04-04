@@ -2199,7 +2199,8 @@ namespace cpsc594_cdl.Common.Models
         /// <param name="personHours">Initial value of the PersonHours property.</param>
         /// <param name="iterationID">Initial value of the IterationID property.</param>
         /// <param name="date">Initial value of the Date property.</param>
-        public static ResourceUtilization CreateResourceUtilization(global::System.Int32 productID, global::System.Int32 resourceUtilizationID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date)
+        /// <param name="workActionID">Initial value of the WorkActionID property.</param>
+        public static ResourceUtilization CreateResourceUtilization(global::System.Int32 productID, global::System.Int32 resourceUtilizationID, global::System.Double personHours, global::System.Int32 iterationID, global::System.DateTime date, global::System.Int32 workActionID)
         {
             ResourceUtilization resourceUtilization = new ResourceUtilization();
             resourceUtilization.ProductID = productID;
@@ -2207,6 +2208,7 @@ namespace cpsc594_cdl.Common.Models
             resourceUtilization.PersonHours = personHours;
             resourceUtilization.IterationID = iterationID;
             resourceUtilization.Date = date;
+            resourceUtilization.WorkActionID = workActionID;
             return resourceUtilization;
         }
 
@@ -2335,6 +2337,30 @@ namespace cpsc594_cdl.Common.Models
         private global::System.DateTime _Date;
         partial void OnDateChanging(global::System.DateTime value);
         partial void OnDateChanged();
+    
+        /// <summary>
+        /// No Metadata Documentation available.
+        /// </summary>
+        [EdmScalarPropertyAttribute(EntityKeyProperty=false, IsNullable=false)]
+        [DataMemberAttribute()]
+        public global::System.Int32 WorkActionID
+        {
+            get
+            {
+                return _WorkActionID;
+            }
+            set
+            {
+                OnWorkActionIDChanging(value);
+                ReportPropertyChanging("WorkActionID");
+                _WorkActionID = StructuralObject.SetValidValue(value);
+                ReportPropertyChanged("WorkActionID");
+                OnWorkActionIDChanged();
+            }
+        }
+        private global::System.Int32 _WorkActionID;
+        partial void OnWorkActionIDChanging(global::System.Int32 value);
+        partial void OnWorkActionIDChanged();
 
         #endregion
     

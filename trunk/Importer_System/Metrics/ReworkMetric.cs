@@ -10,16 +10,20 @@ namespace Importer_System.Metrics
     {
 
         private Iteration iteration;
+
         /// <summary>
         ///     Calculates the given log file 
         /// </summary>
         /// <param name="product"></param>
         /// <param name="component"></param>
         /// <param name="file"></param>
+        /// <param name="productDataPath"></param>
+        /// <param name="curIteration"></param>
         public void CalculateMetric(string productDataPath, Iteration curIteration)
         {
             // If we have a directory to check for .xls files
             this.iteration = curIteration;
+            double sumRework;
             // Excel connection string
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + productDataPath + ";Extended Properties=Excel 5.0";
             // Get excel reader
@@ -28,16 +32,26 @@ namespace Importer_System.Metrics
             {
                 try
                 {
-                    string query = String.Concat("Select [Product], [Work Action ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
-                                  iteration.IterationLabel, "' GROUP BY [Product], [Work Action ID]");
-
-                    List<string[]> workHours = xlsReader.SelectQuery(query);
-                    foreach (string[] row in workHours)
+                    List<Product> productList = DatabaseAccessor.GetProducts();
+                    foreach (var currProduct in productList)
                     {
-                        string productName = row[0];
-                        double reworkHours = Double.Parse(row[1]);
-                        // Store data
-                        if (StoreMetric(productName, reworkHours) == -1)
+                        string query = String.Concat("Select [Product], [Work Action ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
+                                      iteration.IterationLabel, "' AND [Product]='", currProduct.ProductName, "' GROUP BY [Product], [Work Action ID]");
+                        List<string[]> workHours = xlsReader.SelectQuery(query);
+                        sumRework = 0;
+                        foreach (string[] row in workHours)
+                        {
+                            string productName = row[0];
+                            int workActionId = Int16.Parse(row[1]);
+                            double reworkHours = Double.Parse(row[2]);
+                            
+                            // Store data
+                            if (DetermineIfRework(workActionId, productName))
+                            {
+                                sumRework += reworkHours;
+                            }
+                        }
+                        if (StoreMetric(currProduct.ProductName, sumRework) == -1)
                             Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
@@ -49,6 +63,11 @@ namespace Importer_System.Metrics
             }
             else
                 Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Unable to open product data file " + productDataPath);
+        }
+
+        public bool DetermineIfRework(int workActionId, string product)
+        {
+            return DatabaseAccessor.CheckForRework(product, iteration.IterationID, workActionId);
         }
 
         /// <summary>

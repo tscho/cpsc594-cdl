@@ -164,6 +164,7 @@
           <Property Name="PersonHours" Type="float" Nullable="false" />
           <Property Name="IterationID" Type="int" Nullable="false" />
           <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="WorkActionID" Type="int" Nullable="false" />
         </EntityType>
         <EntityType Name="Rework">
           <Key>
@@ -591,6 +592,7 @@
           <Property Type="DateTime" Name="Date" Nullable="false" />
           <NavigationProperty Name="Iteration" Relationship="CPSC594Model.FK_ResourceUtilization_IterationID" FromRole="ResourceUtilization" ToRole="Iteration" />
           <NavigationProperty Name="Product" Relationship="CPSC594Model.FK_ResourceUtilization_ProductID" FromRole="ResourceUtilization" ToRole="Product" />
+          <Property Type="Int32" Name="WorkActionID" Nullable="false" />
         </EntityType>
         <EntityType Name="Rework">
           <Key>
@@ -918,6 +920,7 @@
           <EntitySetMapping Name="ResourceUtilizations">
             <EntityTypeMapping TypeName="CPSC594Model.ResourceUtilization">
               <MappingFragment StoreEntitySet="ResourceUtilization">
+                <ScalarProperty Name="WorkActionID" ColumnName="WorkActionID" />
                 <ScalarProperty Name="Date" ColumnName="Date" />
                 <ScalarProperty Name="IterationID" ColumnName="IterationID" />
                 <ScalarProperty Name="PersonHours" ColumnName="PersonHours" />
@@ -1005,18 +1008,18 @@
           <ConnectorPoint PointX="3" PointY="15.124746093749998" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectInjectionRate_ComponentID" >
-          <ConnectorPoint PointX="2.25" PointY="12.339503707532053" />
-          <ConnectorPoint PointX="2.4098244349011213" PointY="12.499328142433173" />
-          <ConnectorPoint PointX="2.5276755650988791" PointY="12.617179272630931" />
-          <ConnectorPoint PointX="2.6503856153846144" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="2.2499999999999996" PointY="12.364889322916667" />
+          <ConnectorPoint PointX="2.4098244349011213" PointY="12.524713757817787" />
+          <ConnectorPoint PointX="2.5276755650988791" PointY="12.642564888015546" />
+          <ConnectorPoint PointX="2.625" PointY="12.739889322916667" />
           <ConnectorPoint PointX="2.7291666666666665" PointY="12.739889322916667" />
           <ConnectorPoint PointX="2.8958333333333335" PointY="12.739889322916667" />
           <ConnectorPoint PointX="5.541666666666667" PointY="12.739889322916667" />
           <ConnectorPoint PointX="5.708333333333333" PointY="12.739889322916667" />
-          <ConnectorPoint PointX="6.3854170416666678" PointY="12.739889322916667" />
-          <ConnectorPoint PointX="6.5520837083333339" PointY="12.739889322916667" />
-          <ConnectorPoint PointX="6.9374997500000006" PointY="12.739889322916667" />
-          <ConnectorPoint PointX="6.9374997500000006" PointY="13.75" />
+          <ConnectorPoint PointX="6.4088545104166679" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="6.5755211770833339" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="6.9843746875000008" PointY="12.739889322916667" />
+          <ConnectorPoint PointX="6.9843746875000008" PointY="13.75" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_DefectRepairRate_ComponentID" >
           <ConnectorPoint PointX="2.25" PointY="11.138499353766026" />
@@ -1055,24 +1058,24 @@
           <ConnectorPoint PointX="3" PointY="19.417932533096945" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_ResourceUtilization_IterationID" >
-          <ConnectorPoint PointX="2.25" PointY="13.501152846153847" />
-          <ConnectorPoint PointX="2.4098244349011204" PointY="13.341328411252725" />
-          <ConnectorPoint PointX="2.5276755650988791" PointY="13.223477281054969" />
-          <ConnectorPoint PointX="2.6261528461538468" PointY="13.125" />
-          <ConnectorPoint PointX="5.541666666666667" PointY="13.125" />
-          <ConnectorPoint PointX="5.708333333333333" PointY="13.125" />
-          <ConnectorPoint PointX="6.4687503750000008" PointY="13.125" />
-          <ConnectorPoint PointX="6.4687503750000008" PointY="12.239889322916667" />
+          <ConnectorPoint PointX="2.25" PointY="13.501152846153845" />
+          <ConnectorPoint PointX="2.4098244349011204" PointY="13.341328411252723" />
+          <ConnectorPoint PointX="2.5276755650988791" PointY="13.223477281054967" />
+          <ConnectorPoint PointX="2.6261528461538468" PointY="13.124999999999998" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="13.124999999999998" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="13.124999999999998" />
+          <ConnectorPoint PointX="6.4921878437500009" PointY="13.124999999999998" />
+          <ConnectorPoint PointX="6.4921878437500009" PointY="12.432190755208334" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Rework_IterationID" >
-          <ConnectorPoint PointX="2.2257692307692323" PointY="16.826396484374996" />
-          <ConnectorPoint PointX="2.4098244349011217" PointY="17.010451688506887" />
-          <ConnectorPoint PointX="2.5276755650988787" PointY="17.128302818704643" />
-          <ConnectorPoint PointX="2.6007692307692309" PointY="17.201396484374996" />
+          <ConnectorPoint PointX="2.2500000000000013" PointY="16.826396484374996" />
+          <ConnectorPoint PointX="2.4098244349011217" PointY="16.986220919276118" />
+          <ConnectorPoint PointX="2.5276755650988787" PointY="17.104072049473874" />
+          <ConnectorPoint PointX="2.625" PointY="17.201396484374996" />
           <ConnectorPoint PointX="5.541666666666667" PointY="17.201396484374996" />
           <ConnectorPoint PointX="5.708333333333333" PointY="17.201396484374996" />
-          <ConnectorPoint PointX="6.7818284230769228" PointY="17.201396484374996" />
-          <ConnectorPoint PointX="6.7818284230769228" PointY="17.875" />
+          <ConnectorPoint PointX="6.75" PointY="17.201396484374996" />
+          <ConnectorPoint PointX="6.75" PointY="17.875" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_TestEffectiveness_Iteration" >
           <ConnectorPoint PointX="2.25" PointY="16.650249028245192" />
@@ -1092,8 +1095,8 @@
           <ConnectorPoint PointX="2.6004797692307697" PointY="13.21875" />
           <ConnectorPoint PointX="5.541666666666667" PointY="13.21875" />
           <ConnectorPoint PointX="5.708333333333333" PointY="13.21875" />
-          <ConnectorPoint PointX="6.8541664166666676" PointY="13.21875" />
-          <ConnectorPoint PointX="7.0208330833333337" PointY="13.21875" />
+          <ConnectorPoint PointX="6.9010413541666678" PointY="13.21875" />
+          <ConnectorPoint PointX="7.0677080208333338" PointY="13.21875" />
           <ConnectorPoint PointX="8.5416666666666661" PointY="13.21875" />
           <ConnectorPoint PointX="8.7083333333333339" PointY="13.21875" />
           <ConnectorPoint PointX="9.75" PointY="13.21875" />
@@ -1110,8 +1113,8 @@
           <ConnectorPoint PointX="6.75" PointY="9.875" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_Rework_ProductID" >
-          <ConnectorPoint PointX="2.9757692307692305" PointY="8.4321907552083388" />
-          <ConnectorPoint PointX="3.3507692307692309" PointY="8.8071907552083388" />
+          <ConnectorPoint PointX="2.9999999999999996" PointY="8.4321907552083388" />
+          <ConnectorPoint PointX="3.375" PointY="8.8071907552083388" />
           <ConnectorPoint PointX="5.625" PointY="8.8071907552083388" />
           <ConnectorPoint PointX="5.625" PointY="17.498847153846153" />
           <ConnectorPoint PointX="6.0011528461538459" PointY="17.875" />
@@ -1126,8 +1129,8 @@
           <ConnectorPoint PointX="9" PointY="14" />
         </AssociationConnector>
         <AssociationConnector Association="CPSC594Model.FK_VelocityTrend_ProductID" >
-          <ConnectorPoint PointX="2.6718775" PointY="8.4321907552083388" />
-          <ConnectorPoint PointX="2.6718775" PointY="9.78125" />
+          <ConnectorPoint PointX="2.875" PointY="8.4321907552083388" />
+          <ConnectorPoint PointX="2.875" PointY="9.78125" />
           <ConnectorPoint PointX="5.541666666666667" PointY="9.78125" />
           <ConnectorPoint PointX="5.708333333333333" PointY="9.78125" />
           <ConnectorPoint PointX="6.666666666666667" PointY="9.78125" />
