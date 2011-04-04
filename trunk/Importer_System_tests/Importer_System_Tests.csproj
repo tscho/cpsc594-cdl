@@ -76,6 +76,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ResourceUtilizationTest.cs" />
+    <Compile Include="ReworkTest.cs" />
     <Compile Include="TestEffectivenessMetricTest.cs" />
     <Compile Include="VelocityTrendTest.cs" />
   </ItemGroup>

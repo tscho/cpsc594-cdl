@@ -1,4 +1,5 @@
 ﻿using System;
+using cpsc594_cdl.Common.Models;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
@@ -74,14 +75,20 @@ namespace Importer_System_tests
         public void CalculateReworkTest()
         {
             // Normal data
-            List<string[]> data = CalculateRework("09-E", "C:\\Users\\Russ\\Desktop\\ProductData\\normal.xls", "php-5.3.5");
-            string[] row = data[0];
-            Assert.AreEqual(6.1, double.Parse(row[2]));
+            Assert.AreEqual(6.1, CalculateRework("09-E", "C:\\Users\\Russ\\Desktop\\ProductData\\normal.xls", "php-5.3.5"));
             // No data
-            data = CalculateRework("09-E", "C:\\Users\\Russ\\Desktop\\ProductData\\nodata.xls", "php-5.3.5");
-            Assert.AreEqual(0, data.Count);
+            Assert.AreEqual(0.0, CalculateRework("09-E", "C:\\Users\\Russ\\Desktop\\ProductData\\nodata.xls", "php-5.3.5"));
+            // No data
+            Assert.AreEqual(10.5, CalculateRework("09-E", "C:\\Users\\Russ\\Desktop\\ProductData\\rare_rework.xls", "php-5.3.5"));
         }
-        private List<string[]> CalculateRework(string iterationLabel, string productDataPath, string productName)
+        /// <summary>
+        ///     CalculateRework
+        /// </summary>
+        /// <param name="iterationLabel"></param>
+        /// <param name="productDataPath"></param>
+        /// <param name="productName"></param>
+        /// <returns></returns>
+        private double CalculateRework(string iterationLabel, string productDataPath, string productName)
         {
             // Excel connection string
             string connectionString = "Provider=Microsoft.Jet.OLEDB.4.0;Data Source=" + productDataPath + ";Extended Properties=Excel 5.0";
@@ -93,16 +100,37 @@ namespace Importer_System_tests
                 {
                     string query = String.Concat("Select [Product], [Work Action ID], Sum([Actual]) from [Sheet1$] WHERE [Iteration]='",
                                       iterationLabel, "' AND [Product]='", productName, "' GROUP BY [Product], [Work Action ID]");
-                    return xlsReader.SelectQuery(query);
-
+                    List<string[]> data = xlsReader.SelectQuery(query);
+                    double sumRework = 0.0;
+                    foreach (string[] row in data)
+                    {
+                        int workActionId = Int16.Parse(row[1]);
+                        double reworkHours = Double.Parse(row[2]);
+                        // Store data
+                        if (DetermineIfRework(workActionId, productName))
+                        {
+                            sumRework += reworkHours;
+                        }
+                    }
+                    return sumRework;
                 }
                 catch
                 {
-                    return null;
+                    return 0.0;
                 }
             }
             else
-                return null;
+                return 0.0;
+        }
+        /// <summary>
+        ///     DetermineIfRework - handler
+        /// </summary>
+        /// <param name="workActionId"></param>
+        /// <param name="product"></param>
+        /// <returns></returns>
+        public bool DetermineIfRework(int workActionId, string product)
+        {
+            return true;
         }
     }
 }
