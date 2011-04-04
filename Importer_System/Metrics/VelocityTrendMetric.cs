@@ -38,7 +38,7 @@ namespace Importer_System.Metrics
                         double actualHours = Double.Parse(row[2]);
                         // Store data
                         if (StoreMetric(productName, estimatedHours, actualHours) == -1)
-                            Reporter.AddErrorMessageToReporter("[Metric 8: Velocity Trend] Problem storing the resource utilization data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
+                            Reporter.AddErrorMessageToReporter("[Metric 8: Velocity Trend] Problem storing the velocity trend data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                     }
                 }
                 catch
