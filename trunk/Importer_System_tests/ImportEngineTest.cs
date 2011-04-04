@@ -114,50 +114,7 @@ namespace Importer_System_Tests
          * 
          *---------------------------------------------------------------------------------*/
 
-        /// <summary>
-        ///     Unit test verifying that the importer scans through the given directory
-        /// </summary>
-        [TestMethod()]
-        public void ImporterEngineTestIterateDirectory()
-        {
-            // Sample directory no projects
-            String sample_one = "";
-            Assert.AreEqual(sample_one, BeginImporting("C:\\Users\\Russ\\Documents\\Visual Studio 2010\\Projects\\ImporterSystem\\Importer_System_tests\\Directory\\Directory1"));
-            // Sample directory projects no components
-            String sample_two = "Project1Project2Project3";
-            Assert.AreEqual(sample_two, BeginImporting("C:\\Users\\Russ\\Documents\\Visual Studio 2010\\Projects\\ImporterSystem\\Importer_System_tests\\Directory\\Directory2"));
-            // Sample directory projects with components
-            String sample_three = "Project1Comp1Comp2Project2Project3";
-            Assert.AreEqual(sample_three, BeginImporting("C:\\Users\\Russ\\Documents\\Visual Studio 2010\\Projects\\ImporterSystem\\Importer_System_tests\\Directory\\Directory3"));
-        }
 
-        /// <summary>
-        ///     Scans directory.
-        /// </summary>
-        public String BeginImporting(String rootDirectory)
-        {
-            
-            String list = "";
-            // Make directory structure
-            DirectoryInfo initialDirectory = new DirectoryInfo(rootDirectory);
-            // Iterate through the projects in the directory
-            if (initialDirectory.GetDirectories().Length > 0)
-            {
-                foreach (DirectoryInfo project in initialDirectory.GetDirectories())
-                {
-                    // Save the current projects name
-                    String currentProjectName = project.Name;
-                    list += currentProjectName;
-                    // Iterate through the selected projects components
-                    foreach (DirectoryInfo component in project.GetDirectories())
-                    {
-                        String currentComponentName = component.Name;
-                        list += currentComponentName;
-                    }
-                }
-            }
-            return list;
-        }
 
         /// <summary>
         /// Unit test for ArchiveFile.
@@ -340,6 +297,16 @@ namespace Importer_System_Tests
 
             iterationStart = new DateTime(2011,1,17);
             expected = 'B';
+            actual = target.DetermineIterationLetter(iterationStart);
+            Assert.AreEqual(expected, actual);
+
+            iterationStart = new DateTime(2011, 1, 19);
+            expected = 'B';
+            actual = target.DetermineIterationLetter(iterationStart);
+            Assert.AreEqual(expected, actual);
+
+            iterationStart = new DateTime(2011, 12, 26);
+            expected = 'Z';
             actual = target.DetermineIterationLetter(iterationStart);
             Assert.AreEqual(expected, actual);
         }

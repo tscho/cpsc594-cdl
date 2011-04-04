@@ -452,9 +452,9 @@ namespace Importer_System
             int iterationNum = 1;
 
             weekNum = GetWeekNumber(iterationStart);
-            iterationNum = weekNum/2;
-
-            return alpha[iterationNum];
+            iterationNum =  (int)Math.Ceiling((double)weekNum/2);
+            
+            return alpha[iterationNum-1];
         }
 
         public static DateTime GetIterationStart(DateTime endOfLastIteration)
