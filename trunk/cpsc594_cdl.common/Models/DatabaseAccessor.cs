@@ -8,11 +8,11 @@ namespace cpsc594_cdl.Common.Models
 {
     public static class DatabaseAccessor
     {
-        private static CPSC594Entities _context;
+        private static MetricAnalyzerEntities _context;
 
         static DatabaseAccessor()
         {
-            _context = new CPSC594Entities();
+            _context = new MetricAnalyzerEntities();
         }
 
         /// <summary>

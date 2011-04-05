@@ -39,20 +39,24 @@ namespace Importer_System.Metrics
                                       iteration.IterationLabel, "' AND [Product]='", currProduct.ProductName, "' GROUP BY [Product], [Work Action ID]");
                         List<string[]> workHours = xlsReader.SelectQuery(query);
                         sumRework = 0;
-                        foreach (string[] row in workHours)
+                        if (workHours.Count() != 0)
                         {
-                            string productName = row[0];
-                            int workActionId = Int16.Parse(row[1]);
-                            double reworkHours = Double.Parse(row[2]);
-                            
-                            // Store data
-                            if (DetermineIfRework(workActionId, productName))
+                            foreach (string[] row in workHours)
                             {
-                                sumRework += reworkHours;
+                                string productName = row[0];
+                                int workActionId = Int16.Parse(row[1]);
+                                double reworkHours = Double.Parse(row[2]);
+
+                                // Store data
+                                if (DetermineIfRework(workActionId, productName))
+                                {
+                                    sumRework += reworkHours;
+                                }
                             }
+                            if (StoreMetric(currProduct.ProductName, sumRework) == -1)
+                                Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the rework data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
                         }
-                        if (StoreMetric(currProduct.ProductName, sumRework) == -1)
-                            Reporter.AddErrorMessageToReporter("[Metric 7: Re-work] Problem storing the rework data to the database, please run the script again and make sure the database schema is correct. " + productDataPath);
+
                     }
                 }
                 catch

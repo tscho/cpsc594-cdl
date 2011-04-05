@@ -37,7 +37,6 @@ namespace Importer_System
         private ReworkMetric _rework;                             // Calculates rework
         private ConnectionStringSettings _outputDbSettings;       // Main database which stores all the metric data
         public enum Metrics { CodeCoverage, TestEffectiveness, DefectInjectionRate, DefectRepairRate, ResourceUtilization, OutOfScopeWork, Rework, VelocityTrend };
-        private bool initialRun = false;
         List<Iteration> importedIterations = new List<Iteration>();
 
         /// <summary>
@@ -93,7 +92,7 @@ namespace Importer_System
             // _rootArchiveDirectory
             ValidateRootArchiveDirectory(ConfigurationManager.AppSettings["ArchiveDirectory"]);
             // _outputDatabase, _outputDbSettings
-            ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["CPSC594Entities"]);
+            ValidateOutputDatabaseConnection(ConfigurationManager.ConnectionStrings["MetricAnalyzerEntities"]);
             // _bugzillaDatabaseConnection, bugzillaDbSettings
             ValidateBugzillaDatabaseConnection(ConfigurationManager.ConnectionStrings["BugzillaDatabase"]);
             // _productDataDirectory
@@ -325,6 +324,8 @@ namespace Importer_System
                                             // If proper directory is specified
                                             if (_rootArchiveDirectory != null)
                                                 ArchiveFile(currentProductName, currentComponentName, logFile.Name);
+                                            else
+                                                logFile.Delete();
                                         }
                                         else
                                         {
@@ -338,7 +339,6 @@ namespace Importer_System
                             // --------------------------------------------------------------------
                             // END METRIC 1
                             // --------------------------------------------------------------------
-
                         }
                     }
                 }
@@ -377,9 +377,9 @@ namespace Importer_System
                    {
                        foreach (var iter in importedIterations)
                        {
-                           _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           //_outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
                            _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
-                           _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           //_velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
                        }
                        foreach (var iter in importedIterations)
                        {
@@ -483,7 +483,6 @@ namespace Importer_System
 
             if (lastIteration == null)
             {
-                initialRun = true;
                 DateTime endOfIteration;
                 do
                 {
@@ -503,7 +502,6 @@ namespace Importer_System
             }
             else
             {
-                initialRun = false;
                 var endPreviousIteration = (DateTime)lastIteration.EndDate;
                 if (endPreviousIteration.Date < DateTime.UtcNow.Date)
                 {
