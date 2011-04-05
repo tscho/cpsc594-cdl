@@ -1,0 +1,1087 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="2.0" xmlns:edmx="http://schemas.microsoft.com/ado/2008/10/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="MetricAnalyzerModel.Store" Alias="Self" Provider="System.Data.SqlClient" ProviderManifestToken="2008" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns="http://schemas.microsoft.com/ado/2009/02/edm/ssdl">
+        <EntityContainer Name="MetricAnalyzerModelStoreContainer">
+          <EntitySet Name="Component" EntityType="MetricAnalyzerModel.Store.Component" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Coverage" EntityType="MetricAnalyzerModel.Store.Coverage" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DefectInjectionRate" EntityType="MetricAnalyzerModel.Store.DefectInjectionRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="DefectRepairRate" EntityType="MetricAnalyzerModel.Store.DefectRepairRate" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Iteration" EntityType="MetricAnalyzerModel.Store.Iteration" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="OutOfScopeWork" EntityType="MetricAnalyzerModel.Store.OutOfScopeWork" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Product" EntityType="MetricAnalyzerModel.Store.Product" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="ResourceUtilization" EntityType="MetricAnalyzerModel.Store.ResourceUtilization" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="Rework" EntityType="MetricAnalyzerModel.Store.Rework" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="TestEffectiveness" EntityType="MetricAnalyzerModel.Store.TestEffectiveness" store:Type="Tables" Schema="dbo" />
+          <EntitySet Name="VelocityTrend" EntityType="MetricAnalyzerModel.Store.VelocityTrend" store:Type="Tables" Schema="dbo" />
+          <AssociationSet Name="FK_Component_Product" Association="MetricAnalyzerModel.Store.FK_Component_Product">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Component" EntitySet="Component" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_ComponentID" Association="MetricAnalyzerModel.Store.FK_Coverage_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="Coverage" EntitySet="Coverage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_IterationID" Association="MetricAnalyzerModel.Store.FK_Coverage_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Coverage" EntitySet="Coverage" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectInjectionRate_ComponentID" Association="MetricAnalyzerModel.Store.FK_DefectInjectionRate_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectInjectionRate_IterationID" Association="MetricAnalyzerModel.Store.FK_DefectInjectionRate_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_ComponentID" Association="MetricAnalyzerModel.Store.FK_DefectRepairRate_ComponentID">
+            <End Role="Component" EntitySet="Component" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_IterationID" Association="MetricAnalyzerModel.Store.FK_DefectRepairRate_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRate" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutOfScopeWork_IterationID" Association="MetricAnalyzerModel.Store.FK_OutOfScopeWork_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="OutOfScopeWork" EntitySet="OutOfScopeWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutOfScopeWork_ProductID" Association="MetricAnalyzerModel.Store.FK_OutOfScopeWork_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="OutOfScopeWork" EntitySet="OutOfScopeWork" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_IterationID" Association="MetricAnalyzerModel.Store.FK_ResourceUtilization_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_ProductID" Association="MetricAnalyzerModel.Store.FK_ResourceUtilization_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilization" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_IterationID" Association="MetricAnalyzerModel.Store.FK_Rework_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="Rework" EntitySet="Rework" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_ProductID" Association="MetricAnalyzerModel.Store.FK_Rework_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="Rework" EntitySet="Rework" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestEffectiveness_Iteration" Association="MetricAnalyzerModel.Store.FK_TestEffectiveness_Iteration">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="TestEffectiveness" EntitySet="TestEffectiveness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestEffectiveness_ProductID" Association="MetricAnalyzerModel.Store.FK_TestEffectiveness_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="TestEffectiveness" EntitySet="TestEffectiveness" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_IterationID" Association="MetricAnalyzerModel.Store.FK_VelocityTrend_IterationID">
+            <End Role="Iteration" EntitySet="Iteration" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrend" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ProductID" Association="MetricAnalyzerModel.Store.FK_VelocityTrend_ProductID">
+            <End Role="Product" EntitySet="Product" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrend" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ComponentName" Type="varchar" Nullable="false" MaxLength="100" />
+        </EntityType>
+        <EntityType Name="Coverage">
+          <Key>
+            <PropertyRef Name="CoverageID" />
+          </Key>
+          <Property Name="FileName" Type="varchar" MaxLength="100" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="LinesCovered" Type="int" Nullable="false" />
+          <Property Name="LinesExecuted" Type="int" Nullable="false" />
+          <Property Name="CoverageID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="DefectInjectionRateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="NumberOfHighDefects" Type="int" Nullable="false" />
+          <Property Name="NumberOfMediumDefects" Type="int" Nullable="false" />
+          <Property Name="NumberOfLowDefects" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="DefectRepairRate">
+          <Key>
+            <PropertyRef Name="DefectRepairRateID" />
+          </Key>
+          <Property Name="DefectRepairRateID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="NumberOfResolvedDefects" Type="int" Nullable="false" />
+          <Property Name="NumberOfVerifiedDefects" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Iteration">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="date" Nullable="false" />
+          <Property Name="EndDate" Type="date" Nullable="false" />
+          <Property Name="IterationLabel" Type="nchar" Nullable="false" MaxLength="4" />
+        </EntityType>
+        <EntityType Name="OutOfScopeWork">
+          <Key>
+            <PropertyRef Name="OutOfScopeWorkID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="OutOfScopeWorkID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonHours" Type="float" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductName" Type="varchar" Nullable="false" MaxLength="100" />
+          <Property Name="ProductID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+        </EntityType>
+        <EntityType Name="ResourceUtilization">
+          <Key>
+            <PropertyRef Name="ResourceUtilizationID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="ResourceUtilizationID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="PersonHours" Type="float" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="WorkActionID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Rework">
+          <Key>
+            <PropertyRef Name="ReworkID" />
+          </Key>
+          <Property Name="ReworkID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="ReworkHours" Type="float" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TestEffectiveness">
+          <Key>
+            <PropertyRef Name="TestEffectivenessID" />
+          </Key>
+          <Property Name="TestEffectivenessID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="TestCases" Type="int" Nullable="false" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+          <Property Name="ProductID" Type="int" Nullable="false" />
+        </EntityType>
+        <EntityType Name="VelocityTrend">
+          <Key>
+            <PropertyRef Name="VelocityTrendID" />
+          </Key>
+          <Property Name="ProductID" Type="int" Nullable="false" />
+          <Property Name="IterationID" Type="int" Nullable="false" />
+          <Property Name="EstimatedHours" Type="float" Nullable="false" />
+          <Property Name="ActualHours" Type="float" Nullable="false" />
+          <Property Name="VelocityTrendID" Type="int" Nullable="false" StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="datetime" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Component_Product">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="Component" Type="MetricAnalyzerModel.Store.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Store.Component" Multiplicity="1" />
+          <End Role="Coverage" Type="MetricAnalyzerModel.Store.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="Coverage" Type="MetricAnalyzerModel.Store.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectInjectionRate_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Store.Component" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="MetricAnalyzerModel.Store.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectInjectionRate_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="MetricAnalyzerModel.Store.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Store.Component" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="MetricAnalyzerModel.Store.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="MetricAnalyzerModel.Store.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutOfScopeWork_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="OutOfScopeWork" Type="MetricAnalyzerModel.Store.OutOfScopeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="OutOfScopeWork">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutOfScopeWork_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="OutOfScopeWork" Type="MetricAnalyzerModel.Store.OutOfScopeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OutOfScopeWork">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="MetricAnalyzerModel.Store.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="MetricAnalyzerModel.Store.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="Rework" Type="MetricAnalyzerModel.Store.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="Rework" Type="MetricAnalyzerModel.Store.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestEffectiveness_Iteration">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="TestEffectiveness" Type="MetricAnalyzerModel.Store.TestEffectiveness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="TestEffectiveness">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestEffectiveness_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="TestEffectiveness" Type="MetricAnalyzerModel.Store.TestEffectiveness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="TestEffectiveness">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Store.Iteration" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="MetricAnalyzerModel.Store.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Store.Product" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="MetricAnalyzerModel.Store.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="MetricAnalyzerModel" Alias="Self" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns="http://schemas.microsoft.com/ado/2008/09/edm">
+        <EntityContainer Name="MetricAnalyzerEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Components" EntityType="MetricAnalyzerModel.Component" />
+          <EntitySet Name="Coverages" EntityType="MetricAnalyzerModel.Coverage" />
+          <EntitySet Name="DefectInjectionRates" EntityType="MetricAnalyzerModel.DefectInjectionRate" />
+          <EntitySet Name="DefectRepairRates" EntityType="MetricAnalyzerModel.DefectRepairRate" />
+          <EntitySet Name="Iterations" EntityType="MetricAnalyzerModel.Iteration" />
+          <EntitySet Name="OutOfScopeWorks" EntityType="MetricAnalyzerModel.OutOfScopeWork" />
+          <EntitySet Name="Products" EntityType="MetricAnalyzerModel.Product" />
+          <EntitySet Name="ResourceUtilizations" EntityType="MetricAnalyzerModel.ResourceUtilization" />
+          <EntitySet Name="Reworks" EntityType="MetricAnalyzerModel.Rework" />
+          <EntitySet Name="TestEffectivenesses" EntityType="MetricAnalyzerModel.TestEffectiveness" />
+          <EntitySet Name="VelocityTrends" EntityType="MetricAnalyzerModel.VelocityTrend" />
+          <AssociationSet Name="FK_Component_Product" Association="MetricAnalyzerModel.FK_Component_Product">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Component" EntitySet="Components" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_ComponentID" Association="MetricAnalyzerModel.FK_Coverage_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="Coverage" EntitySet="Coverages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectInjectionRate_ComponentID" Association="MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_ComponentID" Association="MetricAnalyzerModel.FK_DefectRepairRate_ComponentID">
+            <End Role="Component" EntitySet="Components" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Coverage_IterationID" Association="MetricAnalyzerModel.FK_Coverage_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Coverage" EntitySet="Coverages" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectInjectionRate_IterationID" Association="MetricAnalyzerModel.FK_DefectInjectionRate_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="DefectInjectionRate" EntitySet="DefectInjectionRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_DefectRepairRate_IterationID" Association="MetricAnalyzerModel.FK_DefectRepairRate_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="DefectRepairRate" EntitySet="DefectRepairRates" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutOfScopeWork_IterationID" Association="MetricAnalyzerModel.FK_OutOfScopeWork_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="OutOfScopeWork" EntitySet="OutOfScopeWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_IterationID" Association="MetricAnalyzerModel.FK_ResourceUtilization_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_IterationID" Association="MetricAnalyzerModel.FK_Rework_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="Rework" EntitySet="Reworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestEffectiveness_Iteration" Association="MetricAnalyzerModel.FK_TestEffectiveness_Iteration">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="TestEffectiveness" EntitySet="TestEffectivenesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_IterationID" Association="MetricAnalyzerModel.FK_VelocityTrend_IterationID">
+            <End Role="Iteration" EntitySet="Iterations" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrends" />
+          </AssociationSet>
+          <AssociationSet Name="FK_OutOfScopeWork_ProductID" Association="MetricAnalyzerModel.FK_OutOfScopeWork_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="OutOfScopeWork" EntitySet="OutOfScopeWorks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ResourceUtilization_ProductID" Association="MetricAnalyzerModel.FK_ResourceUtilization_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="ResourceUtilization" EntitySet="ResourceUtilizations" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Rework_ProductID" Association="MetricAnalyzerModel.FK_Rework_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="Rework" EntitySet="Reworks" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TestEffectiveness_ProductID" Association="MetricAnalyzerModel.FK_TestEffectiveness_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="TestEffectiveness" EntitySet="TestEffectivenesses" />
+          </AssociationSet>
+          <AssociationSet Name="FK_VelocityTrend_ProductID" Association="MetricAnalyzerModel.FK_VelocityTrend_ProductID">
+            <End Role="Product" EntitySet="Products" />
+            <End Role="VelocityTrend" EntitySet="VelocityTrends" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Component">
+          <Key>
+            <PropertyRef Name="ComponentID" />
+          </Key>
+          <Property Name="ComponentID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ComponentName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_Component_Product" FromRole="Component" ToRole="Product" />
+          <NavigationProperty Name="Coverages" Relationship="MetricAnalyzerModel.FK_Coverage_ComponentID" FromRole="Component" ToRole="Coverage" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID" FromRole="Component" ToRole="DefectInjectionRate" />
+          <NavigationProperty Name="DefectRepairRates" Relationship="MetricAnalyzerModel.FK_DefectRepairRate_ComponentID" FromRole="Component" ToRole="DefectRepairRate" />
+        </EntityType>
+        <EntityType Name="Coverage">
+          <Key>
+            <PropertyRef Name="CoverageID" />
+          </Key>
+          <Property Name="FileName" Type="String" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="LinesCovered" Type="Int32" Nullable="false" />
+          <Property Name="LinesExecuted" Type="Int32" Nullable="false" />
+          <Property Name="CoverageID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" />
+          <NavigationProperty Name="Component" Relationship="MetricAnalyzerModel.FK_Coverage_ComponentID" FromRole="Coverage" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_Coverage_IterationID" FromRole="Coverage" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="DefectInjectionRate">
+          <Key>
+            <PropertyRef Name="DefectInjectionRateID" />
+          </Key>
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="DefectInjectionRateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfHighDefects" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfMediumDefects" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfLowDefects" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Component" Relationship="MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID" FromRole="DefectInjectionRate" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_DefectInjectionRate_IterationID" FromRole="DefectInjectionRate" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="DefectRepairRate">
+          <Key>
+            <PropertyRef Name="DefectRepairRateID" />
+          </Key>
+          <Property Name="DefectRepairRateID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ComponentID" Type="Int32" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfResolvedDefects" Type="Int32" Nullable="false" />
+          <Property Name="NumberOfVerifiedDefects" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Component" Relationship="MetricAnalyzerModel.FK_DefectRepairRate_ComponentID" FromRole="DefectRepairRate" ToRole="Component" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_DefectRepairRate_IterationID" FromRole="DefectRepairRate" ToRole="Iteration" />
+        </EntityType>
+        <EntityType Name="Iteration">
+          <Key>
+            <PropertyRef Name="IterationID" />
+          </Key>
+          <Property Name="IterationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="StartDate" Type="DateTime" Nullable="false" />
+          <Property Name="EndDate" Type="DateTime" Nullable="false" />
+          <Property Name="IterationLabel" Type="String" Nullable="false" MaxLength="4" Unicode="true" FixedLength="true" />
+          <NavigationProperty Name="Coverages" Relationship="MetricAnalyzerModel.FK_Coverage_IterationID" FromRole="Iteration" ToRole="Coverage" />
+          <NavigationProperty Name="DefectInjectionRates" Relationship="MetricAnalyzerModel.FK_DefectInjectionRate_IterationID" FromRole="Iteration" ToRole="DefectInjectionRate" />
+          <NavigationProperty Name="DefectRepairRates" Relationship="MetricAnalyzerModel.FK_DefectRepairRate_IterationID" FromRole="Iteration" ToRole="DefectRepairRate" />
+          <NavigationProperty Name="OutOfScopeWorks" Relationship="MetricAnalyzerModel.FK_OutOfScopeWork_IterationID" FromRole="Iteration" ToRole="OutOfScopeWork" />
+          <NavigationProperty Name="ResourceUtilizations" Relationship="MetricAnalyzerModel.FK_ResourceUtilization_IterationID" FromRole="Iteration" ToRole="ResourceUtilization" />
+          <NavigationProperty Name="Reworks" Relationship="MetricAnalyzerModel.FK_Rework_IterationID" FromRole="Iteration" ToRole="Rework" />
+          <NavigationProperty Name="TestEffectivenesses" Relationship="MetricAnalyzerModel.FK_TestEffectiveness_Iteration" FromRole="Iteration" ToRole="TestEffectiveness" />
+          <NavigationProperty Name="VelocityTrends" Relationship="MetricAnalyzerModel.FK_VelocityTrend_IterationID" FromRole="Iteration" ToRole="VelocityTrend" />
+        </EntityType>
+        <EntityType Name="OutOfScopeWork">
+          <Key>
+            <PropertyRef Name="OutOfScopeWorkID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="OutOfScopeWorkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonHours" Type="Double" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_OutOfScopeWork_IterationID" FromRole="OutOfScopeWork" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_OutOfScopeWork_ProductID" FromRole="OutOfScopeWork" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Product">
+          <Key>
+            <PropertyRef Name="ProductID" />
+          </Key>
+          <Property Name="ProductName" Type="String" Nullable="false" MaxLength="100" Unicode="false" FixedLength="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <NavigationProperty Name="Components" Relationship="MetricAnalyzerModel.FK_Component_Product" FromRole="Product" ToRole="Component" />
+          <NavigationProperty Name="OutOfScopeWorks" Relationship="MetricAnalyzerModel.FK_OutOfScopeWork_ProductID" FromRole="Product" ToRole="OutOfScopeWork" />
+          <NavigationProperty Name="ResourceUtilizations" Relationship="MetricAnalyzerModel.FK_ResourceUtilization_ProductID" FromRole="Product" ToRole="ResourceUtilization" />
+          <NavigationProperty Name="Reworks" Relationship="MetricAnalyzerModel.FK_Rework_ProductID" FromRole="Product" ToRole="Rework" />
+          <NavigationProperty Name="TestEffectivenesses" Relationship="MetricAnalyzerModel.FK_TestEffectiveness_ProductID" FromRole="Product" ToRole="TestEffectiveness" />
+          <NavigationProperty Name="VelocityTrends" Relationship="MetricAnalyzerModel.FK_VelocityTrend_ProductID" FromRole="Product" ToRole="VelocityTrend" />
+        </EntityType>
+        <EntityType Name="ResourceUtilization">
+          <Key>
+            <PropertyRef Name="ResourceUtilizationID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="ResourceUtilizationID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PersonHours" Type="Double" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="WorkActionID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_ResourceUtilization_IterationID" FromRole="ResourceUtilization" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_ResourceUtilization_ProductID" FromRole="ResourceUtilization" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="Rework">
+          <Key>
+            <PropertyRef Name="ReworkID" />
+          </Key>
+          <Property Name="ReworkID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ReworkHours" Type="Double" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_Rework_IterationID" FromRole="Rework" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_Rework_ProductID" FromRole="Rework" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="TestEffectiveness">
+          <Key>
+            <PropertyRef Name="TestEffectivenessID" />
+          </Key>
+          <Property Name="TestEffectivenessID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="TestCases" Type="Int32" Nullable="false" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_TestEffectiveness_Iteration" FromRole="TestEffectiveness" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_TestEffectiveness_ProductID" FromRole="TestEffectiveness" ToRole="Product" />
+        </EntityType>
+        <EntityType Name="VelocityTrend">
+          <Key>
+            <PropertyRef Name="VelocityTrendID" />
+          </Key>
+          <Property Name="ProductID" Type="Int32" Nullable="false" />
+          <Property Name="IterationID" Type="Int32" Nullable="false" />
+          <Property Name="EstimatedHours" Type="Double" Nullable="false" />
+          <Property Name="ActualHours" Type="Double" Nullable="false" />
+          <Property Name="VelocityTrendID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Date" Type="DateTime" Nullable="false" />
+          <NavigationProperty Name="Iteration" Relationship="MetricAnalyzerModel.FK_VelocityTrend_IterationID" FromRole="VelocityTrend" ToRole="Iteration" />
+          <NavigationProperty Name="Product" Relationship="MetricAnalyzerModel.FK_VelocityTrend_ProductID" FromRole="VelocityTrend" ToRole="Product" />
+        </EntityType>
+        <Association Name="FK_Component_Product">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="Component" Type="MetricAnalyzerModel.Component" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Component">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Component" Multiplicity="1" />
+          <End Role="Coverage" Type="MetricAnalyzerModel.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectInjectionRate_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Component" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="MetricAnalyzerModel.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_ComponentID">
+          <End Role="Component" Type="MetricAnalyzerModel.Component" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="MetricAnalyzerModel.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Component">
+              <PropertyRef Name="ComponentID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="ComponentID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Coverage_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="Coverage" Type="MetricAnalyzerModel.Coverage" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Coverage">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectInjectionRate_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="DefectInjectionRate" Type="MetricAnalyzerModel.DefectInjectionRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectInjectionRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_DefectRepairRate_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="DefectRepairRate" Type="MetricAnalyzerModel.DefectRepairRate" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="DefectRepairRate">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutOfScopeWork_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="OutOfScopeWork" Type="MetricAnalyzerModel.OutOfScopeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="OutOfScopeWork">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="MetricAnalyzerModel.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="Rework" Type="MetricAnalyzerModel.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestEffectiveness_Iteration">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="TestEffectiveness" Type="MetricAnalyzerModel.TestEffectiveness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="TestEffectiveness">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_IterationID">
+          <End Role="Iteration" Type="MetricAnalyzerModel.Iteration" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="MetricAnalyzerModel.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Iteration">
+              <PropertyRef Name="IterationID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="IterationID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_OutOfScopeWork_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="OutOfScopeWork" Type="MetricAnalyzerModel.OutOfScopeWork" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="OutOfScopeWork">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ResourceUtilization_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="ResourceUtilization" Type="MetricAnalyzerModel.ResourceUtilization" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="ResourceUtilization">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Rework_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="Rework" Type="MetricAnalyzerModel.Rework" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="Rework">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TestEffectiveness_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="TestEffectiveness" Type="MetricAnalyzerModel.TestEffectiveness" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="TestEffectiveness">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_VelocityTrend_ProductID">
+          <End Role="Product" Type="MetricAnalyzerModel.Product" Multiplicity="1" />
+          <End Role="VelocityTrend" Type="MetricAnalyzerModel.VelocityTrend" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Product">
+              <PropertyRef Name="ProductID" />
+            </Principal>
+            <Dependent Role="VelocityTrend">
+              <PropertyRef Name="ProductID" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2008/09/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="MetricAnalyzerModelStoreContainer" CdmEntityContainer="MetricAnalyzerEntities">
+          <EntitySetMapping Name="Components"><EntityTypeMapping TypeName="MetricAnalyzerModel.Component"><MappingFragment StoreEntitySet="Component">
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="ComponentName" ColumnName="ComponentName" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Coverages"><EntityTypeMapping TypeName="MetricAnalyzerModel.Coverage"><MappingFragment StoreEntitySet="Coverage">
+            <ScalarProperty Name="FileName" ColumnName="FileName" />
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="LinesCovered" ColumnName="LinesCovered" />
+            <ScalarProperty Name="LinesExecuted" ColumnName="LinesExecuted" />
+            <ScalarProperty Name="CoverageID" ColumnName="CoverageID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DefectInjectionRates"><EntityTypeMapping TypeName="MetricAnalyzerModel.DefectInjectionRate"><MappingFragment StoreEntitySet="DefectInjectionRate">
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="DefectInjectionRateID" ColumnName="DefectInjectionRateID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="NumberOfHighDefects" ColumnName="NumberOfHighDefects" />
+            <ScalarProperty Name="NumberOfMediumDefects" ColumnName="NumberOfMediumDefects" />
+            <ScalarProperty Name="NumberOfLowDefects" ColumnName="NumberOfLowDefects" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="DefectRepairRates"><EntityTypeMapping TypeName="MetricAnalyzerModel.DefectRepairRate"><MappingFragment StoreEntitySet="DefectRepairRate">
+            <ScalarProperty Name="DefectRepairRateID" ColumnName="DefectRepairRateID" />
+            <ScalarProperty Name="ComponentID" ColumnName="ComponentID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="NumberOfResolvedDefects" ColumnName="NumberOfResolvedDefects" />
+            <ScalarProperty Name="NumberOfVerifiedDefects" ColumnName="NumberOfVerifiedDefects" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Iterations"><EntityTypeMapping TypeName="MetricAnalyzerModel.Iteration"><MappingFragment StoreEntitySet="Iteration">
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="StartDate" ColumnName="StartDate" />
+            <ScalarProperty Name="EndDate" ColumnName="EndDate" />
+            <ScalarProperty Name="IterationLabel" ColumnName="IterationLabel" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="OutOfScopeWorks"><EntityTypeMapping TypeName="MetricAnalyzerModel.OutOfScopeWork"><MappingFragment StoreEntitySet="OutOfScopeWork">
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="OutOfScopeWorkID" ColumnName="OutOfScopeWorkID" />
+            <ScalarProperty Name="PersonHours" ColumnName="PersonHours" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Products"><EntityTypeMapping TypeName="MetricAnalyzerModel.Product"><MappingFragment StoreEntitySet="Product">
+            <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="ResourceUtilizations"><EntityTypeMapping TypeName="MetricAnalyzerModel.ResourceUtilization"><MappingFragment StoreEntitySet="ResourceUtilization">
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="ResourceUtilizationID" ColumnName="ResourceUtilizationID" />
+            <ScalarProperty Name="PersonHours" ColumnName="PersonHours" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+            <ScalarProperty Name="WorkActionID" ColumnName="WorkActionID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="Reworks"><EntityTypeMapping TypeName="MetricAnalyzerModel.Rework"><MappingFragment StoreEntitySet="Rework">
+            <ScalarProperty Name="ReworkID" ColumnName="ReworkID" />
+            <ScalarProperty Name="ReworkHours" ColumnName="ReworkHours" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="TestEffectivenesses"><EntityTypeMapping TypeName="MetricAnalyzerModel.TestEffectiveness"><MappingFragment StoreEntitySet="TestEffectiveness">
+            <ScalarProperty Name="TestEffectivenessID" ColumnName="TestEffectivenessID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="TestCases" ColumnName="TestCases" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+          <EntitySetMapping Name="VelocityTrends"><EntityTypeMapping TypeName="MetricAnalyzerModel.VelocityTrend"><MappingFragment StoreEntitySet="VelocityTrend">
+            <ScalarProperty Name="ProductID" ColumnName="ProductID" />
+            <ScalarProperty Name="IterationID" ColumnName="IterationID" />
+            <ScalarProperty Name="EstimatedHours" ColumnName="EstimatedHours" />
+            <ScalarProperty Name="ActualHours" ColumnName="ActualHours" />
+            <ScalarProperty Name="VelocityTrendID" ColumnName="VelocityTrendID" />
+            <ScalarProperty Name="Date" ColumnName="Date" />
+          </MappingFragment></EntityTypeMapping></EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2008/10/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="True" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams>
+      <Diagram Name="MetricAnalyzer">
+        <EntityTypeShape EntityType="MetricAnalyzerModel.Component" Width="1.5" PointX="0.75" PointY="9.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.Coverage" Width="1.5" PointX="3" PointY="13.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.DefectInjectionRate" Width="1.5" PointX="6" PointY="13.5" Height="2.7494921874999996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.DefectRepairRate" Width="1.5" PointX="3" PointY="9.625" Height="2.5571907552083353" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.Iteration" Width="1.5" PointX="0.5" PointY="13.25" Height="3.3263964843749996" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.OutOfScopeWork" Width="1.5" PointX="3" PointY="17.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.Product" Width="1.5" PointX="1.5" PointY="5.625" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.ResourceUtilization" Width="1.5" PointX="6" PointY="9.625" Height="2.5571907552083317" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.Rework" Width="1.5" PointX="6" PointY="17.625" Height="2.3648893229166674" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.TestEffectiveness" Width="1.5" PointX="9" PointY="13.625" Height="2.3648893229166656" IsExpanded="true" />
+        <EntityTypeShape EntityType="MetricAnalyzerModel.VelocityTrend" Width="1.5" PointX="9" PointY="9.625" Height="2.5571907552083317" IsExpanded="true" />
+        <AssociationConnector Association="MetricAnalyzerModel.FK_Component_Product" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.875" PointY="8.1821907552083317" />
+          <ConnectorPoint PointX="1.875" PointY="9.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_Coverage_ComponentID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.2257692307692305" PointY="11.989889322916667" />
+          <ConnectorPoint PointX="2.625" PointY="12.389120092147437" />
+          <ConnectorPoint PointX="2.625" PointY="14.874746093749998" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="14.874746093749998" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="14.874746093749998" />
+          <ConnectorPoint PointX="3" PointY="14.874746093749998" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="11.964503707532053" />
+          <ConnectorPoint PointX="2.6910744349011213" PointY="12.405578142433173" />
+          <ConnectorPoint PointX="2.8089255650988791" PointY="12.523429272630931" />
+          <ConnectorPoint PointX="2.875" PointY="12.589503707532053" />
+          <ConnectorPoint PointX="2.875" PointY="13.125" />
+          <ConnectorPoint PointX="5.6261528461538459" PointY="13.125" />
+          <ConnectorPoint PointX="6.0011528461538459" PointY="13.5" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_DefectRepairRate_ComponentID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.25" PointY="10.763499353766026" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="10.763499353766026" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="10.763499353766026" />
+          <ConnectorPoint PointX="3" PointY="10.763499353766026" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_Coverage_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="14.124873046874999" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="14.124873046874997" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="14.124873046874999" />
+          <ConnectorPoint PointX="3" PointY="14.124873046874999" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_DefectInjectionRate_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="16.551010868990382" />
+          <ConnectorPoint PointX="2.375" PointY="16.926010868990382" />
+          <ConnectorPoint PointX="2.375" PointY="16.6244921875" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="16.6244921875" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="16.6244921875" />
+          <ConnectorPoint PointX="5.6261528461538468" PointY="16.6244921875" />
+          <ConnectorPoint PointX="6.0011528461538459" PointY="16.2494921875" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_DefectRepairRate_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="0.59375" PointY="13.25" />
+          <ConnectorPoint PointX="0.59375" PointY="12.117290039062501" />
+          <ConnectorPoint PointX="2.2698366135817305" PointY="12.117290039062501" />
+          <ConnectorPoint PointX="2.4861196648637818" PointY="12.117290039062501" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="12.117290039062501" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="12.117290039062501" />
+          <ConnectorPoint PointX="3" PointY="12.117290039062501" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_OutOfScopeWork_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.2187474999999997" PointY="16.576396484375" />
+          <ConnectorPoint PointX="1.2187474999999997" PointY="18.807444661458334" />
+          <ConnectorPoint PointX="3" PointY="18.807444661458334" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_ResourceUtilization_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9757692307692305" PointY="13.25" />
+          <ConnectorPoint PointX="2.3507692307692309" PointY="12.875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="12.874999999999998" />
+          <ConnectorPoint PointX="2.9583333333333335" PointY="12.875" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="12.875" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="12.875" />
+          <ConnectorPoint PointX="6.75" PointY="12.875" />
+          <ConnectorPoint PointX="6.75" PointY="12.182190755208332" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_Rework_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="1.9757692307692305" PointY="16.576396484375" />
+          <ConnectorPoint PointX="2.3507692307692309" PointY="16.951396484375" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="16.951396484375" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="16.951396484375" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="16.951396484375" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="16.951396484375" />
+          <ConnectorPoint PointX="6.7818284230769228" PointY="16.951396484375" />
+          <ConnectorPoint PointX="6.7818284230769228" PointY="17.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_TestEffectiveness_Iteration" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="2.6666666666666665" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="2.8333333333333335" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="5.7670626720753217" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="5.9337293387419878" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="9.75" PointY="16.400249028245192" />
+          <ConnectorPoint PointX="9.75" PointY="15.989889322916666" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_VelocityTrend_IterationID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2" PointY="13.307691307692309" />
+          <ConnectorPoint PointX="2.3389413076923091" PointY="12.96875" />
+          <ConnectorPoint PointX="2.5416666666666665" PointY="12.968749999999998" />
+          <ConnectorPoint PointX="2.9583333333333335" PointY="12.96875" />
+          <ConnectorPoint PointX="5.541666666666667" PointY="12.96875" />
+          <ConnectorPoint PointX="5.708333333333333" PointY="12.96875" />
+          <ConnectorPoint PointX="8.5416666666666661" PointY="12.96875" />
+          <ConnectorPoint PointX="8.7083333333333339" PointY="12.96875" />
+          <ConnectorPoint PointX="9.75" PointY="12.96875" />
+          <ConnectorPoint PointX="9.75" PointY="12.182190755208332" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_OutOfScopeWork_ProductID" ManuallyRouted="false">
+          <ConnectorPoint PointX="2.75" PointY="8.1821907552083317" />
+          <ConnectorPoint PointX="2.75" PointY="18.184969830729166" />
+          <ConnectorPoint PointX="3" PointY="18.184969830729166" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_ResourceUtilization_ProductID" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="6.9035953776041659" />
+          <ConnectorPoint PointX="6.75" PointY="6.9035953776041659" />
+          <ConnectorPoint PointX="6.75" PointY="9.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_Rework_ProductID" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="8.1752666782852543" />
+          <ConnectorPoint PointX="3.4131740769230774" PointY="8.5884407552083317" />
+          <ConnectorPoint PointX="5.625" PointY="8.5884407552083317" />
+          <ConnectorPoint PointX="5.625" PointY="17.248847153846153" />
+          <ConnectorPoint PointX="6.0011528461538459" PointY="17.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_TestEffectiveness_ProductID" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="8.1568051398237174" />
+          <ConnectorPoint PointX="3.1503856153846144" PointY="8.3071907552083317" />
+          <ConnectorPoint PointX="6.666666666666667" PointY="8.3071907552083317" />
+          <ConnectorPoint PointX="6.833333333333333" PointY="8.3071907552083317" />
+          <ConnectorPoint PointX="8.625" PointY="8.3071907552083317" />
+          <ConnectorPoint PointX="8.625" PointY="13.25" />
+          <ConnectorPoint PointX="9" PointY="13.625" />
+        </AssociationConnector>
+        <AssociationConnector Association="MetricAnalyzerModel.FK_VelocityTrend_ProductID" ManuallyRouted="false">
+          <ConnectorPoint PointX="3" PointY="6.2330451888020821" />
+          <ConnectorPoint PointX="9.75" PointY="6.2330451888020821" />
+          <ConnectorPoint PointX="9.75" PointY="9.625" />
+        </AssociationConnector>
+      </Diagram>
+    </Diagrams>
+  </Designer>
+</edmx:Edmx>

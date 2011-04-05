@@ -18,23 +18,23 @@ using System.Runtime.Serialization;
 [assembly: EdmSchemaAttribute()]
 #region EDM Relationship Metadata
 
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Component_Product", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Component), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Coverage_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_Rework_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
-[assembly: EdmRelationshipAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_Component_Product", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Component), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_Coverage_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_ComponentID", "Component", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Component), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_Coverage_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Coverage", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Coverage), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectInjectionRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectInjectionRate), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "DefectRepairRate", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.DefectRepairRate), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_Rework_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_Iteration", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_VelocityTrend_IterationID", "Iteration", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Iteration), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "OutOfScopeWork", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.OutOfScopeWork), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "ResourceUtilization", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.ResourceUtilization), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_Rework_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "Rework", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.Rework), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "TestEffectiveness", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.TestEffectiveness), true)]
+[assembly: EdmRelationshipAttribute("MetricAnalyzerModel", "FK_VelocityTrend_ProductID", "Product", System.Data.Metadata.Edm.RelationshipMultiplicity.One, typeof(cpsc594_cdl.Common.Models.Product), "VelocityTrend", System.Data.Metadata.Edm.RelationshipMultiplicity.Many, typeof(cpsc594_cdl.Common.Models.VelocityTrend), true)]
 
 #endregion
 
@@ -45,32 +45,32 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    public partial class CPSC594Entities : ObjectContext
+    public partial class MetricAnalyzerEntities : ObjectContext
     {
         #region Constructors
     
         /// <summary>
-        /// Initializes a new CPSC594Entities object using the connection string found in the 'CPSC594Entities' section of the application configuration file.
+        /// Initializes a new MetricAnalyzerEntities object using the connection string found in the 'MetricAnalyzerEntities' section of the application configuration file.
         /// </summary>
-        public CPSC594Entities() : base("name=CPSC594Entities", "CPSC594Entities")
+        public MetricAnalyzerEntities() : base("name=MetricAnalyzerEntities", "MetricAnalyzerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CPSC594Entities object.
+        /// Initialize a new MetricAnalyzerEntities object.
         /// </summary>
-        public CPSC594Entities(string connectionString) : base(connectionString, "CPSC594Entities")
+        public MetricAnalyzerEntities(string connectionString) : base(connectionString, "MetricAnalyzerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
         }
     
         /// <summary>
-        /// Initialize a new CPSC594Entities object.
+        /// Initialize a new MetricAnalyzerEntities object.
         /// </summary>
-        public CPSC594Entities(EntityConnection connection) : base(connection, "CPSC594Entities")
+        public MetricAnalyzerEntities(EntityConnection connection) : base(connection, "MetricAnalyzerEntities")
         {
             this.ContextOptions.LazyLoadingEnabled = true;
             OnContextCreated();
@@ -364,7 +364,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Component")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="Component")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Component : EntityObject
@@ -474,16 +474,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Component_Product", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Component_Product", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Component_Product", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Component_Product", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Component_Product", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Component_Product", "Product").Value = value;
             }
         }
         /// <summary>
@@ -495,13 +495,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Component_Product", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Component_Product", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_Component_Product", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_Component_Product", "Product", value);
                 }
             }
         }
@@ -512,18 +512,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_ComponentID", "Coverage")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Coverage_ComponentID", "Coverage")]
         public EntityCollection<Coverage> Coverages
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_ComponentID", "Coverage");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Coverage");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_ComponentID", "Coverage", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Coverage", value);
                 }
             }
         }
@@ -534,18 +534,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectInjectionRate_ComponentID", "DefectInjectionRate")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_ComponentID", "DefectInjectionRate")]
         public EntityCollection<DefectInjectionRate> DefectInjectionRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "DefectInjectionRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "DefectInjectionRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "DefectInjectionRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "DefectInjectionRate", value);
                 }
             }
         }
@@ -556,18 +556,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectRepairRate_ComponentID", "DefectRepairRate")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_ComponentID", "DefectRepairRate")]
         public EntityCollection<DefectRepairRate> DefectRepairRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_ComponentID", "DefectRepairRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "DefectRepairRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_ComponentID", "DefectRepairRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "DefectRepairRate", value);
                 }
             }
         }
@@ -578,7 +578,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Coverage")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="Coverage")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Coverage : EntityObject
@@ -788,16 +788,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_ComponentID", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Coverage_ComponentID", "Component")]
         public Component Component
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_ComponentID", "Component").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Component").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_ComponentID", "Component").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Component").Value = value;
             }
         }
         /// <summary>
@@ -809,13 +809,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_Coverage_ComponentID", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_Coverage_ComponentID", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("MetricAnalyzerModel.FK_Coverage_ComponentID", "Component", value);
                 }
             }
         }
@@ -826,16 +826,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Coverage_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Coverage_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Coverage_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -847,13 +847,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Coverage_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Coverage_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Coverage_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_Coverage_IterationID", "Iteration", value);
                 }
             }
         }
@@ -864,7 +864,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="DefectInjectionRate")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="DefectInjectionRate")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class DefectInjectionRate : EntityObject
@@ -1078,16 +1078,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectInjectionRate_ComponentID", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_ComponentID", "Component")]
         public Component Component
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "Component").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "Component").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "Component").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "Component").Value = value;
             }
         }
         /// <summary>
@@ -1099,13 +1099,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_DefectInjectionRate_ComponentID", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("MetricAnalyzerModel.FK_DefectInjectionRate_ComponentID", "Component", value);
                 }
             }
         }
@@ -1116,16 +1116,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectInjectionRate_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectInjectionRate_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -1137,13 +1137,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectInjectionRate_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_DefectInjectionRate_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "Iteration", value);
                 }
             }
         }
@@ -1154,7 +1154,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="DefectRepairRate")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="DefectRepairRate")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class DefectRepairRate : EntityObject
@@ -1342,16 +1342,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectRepairRate_ComponentID", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_ComponentID", "Component")]
         public Component Component
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectRepairRate_ComponentID", "Component").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "Component").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectRepairRate_ComponentID", "Component").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "Component").Value = value;
             }
         }
         /// <summary>
@@ -1363,13 +1363,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("CPSC594Model.FK_DefectRepairRate_ComponentID", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Component>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("CPSC594Model.FK_DefectRepairRate_ComponentID", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Component>("MetricAnalyzerModel.FK_DefectRepairRate_ComponentID", "Component", value);
                 }
             }
         }
@@ -1380,16 +1380,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectRepairRate_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectRepairRate_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -1401,13 +1401,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_DefectRepairRate_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_DefectRepairRate_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "Iteration", value);
                 }
             }
         }
@@ -1418,7 +1418,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Iteration")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="Iteration")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Iteration : EntityObject
@@ -1554,18 +1554,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Coverage_IterationID", "Coverage")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Coverage_IterationID", "Coverage")]
         public EntityCollection<Coverage> Coverages
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_IterationID", "Coverage");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Coverage>("MetricAnalyzerModel.FK_Coverage_IterationID", "Coverage");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("CPSC594Model.FK_Coverage_IterationID", "Coverage", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Coverage>("MetricAnalyzerModel.FK_Coverage_IterationID", "Coverage", value);
                 }
             }
         }
@@ -1576,18 +1576,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectInjectionRate_IterationID", "DefectInjectionRate")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectInjectionRate_IterationID", "DefectInjectionRate")]
         public EntityCollection<DefectInjectionRate> DefectInjectionRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_DefectInjectionRate_IterationID", "DefectInjectionRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectInjectionRate>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "DefectInjectionRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("CPSC594Model.FK_DefectInjectionRate_IterationID", "DefectInjectionRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectInjectionRate>("MetricAnalyzerModel.FK_DefectInjectionRate_IterationID", "DefectInjectionRate", value);
                 }
             }
         }
@@ -1598,18 +1598,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_DefectRepairRate_IterationID", "DefectRepairRate")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_DefectRepairRate_IterationID", "DefectRepairRate")]
         public EntityCollection<DefectRepairRate> DefectRepairRates
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_IterationID", "DefectRepairRate");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<DefectRepairRate>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "DefectRepairRate");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("CPSC594Model.FK_DefectRepairRate_IterationID", "DefectRepairRate", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<DefectRepairRate>("MetricAnalyzerModel.FK_DefectRepairRate_IterationID", "DefectRepairRate", value);
                 }
             }
         }
@@ -1620,18 +1620,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "OutOfScopeWork")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_IterationID", "OutOfScopeWork")]
         public EntityCollection<OutOfScopeWork> OutOfScopeWorks
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "OutOfScopeWork");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_IterationID", "OutOfScopeWork", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "OutOfScopeWork", value);
                 }
             }
         }
@@ -1642,18 +1642,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_IterationID", "ResourceUtilization")]
         public EntityCollection<ResourceUtilization> ResourceUtilizations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "ResourceUtilization");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_IterationID", "ResourceUtilization", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "ResourceUtilization", value);
                 }
             }
         }
@@ -1664,18 +1664,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_IterationID", "Rework")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Rework_IterationID", "Rework")]
         public EntityCollection<Rework> Reworks
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_IterationID", "Rework");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("MetricAnalyzerModel.FK_Rework_IterationID", "Rework");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_IterationID", "Rework", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("MetricAnalyzerModel.FK_Rework_IterationID", "Rework", value);
                 }
             }
         }
@@ -1686,18 +1686,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "TestEffectiveness")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_Iteration", "TestEffectiveness")]
         public EntityCollection<TestEffectiveness> TestEffectivenesses
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "TestEffectiveness");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_Iteration", "TestEffectiveness", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "TestEffectiveness", value);
                 }
             }
         }
@@ -1708,18 +1708,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "VelocityTrend")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_VelocityTrend_IterationID", "VelocityTrend")]
         public EntityCollection<VelocityTrend> VelocityTrends
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_IterationID", "VelocityTrend");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "VelocityTrend");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_IterationID", "VelocityTrend", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "VelocityTrend", value);
                 }
             }
         }
@@ -1730,7 +1730,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="OutOfScopeWork")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="OutOfScopeWork")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class OutOfScopeWork : EntityObject
@@ -1892,16 +1892,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -1913,13 +1913,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_OutOfScopeWork_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_OutOfScopeWork_IterationID", "Iteration", value);
                 }
             }
         }
@@ -1930,16 +1930,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_ProductID", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_OutOfScopeWork_ProductID", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_OutOfScopeWork_ProductID", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "Product").Value = value;
             }
         }
         /// <summary>
@@ -1951,13 +1951,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_OutOfScopeWork_ProductID", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_OutOfScopeWork_ProductID", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "Product", value);
                 }
             }
         }
@@ -1968,7 +1968,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Product")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="Product")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Product : EntityObject
@@ -2052,18 +2052,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Component_Product", "Component")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Component_Product", "Component")]
         public EntityCollection<Component> Components
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Component>("CPSC594Model.FK_Component_Product", "Component");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Component>("MetricAnalyzerModel.FK_Component_Product", "Component");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("CPSC594Model.FK_Component_Product", "Component", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Component>("MetricAnalyzerModel.FK_Component_Product", "Component", value);
                 }
             }
         }
@@ -2074,18 +2074,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_OutOfScopeWork_ProductID", "OutOfScopeWork")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_OutOfScopeWork_ProductID", "OutOfScopeWork")]
         public EntityCollection<OutOfScopeWork> OutOfScopeWorks
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<OutOfScopeWork>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "OutOfScopeWork");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("CPSC594Model.FK_OutOfScopeWork_ProductID", "OutOfScopeWork", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<OutOfScopeWork>("MetricAnalyzerModel.FK_OutOfScopeWork_ProductID", "OutOfScopeWork", value);
                 }
             }
         }
@@ -2096,18 +2096,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "ResourceUtilization")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_ProductID", "ResourceUtilization")]
         public EntityCollection<ResourceUtilization> ResourceUtilizations
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<ResourceUtilization>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "ResourceUtilization");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("CPSC594Model.FK_ResourceUtilization_ProductID", "ResourceUtilization", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<ResourceUtilization>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "ResourceUtilization", value);
                 }
             }
         }
@@ -2118,18 +2118,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ProductID", "Rework")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Rework_ProductID", "Rework")]
         public EntityCollection<Rework> Reworks
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("CPSC594Model.FK_Rework_ProductID", "Rework");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<Rework>("MetricAnalyzerModel.FK_Rework_ProductID", "Rework");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("CPSC594Model.FK_Rework_ProductID", "Rework", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<Rework>("MetricAnalyzerModel.FK_Rework_ProductID", "Rework", value);
                 }
             }
         }
@@ -2140,18 +2140,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "TestEffectiveness")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_ProductID", "TestEffectiveness")]
         public EntityCollection<TestEffectiveness> TestEffectivenesses
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<TestEffectiveness>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "TestEffectiveness");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("CPSC594Model.FK_TestEffectiveness_ProductID", "TestEffectiveness", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<TestEffectiveness>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "TestEffectiveness", value);
                 }
             }
         }
@@ -2162,18 +2162,18 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "VelocityTrend")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_VelocityTrend_ProductID", "VelocityTrend")]
         public EntityCollection<VelocityTrend> VelocityTrends
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ProductID", "VelocityTrend");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedCollection<VelocityTrend>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "VelocityTrend");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("CPSC594Model.FK_VelocityTrend_ProductID", "VelocityTrend", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedCollection<VelocityTrend>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "VelocityTrend", value);
                 }
             }
         }
@@ -2184,7 +2184,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="ResourceUtilization")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="ResourceUtilization")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class ResourceUtilization : EntityObject
@@ -2372,16 +2372,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -2393,13 +2393,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_ResourceUtilization_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_ResourceUtilization_IterationID", "Iteration", value);
                 }
             }
         }
@@ -2410,16 +2410,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_ResourceUtilization_ProductID", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_ResourceUtilization_ProductID", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_ResourceUtilization_ProductID", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_ResourceUtilization_ProductID", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "Product").Value = value;
             }
         }
         /// <summary>
@@ -2431,13 +2431,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_ResourceUtilization_ProductID", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_ResourceUtilization_ProductID", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_ResourceUtilization_ProductID", "Product", value);
                 }
             }
         }
@@ -2448,7 +2448,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="Rework")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="Rework")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class Rework : EntityObject
@@ -2610,16 +2610,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Rework_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Rework_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Rework_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -2631,13 +2631,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_Rework_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_Rework_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_Rework_IterationID", "Iteration", value);
                 }
             }
         }
@@ -2648,16 +2648,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_Rework_ProductID", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_Rework_ProductID", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Rework_ProductID", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Rework_ProductID", "Product").Value = value;
             }
         }
         /// <summary>
@@ -2669,13 +2669,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_Rework_ProductID", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_Rework_ProductID", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_Rework_ProductID", "Product", value);
                 }
             }
         }
@@ -2686,7 +2686,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="TestEffectiveness")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="TestEffectiveness")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class TestEffectiveness : EntityObject
@@ -2848,16 +2848,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_Iteration", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_Iteration", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_TestEffectiveness_Iteration", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_TestEffectiveness_Iteration", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -2869,13 +2869,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_TestEffectiveness_Iteration", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_TestEffectiveness_Iteration", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_TestEffectiveness_Iteration", "Iteration", value);
                 }
             }
         }
@@ -2886,16 +2886,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_TestEffectiveness_ProductID", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_TestEffectiveness_ProductID", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_TestEffectiveness_ProductID", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_TestEffectiveness_ProductID", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "Product").Value = value;
             }
         }
         /// <summary>
@@ -2907,13 +2907,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_TestEffectiveness_ProductID", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_TestEffectiveness_ProductID", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_TestEffectiveness_ProductID", "Product", value);
                 }
             }
         }
@@ -2924,7 +2924,7 @@ namespace cpsc594_cdl.Common.Models
     /// <summary>
     /// No Metadata Documentation available.
     /// </summary>
-    [EdmEntityTypeAttribute(NamespaceName="CPSC594Model", Name="VelocityTrend")]
+    [EdmEntityTypeAttribute(NamespaceName="MetricAnalyzerModel", Name="VelocityTrend")]
     [Serializable()]
     [DataContractAttribute(IsReference=true)]
     public partial class VelocityTrend : EntityObject
@@ -3112,16 +3112,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_IterationID", "Iteration")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_VelocityTrend_IterationID", "Iteration")]
         public Iteration Iteration
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "Iteration").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "Iteration").Value = value;
             }
         }
         /// <summary>
@@ -3133,13 +3133,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Iteration>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "Iteration");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("CPSC594Model.FK_VelocityTrend_IterationID", "Iteration", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Iteration>("MetricAnalyzerModel.FK_VelocityTrend_IterationID", "Iteration", value);
                 }
             }
         }
@@ -3150,16 +3150,16 @@ namespace cpsc594_cdl.Common.Models
         [XmlIgnoreAttribute()]
         [SoapIgnoreAttribute()]
         [DataMemberAttribute()]
-        [EdmRelationshipNavigationPropertyAttribute("CPSC594Model", "FK_VelocityTrend_ProductID", "Product")]
+        [EdmRelationshipNavigationPropertyAttribute("MetricAnalyzerModel", "FK_VelocityTrend_ProductID", "Product")]
         public Product Product
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product").Value;
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "Product").Value;
             }
             set
             {
-                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product").Value = value;
+                ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "Product").Value = value;
             }
         }
         /// <summary>
@@ -3171,13 +3171,13 @@ namespace cpsc594_cdl.Common.Models
         {
             get
             {
-                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product");
+                return ((IEntityWithRelationships)this).RelationshipManager.GetRelatedReference<Product>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "Product");
             }
             set
             {
                 if ((value != null))
                 {
-                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("CPSC594Model.FK_VelocityTrend_ProductID", "Product", value);
+                    ((IEntityWithRelationships)this).RelationshipManager.InitializeRelatedReference<Product>("MetricAnalyzerModel.FK_VelocityTrend_ProductID", "Product", value);
                 }
             }
         }

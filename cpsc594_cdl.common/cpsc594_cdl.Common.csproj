@@ -49,14 +49,14 @@
   <ItemGroup>
     <Compile Include="Models\Component.cs" />
     <Compile Include="Models\Coverage.cs" />
-    <Compile Include="Models\CPSC594.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>CPSC594.edmx</DependentUpon>
-    </Compile>
     <Compile Include="Models\DatabaseAccessor.cs" />
     <Compile Include="Models\DefectInjectionRate.cs" />
     <Compile Include="Models\Iteration.cs" />
+    <Compile Include="Models\MetricAnalyzer.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>MetricAnalyzer.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\NoExistanceOfDirectoryException.cs" />
     <Compile Include="Models\OutputDatabaseConnectionException.cs" />
     <Compile Include="Models\Product.cs" />
@@ -71,9 +71,9 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Models\CPSC594.edmx">
+    <EntityDeploy Include="Models\MetricAnalyzer.edmx">
       <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>CPSC594.Designer.cs</LastGenOutput>
+      <LastGenOutput>MetricAnalyzer.Designer.cs</LastGenOutput>
     </EntityDeploy>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
