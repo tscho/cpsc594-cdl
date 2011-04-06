@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Runtime.Serialization;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     [Serializable]
     public sealed class TerminateException : Exception

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.IO;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     public static class Reporter
     {

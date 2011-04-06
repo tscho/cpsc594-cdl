@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Linq;
 using System.Text;
 
-namespace Importer_System.Gui
+namespace MetricAnalyzer.ImporterSystem.Gui
 {
         class DisplayMetric : INotifyPropertyChanged 
         {

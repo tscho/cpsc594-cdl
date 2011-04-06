@@ -9,15 +9,15 @@ using System.Text;
 using System.IO;
 using System.Windows.Forms;
 using System.Threading;
-using cpsc594_cdl.Common.Models;
-using Importer_System.Metrics;
-using Rework = cpsc594_cdl.Common.Models.Rework;
-using VelocityTrend = cpsc594_cdl.Common.Models.VelocityTrend;
+using MetricAnalyzer.Common.Models;
+using MetricAnalyzer.ImporterSystem.Metrics;
+using Rework = MetricAnalyzer.Common.Models.Rework;
+using VelocityTrend = MetricAnalyzer.Common.Models.VelocityTrend;
 using System.Collections.ObjectModel;
-using Importer_System.Gui;
+using MetricAnalyzer.ImporterSystem.Gui;
 
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
 
     class ImportEngine

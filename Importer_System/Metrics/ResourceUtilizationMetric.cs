@@ -2,13 +2,13 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using MySql.Data.Types;
 using System.Windows.Forms;
 
-namespace Importer_System.Metrics
+namespace MetricAnalyzer.ImporterSystem.Metrics
 {
     class ResourceUtilizationMetric
     {

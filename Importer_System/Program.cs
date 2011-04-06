@@ -6,7 +6,7 @@ using System.Windows.Forms;
 using System.Configuration;
 using System.Windows;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     static class Program
     {

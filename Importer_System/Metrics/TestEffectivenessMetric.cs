@@ -1,8 +1,8 @@
 ﻿using System;
 using System.IO;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace Importer_System.Metrics
+namespace MetricAnalyzer.ImporterSystem.Metrics
 {
     internal class TestEffectivenessMetric : Metric
     {
