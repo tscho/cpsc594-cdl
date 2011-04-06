@@ -5,7 +5,7 @@ using System.Text;
 using System.Data;
 using System.Windows.Forms;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     class ExcelReader
     {

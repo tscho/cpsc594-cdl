@@ -9,8 +9,8 @@
     <ProjectGuid>{6755BBA2-FEC7-41CA-B110-D43B6CD71115}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Importer_System_tests</RootNamespace>
-    <AssemblyName>Importer_System_tests</AssemblyName>
+    <RootNamespace>MetricAnalyzer.ImporterSystem.Tests</RootNamespace>
+    <AssemblyName>MetricAnalyzer.ImporterSystem.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -81,13 +81,9 @@
     <Compile Include="VelocityTrendTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cpsc594_cdl.common\cpsc594_cdl.Common.csproj">
-      <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
-      <Name>cpsc594_cdl.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\Importer_System\Importer_System.csproj">
+    <ProjectReference Include="..\Importer_System\MetricAnalyzer.ImporterSystem.csproj">
       <Project>{F42814B6-6A72-4384-9F4A-62F98CF4E7CB}</Project>
-      <Name>Importer_System</Name>
+      <Name>MetricAnalyzer.ImporterSystem</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>

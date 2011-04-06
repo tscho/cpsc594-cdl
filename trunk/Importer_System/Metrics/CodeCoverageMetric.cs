@@ -4,9 +4,9 @@ using System.Linq;
 using System.Text;
 using System.IO;
 using System.Windows.Forms;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     public class CodeCoverage : Metric
     {

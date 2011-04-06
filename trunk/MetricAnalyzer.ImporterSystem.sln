@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Importer_System", "Importer_System\Importer_System.csproj", "{F42814B6-6A72-4384-9F4A-62F98CF4E7CB}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.ImporterSystem", "Importer_System\MetricAnalyzer.ImporterSystem.csproj", "{F42814B6-6A72-4384-9F4A-62F98CF4E7CB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Importer_System_Tests", "Importer_System_tests\Importer_System_Tests.csproj", "{6755BBA2-FEC7-41CA-B110-D43B6CD71115}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.ImporterSystem.Tests", "Importer_System_tests\MetricAnalyzer.ImporterSystem.Tests.csproj", "{6755BBA2-FEC7-41CA-B110-D43B6CD71115}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A95EDF2B-FB9E-4EC3-BF07-AEE8D2D227E2}"
 	ProjectSection(SolutionItems) = preProject
@@ -12,7 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		TraceAndTestImpact.testsettings = TraceAndTestImpact.testsettings
 	EndProjectSection
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "cpsc594_cdl.Common", "cpsc594_cdl.common\cpsc594_cdl.Common.csproj", "{784CD925-1F38-4295-B120-7350AA0E7451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Common", "cpsc594_cdl.common\MetricAnalyzer.Common.csproj", "{784CD925-1F38-4295-B120-7350AA0E7451}"
 EndProject
 Global
 	GlobalSection(TestCaseManagementSettings) = postSolution
