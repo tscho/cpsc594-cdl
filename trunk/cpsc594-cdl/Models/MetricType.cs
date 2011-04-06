@@ -1,4 +1,4 @@
-﻿namespace cpsc594_cdl.Models
+﻿namespace MetricAnalyzer.Portal.Models
 {
     public enum MetricType
     {

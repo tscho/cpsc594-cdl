@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 using System.IO;
-using cpsc594_cdl.Common.Models;
-using cpsc594_cdl.Infrastructure;
+using MetricAnalyzer.Common.Models;
+using MetricAnalyzer.Portal.Infrastructure;
 
-namespace cpsc594_cdl.Models
+namespace MetricAnalyzer.Portal.Models
 {
     public class CoverageMetric : PerComponentMetric
     {

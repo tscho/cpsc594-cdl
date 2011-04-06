@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace cpsc594_cdl.Common.Models
+namespace MetricAnalyzer.Common.Models
 {
     [Serializable]
     public class OutputDatabaseConnectionException : Exception

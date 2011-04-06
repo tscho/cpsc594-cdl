@@ -1,4 +1,4 @@
-﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<cpsc594_cdl.Models.IndexModel>" %>
+﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MetricAnalyzer.Portal.Models.IndexModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
     <meta http-equiv="cache-control" content="no-cache">
@@ -20,7 +20,7 @@
     </script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
-<%@ Import Namespace="cpsc594_cdl.Models" %>
+<%@ Import Namespace="MetricAnalyzer.Portal.Models" %>
 <body>
     <div id="content">
     <input id="toggle" type="submit" value="Show Menu" onclick="menu_toggle();return false;" />

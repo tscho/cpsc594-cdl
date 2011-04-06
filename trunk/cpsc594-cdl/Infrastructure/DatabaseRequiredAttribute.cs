@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace cpsc594_cdl.Infrastructure
+namespace MetricAnalyzer.Portal.Infrastructure
 {
     [AttributeUsage(AttributeTargets.Method)]
     public class DatabaseRequiredAttribute : ActionFilterAttribute

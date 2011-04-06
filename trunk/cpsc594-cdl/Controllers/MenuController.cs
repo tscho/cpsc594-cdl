@@ -3,11 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using cpsc594_cdl.Models;
-using cpsc594_cdl.Infrastructure;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Portal.Models;
+using MetricAnalyzer.Portal.Infrastructure;
+using MetricAnalyzer.Common.Models;
 
-namespace cpsc594_cdl.Controllers
+namespace MetricAnalyzer.Portal.Controllers
 {
     public class MenuController : Controller
     {

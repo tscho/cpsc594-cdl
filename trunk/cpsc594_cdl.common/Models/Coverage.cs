@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace cpsc594_cdl.Common.Models
+namespace MetricAnalyzer.Common.Models
 {
     public partial class Coverage
     {

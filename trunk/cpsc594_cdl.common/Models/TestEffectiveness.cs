@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace cpsc594_cdl.Common.Models
+namespace MetricAnalyzer.Common.Models
 {
     public partial class TestEffectiveness
     {

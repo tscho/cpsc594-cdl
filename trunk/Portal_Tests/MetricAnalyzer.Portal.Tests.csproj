@@ -9,8 +9,8 @@
     <ProjectGuid>{4261E85D-017C-4073-9929-07E9EE31403E}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Portal_Tests</RootNamespace>
-    <AssemblyName>Portal_Tests</AssemblyName>
+    <RootNamespace>MetricAnalyzer.Portal.Tests</RootNamespace>
+    <AssemblyName>MetricAnalyzer.Portal.Tests</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{3AC096D0-A1C2-E12C-1390-A8335801FDAB};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -72,13 +72,13 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cpsc594-cdl\cpsc594-cdl.csproj">
+    <ProjectReference Include="..\cpsc594-cdl\MetricAnalyzer.Portal.csproj">
       <Project>{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}</Project>
-      <Name>cpsc594-cdl</Name>
+      <Name>MetricAnalyzer.Portal</Name>
     </ProjectReference>
-    <ProjectReference Include="..\cpsc594_cdl.common\cpsc594_cdl.Common.csproj">
+    <ProjectReference Include="..\cpsc594_cdl.common\MetricAnalyzer.Common.csproj">
       <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
-      <Name>cpsc594_cdl.Common</Name>
+      <Name>MetricAnalyzer.Common</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
