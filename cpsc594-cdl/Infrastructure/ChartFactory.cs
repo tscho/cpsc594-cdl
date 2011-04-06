@@ -5,7 +5,7 @@ using System.Web;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
 
-namespace cpsc594_cdl.Infrastructure
+namespace MetricAnalyzer.Portal.Infrastructure
 {
     public class ChartFactory
     {

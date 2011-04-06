@@ -4,7 +4,7 @@ using System.Data;
 using System.Linq;
 using System.Windows.Forms;
 
-namespace cpsc594_cdl.Common.Models
+namespace MetricAnalyzer.Common.Models
 {
     public static class DatabaseAccessor
     {

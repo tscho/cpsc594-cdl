@@ -3,10 +3,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using cpsc594_cdl.Models;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Portal.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace cpsc594_cdl.Models
+namespace MetricAnalyzer.Portal.Models
 {
     public class IndexModel
     {

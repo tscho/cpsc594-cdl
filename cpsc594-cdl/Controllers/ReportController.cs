@@ -6,10 +6,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.DataVisualization.Charting;
 using System.Drawing;
-using cpsc594_cdl.Models;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Portal.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace cpsc594_cdl.Controllers
+namespace MetricAnalyzer.Portal.Controllers
 {
     public class ReportController : Controller
     {

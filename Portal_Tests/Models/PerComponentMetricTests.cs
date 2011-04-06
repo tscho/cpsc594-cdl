@@ -3,8 +3,8 @@ using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using cpsc594_cdl.Models;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Portal.Models;
+using MetricAnalyzer.Common.Models;
 
 namespace Portal_Tests.Models
 {

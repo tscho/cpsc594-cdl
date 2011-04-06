@@ -8,8 +8,8 @@
     <ProjectGuid>{784CD925-1F38-4295-B120-7350AA0E7451}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>cpsc594_cdl.Common</RootNamespace>
-    <AssemblyName>cpsc594_cdl.Common</AssemblyName>
+    <RootNamespace>MetricAnalyzer.Common</RootNamespace>
+    <AssemblyName>MetricAnalyzer.Common</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>

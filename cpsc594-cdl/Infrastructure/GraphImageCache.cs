@@ -7,7 +7,7 @@ using System.IO;
 using System.Configuration;
 using System.Drawing;
 
-namespace cpsc594_cdl.Infrastructure
+namespace MetricAnalyzer.Portal.Infrastructure
 {
     public class ChartImageCache
     {

@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
-using cpsc594_cdl.Models;
+using MetricAnalyzer.Portal.Models;
 
-namespace cpsc594_cdl.Controllers
+namespace MetricAnalyzer.Portal.Controllers
 {
     public class HomeController : Controller
     {

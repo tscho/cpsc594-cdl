@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 
-namespace cpsc594_cdl.Models
+namespace MetricAnalyzer.Portal.Models
 {
     public abstract class PerComponentMetric : Metric
     {
