@@ -1,11 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Portal", "cpsc594-cdl\MetricAnalyzer.Portal.csproj", "{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Portal", "MetricAnalyzer.Portal\MetricAnalyzer.Portal.csproj", "{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Common", "cpsc594_cdl.common\MetricAnalyzer.Common.csproj", "{784CD925-1F38-4295-B120-7350AA0E7451}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Common", "MetricAnalyzer.Common\MetricAnalyzer.Common.csproj", "{784CD925-1F38-4295-B120-7350AA0E7451}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Portal.Tests", "Portal_Tests\MetricAnalyzer.Portal.Tests.csproj", "{4261E85D-017C-4073-9929-07E9EE31403E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MetricAnalyzer.Portal.Tests", "MetricAnalyzer.Portal.Tests\MetricAnalyzer.Portal.Tests.csproj", "{4261E85D-017C-4073-9929-07E9EE31403E}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{8D90685E-7A8F-4FA8-946C-982A91EEF122}"
 	ProjectSection(SolutionItems) = preProject
