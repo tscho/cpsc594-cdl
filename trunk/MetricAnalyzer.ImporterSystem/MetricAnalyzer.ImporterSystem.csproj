@@ -108,7 +108,7 @@
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cpsc594_cdl.common\MetricAnalyzer.Common.csproj">
+    <ProjectReference Include="..\MetricAnalyzer.Common\MetricAnalyzer.Common.csproj">
       <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
       <Name>MetricAnalyzer.Common</Name>
     </ProjectReference>
