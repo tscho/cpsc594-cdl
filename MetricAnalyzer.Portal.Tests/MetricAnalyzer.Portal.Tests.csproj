@@ -72,11 +72,11 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\cpsc594-cdl\MetricAnalyzer.Portal.csproj">
+    <ProjectReference Include="..\MetricAnalyzer.Portal\MetricAnalyzer.Portal.csproj">
       <Project>{2EF6612F-E47A-4540-8D1E-AFB9BBDBE04E}</Project>
       <Name>MetricAnalyzer.Portal</Name>
     </ProjectReference>
-    <ProjectReference Include="..\cpsc594_cdl.common\MetricAnalyzer.Common.csproj">
+    <ProjectReference Include="..\MetricAnalyzer.Common\MetricAnalyzer.Common.csproj">
       <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
       <Name>MetricAnalyzer.Common</Name>
     </ProjectReference>
