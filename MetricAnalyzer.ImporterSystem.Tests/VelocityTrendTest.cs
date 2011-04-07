@@ -4,9 +4,9 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Importer_System;
+using MetricAnalyzer.ImporterSystem;
 
-namespace Importer_System_tests
+namespace MetricAnalyzer.ImporterSystem.Tests
 {
     /// <summary>
     /// Summary description for AllTests

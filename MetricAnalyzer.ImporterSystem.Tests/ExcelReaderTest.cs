@@ -7,7 +7,7 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Importer_System;
 using System.Windows.Forms;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem.Tests
 {
     /// <summary>
     /// Summary description for AllTests

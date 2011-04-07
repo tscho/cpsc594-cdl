@@ -9,9 +9,10 @@ using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System.Windows.Forms;
 using Assert = Microsoft.VisualStudio.TestTools.UnitTesting.Assert;
 using TestContext = Microsoft.VisualStudio.TestTools.UnitTesting.TestContext;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
+using MetricAnalyzer.ImporterSystem;
 
-namespace Importer_System_Tests
+namespace MetricAnalyzer.ImportSystem.Tests
 {
     /// <summary>
     /// Summary description for AllTests
@@ -124,7 +125,7 @@ namespace Importer_System_Tests
         /// 2. doesnotexist.info is a file that does not exist
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
+        [DeploymentItem("MetricAnalyzer.ImporterSystem.exe")]
         public void ArchiveFileTest()
         {
             ImportEngine_Accessor target = new ImportEngine_Accessor(); // TODO: Initialize to an appropriate value
@@ -151,7 +152,7 @@ namespace Importer_System_Tests
         /// 
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
+        [DeploymentItem("MetricAnalyzer.ImporterSystem.exe")]
         public void UpdateArchiveDirectoryTest()
         {
             String[] files;
@@ -316,7 +317,7 @@ namespace Importer_System_Tests
         ///A test for findNewProducts
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
+        [DeploymentItem("MetricAnalyzer.ImporterSystem.exe")]
         public void findNewProductsTest()
         {
             ImportEngine_Accessor target = new ImportEngine_Accessor(); // TODO: Initialize to an appropriate value

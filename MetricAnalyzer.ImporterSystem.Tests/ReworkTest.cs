@@ -1,13 +1,13 @@
 ﻿using System;
-using cpsc594_cdl.Common.Models;
+using MetricAnalyzer.Common.Models;
 using System.Text;
 using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Importer_System;
+using MetricAnalyzer.ImporterSystem;
 
-namespace Importer_System_tests
+namespace MetricAnalyzer.ImporterSystem.Tests
 {
     /// <summary>
     /// Summary description for AllTests

@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows.Forms;
 using System.Configuration;
 using System.Windows;
+using MetricAnalyzer.ImporterSystem.Gui;
 
 namespace MetricAnalyzer.ImporterSystem
 {
