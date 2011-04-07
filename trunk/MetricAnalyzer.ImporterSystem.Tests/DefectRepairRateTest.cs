@@ -9,7 +9,7 @@ using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using MySql.Data.Types;
 
-namespace DefectRepairRateTest
+namespace MetricAnalyzer.ImporterSystem.Tests
 {
     /// <summary>
     /// Summary description for AllTests

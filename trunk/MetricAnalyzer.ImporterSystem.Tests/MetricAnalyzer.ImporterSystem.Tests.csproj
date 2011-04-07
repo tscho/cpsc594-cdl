@@ -67,7 +67,6 @@
     <Compile Include="CodeCoverageTest.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DatabaseTest.cs" />
     <Compile Include="DefectInjectionRateTest.cs" />
     <Compile Include="DefectRepairRateTest.cs" />
     <Compile Include="ExcelReaderTest.cs" />
@@ -81,7 +80,11 @@
     <Compile Include="VelocityTrendTest.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Importer_System\MetricAnalyzer.ImporterSystem.csproj">
+    <ProjectReference Include="..\MetricAnalyzer.Common\MetricAnalyzer.Common.csproj">
+      <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
+      <Name>MetricAnalyzer.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MetricAnalyzer.ImporterSystem\MetricAnalyzer.ImporterSystem.csproj">
       <Project>{F42814B6-6A72-4384-9F4A-62F98CF4E7CB}</Project>
       <Name>MetricAnalyzer.ImporterSystem</Name>
     </ProjectReference>

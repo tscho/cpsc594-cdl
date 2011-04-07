@@ -7,7 +7,7 @@ using System.Windows.Forms;
 
 namespace MetricAnalyzer.ImporterSystem
 {
-    class ExcelReader
+    public class ExcelReader
     {
         private string connectionString;
         public ExcelReader(string connectionString)

@@ -1,8 +1,8 @@
-﻿using Importer_System.Metrics;
+﻿using MetricAnalyzer.ImporterSystem.Metrics;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
 
-namespace Importer_System_tests
+namespace MetricAnalyzer.ImporterSystem.Tests
 {
     
     
@@ -68,7 +68,7 @@ namespace Importer_System_tests
         ///A test for FindLineValue
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
+        [DeploymentItem("MetricAnalyzer.ImporterSystem.exe")]
         public void FindLineValueTest()
         {
             TestEffectivenessMetric_Accessor target = new TestEffectivenessMetric_Accessor(); // TODO: Initialize to an appropriate value
@@ -84,7 +84,7 @@ namespace Importer_System_tests
         ///A test for FindComponent
         ///</summary>
         [TestMethod()]
-        [DeploymentItem("Importer_System.exe")]
+        [DeploymentItem("MetricAnalyzer.ImporterSystem.exe")]
         public void FindComponentTest()
         {
             TestEffectivenessMetric_Accessor target = new TestEffectivenessMetric_Accessor(); // TODO: Initialize to an appropriate value

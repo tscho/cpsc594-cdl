@@ -13,9 +13,10 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using System.Collections.ObjectModel;
+using MetricAnalyzer.ImporterSystem;
 using MetricAnalyzer.ImporterSystem.Gui;
 
-namespace Importer_System
+namespace MetricAnalyzer.ImporterSystem
 {
     /// <summary>
     /// Interaction logic for Importer_Gui.xaml
