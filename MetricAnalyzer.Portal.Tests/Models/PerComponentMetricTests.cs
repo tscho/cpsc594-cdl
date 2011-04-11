@@ -24,8 +24,8 @@ namespace Portal_Tests.Models
             CoverageMetric cov1 = new CoverageMetric(iterations);
             CoverageMetric cov2 = new CoverageMetric(iterations);
 
-            var cache1 = cov1.GetCacheCode(componentIds);
-            var cache2 = cov2.GetCacheCode(componentIds);
+            var cache1 = cov1.StringEncode(componentIds);
+            var cache2 = cov2.StringEncode(componentIds);
 
             Assert.AreEqual(cache1, cache2);
         }
@@ -70,15 +70,15 @@ namespace Portal_Tests.Models
                     componentIds3.Add(id);
                 }
 
-                var cache1 = cov1.GetCacheCode(componentIds1.ToArray());
-                var cache2 = cov2.GetCacheCode(componentIds2.ToArray());
+                var cache1 = cov1.StringEncode(componentIds1.ToArray());
+                var cache2 = cov2.StringEncode(componentIds2.ToArray());
                 Assert.AreEqual(cache1, cache2);
 
                 componentIds3.Reverse();
-                var cache3 = cov3.GetCacheCode(componentIds3.ToArray());
+                var cache3 = cov3.StringEncode(componentIds3.ToArray());
                 Assert.AreEqual(cache1, cache3);
 
-                var cache4 = cov4.GetCacheCode(genRandomIntArray(102, 1000, true));
+                var cache4 = cov4.StringEncode(genRandomIntArray(102, 1000, true));
                 Assert.AreNotEqual(cache1, cache4);
             }
         }

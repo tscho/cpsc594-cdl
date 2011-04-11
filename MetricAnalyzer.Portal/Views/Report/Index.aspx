@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="" Language="C#" MasterPageFile="~/Views/Shared/Site.Master" Inherits="System.Web.Mvc.ViewPage<MetricAnalyzer.Portal.Models.IndexModel>" %>
 
 <asp:Content ID="Content1" ContentPlaceHolderID="HeaderContent" runat="server">
-    <meta http-equiv="cache-control" content="no-cache">
+    <meta http-equiv="cache-control" content="no-cache" />
     <link rel="Stylesheet" href="/content/jquery-ui-1.8.7.custom.css" />
     <script src="/Scripts/jquery-1.4.4.min.js" type="text/javascript" language="javascript"></script>
     <script src="/Scripts/jquery-ui-1.8.7.custom.min.js" type="text/javascript" language="javascript"></script>
@@ -18,9 +18,11 @@
             isHidden = !isHidden;
         }
     </script>
+    <script type="text/javascript" src="/Scripts/js/highcharts.src.js"></script>
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Import Namespace="MetricAnalyzer.Portal.Models" %>
+<%@ Import Namespace="MetricAnalyzer.Common.Models" %>
 <body>
     <div id="content">
     <input id="toggle" type="submit" value="Show Menu" onclick="menu_toggle();return false;" />
@@ -54,13 +56,15 @@
                         <% foreach (var metric in Model.ProductMetrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
-                                <img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Products) %>" alt="Overview" /><br />
+                                <!--<img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Products) %>" alt="Overview" /><br />-->
+                                <div id="<%= metric.StringEncode(Model.ProductIDs.ToArray()) %>" class="highchart" title="<%= metric.Name + " Overview" %>"></div>
                             </div>
                            <% } %>
                         <% foreach (var metric in Model.ComponentMetrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
-                                <img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />
+                                <!--<img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />-->
+                                <div id="<%= metric.StringEncode(Model.Components.Select<Component, int>(x => x.ComponentID).ToArray()) %>" class="highchart"></div>
                             </div>
                            <% } %>
                     </div>
@@ -80,8 +84,9 @@
                                     <% foreach (var metric in Model.ComponentMetrics)
                                        { %>
                                         <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
-                                            alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />
+                                            <!--<img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
+                                            alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />-->
+                                            <div id="<%= metric.StringEncode(new int[] { comp.ComponentID }) %>" class="highchart" specificComponent="true"></div>
                                         </div>
                                    <% } %>
                                 </div>
@@ -92,8 +97,57 @@
         <% } %>
     </div>
     <script type="text/javascript" language="javascript">
+        var highcharts = new Object;
+        function tryRender(ui) {
+            target = $(ui.panel).find(".highchart");
+            if (highcharts[target.attr("id")] == undefined) {
+                renderChart(target);
+            }
+        }
+
+        function renderChart(target) {
+            $.ajax({
+                type: "POST",
+                url: "/Report/HighChart",
+                data: {
+                    title: target.attr("title"),
+                    target: target.attr("id"),
+                    encodedString: target.attr("id"),
+                    specificComponent: target.attr("specificComponent")
+                },
+                success: function (data) {
+                    highcharts[target.attr("id")] = new Highcharts.Chart(data);
+                    return true;
+                }
+            });
+        }
+
         $(function () {
             $(".tabs").tabs();
+            /*
+            $(".highchart").each(function () {
+            $.ajax({
+            type: "POST",
+            url: "/Report/HighChart",
+            data: {
+            title: $(this).attr("title"),
+            target: $(this).attr("id"),
+            encodedString: $(this).attr("id"),
+            specificComponent: $(this).attr("specificComponent")
+            },
+            success: function (data) {
+            highcharts.push(new Highcharts.Chart(data));
+            }
+            });
+            });
+            */
+            renderChart($(".highchart").first(), 0);
+            $(".tabs").bind('tabsshow', function (event, ui) {
+                event.stopPropagation();
+                tryRender(ui);
+                $(window).resize();
+                $(".tabs").resize();
+            });
         });
     </script>
     </div>

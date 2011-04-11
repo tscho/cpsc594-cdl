@@ -52,7 +52,12 @@ namespace MetricAnalyzer.Portal.Models
                 }
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(productIds.ToArray<int>()), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.StringEncode(productIds.ToArray<int>()), chart);
+        }
+
+        public override HighCharts.HighChart GenerateHighChart(string title, string target, IEnumerable<Product> products)
+        {
+            throw new NotImplementedException();
         }
     }
 }

@@ -118,6 +118,18 @@
     <Content Include="Content\Site.css" />
     <Content Include="Scripts\jquery-1.4.4.min.js" />
     <Content Include="Scripts\jquery-ui-1.8.7.custom.min.js" />
+    <Content Include="Scripts\js\adapters\mootools-adapter.js" />
+    <Content Include="Scripts\js\adapters\mootools-adapter.src.js" />
+    <Content Include="Scripts\js\adapters\prototype-adapter.js" />
+    <Content Include="Scripts\js\adapters\prototype-adapter.src.js" />
+    <Content Include="Scripts\js\highcharts.js" />
+    <Content Include="Scripts\js\highcharts.src.js" />
+    <Content Include="Scripts\js\modules\exporting.js" />
+    <Content Include="Scripts\js\modules\exporting.src.js" />
+    <Content Include="Scripts\js\themes\dark-blue.js" />
+    <Content Include="Scripts\js\themes\dark-green.js" />
+    <Content Include="Scripts\js\themes\gray.js" />
+    <Content Include="Scripts\js\themes\grid.js" />
     <Content Include="Views\Error\Index.aspx" />
     <Content Include="Views\Home\Index.aspx" />
     <Content Include="Views\Menu\Index.aspx" />
@@ -148,6 +160,10 @@
     </Content>
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\HighCharts\HighCharts.csproj">
+      <Project>{7D690303-DD3C-415B-8630-688C9DAA5C5B}</Project>
+      <Name>HighCharts</Name>
+    </ProjectReference>
     <ProjectReference Include="..\MetricAnalyzer.Common\MetricAnalyzer.Common.csproj">
       <Project>{784CD925-1F38-4295-B120-7350AA0E7451}</Project>
       <Name>MetricAnalyzer.Common</Name>
