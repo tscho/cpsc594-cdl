@@ -9,10 +9,11 @@ namespace MetricAnalyzer.Portal.Models
     public abstract class PerProductMetric : Metric
     {
         public abstract string GenerateOverviewGraph(string title, IEnumerable<Product> products);
+        public abstract HighCharts.HighChart GenerateHighChart(string title, string target, IEnumerable<Product> products);
 
         public PerProductMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
 
-        public string GetCacheCode(int[] productIDs)
+        public string StringEncode(int[] productIDs)
         {
             Array.Sort(iterationIDs);
             Array.Sort(productIDs);

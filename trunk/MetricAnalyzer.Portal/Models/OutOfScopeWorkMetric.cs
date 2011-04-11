@@ -52,7 +52,61 @@ namespace MetricAnalyzer.Portal.Models
                 }
             }
 
-            return ChartImageCache.GetImageCache().SaveChartImage(this.GetCacheCode(productIds.ToArray<int>()), chart);
+            return ChartImageCache.GetImageCache().SaveChartImage(this.StringEncode(productIds.ToArray<int>()), chart);
+        }
+
+        public override HighCharts.HighChart GenerateHighChart(string title, string target, IEnumerable<Product> products)
+        {
+            var productIds = products.Select<Product, int>(x => x.ProductID);
+
+            var chart = new HighCharts.HighChart();
+
+            chart.chart = new HighCharts.ChartOptions() { renderTo = target };
+            chart.title = new HighCharts.TextObject(title);
+            chart.xAxis = new HighCharts.XAxisObject() { categories = new string[Iterations.Count()], title = new HighCharts.TextObject("Iteration ID") };
+            chart.yAxis = new HighCharts.YAxisObject() { title = new HighCharts.TextObject("Out of Scope Work (hours)") };
+
+            //Mapping productIDs to categories
+            Dictionary<int, int> xTranslate = new Dictionary<int, int>();
+            int i = 0;
+            foreach (var iteration in Iterations)
+            {
+                xTranslate.Add(iteration.IterationID, i);
+                chart.xAxis.categories[i] = iteration.IterationLabel;
+                i++;
+            }
+
+            var seriesList = new List<HighCharts.Series>();
+
+            HighCharts.Series series;
+            List<HighCharts.DataPoint> data;
+            foreach (var product in products)
+            {
+                if (product.OutOfScopeWorks == null || product.OutOfScopeWorks.Count == 0)
+                    continue;
+
+                series = new HighCharts.Series() { name = product.ProductName };
+                data = new List<HighCharts.DataPoint>();
+
+				foreach (var oos in product.OutOfScopeWorks.Where(x => iterationIDs.Contains(x.IterationID)))
+                {
+                    var existingPoints = data.Where(x => x.x == xTranslate[oos.IterationID]);
+                    if (existingPoints.Count() > 0)
+                    {
+                        existingPoints.FirstOrDefault().y += oos.PersonHours;
+                    }
+                    else
+                    {
+                        data.Add(new HighCharts.DataPoint() { name = product.ProductName, x = xTranslate[oos.IterationID], y = oos.PersonHours });
+                    }
+                }
+
+                series.data = data.ToArray();
+                seriesList.Add(series);
+            }
+
+            chart.series = seriesList.ToArray();
+            return chart;
         }
     }
 }

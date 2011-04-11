@@ -51,6 +51,7 @@
     <Compile Include="Models\Coverage.cs" />
     <Compile Include="Models\DatabaseAccessor.cs" />
     <Compile Include="Models\DefectInjectionRate.cs" />
+    <Compile Include="Models\DefectRepairRate.cs" />
     <Compile Include="Models\Iteration.cs" />
     <Compile Include="Models\MetricAnalyzer.Designer.cs">
       <AutoGen>True</AutoGen>

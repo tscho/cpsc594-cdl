@@ -532,9 +532,24 @@ namespace MetricAnalyzer.Common.Models
             }
         }
 
-        public static List<Iteration> GetIterations(int startId, int endId)
+        public static List<Iteration> GetIterations(int startID, int endID)
         {
-            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.IterationID >= startId && i.IterationID <= endId orderby i.IterationID ascending select i);
+            DateTime startDate = (from i in _context.Iterations where i.IterationID == startID select i.StartDate).FirstOrDefault();
+            DateTime endDate = (from i in _context.Iterations where i.IterationID == endID select i.StartDate).FirstOrDefault();
+
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where i.StartDate >= startDate && i.StartDate <= endDate orderby i.StartDate ascending select i);
+
+            if (iterations != null)
+            {
+                return iterations.ToList();
+            }
+
+            return null;
+        }
+
+        public static List<Iteration> GetIterations(IEnumerable<int> iterationIDs)
+        {
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations where iterationIDs.Contains(i.IterationID) orderby i.IterationID ascending select i);
 
             if (iterations != null)
             {

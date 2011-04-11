@@ -74,5 +74,18 @@ namespace MetricAnalyzer.Portal.Controllers
             }
             return View(model);
         }
+
+        public JsonResult HighChart(string title, string target, string encodedString, bool? specificComponent)
+        {
+            Metric metric = Metric.CreateMetricInstanceFromEncodedString(encodedString);
+
+            if(typeof(PerComponentMetric).IsInstanceOfType(metric))
+                if(specificComponent != null && (bool)specificComponent)
+                    return Json(((PerComponentMetric)metric).GenerateHighChart(title, target, Metric.GetComponentsFromEncodedString(encodedString)));
+                else
+                    return Json(((PerComponentMetric)metric).GenerateOverviewHighChart(title, target, Metric.GetComponentsFromEncodedString(encodedString)));
+            else
+                return Json(((PerProductMetric)metric).GenerateHighChart(title, target, Metric.GetProductsFromEncodedString(encodedString)));
+        }
     }
 }

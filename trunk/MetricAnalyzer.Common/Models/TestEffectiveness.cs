@@ -7,12 +7,12 @@ namespace MetricAnalyzer.Common.Models
 {
     public partial class TestEffectiveness
     {
-        //public DefectInjectionRate AssociatedDefectRate { get { return this.Iteration.DefectInjectionRates.FirstOrDefault(x => x.ComponentID == this.ComponentID); } }
-
-        public int getValue()
+        public float getValue()
         {
-            //return AssociatedDefectRate.GetValue() / (this.TestCases > 0 ? this.TestCases : 1);
-            return 1;
+            float totalDefects = this.Product.Components.Aggregate<Component, float>(0, 
+                (x, comp) => x + comp.DefectInjectionRates.Aggregate<DefectInjectionRate, int>(0, 
+                    (y, injRate) => y + injRate.GetValue()));
+            return totalDefects / (this.TestCases > 0 ? this.TestCases : 1);
         }
     }
 }
