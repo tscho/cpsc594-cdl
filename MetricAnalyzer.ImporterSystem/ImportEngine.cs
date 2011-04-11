@@ -377,9 +377,9 @@ namespace MetricAnalyzer.ImporterSystem
                    {
                        foreach (var iter in importedIterations)
                        {
-                           //_outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           _outOfScopeWork.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
                            _resourceUtilization.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
-                           //_velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
+                           _velocityTrend.CalculateMetric(Path.Combine(_productDataDirectory, productData.Name), iter);
                        }
                        foreach (var iter in importedIterations)
                        {
