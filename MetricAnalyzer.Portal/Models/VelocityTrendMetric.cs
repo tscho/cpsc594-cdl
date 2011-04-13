@@ -56,7 +56,7 @@ namespace MetricAnalyzer.Portal.Models
             chart.chart = new HighCharts.ChartOptions() { renderTo = target };
             chart.title = new HighCharts.TextObject(title);
             chart.xAxis = new HighCharts.XAxisObject() { categories = new string[Iterations.Count()], title = new HighCharts.TextObject("Iteration ID") };
-            chart.yAxis = new HighCharts.YAxisObject() { title = new HighCharts.TextObject("Out of Scope Work (hours)") };
+            chart.yAxis = new HighCharts.YAxisObject() { title = new HighCharts.TextObject("Estimated / Actual") };
 
             Dictionary<int, int> xTranslate = new Dictionary<int, int>();
             int i = 0;
@@ -73,7 +73,7 @@ namespace MetricAnalyzer.Portal.Models
             List<HighCharts.DataPoint> data;
             foreach (var product in products)
             {
-                if (product.OutOfScopeWorks == null || product.OutOfScopeWorks.Count == 0)
+                if (product.VelocityTrends == null || product.VelocityTrends.Count == 0)
                     continue;
 
                 series = new HighCharts.Series() { name = product.ProductName };
