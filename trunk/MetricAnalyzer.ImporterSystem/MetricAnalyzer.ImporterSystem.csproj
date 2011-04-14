@@ -34,8 +34,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="MySql.Data">
-      <HintPath>..\..\..\..\..\Dropbox\School\CPSC594\Group\Project Data\MySql-Connector\bin\MySql.Data.dll</HintPath>
+    <Reference Include="mysql.data">
+      <HintPath>..\MySql-Connector\mysql.data.dll</HintPath>
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
