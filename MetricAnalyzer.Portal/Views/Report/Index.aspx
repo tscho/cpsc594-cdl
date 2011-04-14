@@ -23,6 +23,7 @@
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Import Namespace="MetricAnalyzer.Portal.Models" %>
 <%@ Import Namespace="MetricAnalyzer.Common.Models" %>
+<%@ Import Namespace="System.Linq" %>
 <body>
     <div id="content">
     <input id="toggle" type="submit" value="Show Menu" onclick="menu_toggle();return false;" />
@@ -56,15 +57,13 @@
                         <% foreach (var metric in Model.ProductMetrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
-                                <!--<img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Products) %>" alt="Overview" /><br />-->
                                 <div id="<%= metric.StringEncode(Model.ProductIDs.ToArray()) %>" class="highchart" title="<%= metric.Name + " Overview" %>"></div>
                             </div>
                            <% } %>
                         <% foreach (var metric in Model.ComponentMetrics)
                            { %>
                             <div id="overview-<%= Html.Encode(metric.ID) %>">
-                                <!--<img src="<%= metric.GenerateOverviewGraph(metric.Name + " Overview", Model.Components) %>" alt="Overview" /><br />-->
-                                <div id="<%= metric.StringEncode(Model.Components.Select<Component, int>(x => x.ComponentID).ToArray()) %>" class="highchart"></div>
+                                <div id="<%= metric.StringEncode(Model.Components.Select<Component, int>(x => x.ComponentID).ToArray()) %>" title="<%= metric.Name + " Overview" %>" class="highchart"></div>
                             </div>
                            <% } %>
                     </div>
@@ -84,9 +83,7 @@
                                     <% foreach (var metric in Model.ComponentMetrics)
                                        { %>
                                         <div id="<%= Html.Encode(comp.ComponentID) %>-<%= Html.Encode(metric.ID) %>">
-                                            <!--<img src="<%= metric.GenerateComponentGraph(comp.ComponentName + " " + metric.Name, comp) %>" 
-                                            alt="<%= Html.Encode(comp.ComponentName + " " + metric.Name) %>" /><br />-->
-                                            <div id="<%= metric.StringEncode(new int[] { comp.ComponentID }) %>" class="highchart" specificComponent="true"></div>
+                                            <div id="<%= metric.StringEncode(new int[] { comp.ComponentID }) %>" class="highchart" specificComponent="true" title="<%= metric.Name  %>"></div>
                                         </div>
                                    <% } %>
                                 </div>

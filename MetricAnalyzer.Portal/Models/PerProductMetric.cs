@@ -8,7 +8,6 @@ namespace MetricAnalyzer.Portal.Models
 {
     public abstract class PerProductMetric : Metric
     {
-        public abstract string GenerateOverviewGraph(string title, IEnumerable<Product> products);
         public abstract HighCharts.HighChart GenerateHighChart(string title, string target, IEnumerable<Product> products);
 
         public PerProductMetric(IEnumerable<Iteration> iterations) : base(iterations) { }
@@ -17,7 +16,7 @@ namespace MetricAnalyzer.Portal.Models
         {
             Array.Sort(iterationIDs);
             Array.Sort(productIDs);
-            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", productIDs);
+            return this.ID + "--" + string.Join("-", iterationIDs.Select(x=>x.ToString()).ToArray()) + "--" + string.Join("-", productIDs.Select(x=>x.ToString()).ToArray());
         }
 
         public static IEnumerable<int> IDs

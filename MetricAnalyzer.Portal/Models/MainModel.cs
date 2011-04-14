@@ -28,5 +28,16 @@ namespace MetricAnalyzer.Portal.Models
 
         public List<PerComponentMetric> ComponentMetrics { get; set; }
         public List<PerProductMetric> ProductMetrics { get; set; }
+
+        public IEnumerable<Object> Metrics
+        {
+            get
+            {
+                List<Object> metrics = new List<object>();
+                foreach (var metric in Enum.GetNames(typeof(MetricType)))
+                    metrics.Add(new { Name = metric, Id = (int)Enum.Parse(typeof(MetricType), metric) });
+                return metrics;
+            }
+        }
     }
 }
