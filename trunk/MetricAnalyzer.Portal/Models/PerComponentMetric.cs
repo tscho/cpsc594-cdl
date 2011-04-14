@@ -8,8 +8,6 @@ namespace MetricAnalyzer.Portal.Models
 {
     public abstract class PerComponentMetric : Metric
     {
-        public abstract string GenerateOverviewGraph(string title, IEnumerable<Component> components);
-        public abstract string GenerateComponentGraph(string title, Component component);
         public abstract HighCharts.HighChart GenerateHighChart(string title, string target, IEnumerable<Component> components);
         public abstract HighCharts.HighChart GenerateOverviewHighChart(string title, string target, IEnumerable<Component> components);
 
@@ -19,7 +17,7 @@ namespace MetricAnalyzer.Portal.Models
         {
             Array.Sort(iterationIDs);
             Array.Sort(componentIDs);
-            return this.ID + "--" + string.Join("-", iterationIDs) + "--" + string.Join("-", componentIDs);
+            return this.ID + "--" + string.Join("-", iterationIDs.Select(x=>x.ToString()).ToArray()) + "--" + string.Join("-", componentIDs.Select(x=>x.ToString()).ToArray());
         }
 
         public string StringEncode(int componentID)

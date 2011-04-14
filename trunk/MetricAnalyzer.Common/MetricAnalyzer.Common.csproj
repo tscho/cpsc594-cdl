@@ -10,8 +10,9 @@
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>MetricAnalyzer.Common</RootNamespace>
     <AssemblyName>MetricAnalyzer.Common</AssemblyName>
-    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v3.5</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <TargetFrameworkProfile />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -37,12 +38,12 @@
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
-    <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
   </ItemGroup>
@@ -53,10 +54,10 @@
     <Compile Include="Models\DefectInjectionRate.cs" />
     <Compile Include="Models\DefectRepairRate.cs" />
     <Compile Include="Models\Iteration.cs" />
-    <Compile Include="Models\MetricAnalyzer.Designer.cs">
+    <Compile Include="Models\MetricAnalyzerEntities.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
-      <DependentUpon>MetricAnalyzer.edmx</DependentUpon>
+      <DependentUpon>MetricAnalyzerEntities.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\NoExistanceOfDirectoryException.cs" />
     <Compile Include="Models\OutputDatabaseConnectionException.cs" />
@@ -64,6 +65,11 @@
     <Compile Include="Models\TestEffectiveness.cs" />
     <Compile Include="Models\VelocityTrend.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Models\Repositories\" />
@@ -72,10 +78,23 @@
     <None Include="App.Config">
       <SubType>Designer</SubType>
     </None>
-    <EntityDeploy Include="Models\MetricAnalyzer.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>MetricAnalyzer.Designer.cs</LastGenOutput>
-    </EntityDeploy>
+    <None Include="Models\MetricAnalyzerEntities.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>MetricAnalyzerEntities.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Models\MetricAnalyzerEntities.dbml.layout">
+      <DependentUpon>MetricAnalyzerEntities.dbml</DependentUpon>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -8,11 +8,11 @@ namespace MetricAnalyzer.Common.Models
 {
     public static class DatabaseAccessor
     {
-        private static MetricAnalyzerEntities _context;
+        private static MetricAnalyzerEntitiesDataContext _context;
 
         static DatabaseAccessor()
         {
-            _context = new MetricAnalyzerEntities();
+            _context = new MetricAnalyzerEntitiesDataContext();
         }
 
         /// <summary>
@@ -94,15 +94,15 @@ namespace MetricAnalyzer.Common.Models
                         LinesExecuted = linesExecuted,
                         FileName = fileName
                     };
-                    _context.Coverages.AddObject(coverage);
-                    _context.SaveChanges();
+                    _context.Coverages.InsertOnSubmit(coverage);
+                    _context.SubmitChanges();
                     id = coverage.CoverageID;
                 }
                 else{
                     entryExists.LinesCovered = linesCovered;
                     entryExists.LinesExecuted = linesExecuted;
                     entryExists.FileName = fileName;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.CoverageID;
                 }
             }
@@ -136,8 +136,8 @@ namespace MetricAnalyzer.Common.Models
                         NumberOfLowDefects = numberOfLowDefects,
                         Date = DateTime.Now
                     };
-                    _context.DefectInjectionRates.AddObject(defectInjectionRate);
-                    _context.SaveChanges();
+                    _context.DefectInjectionRates.InsertOnSubmit(defectInjectionRate);
+                    _context.SubmitChanges();
                     id = defectInjectionRate.DefectInjectionRateID;
                 }
                 else
@@ -145,7 +145,7 @@ namespace MetricAnalyzer.Common.Models
                     entryExists.NumberOfHighDefects = numberOfHighDefects;
                     entryExists.NumberOfMediumDefects = numberOfMediumDefects;
                     entryExists.NumberOfLowDefects = numberOfLowDefects;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.DefectInjectionRateID;
                 }
             }
@@ -179,15 +179,15 @@ namespace MetricAnalyzer.Common.Models
                         IterationID = currIteration,
                         Date = DateTime.Now
                     };
-                    _context.DefectRepairRates.AddObject(defectRepairRate);
-                    _context.SaveChanges();
+                    _context.DefectRepairRates.InsertOnSubmit(defectRepairRate);
+                    _context.SubmitChanges();
                     id = defectRepairRate.DefectRepairRateID;
                 }
                 else
                 {
                     entryExists.NumberOfVerifiedDefects = numberOfVerifiedDefects;
                     entryExists.NumberOfResolvedDefects = numberOfResolvedDefects;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.DefectRepairRateID;
                 }
             }
@@ -221,14 +221,14 @@ namespace MetricAnalyzer.Common.Models
                         TestCases = testCases,
                         Date = DateTime.Now
                     };
-                    _context.TestEffectivenesses.AddObject(testEffect);
-                    _context.SaveChanges();
+                    _context.TestEffectivenesses.InsertOnSubmit(testEffect);
+                    _context.SubmitChanges();
                     id = testEffect.TestEffectivenessID;
                 }
                 else
                 {
                     entryExists.TestCases = testCases;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.TestEffectivenessID;
                 }
             }
@@ -264,14 +264,14 @@ namespace MetricAnalyzer.Common.Models
                         PersonHours = hours,
                         Date = DateTime.Now
                     };
-                    _context.ResourceUtilizations.AddObject(resourseUtil);
-                    _context.SaveChanges();
+                    _context.ResourceUtilizations.InsertOnSubmit(resourseUtil);
+                    _context.SubmitChanges();
                     id = resourseUtil.ResourceUtilizationID;
                 }
                 else
                 {
                     entryExists.PersonHours = hours;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.ResourceUtilizationID;
                 }
             }
@@ -297,14 +297,14 @@ namespace MetricAnalyzer.Common.Models
                         PersonHours = hours,
                         Date = DateTime.Now
                     };
-                    _context.OutOfScopeWorks.AddObject(outOfScopeWork);
-                    _context.SaveChanges();
+                    _context.OutOfScopeWorks.InsertOnSubmit(outOfScopeWork);
+                    _context.SubmitChanges();
                     id = outOfScopeWork.OutOfScopeWorkID;
                 }
                 else
                 {
                     entryExists.PersonHours = hours;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.OutOfScopeWorkID;
                 }
             }
@@ -354,15 +354,15 @@ namespace MetricAnalyzer.Common.Models
                         ReworkHours = reworkHours,
                         Date = DateTime.Now
                     };
-                    _context.Reworks.AddObject(rework);
-                    _context.SaveChanges();
+                    _context.Reworks.InsertOnSubmit(rework);
+                    _context.SubmitChanges();
                     id = rework.ReworkID;
                 }
                 else
                 {
                     entryExists.ReworkHours = reworkHours;
-                    _context.AcceptAllChanges();
-                    _context.SaveChanges();
+                    //_context.AcceptAllChanges();
+                    _context.SubmitChanges();
                     id = entryExists.ReworkID;
                 }
             }
@@ -389,15 +389,15 @@ namespace MetricAnalyzer.Common.Models
                         ActualHours = actualHours,
                         Date = DateTime.Now
                     };
-                    _context.VelocityTrends.AddObject(velocityTrend);
-                    _context.SaveChanges();
+                    _context.VelocityTrends.InsertOnSubmit(velocityTrend);
+                    _context.SubmitChanges();
                     id = velocityTrend.VelocityTrendID;
                 }
                 else
                 {
                     entryExists.ActualHours = actualHours;
                     entryExists.EstimatedHours = estimatedHours;
-                    _context.SaveChanges();
+                    _context.SubmitChanges();
                     id = entryExists.VelocityTrendID;
                 }
             }
@@ -442,9 +442,9 @@ namespace MetricAnalyzer.Common.Models
 
             product.ProductName = productName;
 
-            _context.Products.AddObject(product);
+            _context.Products.InsertOnSubmit(product);
 
-            _context.SaveChanges();
+            _context.SubmitChanges();
         }
 
         /// <summary>
@@ -474,10 +474,10 @@ namespace MetricAnalyzer.Common.Models
             iteration.EndDate = endDate.Date;
             iteration.IterationLabel = label;
 
-            _context.Iterations.AddObject(iteration);
+            _context.Iterations.InsertOnSubmit(iteration);
             try
             {
-                _context.SaveChanges();
+                _context.SubmitChanges();
                 return iteration;
             }
             catch (Exception e)
@@ -624,8 +624,8 @@ namespace MetricAnalyzer.Common.Models
             {
                 var component = new Component { ProductID = componentProduct.ProductID, ComponentName = componenetName };
 
-                _context.Components.AddObject(component);
-                _context.SaveChanges();
+                _context.Components.InsertOnSubmit(component);
+                _context.SubmitChanges();
             }
         }
     }

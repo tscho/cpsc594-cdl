@@ -9,6 +9,7 @@
 </asp:Content>
 <asp:Content ID="Content2" ContentPlaceHolderID="MainContent" runat="server">
 <%@ Import Namespace="MetricAnalyzer.Portal.Models" %>
+<%@ Import Namespace="System.Linq" %>
 <body>
     <div id="content">
     <div id="header">
@@ -20,12 +21,7 @@
            { %>
             <tr>
                 <td id="Td2">Metrics:</td>
-                <td><%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(
-                    Enum.GetNames(typeof(MetricType)).Join<String, int, int, object>(
-                    (int[])Enum.GetValues(typeof(MetricType)), 
-                    x => (int)Enum.Parse(typeof(MetricType), x),
-                    y => y, (x, y) => new { Name = x, Id = y }),
-                "Id", "Name"), new { @size = "8", @onclick = "submit();"})%></td>
+                <td><%= Html.ListBoxFor(m => m.MetricIDs, new MultiSelectList(Model.Metrics, "Id", "Name"), new { @size = "8", @onclick = "submit();"})%></td>
             </tr>
             <tr><td></td><td><input type="submit" value="Next" /></td></tr>
         <% } %>
@@ -33,7 +29,7 @@
         <% if (Model.MetricIDs != null) { %>
             <% using (Html.BeginForm("Index", "Report", FormMethod.Post, new { @id = "reportForm", @target = "report" }))
                { %>
-               <% for (int i = 0; i < Model.MetricIDs.Count(); i++)
+               <% for (int i = 0; i < Model.MetricIDs.Length; i++)
                   { %>
                        <%= Html.HiddenFor(m => m.MetricIDs[i])%>
                <% } %>

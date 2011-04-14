@@ -1,0 +1,137 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MetricAnalyzer" Class="MetricAnalyzerEntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=CPSC594;Integrated Security=True" SettingsObjectName="MetricAnalyzer.Common.Properties.Settings" SettingsPropertyName="CPSC594ConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.Component" Member="Components">
+    <Type Name="Component">
+      <Column Name="ComponentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ComponentName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Association Name="Component_Coverage" Member="Coverages" ThisKey="ComponentID" OtherKey="ComponentID" Type="Coverage" />
+      <Association Name="Component_DefectInjectionRate" Member="DefectInjectionRates" ThisKey="ComponentID" OtherKey="ComponentID" Type="DefectInjectionRate" />
+      <Association Name="Component_DefectRepairRate" Member="DefectRepairRates" ThisKey="ComponentID" OtherKey="ComponentID" Type="DefectRepairRate" />
+      <Association Name="Product_Component" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.VelocityTrend" Member="VelocityTrends">
+    <Type Name="VelocityTrend">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="EstimatedHours" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ActualHours" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="VelocityTrendID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_VelocityTrend" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+      <Association Name="Product_VelocityTrend" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Coverage" Member="Coverages">
+    <Type Name="Coverage">
+      <Column Name="FileName" Type="System.String" DbType="VarChar(100)" CanBeNull="true" />
+      <Column Name="ComponentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinesCovered" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="LinesExecuted" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CoverageID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Association Name="Component_Coverage" Member="Component" ThisKey="ComponentID" OtherKey="ComponentID" Type="Component" IsForeignKey="true" />
+      <Association Name="Iteration_Coverage" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DefectInjectionRate" Member="DefectInjectionRates">
+    <Type Name="DefectInjectionRate">
+      <Column Name="ComponentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="DefectInjectionRateID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfHighDefects" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfMediumDefects" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfLowDefects" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Component_DefectInjectionRate" Member="Component" ThisKey="ComponentID" OtherKey="ComponentID" Type="Component" IsForeignKey="true" />
+      <Association Name="Iteration_DefectInjectionRate" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.DefectRepairRate" Member="DefectRepairRates">
+    <Type Name="DefectRepairRate">
+      <Column Name="DefectRepairRateID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ComponentID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfResolvedDefects" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="NumberOfVerifiedDefects" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Component_DefectRepairRate" Member="Component" ThisKey="ComponentID" OtherKey="ComponentID" Type="Component" IsForeignKey="true" />
+      <Association Name="Iteration_DefectRepairRate" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Iteration" Member="Iterations">
+    <Type Name="Iteration">
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="StartDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="EndDate" Type="System.DateTime" DbType="Date NOT NULL" CanBeNull="false" />
+      <Column Name="IterationLabel" Type="System.String" DbType="NChar(4) NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_VelocityTrend" Member="VelocityTrends" ThisKey="IterationID" OtherKey="IterationID" Type="VelocityTrend" />
+      <Association Name="Iteration_Coverage" Member="Coverages" ThisKey="IterationID" OtherKey="IterationID" Type="Coverage" />
+      <Association Name="Iteration_DefectInjectionRate" Member="DefectInjectionRates" ThisKey="IterationID" OtherKey="IterationID" Type="DefectInjectionRate" />
+      <Association Name="Iteration_DefectRepairRate" Member="DefectRepairRates" ThisKey="IterationID" OtherKey="IterationID" Type="DefectRepairRate" />
+      <Association Name="Iteration_OutOfScopeWork" Member="OutOfScopeWorks" ThisKey="IterationID" OtherKey="IterationID" Type="OutOfScopeWork" />
+      <Association Name="Iteration_ResourceUtilization" Member="ResourceUtilizations" ThisKey="IterationID" OtherKey="IterationID" Type="ResourceUtilization" />
+      <Association Name="Iteration_Rework" Member="Reworks" ThisKey="IterationID" OtherKey="IterationID" Type="Rework" />
+      <Association Name="Iteration_TestEffectiveness" Member="TestEffectivenesses" ThisKey="IterationID" OtherKey="IterationID" Type="TestEffectiveness" />
+    </Type>
+  </Table>
+  <Table Name="dbo.OutOfScopeWork" Member="OutOfScopeWorks">
+    <Type Name="OutOfScopeWork">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="OutOfScopeWorkID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonHours" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_OutOfScopeWork" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+      <Association Name="Product_OutOfScopeWork" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Product" Member="Products">
+    <Type Name="Product">
+      <Column Name="ProductName" Type="System.String" DbType="VarChar(100) NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Association Name="Product_Component" Member="Components" ThisKey="ProductID" OtherKey="ProductID" Type="Component" />
+      <Association Name="Product_VelocityTrend" Member="VelocityTrends" ThisKey="ProductID" OtherKey="ProductID" Type="VelocityTrend" />
+      <Association Name="Product_OutOfScopeWork" Member="OutOfScopeWorks" ThisKey="ProductID" OtherKey="ProductID" Type="OutOfScopeWork" />
+      <Association Name="Product_ResourceUtilization" Member="ResourceUtilizations" ThisKey="ProductID" OtherKey="ProductID" Type="ResourceUtilization" />
+      <Association Name="Product_Rework" Member="Reworks" ThisKey="ProductID" OtherKey="ProductID" Type="Rework" />
+      <Association Name="Product_TestEffectiveness" Member="TestEffectivenesses" ThisKey="ProductID" OtherKey="ProductID" Type="TestEffectiveness" />
+    </Type>
+  </Table>
+  <Table Name="dbo.ResourceUtilization" Member="ResourceUtilizations">
+    <Type Name="ResourceUtilization">
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="ResourceUtilizationID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="PersonHours" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="WorkActionID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_ResourceUtilization" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+      <Association Name="Product_ResourceUtilization" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Rework" Member="Reworks">
+    <Type Name="Rework">
+      <Column Name="ReworkID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ReworkHours" Type="System.Double" DbType="Float NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_Rework" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+      <Association Name="Product_Rework" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.TestEffectiveness" Member="TestEffectivenesses">
+    <Type Name="TestEffectiveness">
+      <Column Name="TestEffectivenessID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IterationID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="TestCases" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Date" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ProductID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Association Name="Iteration_TestEffectiveness" Member="Iteration" ThisKey="IterationID" OtherKey="IterationID" Type="Iteration" IsForeignKey="true" />
+      <Association Name="Product_TestEffectiveness" Member="Product" ThisKey="ProductID" OtherKey="ProductID" Type="Product" IsForeignKey="true" />
+    </Type>
+  </Table>
+</Database>
