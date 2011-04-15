@@ -300,8 +300,7 @@ namespace MetricAnalyzer.ImporterSystem
                             // ---------------------------------------------------------------------
                             // COMPUTE METRIC 1 - CODE COVERAGE
                             // ---------------------------------------------------------------------
-                            string currentMetric1Directory = Path.Combine(_rootDirectory, currentProductName,
-                                                                          currentComponentName);
+                            string currentMetric1Directory = Path.Combine(Path.Combine(_rootDirectory, currentProductName), currentComponentName);
                             // Check if the code coverage folder exists
                             if (Directory.Exists(currentMetric1Directory))
                             {
@@ -613,8 +612,8 @@ namespace MetricAnalyzer.ImporterSystem
         /// <param name="file">File to be saved</param>
         public bool ArchiveFile(string product, string component, string file)
         {
-            string archMetric1Directory = Path.Combine(_rootArchiveDirectory, product, component, "Metric1");
-            string currMetric1Directory = Path.Combine(_rootDirectory, product, component, "Metric1");
+            string archMetric1Directory = Path.Combine(Path.Combine(Path.Combine(_rootArchiveDirectory, product), component), "Metric1");
+            string currMetric1Directory = Path.Combine(Path.Combine(Path.Combine(_rootDirectory, product), component), "Metric1");
 
             if(File.Exists(Path.Combine(currMetric1Directory, file)))
             {
@@ -664,7 +663,7 @@ namespace MetricAnalyzer.ImporterSystem
                         // Save the current components name
                         string archComponentName = component.Name;
 
-                        string archiveMetric1Directory = Path.Combine(_rootArchiveDirectory, archProductName, archComponentName, "Metric1");
+                        string archiveMetric1Directory = Path.Combine(Path.Combine(Path.Combine(_rootArchiveDirectory, archProductName), archComponentName), "Metric1");
 
                         if (Directory.Exists(archiveMetric1Directory))
                         {

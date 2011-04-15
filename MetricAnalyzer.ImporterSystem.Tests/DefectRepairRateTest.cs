@@ -4,10 +4,10 @@ using System.Collections.Generic;
 using System.Linq;
 using System.IO;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using Importer_System;
 using System.Data.SqlClient;
 using MySql.Data.MySqlClient;
 using MySql.Data.Types;
+using MetricAnalyzer.ImporterSystem;
 
 namespace MetricAnalyzer.ImporterSystem.Tests
 {
