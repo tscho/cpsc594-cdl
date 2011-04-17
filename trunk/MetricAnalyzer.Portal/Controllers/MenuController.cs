@@ -47,6 +47,7 @@ namespace MetricAnalyzer.Portal.Controllers
             iterationList.Add(new Iteration() { IterationID = -1, IterationLabel = "Select" });
             iterationList.AddRange(DatabaseAccessor.GetIterations(26));
             model.Iterations = iterationList;
+            model.StartIteration = model.EndIteration = -1;
 
             return View(model);
         }

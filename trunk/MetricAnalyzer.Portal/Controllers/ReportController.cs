@@ -15,7 +15,6 @@ namespace MetricAnalyzer.Portal.Controllers
         [HttpPost]
         public ActionResult Index(IndexModel model) //data you need is in model
         {
-            var pams = HttpContext.Request.Params;
             if (model.MetricIDs == null)
                 ModelState.AddModelError("MetricIDs", "Metrics Field is empty.");
             if (ModelState.IsValid)
@@ -24,10 +23,10 @@ namespace MetricAnalyzer.Portal.Controllers
                 model.ProductMetrics = new List<PerProductMetric>();
 
                 IEnumerable<Iteration> iterations;
-                if (model.StartIteration < 0 || model.EndIteration < 0)
+                if (model.StartIteration == null || model.EndIteration == null)
                     iterations = DatabaseAccessor.GetIterations(2);
                 else
-                    iterations = DatabaseAccessor.GetIterations(model.StartIteration, model.EndIteration);
+                    iterations = DatabaseAccessor.GetIterations((int)model.StartIteration, (int)model.EndIteration);
 
                 foreach (int metricID in model.MetricIDs)
                 {
@@ -51,9 +50,9 @@ namespace MetricAnalyzer.Portal.Controllers
                 {
                     if (model.ProductIDs == null)
                         ModelState.AddModelError("ProductIDs", "Products Field is empty.");
-                    if (model.StartIteration < 0)
+                    if (model.StartIteration == null)
                         ModelState.AddModelError("startIteration", "Starting iteration not set");
-                    if (model.EndIteration < 0)
+                    if (model.EndIteration == null)
                         ModelState.AddModelError("endIteration", "Ending iteration not set");
                     if (model.EndIteration < model.StartIteration)
                         ModelState.AddModelError("startEndIteration", "Ending iteration before Starting iteration");

@@ -15,7 +15,6 @@ namespace MetricAnalyzer.Portal.Models
         public IEnumerable<Iteration> Iterations { get; set; }
 
         public Product Product { get; set; }
-        //public string ProductName { get; set; }
 
         public int[] MetricIDs { get; set; }
 
@@ -23,8 +22,8 @@ namespace MetricAnalyzer.Portal.Models
         public IEnumerable<int> ComponentIDs { get; set; }
 
         public IEnumerable<int> ProductIDs { get; set; }
-        public int StartIteration { get; set; }
-        public int EndIteration { get; set; }
+        public int? StartIteration { get; set; }
+        public int? EndIteration { get; set; }
 
         public List<PerComponentMetric> ComponentMetrics { get; set; }
         public List<PerProductMetric> ProductMetrics { get; set; }
