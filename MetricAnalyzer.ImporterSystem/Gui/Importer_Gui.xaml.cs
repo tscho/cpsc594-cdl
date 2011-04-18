@@ -67,6 +67,7 @@ namespace MetricAnalyzer.ImporterSystem
             }
             finally
             {
+                status_label.Text = "Importing has completed.";
                 Reporter.CloseReporter();
             }
         }
