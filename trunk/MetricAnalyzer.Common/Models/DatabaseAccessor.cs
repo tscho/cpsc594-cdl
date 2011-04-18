@@ -519,12 +519,11 @@ namespace MetricAnalyzer.Common.Models
 
         public static List<Iteration> GetIterations(int limits)
         {
-            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.IterationID ascending select i);
-            iterations.Take(limits);
+            IOrderedQueryable<Iteration> iterations = (from i in _context.Iterations orderby i.StartDate descending select i);
 
             if (iterations != null)
             {
-                return iterations.ToList();
+                return iterations.Take(limits).ToList();
             }
             else
             {
