@@ -96,6 +96,7 @@ namespace MetricAnalyzer.Portal.Models
                 foreach (var injectionRate in iteration.DefectInjectionRates.Where(x => (component.ComponentID == x.ComponentID)))
                 {
                     data.Add(new HighCharts.DataPoint() { x = iteration.IterationID, y = injectionRate.NumberOfHighDefects, name = component.ComponentName });
+                    data.Add(new HighCharts.DataPoint() { x = iteration.IterationID, y = injectionRate.NumberOfHighDefects, name = component.ComponentName });
                 }
             }
             series.data = data.ToArray();
