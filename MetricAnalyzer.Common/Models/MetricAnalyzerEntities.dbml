@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="MetricAnalyzer" Class="MetricAnalyzerEntitiesDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=CPSC594;Integrated Security=True" SettingsObjectName="MetricAnalyzer.Common.Properties.Settings" SettingsPropertyName="CPSC594ConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=localhost;Initial Catalog=MetricAnalyzer;Integrated Security=True" SettingsObjectName="MetricAnalyzer.Common.Properties.Settings" SettingsPropertyName="MetricAnalyzerConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.Component" Member="Components">
     <Type Name="Component">
       <Column Name="ComponentID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

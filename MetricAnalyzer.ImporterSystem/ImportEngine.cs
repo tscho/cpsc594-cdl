@@ -411,12 +411,15 @@ namespace MetricAnalyzer.ImporterSystem
             if (_defectMetrics.GetConnection() != null)
             {
                 List<Product> productList = DatabaseAccessor.GetProducts();
-                foreach (var currProduct in productList)
+                foreach (var iter in importedIterations)
                 {
-                    List<Component> componentList = DatabaseAccessor.GetComponents(currProduct.ProductID);
-                    foreach (var currComponent in componentList)
+                    foreach (var currProduct in productList)
                     {
-                        _defectMetrics.CalculateMetric(currProduct.ProductName, currComponent.ComponentName, currIteration);
+                        List<Component> componentList = DatabaseAccessor.GetComponents(currProduct.ProductID);
+                        foreach (var currComponent in componentList)
+                        {
+                            _defectMetrics.CalculateMetric(currProduct.ProductName, currComponent.ComponentName, iter);
+                        }
                     }
                 }
             }

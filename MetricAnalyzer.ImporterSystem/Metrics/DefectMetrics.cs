@@ -92,6 +92,7 @@ namespace MetricAnalyzer.ImporterSystem
             MySqlDataReader myReader = cmd.ExecuteReader();
             while (myReader.Read())
             {
+                //MessageBox.Show(myReader.GetDateTime(8)+"");
                 DateTime bugDate = myReader.GetDateTime(8);
                 if (IsBetween(currIteration.StartDate, currIteration.EndDate, bugDate))
                     numberOfLowDefects++;

@@ -66,7 +66,7 @@ namespace MetricAnalyzer.Common.Models
     #endregion
 		
 		public MetricAnalyzerEntitiesDataContext() : 
-				base(global::MetricAnalyzer.Common.Properties.Settings.Default.CPSC594ConnectionString, mappingSource)
+				base(global::MetricAnalyzer.Common.Properties.Settings.Default.MetricAnalyzerConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
