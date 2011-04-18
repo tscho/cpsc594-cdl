@@ -54,10 +54,21 @@ namespace MetricAnalyzer.ImporterSystem
         {
             // Boot the engine that reads configuration file and begins importing
             Reporter.OpenReporter();
-            // Start engine to initialize config file
-            ImportEngine engine = new ImportEngine();
-            // Start the metric importing
-            engine.BeginImporting(metricList);
+            try {
+                // Start engine to initialize config file
+                ImportEngine engine = new ImportEngine();
+                // Start the metric importing
+                engine.BeginImporting(metricList);
+            }
+            catch (TerminateException terminateException)
+            {
+                MessageBox.Show(terminateException.Message);
+                Reporter.AddTerminateMessageToReporter(terminateException.Message);
+            }
+            finally
+            {
+                Reporter.CloseReporter();
+            }
         }
 
     }
